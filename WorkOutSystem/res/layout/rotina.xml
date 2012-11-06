@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/hostrotina"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+                <!-- Tab de treino -->
+
+                <LinearLayout
+                    android:id="@+id/tabtreino"
+                    style="@style/linearLayoutPadraoVertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:weightSum="300" >
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        >
+
+                        <TextView
+                            android:id="@+id/diaSemana"
+                            style="@style/textogrande"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/label_diasemana" />
+                    </LinearLayout>
+
+                    <!-- Layout Combo Treino -->
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:layout_weight="50"
+                        android:weightSum="100" >
+
+                        <Spinner
+                            android:id="@+id/combo_treinos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/label_diasemana" />
+                    </LinearLayout>
+                    <!-- Layout Treino do Dia -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:id="@+id/treino_dia"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="@string/label_treino_dia" />
+                    </LinearLayout>
+                    <!-- Layout Grupo Muscular -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:id="@+id/grupo_muscular"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_grupo_muscular" />
+                    </LinearLayout>
+                    <!-- Layou Grupo Muscular Trabalhado -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:id="@+id/grupo_mescular_trab"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/label_grupo_muscular_trab" >
+                        </TextView>
+                    </LinearLayout>
+                    <!-- Botão realizar treino -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:padding="10dp"
+                        android:weightSum="100" >
+
+                        <Button
+                            android:id="@+id/btn_realizar"
+                            style="@style/textopequenopreto"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:text="@string/button_realizar_treino" >
+                        </Button>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabcalendario"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" 
+                    android:orientation="vertical"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="30"
+                        android:gravity="center"
+                        android:weightSum="100" >
+
+                        <Button
+                            android:id="@+id/btn_anteriormes"
+                            style="@style/textopequenopreto"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:onClick="onClick"
+                            android:text="@string/label_anterior" />
+
+                        <TextView
+                            android:id="@+id/txt_mes"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20"
+                            android:gravity="center"
+                            android:text="@string/calendario_mes" />
+
+                        <Button
+                            android:id="@+id/btn_proximomes"
+                            style="@style/textopequenopreto"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:onClick="onClick"
+                            android:text="@string/label_proximo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:layout_weight="70"
+                         >
+
+                        <GridView
+                            android:id="@+id/calendariogrid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:numColumns="7"
+                            android:horizontalSpacing="5dp"
+                            android:verticalSpacing="5dp"
+                            android:stretchMode="columnWidth" >
+                        </GridView>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

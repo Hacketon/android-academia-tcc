@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:padding="20dp"
+    
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"       
+        android:padding="10dp"
+        android:weightSum="100" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="@string/label_usuario"
+            style="@style/textopequeno"/>
+
+        <EditText
+            android:id="@+id/tvUsuario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="90" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="@string/label_senha"
+            style="@style/textopequeno"
+            />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:inputType="textPassword" />
+        
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="@string/label_confirmarsenha"
+            style="@style/textopequeno" />
+
+        <EditText
+            android:id="@+id/pw_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:weightSum="100" >
+
+        <Button
+            android:id="@+id/btn_cadastrar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:layout_gravity="bottom"
+            style="@style/textopequenopreto"
+            android:text="@string/botao_cadastrar_se" />
+
+        <Button
+            android:id="@+id/tg_mostrar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:layout_gravity="bottom"
+            style="@style/textopequenopreto"
+            android:text="@string/mostrar_caracter" />
+    </LinearLayout>
+
+</LinearLayout>

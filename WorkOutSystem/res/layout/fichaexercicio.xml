@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <!-- Layout exercicio -->
+
+    <LinearLayout style="@style/linearLayoutPadraoHorizontal" >
+
+        <TextView
+            android:id="@+id/txt_exercio"
+            style="@style/textogrande"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:text="@string/label_exercicio"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+    <!-- layout serie / carga Cabeçalho -->
+
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:weightSum="100" >
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/label_serie"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/label_numero_serie"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+    <!-- Layout Serie / Carga -->
+
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:layout_weight="2"
+        android:weightSum="100" >
+
+        <!-- Serie -->
+
+        <LinearLayout
+            style="@style/linearLayoutPadraoVertical"
+            android:layout_weight="50"
+            android:layout_gravity="top" >
+
+            <EditText
+                android:id="@+id/etSerie"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
+        </LinearLayout>
+
+        <!-- List Cargas -->
+
+        <LinearLayout
+            style="@style/linearLayoutPadraoVertical"
+            android:layout_weight="50" 
+            android:layout_gravity="top">
+
+            <ListView
+                style="@style/linearLayoutPadraoVertical"
+                android:divider="@android:color/white"
+                android:dividerHeight="1dp" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Botão ID -->
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:padding="10dp"
+        android:gravity="bottom"
+        android:weightSum="100" >
+
+        <Button
+            android:id="@+id/btn_realizar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/button_realizar_treino" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

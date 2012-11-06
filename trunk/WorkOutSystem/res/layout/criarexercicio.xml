@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical" 
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_nome"
+        style="@style/textopequeno" />
+
+    <EditText
+        android:id="@+id/edt_nome"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_grupo_muscular"
+        style="@style/textopequeno" />
+
+	 <Spinner
+	     android:id="@+id/cbx_grupo"
+	     style="@style/AppTheme"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_descricao"
+        style="@style/textopequeno" />
+    <EditText
+        android:id="@+id/edt_nome"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:inputType="textMultiLine"
+        />
+    <Button 
+        android:id="@+id/btn_criar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/botao_salvar"
+        style="@style/textopequenopreto"
+        />
+
+</LinearLayout>

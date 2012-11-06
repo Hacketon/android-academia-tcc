@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <!-- Titulo Exercicio Atual -->
+
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:weightSum="100" >
+
+        <Button
+            android:id="@+id/btn_anteriorexercicio"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:text="@string/label_anterior" />
+
+        <TextView
+            android:id="@+id/txt_exercicio"
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:text="@string/title_activity_tela_exercicio" />
+
+        <Button
+            android:id="@+id/btn_proximamedida"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:text="@string/label_proximo" />
+    </LinearLayout>
+
+    <!-- Cabeçalho -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="200" >
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/label_serie"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/serie"
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/label_numero_serie"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="@string/label_x" />
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="center"
+            android:text="@string/label_repeticao" />
+
+        <TextView
+            style="@style/textomedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="center"
+            android:text="@string/label_carga" />
+    </LinearLayout>
+
+    <!-- Lista de exercicios -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/lista_realizarexercicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/black"
+            android:dividerHeight="1dp" >
+        </ListView>
+    </LinearLayout>
+
+    <!-- Botao Padrão -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
+        <Button
+            android:id="@+id/btn_feito"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:onClick="onClick"
+            android:text="@string/botao_feito" />
+
+        <Button
+            android:id="@+id/btn_como_fazer"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:onClick="onClick"
+            android:text="@string/botao_como_fazer" />
+    </LinearLayout>
+
+</LinearLayout>

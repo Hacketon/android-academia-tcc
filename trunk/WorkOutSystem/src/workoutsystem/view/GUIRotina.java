@@ -105,7 +105,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	public void onClick(View evento) {
 		switch (evento.getId()) {
 		case R.id.btn_realizar:
-			startActivity(new Intent("workoutsystem.view.REALIZAREXERCICIO"));
+			startActivity(new Intent("workoutsystem.view.LISTAEXERCICIOS"));
 			break;
 		case (R.id.btn_proximomes):
 			atualizarProximo();

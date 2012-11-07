@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="10dp">
+    
+    
+
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:padding="10dp" >
+        <TextView
+            android:id="@+id/txt_exercicio"
+            style="@style/textogrande"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/label_exercicio" />
+        
+        
+    </LinearLayout>
+    
+    
+    
+    <LinearLayout
+        style="@style/linearLayoutPadraoHorizontal"
+        android:weightSum="100" 
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btn_anteriorexercicio"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:text="@string/label_anterior" />
+
+        <TextView
+            android:id="@+id/txt_passo"
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:text="@string/label_passos" />
+
+        <Button
+            android:id="@+id/btn_proximamedida"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:text="@string/label_proximo" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        style="@style/linearLayoutPadraoHorizontal"
+        android:paddingTop="30dp">
+        
+          <TextView
+            android:id="@+id/txt_descricao_passo"
+            style="@style/textomedio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/label_descricao_passo" />
+        
+        
+    </LinearLayout>
+    
+
+</LinearLayout>

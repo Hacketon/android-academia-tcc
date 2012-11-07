@@ -136,7 +136,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".GUIExemplo"
             android:label="@string/title_activity_tela_rotina" >
@@ -146,7 +145,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
 
         <!-- Activity  Novo Usuario -->
         <activity
@@ -220,6 +218,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GUIListaExercicio"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.LISTAEXERCICIOS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+                <activity
+            android:name=".GUIPasso"
+            android:label="@string/title_activity_tela_passo" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.PASSO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!-- Activity Sobre -->
         <activity
@@ -265,5 +281,5 @@
             </intent-filter>
         </activity>
     </application>
-</manifest>
 
+</manifest>

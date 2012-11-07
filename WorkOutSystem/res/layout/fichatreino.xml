@@ -45,7 +45,8 @@
                     <EditText
                         android:id="@+id/ed_sequencia"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" 
+                        android:maxLines="1"/>
 
                     <Button
                         style="@style/textopequenopreto"

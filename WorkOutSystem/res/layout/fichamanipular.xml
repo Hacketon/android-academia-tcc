@@ -44,7 +44,8 @@
                     <EditText
                         android:id="@+id/edt_ficha"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:maxLines="1" />
 
                     <TextView
                         style="@style/textopequeno"
@@ -55,7 +56,8 @@
                     <EditText
                         android:id="@+id/edt_duracaodias"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" 
+                        android:maxLines="1"/>
 
                     <TextView
                         style="@style/textopequeno"
@@ -68,7 +70,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="textMultiLine" />
+                        android:inputType="textMultiLine" 
+                        android:maxLength="100"/>
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"

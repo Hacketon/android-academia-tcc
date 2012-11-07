@@ -133,7 +133,7 @@
 
 	<string name="title_activity_tela_passo"> Passos </string>
     <string name="label_exercicio"> Nome Exercicio </string>
-    <string name="label_serie"> Série: </string>
+    <string name="label_serie"> Série </string>
     <string name="label_numero_serie"> 0/0 </string>
     <string name="label_repeticao"> Repetição </string>
     <string name="label_uni_medida">Uni/Med</string>

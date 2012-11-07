@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/hostavatar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <!-- Tab avatar -->
+
+                <LinearLayout
+                    android:id="@+id/tabavatar"
+                    style="@style/linearLayoutPadraoVertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="300" >
+
+                    <!-- Nome usuário / Nivel -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoVertical"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/nome_usuario"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:paddingBottom="5dp"
+                            android:text="@string/label_nome" />
+
+                        <TextView
+                            android:id="@+id/nivel_usuario"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:paddingBottom="10dp"
+                            android:layout_gravity="left"
+                            android:text="@string/label_nivel_usuario" />
+                    </LinearLayout>
+
+                    <!-- Imagem Avatar -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoVertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="280" >
+
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/avatar1"/>
+                    </LinearLayout>
+
+                    <!-- Mensagem -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoVertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="10" >
+
+                        <TextView
+                            android:id="@+id/mensagem"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                             android:text="@string/label_mensagem" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabdetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <ListView style="@style/linearLayoutPadraoVertical" >
+                    </ListView>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

@@ -27,6 +27,7 @@ public class Adaptador extends BaseAdapter{
 		mview = contexto;
 		diasMes = new ArrayList<String>();
 		diaSelecionado = Calendar.getInstance();
+		System.out.println("Alterar");
 		atualizarDias();
 
 	}

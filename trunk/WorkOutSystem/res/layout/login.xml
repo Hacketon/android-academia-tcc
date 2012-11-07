@@ -28,7 +28,8 @@
             android:id="@+id/etLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="90" />
+            android:layout_weight="90" 
+            android:maxLines="1"/>
         <!-- Text view e Edit Text Senha -->
 
         <TextView
@@ -43,7 +44,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="90"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1" />
     </LinearLayout>
 
     <LinearLayout

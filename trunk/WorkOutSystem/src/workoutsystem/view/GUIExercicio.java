@@ -31,6 +31,7 @@ public class GUIExercicio extends Activity implements View.OnClickListener{
 		criarCombo();
 	}
 
+	
 
 	public void criarTabs(){
 		hospedeiro = (TabHost) findViewById(R.id.hospedeiro);

@@ -3,6 +3,7 @@ package workoutsystem.view;
 import java.util.ArrayList;
 
 import workoutsystem.utilitaria.TipoExercicio;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

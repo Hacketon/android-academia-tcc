@@ -38,4 +38,8 @@ public class Ficha {
 	public void setObjetivo(String objetivo) {
 		this.objetivo = objetivo;
 	}
+	
+	public int calcularDiasRestantes(){
+		return 0;
+	}
 }

@@ -25,7 +25,7 @@
             android:text="@string/label_usuario" />
 
         <EditText
-            android:id="@+id/etLogin"
+            android:id="@+id/edLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="90" 
@@ -40,7 +40,7 @@
             android:text="@string/label_senha" />
 
         <EditText
-            android:id="@+id/etSenha"
+            android:id="@+id/edSenha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="90"

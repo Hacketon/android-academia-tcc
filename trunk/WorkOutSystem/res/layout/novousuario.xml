@@ -23,7 +23,7 @@
             style="@style/textopequeno"/>
 
         <EditText
-            android:id="@+id/tvUsuario"
+            android:id="@+id/edUsuario"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="90" 
@@ -34,10 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:text="@string/label_senha"
-            style="@style/textopequeno"
-            />
+            style="@style/textopequeno"/>
 
-        <EditText
+        <EditText            
+            android:id="@+id/pwSenha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="90"
@@ -53,7 +53,7 @@
             style="@style/textopequeno" />
 
         <EditText
-            android:id="@+id/pw_password"
+            android:id="@+id/pwConfirmarSenha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="100"
@@ -80,7 +80,7 @@
             android:text="@string/botao_cadastrar_se" />
 
         <Button
-            android:id="@+id/tg_mostrar"
+            android:id="@+id/btn_mostrar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"

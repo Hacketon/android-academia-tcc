@@ -2,23 +2,32 @@ package workoutsystem.view;
 
 
 
+import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class GUILogin extends Activity implements View.OnClickListener{
+
+	private EditText editLogin;
+	private EditText editPassword;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
+		editLogin = (EditText) findViewById(R.id.edLogin);
+		editPassword = (EditText) findViewById(R.id.edSenha);
+
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		
+
 	}
 	@Override
 	public void onClick(View v) {
@@ -27,8 +36,31 @@ public class GUILogin extends Activity implements View.OnClickListener{
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));
 			break;
 		case R.id.btn_login:
-			startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+			Usuario usuario = criarLogin();
+			if (usuario != null){
+				startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+			}
 			break;
+		}
+	}
+
+	public Usuario criarLogin(){
+		if (verificarUsuario()){
+			Usuario usuario = new Usuario();
+			usuario.setNome(String.valueOf(editLogin.getText()));
+			usuario.setSenha(String.valueOf(editPassword.getText()));
+			return usuario;
+		}else{
+			return null;
+		}
+	}
+	private boolean verificarUsuario() {
+		if (String.valueOf(editLogin.getText()).isEmpty() 
+				|| String.valueOf(editPassword.getText()).isEmpty()){
+			Toast.makeText(this, "Digite os campos obrigatorios", Toast.LENGTH_LONG).show();
+			return false;
+		}else{
+			return true;
 		}
 	}
 }

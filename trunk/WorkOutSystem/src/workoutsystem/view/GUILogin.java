@@ -2,6 +2,7 @@ package workoutsystem.view;
 
 
 
+import workoutsystem.controller.ControleUsuario;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +32,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
+		ControleUsuario controle = new ControleUsuario();
 		switch (v.getId()){
 		case R.id.btn_novousuario:
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));
@@ -38,26 +40,38 @@ public class GUILogin extends Activity implements View.OnClickListener{
 		case R.id.btn_login:
 			Usuario usuario = criarLogin();
 			if (usuario != null){
-				startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+				if (controle.realizarLogin(usuario)){
+					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+				}else{
+					Toast.makeText(this, "Usuario Invalido"
+							,Toast.LENGTH_LONG).show();
+				}
 			}
+
 			break;
 		}
 	}
 
 	public Usuario criarLogin(){
 		if (verificarUsuario()){
+
 			Usuario usuario = new Usuario();
 			usuario.setNome(String.valueOf(editLogin.getText()));
 			usuario.setSenha(String.valueOf(editPassword.getText()));
+
 			return usuario;
 		}else{
 			return null;
 		}
+
+
 	}
 	private boolean verificarUsuario() {
 		if (String.valueOf(editLogin.getText()).isEmpty() 
 				|| String.valueOf(editPassword.getText()).isEmpty()){
-			Toast.makeText(this, "Digite os campos obrigatorios", Toast.LENGTH_LONG).show();
+
+			Toast.makeText(this, "Digite os campos obrigatorios"
+					, Toast.LENGTH_LONG).show();
 			return false;
 		}else{
 			return true;

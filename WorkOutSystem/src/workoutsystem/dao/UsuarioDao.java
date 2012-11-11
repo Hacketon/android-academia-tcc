@@ -12,5 +12,11 @@ public class UsuarioDao implements IUsuarioDao {
 		return usuario;
 	}
 
+	@Override
+	public void cadastrarUsuario(Usuario u) {
+		// implementar
+		
+	}
+
 
 }

@@ -17,15 +17,16 @@ public class ControleUsuario {
 		Log.i("Metodo", "Entrou no metodo");
 		IUsuarioDao daoUsuario = new UsuarioDao();
 		Usuario bancoUsuario = daoUsuario.buscarUsuario(u);
+				
 		if (bancoUsuario != null){
-			
-			if (u.getSenha().equalsIgnoreCase(bancoUsuario.getNome())
-					&& u.getNome().equalsIgnoreCase(bancoUsuario.getSenha())){
+			if (u.getSenha().trim().equalsIgnoreCase(bancoUsuario.getSenha().trim())
+				&& u.getNome().trim().equalsIgnoreCase(bancoUsuario.getNome().trim())){
+				Log.i("Entrou no if Verdadeiro","Entrou");
 				return true;
 			}else{
 				return false;
 			}	
-		}else{
+		} else {
 			return false;
 		}
 	}

@@ -42,6 +42,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 			if (usuario != null){
 				if (controle.realizarLogin(usuario)){
 					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+					limparCampos();
 				}else{
 					Toast.makeText(this, "Usuario Invalido"
 							,Toast.LENGTH_LONG).show();
@@ -50,6 +51,11 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 			break;
 		}
+	}
+	
+	public void limparCampos(){
+		editLogin.setText("");
+		editPassword.setText("");
 	}
 
 	public Usuario criarLogin(){

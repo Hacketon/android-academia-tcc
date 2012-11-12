@@ -1,6 +1,7 @@
 create database academia
 use academia
 -- Sem chave estrangeira 
+
 create table exercicio 
 (
 	codigoexercicio int identity (1,1) not null,
@@ -116,7 +117,7 @@ create table avatar
 
 create table especificacao
 (
-	
+	codigoespecificacao int identity (1,1) not null,
 	codigoficha int not null,
 	codigoexercicio int not null,
 	codigotreino int not null,
@@ -126,7 +127,7 @@ create table especificacao
 	ordem int not null,
 	quantidade int not null,
 	
-	primary key (codigoficha,codigoexercicio,codigotreino),
+	primary key (codigoespecificacao,codigoficha,codigoexercicio,codigotreino),
 	foreign key (codigoficha) references ficha (codigoficha),
 	foreign key (codigoexercicio) references exercicio (codigoexercicio),
 	foreign key (codigotreino) references treino (codigotreino)
@@ -137,7 +138,7 @@ create table especificacao
 create table frequencia
 (
 	codigofrequencia int identity (1,1) not null,
-	diasemana datetime not null,
+	diasemana varchar(50) not null,
 	codigotreino int not null,
 	codigoperfil int not null,
 	

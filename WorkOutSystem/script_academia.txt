@@ -133,3 +133,15 @@ create table especificacao
 
 );
 
+
+create table frequencia
+(
+	codigofrequencia int not null,
+	diasemana datetime not null,
+	codigotreino int not null,
+	codigoperfil int not null,
+	
+	primary key (codigofrequencia),
+	foreign key (codigotreino) references treino (codigotreino),
+	foreign key (codigoperfil) references perfil (codigoperfil)
+	);

@@ -110,8 +110,8 @@ public final class R {
         public static final int edt_objetivo=0x7f070038;
         public static final int etNome=0x7f07004e;
         public static final int etSerie=0x7f070030;
-        public static final int grupo_mescular_trab=0x7f070098;
         public static final int grupo_muscular=0x7f070097;
+        public static final int grupo_muscular_trab=0x7f070098;
         public static final int hospedeiro=0x7f070021;
         public static final int hostavatar=0x7f070006;
         public static final int hostevolucao=0x7f070012;

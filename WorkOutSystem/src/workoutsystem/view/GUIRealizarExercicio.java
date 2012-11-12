@@ -19,7 +19,7 @@ public class GUIRealizarExercicio extends Activity{
 		case R.id.btn_como_fazer:
 			startActivity(new Intent("workoutsystem.view.PASSO"));
 			break;
-}
+		}
 	}
 
 }

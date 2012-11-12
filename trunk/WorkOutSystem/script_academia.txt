@@ -136,7 +136,7 @@ create table especificacao
 
 create table frequencia
 (
-	codigofrequencia int not null,
+	codigofrequencia int identity (1,1) not null,
 	diasemana datetime not null,
 	codigotreino int not null,
 	codigoperfil int not null,

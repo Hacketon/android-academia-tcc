@@ -1,0 +1,114 @@
+create database academia
+use academia
+-- usuario
+insert into usuario values ('gabrielalves','1616');
+
+insert into usuario values ('caiofelipe','1010');
+
+insert into usuario values ('lucasalves','1238');
+
+select * from usuario;
+
+--exercicios
+-- personalizado bit 1 - não personalizado e 0 - para personalizado
+
+insert into exercicio values ('Rosca Direta','Biceps', 'Exercicios direcionado para os biceps',1 );
+
+insert into exercicio values ('Supino','Peito', 'Exercicios direcionado para o peito',1 );
+
+insert into exercicio values ('Supino Personalizado','Peito', 'Exercicio de supino criado pelo usuario', 0);
+
+select * from exercicio;
+
+-- treino
+insert into treino values ('A');
+
+insert into treino values ('B');
+
+insert into treino values ('C');
+
+select * from treino;
+
+-- perfil
+
+insert into perfil values ('Gabriel', 0, 1);
+
+insert into perfil values ('Caio',0,2);
+
+insert into perfil values ('Lucas',1,7);
+
+select * from perfil;
+
+--ficha
+
+insert into ficha values ('Ficha Piramide',60,'Ganho de Massa Magra',0,1);
+
+insert into ficha values ('Ficha Piramide',60,'Ganho de Massa Magra',0,2);
+
+insert into ficha values ('Ficha Inicial',30,'Ficha realizada para iniciantes, como adaptação',5,4);
+
+select * from ficha;
+
+-- realizacao
+
+insert into realizacao values (1,12/11/12);
+insert into realizacao values (2,10/10/12);
+insert into realizacao values (1,12/08/12);
+
+select * from realizacao;
+
+-- passo
+
+insert into passo values (1,'Posiciona a Barra de forma reta',1);
+
+insert into passo values (2,'Eleva a Barra sem deslocar o braço',1);
+
+insert into passo values (1,'Posiciona a barra sobre o peito',2);
+
+select * from passo;
+
+-- medida
+
+insert into medida values ('Normal','d',1);
+insert into medida values ('Normal','e',1);
+insert into medida values ('Normal','d',2);
+
+select * from medida;
+
+-- medicao
+
+Select Convert (char(10),datamedicao,103) from medicao;
+
+insert into medicao values (30.0, '12/11/2012' , 3 );
+insert into medicao values (30.0, '12/11/2012', 2);
+insert into medicao values (40.0, '12/11/2012', 4);
+
+select * from medicao;
+
+
+-- avatarue 
+
+insert into avatar values ('Gabs', 1,'Iniciante','Mensagem do dia bla bla bla',1 );
+
+insert into avatar values ('Caioo', 1,'Medio','Mensagem do dia bla bla bla',2 );
+
+insert into avatar values ('Lucas', 1,'Avançado','Mensagem do dia bla bla bla',4 );
+
+
+select * from avatar;
+
+-- especificacao
+
+insert into especificacao values (1,1,2,30,'Kg',1,3,10);
+insert into especificacao values (2,2,3,40,'Kg',2,1,10);
+insert into especificacao values (1,1,2,30,'Kg',2,3,10);
+
+
+select * from especificacao;
+
+-- frequencia
+
+insert into frequencia values ('Segunda', 1, 1);
+insert into frequencia values ('Terça', 1, 1);
+insert into frequencia values ('Segunda', 2, 2);
+

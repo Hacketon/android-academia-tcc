@@ -5,10 +5,9 @@ import java.util.Date;
 public class Perfil {
 
 	private String nome;
-
 	private boolean sexo;
+	private Date dataNascimento;// verificar campo dataNascimento na tela
 	
-	private Date dataNascimento;
 	
 	public String getNome() {
 		return nome;

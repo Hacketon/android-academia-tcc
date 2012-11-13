@@ -5,8 +5,9 @@ import java.util.Date;
 public class Perfil {
 
 	private String nome;
-	
+
 	private boolean sexo;
+	
 	private Date dataNascimento;
 	
 	public String getNome() {
@@ -21,8 +22,9 @@ public class Perfil {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public void setSexo(boolean b) {
-		this.sexo = b;
+	public void setSexo(boolean sexo) {
+		this.sexo = sexo;
+
 	}
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;

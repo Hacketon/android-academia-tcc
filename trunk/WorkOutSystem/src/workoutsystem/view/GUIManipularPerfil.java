@@ -1,8 +1,11 @@
 package workoutsystem.view;
 
+import workoutsystem.model.Perfil;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -12,6 +15,9 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	private TabHost tabperfil;
 	private TabSpec specfrequencia;
 	private TabSpec specpessoal;
+	private EditText EditNome;
+	//radio sexo
+	private RadioGroup RadioSexo;
 
 
 	@Override
@@ -20,6 +26,9 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manipularperfil);
 		criarTab();
+		EditNome = (EditText) findViewById(R.id.etNome);
+		//radio sexo
+		RadioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
 	}
 
 
@@ -53,5 +62,11 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 
 	}
 
+	public void criaManipulaPerfil(){
+		Perfil perfil = new Perfil();
+		perfil.setNome(String.valueOf(EditNome.getText()));
+		//sexo
+		
+	}
 
 }

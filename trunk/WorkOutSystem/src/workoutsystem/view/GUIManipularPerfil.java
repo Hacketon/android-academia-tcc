@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -15,10 +16,11 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	private TabHost tabperfil;
 	private TabSpec specfrequencia;
 	private TabSpec specpessoal;
-	private EditText EditNome;
+	private EditText editNome;
 	//radio sexo
-	private RadioGroup RadioSexo;
-
+	private RadioGroup radioSexo;
+	private RadioButton radioMasculino;
+	private RadioButton radioFeminino;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,12 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manipularperfil);
 		criarTab();
-		EditNome = (EditText) findViewById(R.id.etNome);
+		editNome = (EditText) findViewById(R.id.etNome);
 		//radio sexo
-		RadioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
+		radioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
+		radioMasculino = (RadioButton) findViewById(R.id.rb_masculino);
+		radioFeminino = (RadioButton) findViewById(R.id.rb_feminino);
+		
 	}
 
 
@@ -64,8 +69,12 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 
 	public void criaManipulaPerfil(){
 		Perfil perfil = new Perfil();
-		perfil.setNome(String.valueOf(EditNome.getText()));
-		//sexo
+		perfil.setNome(String.valueOf(editNome.getText()));
+		if (radioMasculino.isChecked()){
+			perfil.setSexo(true);
+		}else {
+			perfil.setSexo(false);
+		}
 		
 	}
 

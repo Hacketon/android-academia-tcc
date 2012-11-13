@@ -5,13 +5,14 @@ import java.util.Date;
 public class Perfil {
 
 	private String nome;
-	private String sexo;
+	
+	private boolean sexo;
 	private Date dataNascimento;
 	
 	public String getNome() {
 		return nome;
 	}
-	public String getSexo() {
+	public boolean getSexo() {
 		return sexo;
 	}
 	public Date getDataNascimento() {
@@ -20,8 +21,8 @@ public class Perfil {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setSexo(boolean b) {
+		this.sexo = b;
 	}
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;

@@ -15,6 +15,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 	private EditText editLogin;
 	private EditText editPassword;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 
 	}
+	
 	private boolean verificarUsuario() {
 		if (String.valueOf(editLogin.getText()).isEmpty() 
 				|| String.valueOf(editPassword.getText()).isEmpty()){

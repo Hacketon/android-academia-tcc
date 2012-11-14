@@ -8,6 +8,12 @@ public class Exercicio {
 	private String descricao;
 	private boolean personalizado;
 	
+	public Exercicio(){
+		descricao = "";
+		personalizado = false;
+	}
+	
+	
 	public long getCodigoExercicio() {
 		return codigoExercicio;
 	}

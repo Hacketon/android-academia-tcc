@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import workoutsystem.model.Exercicio;
 import workoutsystem.utilitaria.TipoExercicio;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;

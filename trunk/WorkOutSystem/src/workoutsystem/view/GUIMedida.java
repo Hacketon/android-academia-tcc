@@ -1,5 +1,6 @@
 package workoutsystem.view;
 
+import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import android.app.Activity;
 import android.os.Bundle;
@@ -104,7 +105,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 	public void criaMedida(){
 		Medida medida = new Medida();
-		
+		Medicao medicao = new Medicao();
 		//fazer lógica 
 		
 	

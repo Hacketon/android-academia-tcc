@@ -14,6 +14,7 @@ public interface IUsuarioDao {
 	/**
 	 * Metodo responvavel pelo cadastro de um novo usuario
 	 * @param usuario a ser cadastrado
+	 * @return 
 	 */
-	public abstract void cadastrarUsuario (Usuario u);
+	public abstract boolean cadastrarUsuario (Usuario u);
 }

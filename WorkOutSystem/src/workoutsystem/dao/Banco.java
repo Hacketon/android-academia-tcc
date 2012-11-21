@@ -20,6 +20,7 @@ public class Banco {
 			return sqld;
 		}
 		return null;
+		
 	}
 
 	public void close() {

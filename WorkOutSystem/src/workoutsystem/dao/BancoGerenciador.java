@@ -13,9 +13,8 @@ public abstract class BancoGerenciador extends SQLiteOpenHelper{
 
 	protected Context contexto;
 	
-	public BancoGerenciador(Context context, String name,
-			CursorFactory factory, int version) {
-		super(context, name, factory, version);
+	public BancoGerenciador(Context context, String name,int version) {
+		super(context,name,null,version);
 		contexto = context;
 	}
 	

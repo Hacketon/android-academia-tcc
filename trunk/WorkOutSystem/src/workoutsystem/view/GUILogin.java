@@ -23,7 +23,6 @@ public class GUILogin extends Activity implements View.OnClickListener{
 		setContentView(R.layout.login);
 		editLogin = (EditText) findViewById(R.id.edLogin);
 		editPassword = (EditText) findViewById(R.id.edSenha);
-
 	}
 	@Override
 	protected void onPause() {
@@ -33,7 +32,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		ControleUsuario controle = new ControleUsuario();
+		ControleUsuario controle = new ControleUsuario(this);
 		switch (v.getId()){
 		case R.id.btn_novousuario:
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));

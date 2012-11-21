@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:layout_gravity="bottom"
+            android:onClick="onClick"
             style="@style/textopequenopreto"
             android:text="@string/botao_cadastrar_se" />
 
@@ -85,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:layout_gravity="bottom"
+            android:onClick="onClick"
             style="@style/textopequenopreto"
             android:text="@string/mostrar_caracter" />
     </LinearLayout>

@@ -11,7 +11,7 @@ public class BancoWorkOutSystem  extends BancoGerenciador{
 	
 	
 
-	private static final  String NOME = "WorkOutSystem";
+	private static final  String NOME = "WorkOutSystemBanco";
 	private static final int VERSAO = 1;
 	
 	public BancoWorkOutSystem(Context context){

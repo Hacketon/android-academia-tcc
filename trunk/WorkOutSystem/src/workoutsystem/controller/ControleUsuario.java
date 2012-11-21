@@ -1,11 +1,19 @@
 package workoutsystem.controller;
 
+import android.content.Context;
 import android.util.Log;
 import workoutsystem.dao.IUsuarioDao;
 import workoutsystem.dao.UsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class ControleUsuario {
+	
+	private Context contexto;
+	
+	
+	public ControleUsuario(Context context){
+		contexto = context;
+	}
 	/**
 	 * Metodo referente a realização de login do usuario
 	 * este metodo irá pegar um usuario do banco de dados 
@@ -13,9 +21,10 @@ public class ControleUsuario {
 	 * @param u = Usuario
 	 * @return true se o login for possivel caso contrario false
 	 */
+	
 	public boolean realizarLogin(Usuario u){
 
-		IUsuarioDao daoUsuarioDao = new UsuarioDao();
+		IUsuarioDao daoUsuarioDao = new UsuarioDao(contexto);
 		Usuario bancoUsuario = daoUsuarioDao.buscarUsuario(u);
 				
 		if (bancoUsuario != null){
@@ -31,14 +40,18 @@ public class ControleUsuario {
 	}
 		
 	public boolean cadastrarUsuario(Usuario u,String confSenha){
-		IUsuarioDao daoUsuarioDao = new UsuarioDao();
-		if (confSenha.equalsIgnoreCase(u.getSenha()) && daoUsuarioDao.buscarUsuario(u) != null){
+		IUsuarioDao daoUsuarioDao = new UsuarioDao(contexto);
+		if (u.getSenha().equalsIgnoreCase(confSenha)){
+			if (daoUsuarioDao.buscarUsuario(u) == null){
 				daoUsuarioDao.cadastrarUsuario(u);
 				return true;
-		}else{
+			}else{
 				return false;
-		}
-		
+			}
+			
+		}else{
+			return false;
+		}		
 	}
 
 }

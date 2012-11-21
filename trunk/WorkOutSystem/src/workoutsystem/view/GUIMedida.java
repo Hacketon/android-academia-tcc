@@ -104,88 +104,88 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	}
 
 	public void criaMedida(){
-		Medida medida = new Medida();
-		Medicao medicao = new Medicao();
-		//fazer lógica 
-		
-	
-		//Altura
-		medida.setNome(textAltura.getText().toString());
-		medida.setValor(Double.parseDouble(editAltura.getText().toString()));
-		medida.setLado(0); //definir lado
-		medida.setUnidade("Metros");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Peso
-		medida.setNome(textPeso.getText().toString());
-		medida.setValor(Double.parseDouble(editPeso.getText().toString()));
-		medida.setLado(0); //definir lado
-		medida.setUnidade("Kg");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Cintura
-		medida.setNome(textCintura.getText().toString());
-		medida.setValor(Double.parseDouble(editCintura.getText().toString()));
-		medida.setLado(0);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Quadril
-		medida.setNome(textQuadril.getText().toString());
-		medida.setValor(Double.parseDouble(editQuadril.getText().toString()));
-		medida.setLado(0);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Braço Direito
-		medida.setNome(textBracoDir.getText().toString());
-		medida.setValor(Double.parseDouble(editBracoDir.getText().toString()));
-		medida.setLado(1);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Braço Esquerdo
-		medida.setNome(textBracoEsq.getText().toString());
-		medida.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
-		medida.setLado(2);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-				
-		//Peito
-		medida.setNome(textPeito.getText().toString());
-		medida.setValor(Double.parseDouble(editPeito.getText().toString()));
-		medida.setLado(0);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Coxa Direita
-		medida.setNome(textCoxaDir.getText().toString());
-		medida.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
-		medida.setLado(1);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Coxa Esquerda
-		medida.setNome(textCoxaEsq.getText().toString());
-		medida.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
-		medida.setLado(2);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-	
-		//Panturrilha Direita
-		medida.setNome(textPantuDir.getText().toString());
-		medida.setValor(Double.parseDouble(editPantuDir.getText().toString()));
-		medida.setLado(1);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
-		//Panturrilha Esuerda
-		medida.setNome(textPantuEsq.getText().toString());
-		medida.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
-		medida.setLado(2);
-		medida.setUnidade("cm");
-		//medida.setDataMedicao(dataMedicao);
-		
+//		Medida medida = new Medida();
+//		Medicao medicao = new Medicao();
+//		//fazer lógica 
+//		
+//	
+//		//Altura
+//		medida.setNome(textAltura.getText().toString());
+//		medida.setValor(Double.parseDouble(editAltura.getText().toString()));
+//		medida.setLado(0); //definir lado
+//		medida.setUnidade("Metros");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Peso
+//		medida.setNome(textPeso.getText().toString());
+//		medida.setValor(Double.parseDouble(editPeso.getText().toString()));
+//		medida.setLado(0); //definir lado
+//		medida.setUnidade("Kg");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Cintura
+//		medida.setNome(textCintura.getText().toString());
+//		medida.setValor(Double.parseDouble(editCintura.getText().toString()));
+//		medida.setLado(0);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Quadril
+//		medida.setNome(textQuadril.getText().toString());
+//		medida.setValor(Double.parseDouble(editQuadril.getText().toString()));
+//		medida.setLado(0);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Braço Direito
+//		medida.setNome(textBracoDir.getText().toString());
+//		medida.setValor(Double.parseDouble(editBracoDir.getText().toString()));
+//		medida.setLado(1);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Braço Esquerdo
+//		medida.setNome(textBracoEsq.getText().toString());
+//		medida.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
+//		medida.setLado(2);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//				
+//		//Peito
+//		medida.setNome(textPeito.getText().toString());
+//		medida.setValor(Double.parseDouble(editPeito.getText().toString()));
+//		medida.setLado(0);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Coxa Direita
+//		medida.setNome(textCoxaDir.getText().toString());
+//		medida.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
+//		medida.setLado(1);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Coxa Esquerda
+//		medida.setNome(textCoxaEsq.getText().toString());
+//		medida.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
+//		medida.setLado(2);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//	
+//		//Panturrilha Direita
+//		medida.setNome(textPantuDir.getText().toString());
+//		medida.setValor(Double.parseDouble(editPantuDir.getText().toString()));
+//		medida.setLado(1);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
+//		//Panturrilha Esuerda
+//		medida.setNome(textPantuEsq.getText().toString());
+//		medida.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
+//		medida.setLado(2);
+//		medida.setUnidade("cm");
+//		//medida.setDataMedicao(dataMedicao);
+//		
 		
 	}
 	

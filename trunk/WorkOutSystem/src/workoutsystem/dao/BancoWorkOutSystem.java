@@ -34,12 +34,19 @@ public class BancoWorkOutSystem  extends BancoGerenciador{
 		Log.i("Banco","Versão Atual : " + versaoAtual);
 		Log.i("Banco","Versão Nova : " + versaoAtual);
 	
+		try{
+			execucaoScript(workoutsystem.view.R.raw.exclusao, bd);
+		}catch (Exception e) {
+			
+			
+		}
+		criarTabelas(bd);
 		
 	}
 	
 	private void criarTabelas(SQLiteDatabase bd) {
 		try{
-			leituraScript(R.raw.workoutsystem,bd);
+			execucaoScript(workoutsystem.view.R.raw.workoutsystem,bd);
 		}catch (Exception e) {
 			// TODO: handle exception
 		}

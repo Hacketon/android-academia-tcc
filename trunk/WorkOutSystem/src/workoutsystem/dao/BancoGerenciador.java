@@ -12,12 +12,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public abstract class BancoGerenciador extends SQLiteOpenHelper{
 
 	protected Context contexto;
-	
+
 	public BancoGerenciador(Context context, String name,int version) {
 		super(context,name,null,version);
 		contexto = context;
 	}
-	
+
 	public abstract void onCreate(SQLiteDatabase bd);
 	public abstract void onUpgrade(SQLiteDatabase bd, int versaoAtual, int versaoNova);
 	/**
@@ -27,7 +27,7 @@ public abstract class BancoGerenciador extends SQLiteOpenHelper{
 	 * @param bd = SQLiteDatabase , manipulação do banco
 	 * @throws IOException = lida com leitura de arquivo
 	 */
-	protected void leituraScript(int idArquivo,SQLiteDatabase bd) throws IOException{
+	protected void execucaoScript(int idArquivo,SQLiteDatabase bd) throws IOException{
 		StringBuilder sql = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(contexto.getResources().openRawResource(idArquivo)));
 		String linha;
@@ -39,10 +39,11 @@ public abstract class BancoGerenciador extends SQLiteOpenHelper{
 				if (linha.endsWith(";")){
 					bd.execSQL(sql.toString());
 					sql.delete(0, sql.length());
+				}
 			}
+
 		}
-			
 	}
-	}
+
 
 }

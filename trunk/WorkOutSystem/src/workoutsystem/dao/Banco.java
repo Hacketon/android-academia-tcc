@@ -1,7 +1,6 @@
 package workoutsystem.dao;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,15 +13,10 @@ public class Banco {
 	
 	public static Connection conexao(){
 		try{
-
 			String driver = "org.sqlite.JDBC";
-			Connection con;
-			String url = "jdbc:sqlite:workoutsystem.sqlite";
-			
-			Driver drive = (Driver) Class.forName(driver).newInstance();
-			DriverManager.registerDriver(drive);
-			con = DriverManager.getConnection(url);
-		
+			Class.forName(driver);
+			String url = "jdbc:sqlite:WorkOutSystem.bd";
+			Connection con = DriverManager.getConnection(url);
 			return con;
 		}catch (SQLException e){
 			Log.i("SQL","Erro na criação " +

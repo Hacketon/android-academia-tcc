@@ -14,7 +14,7 @@ public class Banco {
 	public static Connection conexao(){
 		try{
 			String driver = "org.sqlite.JDBC";
-			// Mesmo adicionando o JDBC driver da Class not found exception !
+			//Mesmo adicionando o JDBC driver da Class not found exception !
 			Class.forName(driver);
 			String url = "jdbc:sqlite:WorkOutSystem.bd";
 			Connection con = DriverManager.getConnection(url);

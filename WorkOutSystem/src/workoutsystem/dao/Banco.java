@@ -1,29 +1,68 @@
 package workoutsystem.dao;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class Banco {
 
-	private BancoGerenciador bancoGerenciador;
-	private SQLiteDatabase sqld;
+	
+	public static Connection conexao(){
+		try{
 
-	public Banco(BancoGerenciador bancoManager) {
-		bancoGerenciador = bancoManager;
-	}
-
-	public void open() {
-		sqld = bancoGerenciador.getWritableDatabase();
-	}
-
-	public SQLiteDatabase get() {
-		if (sqld != null && sqld.isOpen()) {
-			return sqld;
-		}
-		return null;
+			String driver = "org.sqlite.JDBC";
+			Connection con;
+			String url = "jdbc:sqlite:workoutsystem.sqlite";
+			
+			Driver drive = (Driver) Class.forName(driver).newInstance();
+			DriverManager.registerDriver(drive);
+			con = DriverManager.getConnection(url);
 		
+			return con;
+		}catch (SQLException e){
+			Log.i("SQL","Erro na criação " +
+			"do drive (SQLException)");
+			e.printStackTrace();
+			return null;
+		}catch (ClassNotFoundException e){
+			Log.i("SQL","Erro na criação " +
+			"do drive (ClassNotFoundException)");
+			e.printStackTrace();
+			return null;
+			
+		}catch (Exception e){
+			System.out.print("Erro na criação " +
+			"do drive (Exception)");
+			e.printStackTrace();
+			return null;
+		}
 	}
-
-	public void close() {
-		bancoGerenciador.close();
-	}
+	
+//	private BancoGerenciador bancoGerenciador;
+//	private SQLiteDatabase sqld;
+//
+//	public Banco(BancoGerenciador bancoManager) {
+//		bancoGerenciador = bancoManager;
+//	}
+//
+//	public void open() {
+//		sqld = bancoGerenciador.getWritableDatabase();
+//	}
+//
+//	public SQLiteDatabase get() {
+//		if (sqld != null && sqld.isOpen()) {
+//			return sqld;
+//		}
+//		return null;
+//		
+//	}
+//
+//	public void close() {
+//		bancoGerenciador.close();
+//	}
 }

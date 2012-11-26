@@ -16,14 +16,12 @@ public class Banco {
 
 	public static Connection conexao(){
 		try{
-
-			String driver = "org.sqlite.JDBC";
-			//Mesmo adicionando o JDBC driver da 
-			//Class not found exception !
+			
+			String driver = "org.sqlite.JDBC.class";
 			String url = "jdbc:sqlite:WorkOutSystem.bd";
 			Class.forName(driver);
 			Connection con = DriverManager.getConnection(url);
-
+			
 			return con;
 
 		}catch (SQLException e){
@@ -44,27 +42,4 @@ public class Banco {
 			return null;
 		}
 	}
-
-	//	private BancoGerenciador bancoGerenciador;
-	//	private SQLiteDatabase sqld;
-	//
-	//	public Banco(BancoGerenciador bancoManager) {
-	//		bancoGerenciador = bancoManager;
-	//	}
-	//
-	//	public void open() {
-	//		sqld = bancoGerenciador.getWritableDatabase();
-	//	}
-	//
-	//	public SQLiteDatabase get() {
-	//		if (sqld != null && sqld.isOpen()) {
-	//			return sqld;
-	//		}
-	//		return null;
-	//		
-	//	}
-	//
-	//	public void close() {
-	//		bancoGerenciador.close();
-	//	}
 }

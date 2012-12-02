@@ -18,10 +18,11 @@ public class UsuarioDao implements IUsuarioDao {
 	@Override
 	public Usuario buscarUsuario(Usuario u) {
 		try{
-			Connection conexao = Banco.conexao();
+			Banco b = new Banco();
+			Connection conexao = b.conexao();
 			String sql = "";
 			PreparedStatement prepare = 
-				conexao.prepareStatement(sql);
+			conexao.prepareStatement(sql);
 			return null;
 		}catch(SQLException e){
 			return null;
@@ -34,7 +35,8 @@ public class UsuarioDao implements IUsuarioDao {
 	@Override
 	public boolean cadastrarUsuario(Usuario u) {
 		try {
-			Connection conexao = Banco.conexao();
+			Banco b = new Banco();
+			Connection conexao = b.conexao();
 			String sql = "insert into usuario(nome,senha) values (?,?)";
 			PreparedStatement prepare = conexao.prepareStatement(sql);
 			prepare.setString(1, u.getNome());

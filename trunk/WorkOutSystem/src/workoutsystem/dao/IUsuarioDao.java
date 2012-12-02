@@ -17,4 +17,5 @@ public interface IUsuarioDao {
 	 * @return 
 	 */
 	public abstract boolean cadastrarUsuario (Usuario u);
+	public abstract boolean realizarLogin(Usuario u);
 }

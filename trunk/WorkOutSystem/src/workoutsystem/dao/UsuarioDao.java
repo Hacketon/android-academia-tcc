@@ -10,11 +10,8 @@ import android.util.Log;
 import workoutsystem.model.Usuario;
 
 public class UsuarioDao implements IUsuarioDao {
-
-	private Context contexto;
-
 	public UsuarioDao(Context context){
-		contexto = context;
+		
 	}
 	@Override
 	public Usuario buscarUsuario(Usuario u) {
@@ -62,6 +59,29 @@ public class UsuarioDao implements IUsuarioDao {
 		}
 	
 	}
+	@Override
+	public boolean realizarLogin(Usuario u) {
+		try{
+			boolean verificador;
+			Connection con = Banco.conexao();
+			String sql = "select nome,senha from usuario where nome like ? and senha like ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setString(1,u.getNome());
+			prepare.setString(2, u.getSenha());
+			ResultSet result = prepare.executeQuery();
+			if (result.next()){
+				return true;
+			}else{
+				return false;
+			}
+			
+		}catch (SQLException e){
+			return false;
+		}
+		
+	}
+	
+	
 
 
 }

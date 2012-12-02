@@ -274,7 +274,7 @@
 
         <!-- Activity Evolucao -->
         <activity
-            android:name="workoutsystem.view.GUIEvolucao"
+            android:name=".GUIEvolucao"
             android:label="@string/title_activity_tela_evolucao" >
             <intent-filter>
                 <action android:name="workoutsystem.view.EVOLUCAO" />

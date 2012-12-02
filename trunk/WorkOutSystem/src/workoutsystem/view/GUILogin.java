@@ -2,7 +2,7 @@ package workoutsystem.view;
 
 
 
-import workoutsystem.controller.ControleUsuario;
+import workoutsystem.control.ControleUsuario;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.content.Intent;

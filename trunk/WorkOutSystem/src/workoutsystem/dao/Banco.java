@@ -19,11 +19,10 @@ public class Banco extends Activity {
 	public static Connection conexao() {
 		Connection con = null;
 		try{
-			String driver = "org.sqldroid.SQLDroidDriver";
+			String urldriver = "org.sqldroid.SQLDroidDriver";
 			String url = "jdbc:sqldroid:/data/data/workoutsystem.dao/databases/academiabanco.db";
-			Class.forName(driver).newInstance();
-			
-			con = DriverManager.getConnection(url);
+			Driver driver = (Driver) Class.forName(urldriver).newInstance();
+			con = driver.connect(url, null);
 		}catch (SQLException e){
 		}catch (ClassNotFoundException e) {
 		}catch (InstantiationException e) {

@@ -11,18 +11,15 @@ import java.util.Properties;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 
 public class Banco extends Activity {
 
-	public static Connection conexao(){
-
-
-
-
+	public Connection conexao(){
 		try{
 			String driver = "org.sqldroid.SQLDroidDriver";
-			String url = "jdbc:sqldroid:/workoutsystem/dao/academiabanco.bd";
+			String url = "jdbc:sqldroid:/workoutsystem/dao/academiabanco.db";
 			Driver d = (Driver) Class.forName(driver).newInstance();
 			DriverManager.registerDriver(d);
 			Connection con = DriverManager.getConnection(url);
@@ -41,9 +38,7 @@ public class Banco extends Activity {
 			e.printStackTrace();
 			return null;
 		}
+		
 	}
-
-
-
-
+	
 }

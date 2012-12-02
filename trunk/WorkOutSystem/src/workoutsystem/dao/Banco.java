@@ -6,39 +6,43 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Banco extends Activity {
-
-	public Connection conexao(){
+	
+	public static Connection conexao() {
+		Connection con = null;
 		try{
+			
 			String driver = "org.sqldroid.SQLDroidDriver";
-			String url = "jdbc:sqldroid:/workoutsystem/dao/academiabanco.db";
+			String url = "jdbc:sqldroid:/data/data/workoutsystem.dao/databases/academiabanco.db";
 			Driver d = (Driver) Class.forName(driver).newInstance();
-			DriverManager.registerDriver(d);
-			Connection con = DriverManager.getConnection(url);
-			return con;
+			con = d.connect(url, null);
+					
 		}catch (SQLException e){
-			Log.e("SQL","(SQLException)" + e.getMessage());
+			Log.e("SQL","(SQLException)");
 			e.printStackTrace();
-			return null;
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			return null;
 		} catch (ClassNotFoundException e) {
+			
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+		} catch (IllegalAccessException e) {
+			
+			e.printStackTrace();
 		}
+		
+		return con;
+		
 		
 	}
 	
+
+
+
 }

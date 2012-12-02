@@ -22,5 +22,8 @@ public class BancoTeste extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		
 	}
+	public SQLiteDatabase getConnection(){
+		return this.getWritableDatabase();
+	}
 
 }

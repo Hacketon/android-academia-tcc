@@ -7,10 +7,10 @@ import workoutsystem.dao.UsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class ControleUsuario {
-	
+
 	private Context contexto;
-	
-	
+
+
 	public ControleUsuario(Context context){
 		contexto = context;
 	}
@@ -21,34 +21,25 @@ public class ControleUsuario {
 	 * @param u = Usuario
 	 * @return true se o login for possivel caso contrario false
 	 */
-	
-	public boolean realizarLogin(Usuario u){
 
-		IUsuarioDao daoUsuarioDao = new UsuarioDao(contexto);
-		Usuario bancoUsuario = daoUsuarioDao.buscarUsuario(u);
-				
-		if (bancoUsuario != null){
-			if (u.getSenha().trim().equalsIgnoreCase(bancoUsuario.getSenha().trim())
-				&& u.getNome().trim().equalsIgnoreCase(bancoUsuario.getNome().trim())){
-				return true;
-			}else{
-				return false;
-			}	
+	public boolean realizarLogin(Usuario u){
+		IUsuarioDao daoUsuario = new UsuarioDao(contexto);
+		if (u != null){
+			return daoUsuario.realizarLogin(u);	
 		} else {
 			return false;
 		}
 	}
-		
+
 	public boolean cadastrarUsuario(Usuario u,String confSenha){
 		IUsuarioDao daoUsuarioDao = new UsuarioDao(contexto);
 		if (u.getSenha().equalsIgnoreCase(confSenha)){
 			if (daoUsuarioDao.buscarUsuario(u) == null){
-				daoUsuarioDao.cadastrarUsuario(u);
-				return true;
+				return daoUsuarioDao.cadastrarUsuario(u);
 			}else{
 				return false;
 			}
-			
+
 		}else{
 			return false;
 		}		

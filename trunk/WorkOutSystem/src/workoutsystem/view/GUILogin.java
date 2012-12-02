@@ -38,20 +38,17 @@ public class GUILogin extends Activity implements View.OnClickListener{
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));
 			break;
 		case R.id.btn_login:
-			Usuario usuario = criarLogin();
-			if (usuario != null){
-				if (controle.realizarLogin(usuario)){
+					Usuario u = criarLogin();
+					if (controle.realizarLogin(u)){
 					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
 					limparCampos();
-				}else{
-					Toast.makeText(this, "Usuario Invalido"
-							,Toast.LENGTH_LONG).show();
-				}
-			}
-
+					}else{
+						Toast.makeText(this, "Dados Invalidos!", Toast.LENGTH_LONG).show();
+					}
 			break;
 		}
 	}
+	
 	
 	public void limparCampos(){
 		editLogin.setText("");
@@ -60,11 +57,9 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 	public Usuario criarLogin(){
 		if (verificarUsuario()){
-
 			Usuario usuario = new Usuario();
 			usuario.setNome(String.valueOf(editLogin.getText()));
 			usuario.setSenha(String.valueOf(editPassword.getText()));
-
 			return usuario;
 		}else{
 			return null;

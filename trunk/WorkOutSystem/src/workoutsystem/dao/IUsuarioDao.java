@@ -17,5 +17,10 @@ public interface IUsuarioDao {
 	 * @return 
 	 */
 	public abstract boolean cadastrarUsuario (Usuario u);
+	/**
+	 * Metodo responsavel pelo login do usuario
+	 * @param u
+	 * @return true = usuario pode logar , false = usuario não pode logar
+	 */
 	public abstract boolean realizarLogin(Usuario u);
 }

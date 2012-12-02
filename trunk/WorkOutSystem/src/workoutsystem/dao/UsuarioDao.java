@@ -70,10 +70,14 @@ public class UsuarioDao implements IUsuarioDao {
 			prepare.setString(2, u.getSenha());
 			ResultSet result = prepare.executeQuery();
 			if (result.next()){
-				return true;
+				verificador = true;
 			}else{
-				return false;
+				verificador =  false;
 			}
+			prepare.close();
+			con.close();
+			
+			return verificador;
 			
 		}catch (SQLException e){
 			return false;

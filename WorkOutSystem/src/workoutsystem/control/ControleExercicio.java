@@ -25,9 +25,7 @@ public class ControleExercicio {
 				}
 			}
 		}
-
 		return mensagem;
-
 	}
 
 	public void excluirExercicio(Exercicio exercicio){

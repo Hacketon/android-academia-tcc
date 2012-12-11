@@ -82,7 +82,7 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 			Connection con = Banco.conexao();
 			String sql = "select grupomuscular.codigo from grupomuscular where " +
-			" grupomuscular.nome like ?";
+			" grupomuscular.nome like ? ";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, nome);
 			ResultSet result = prepare.executeQuery();

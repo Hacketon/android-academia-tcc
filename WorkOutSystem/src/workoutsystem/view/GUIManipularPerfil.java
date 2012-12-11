@@ -1,6 +1,9 @@
 package workoutsystem.view;
 
+import workoutsystem.control.ControleExercicio;
+import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Perfil;
+import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
 public class GUIManipularPerfil extends Activity implements View.OnClickListener {
@@ -33,7 +37,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		radioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
 		radioMasculino = (RadioButton) findViewById(R.id.rb_masculino);
 		radioFeminino = (RadioButton) findViewById(R.id.rb_feminino);
-		
+
 	}
 
 
@@ -55,27 +59,65 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		specfrequencia.setIndicator("Frequencia");
 		tabperfil.addTab(specfrequencia);
 
-
-
-
 	}
 
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		ControlePerfil controle = new ControlePerfil();
+		switch (v.getId()){
+		case R.id.btn_cadperfil:
+			Perfil perfil = criaManipulaPerfil();
+			Toast.makeText(this, controle.cadastrasPerfil(perfil),
+					Toast.LENGTH_LONG).show();
+			break;
+		case R.id.btn_excperfil:
 
+			break;
+		}
 	}
 
-	public void criaManipulaPerfil(){
+	
+	//corrigir codigo , deixando as verificações no controle 
+	public Perfil criaManipulaPerfil(){
+		Usuario usuario = new Usuario(); 
 		Perfil perfil = new Perfil();
-		perfil.setNome(String.valueOf(editNome.getText()));
-		if (radioMasculino.isChecked()){
-			perfil.setSexo(true);
-		}else {
-			perfil.setSexo(false);
+		if(verificarUsuario()){
+			perfil.setNome(String.valueOf(editNome.getText()));
+			if (radioMasculino.isChecked()){
+				perfil.setSexo(true);
+			}else {
+				perfil.setSexo(false);
+			}
+			perfil.setCodigousuario(usuario.getCodigo());
+			return perfil;
+		}else 
+		{
+			return null;
+		}
+	}
+
+	public void carregarPerfil(Perfil p){
+		if (p != null){
+			editNome.setText(p.getNome());
+			if(p.getSexo()== true){
+				radioMasculino.isChecked();
+			}else{
+				radioFeminino.isChecked();
+			}
 		}
 		
+	}
+
+	private boolean verificarUsuario() {
+		if (String.valueOf(editNome.getText()).isEmpty() 
+				|| radioSexo.isClickable()){
+			Toast.makeText(this, "Digite os campos obrigatorios"
+					, Toast.LENGTH_LONG).show();
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }

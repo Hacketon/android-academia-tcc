@@ -18,7 +18,7 @@ public class Exercicio {
 		return String.format("codigo : %s \n , nome : %s \n " +
 				", descricao: %s \n , persolanizado: %s \n",
 				codigo  , nomeExercicio, descricao,personalizado);
-		
+	
 	}
 	
 	public long getCodigo() {

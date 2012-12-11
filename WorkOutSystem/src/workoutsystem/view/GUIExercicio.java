@@ -65,10 +65,7 @@ public class GUIExercicio extends Activity implements View.OnClickListener{
 
 		cbxExercicioCriado.setAdapter(adapter);
 		cbxExercicioPadrao.setAdapter(adapter);
-
 	}
-
-
 
 	@Override
 	public void onClick(View v) {

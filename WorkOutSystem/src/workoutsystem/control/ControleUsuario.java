@@ -23,7 +23,7 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario u){
-		IUsuarioDao daoUsuario = new UsuarioDao(contexto);
+		IUsuarioDao daoUsuario = new UsuarioDao();
 		if (u != null){
 			return daoUsuario.realizarLogin(u);	
 		} else {
@@ -32,7 +32,7 @@ public class ControleUsuario {
 	}
 
 	public boolean cadastrarUsuario(Usuario u,String confSenha){
-		IUsuarioDao daoUsuarioDao = new UsuarioDao(contexto);
+		IUsuarioDao daoUsuarioDao = new UsuarioDao();
 		if (u.getSenha().equalsIgnoreCase(confSenha)){
 			if (daoUsuarioDao.buscarUsuario(u) == null){
 				return daoUsuarioDao.cadastrarUsuario(u);

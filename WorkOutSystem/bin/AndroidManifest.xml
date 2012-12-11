@@ -22,9 +22,13 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_tela_principal" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+           <!--       <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                -->
+                <action android:name="workoutsystem.view.PRINCIPAL"/>
+                
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
@@ -166,9 +170,15 @@
             android:name=".GUILogin"
             android:label="@string/title_project" >
             <intent-filter>
-                <action android:name="workoutsystem.view.LOGIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <!--
+                <action android:name="workoutsystem.view.LOGIN" />
+                
+                <category android:name="android.intent.category.DEFAULT" />
+                -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

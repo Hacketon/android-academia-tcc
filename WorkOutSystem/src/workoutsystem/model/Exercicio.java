@@ -14,9 +14,10 @@ public class Exercicio {
 	}
 
 	public String toString(){
+		
 		return String.format("codigo : %s \n , nome : %s \n " +
-				", grupoMuescular: %s \n, descricao: %s \n , persolanizado: %s \n",
-				codigo  , nomeExercicio, grupo.getNome(), descricao,personalizado);
+				", descricao: %s \n , persolanizado: %s \n",
+				codigo  , nomeExercicio, descricao,personalizado);
 		
 	}
 	
@@ -51,7 +52,7 @@ public class Exercicio {
 	public void setNomeExercicio(String nomeExercicio) {
 		this.nomeExercicio = nomeExercicio;
 	}
-	public void setGrupoMuscular(GrupoMuscular grupoMuscular) {
+	public void setGrupoMuscular(GrupoMuscular grupo) {
 		this.grupo = grupo;
 	}
 	public void setDescricao(String descricao) {

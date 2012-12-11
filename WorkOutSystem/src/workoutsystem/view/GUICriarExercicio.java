@@ -56,7 +56,7 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
 		exercicio.setGrupoMuscular(grupo);
-		//		Toast.makeText(this, exercicio.toString(), Toast.LENGTH_LONG);
+//		Toast.makeText(this, exercicio.toString(), Toast.LENGTH_LONG);
 		Log.i("Exercicios",exercicio.toString());
 		return exercicio;
 	}
@@ -66,14 +66,15 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		switch (view.getId()) {
 		case R.id.btn_criar:
 			Exercicio e = criarExercicio();
+			ControleExercicio ex = new ControleExercicio();
 			Toast.makeText(this, 
-					new ControleExercicio().adicionarExercicio(e),
+					ex.adicionarExercicio(e),
 					Toast.LENGTH_LONG).show();
 			break;
 
 		default:
 			break;
 		}
-
+		
 	}
 }

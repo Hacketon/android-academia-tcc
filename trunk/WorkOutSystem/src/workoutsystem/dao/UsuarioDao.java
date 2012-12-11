@@ -10,7 +10,7 @@ import android.util.Log;
 import workoutsystem.model.Usuario;
 
 public class UsuarioDao implements IUsuarioDao {
-	public UsuarioDao(Context context){
+	public UsuarioDao(){
 		
 	}
 	@Override
@@ -18,12 +18,16 @@ public class UsuarioDao implements IUsuarioDao {
 		try {
 			
 			Connection con = Banco.conexao();
-			String sql = "select nome,senha from usuario where nome like ?";
+			String sql = "select codigo,nome,senha from usuario where nome like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setString(1, u.getNome());
+			prepare.setString(1, u.getNome().trim());
 			ResultSet result = prepare.executeQuery();
 			if (!result.next()){
 				 u = null;
+			}else{
+				u.setCodigo(result.getInt(1));
+				u.setNome(result.getString(2));
+				u.setSenha(result.getString(3));
 			}
 			
 			prepare.close();
@@ -42,8 +46,8 @@ public class UsuarioDao implements IUsuarioDao {
 			Connection con = Banco.conexao();
 			String sql = "insert into usuario (nome,senha) values (?,?)";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setString(1,u.getNome());
-			prepare.setString(2,u.getSenha());
+			prepare.setString(1,u.getNome().trim());
+			prepare.setString(2,u.getSenha().trim());
 			int resultado = prepare.executeUpdate();
 			if (resultado == 0 ){
 				verificador = false;
@@ -64,10 +68,10 @@ public class UsuarioDao implements IUsuarioDao {
 		try{
 			boolean verificador;
 			Connection con = Banco.conexao();
-			String sql = "select nome,senha from usuario where nome like ? and senha like ?";
+			String sql = "select codigo, nome,senha from usuario where nome like ? and senha like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setString(1,u.getNome());
-			prepare.setString(2, u.getSenha());
+			prepare.setString(1,u.getNome().trim());
+			prepare.setString(2, u.getSenha().trim());
 			ResultSet result = prepare.executeQuery();
 			if (result.next()){
 				verificador = true;

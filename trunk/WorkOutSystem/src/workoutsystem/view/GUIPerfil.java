@@ -1,5 +1,6 @@
 package workoutsystem.view;
 
+import workoutsystem.control.ControlePerfil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ public class GUIPerfil extends Activity implements View.OnClickListener{
 
 	@Override
 	public void onClick(View evento) {
+		ControlePerfil controle = new ControlePerfil();
 		switch (evento.getId()) {
 		case R.id.btn_manipularperfil:
+			controle.instanciarPerfil();
 			startActivity(new Intent("workoutsystem.view.MANIPULARPERFIL"));
 			break;
 		case R.id.btn_medidas:

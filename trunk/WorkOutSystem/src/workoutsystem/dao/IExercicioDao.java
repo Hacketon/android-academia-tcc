@@ -1,6 +1,7 @@
 package workoutsystem.dao;
 
 import workoutsystem.model.Exercicio;
+import workoutsystem.model.GrupoMuscular;
 
 public interface IExercicioDao {
 	
@@ -11,12 +12,19 @@ public interface IExercicioDao {
 	 */
 	public abstract Exercicio buscarExercicio(Exercicio e);
 	
+	
+	/**
+	 * Metodo que realizará a busca de exercicios personalizados
+	 * @param e
+	 * @return
+	 */
+	public abstract Exercicio buscarExercicioPersonalizado(Exercicio exercicio);
 	/**
 	 * Metodo responsavel pela criação de um novo exercicio
 	 * @param e
 	 * @return
 	 */
-	
+
 	public abstract boolean adicionarExercicio(Exercicio e);
 	
 	/**
@@ -57,5 +65,10 @@ public interface IExercicioDao {
 	 */
 	public abstract int buscarGrupoMuscular(String nome);
 
-	
+	/**
+	 * Metodo responsavel pela busca de exercicio por grupo muscular
+	 * @param grupo
+	 * @return
+	 */
+	public abstract Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo);
 }

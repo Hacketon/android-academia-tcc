@@ -56,6 +56,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 	}
 
 	public Usuario criarLogin(){
+		
 		if (verificarUsuario()){
 			Usuario usuario = new Usuario();
 			usuario.setNome(String.valueOf(editLogin.getText()));

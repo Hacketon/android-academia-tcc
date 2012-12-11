@@ -29,9 +29,7 @@ public class ControleExercicio {
 	}
 
 	public void excluirExercicio(Exercicio exercicio){
-
 	}
-
 
 	public List visualizarPassos(Exercicio exercicio){
 		return null;
@@ -39,12 +37,38 @@ public class ControleExercicio {
 
 	public List buscarExercicio (Treino treino){
 		return null;
+	}
+	
+	public String buscarExercicio(GrupoMuscular gMuscular){
+		String mensagem = "Erro ao buscar Exercicio";
+		IExercicioDao dao = new ExercicioDao();
+		
+		if(dao.buscarExercicioGrupoMuscular(gMuscular) != null){
+			mensagem = "Encontardos os exercicios";
+		}else{
+			mensagem = "Exercicio não foram encontrados";
+		}
+				
+		return mensagem;
+	}
+	
+	public String buscarExercicioPersonalizado(Exercicio exercicio){
 
+		String mensagem = "Erro ao buscar exercicios personalizados";
+		IExercicioDao dao = new ExercicioDao();
+
+		if(dao.buscarExercicioPersonalizado(exercicio) != null){
+			mensagem = "Exercicios encontrados";
+		}else {
+			mensagem = "Não foram encontrados exercicios";
+		}
+
+		return mensagem;
 	}
-	public Exercicio buscarExercicio(String gMuscular){
-		return null;
-	}
+
+	
 	public Exercicio visualizarExercicio(String nomeExercicio){
 		return null;
 	}
+
 }

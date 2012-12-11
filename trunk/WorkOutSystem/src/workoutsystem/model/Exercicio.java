@@ -2,41 +2,57 @@ package workoutsystem.model;
 
 public class Exercicio {
 	
-	private long codigoExercicio;
+	private long codigo;
 	private String nomeExercicio;
-	private String grupoMuscular;
+	private GrupoMuscular grupo;
 	private String descricao;
 	private boolean personalizado;
 	
 	public Exercicio(){
 		descricao = "";
-		personalizado = false;
+		personalizado = true;
+	}
+
+	public String toString(){
+		return String.format("codigo : %s \n , nome : %s \n " +
+				", grupoMuescular: %s \n, descricao: %s \n , persolanizado: %s \n",
+				codigo  , nomeExercicio, grupo.getNome(), descricao,personalizado);
+		
 	}
 	
-	
-	public long getCodigoExercicio() {
-		return codigoExercicio;
+	public long getCodigo() {
+		return codigo;
 	}
 	public String getNomeExercicio() {
 		return nomeExercicio;
 	}
-	public String getGrupoMuscular() {
-		return grupoMuscular;
+	public GrupoMuscular getGrupoMuscular() {
+		return grupo;
 	}
 	public String getDescricao() {
 		return descricao;
 	}
+	/*
+	 *public int getPersonalizado(){
+		if (personalizado = true){
+			return 1;
+		}else{
+			return 0;
+		}
+	} 
+	 */
+	
 	public boolean isPersonalizado() {
 		return personalizado;
 	}
-	public void setCodigoExercicio(long codigoExercicio) {
-		this.codigoExercicio = codigoExercicio;
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
 	}
 	public void setNomeExercicio(String nomeExercicio) {
 		this.nomeExercicio = nomeExercicio;
 	}
-	public void setGrupoMuscular(String grupoMuscular) {
-		this.grupoMuscular = grupoMuscular;
+	public void setGrupoMuscular(GrupoMuscular grupoMuscular) {
+		this.grupo = grupo;
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;

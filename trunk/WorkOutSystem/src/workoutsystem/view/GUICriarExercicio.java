@@ -2,15 +2,21 @@ package workoutsystem.view;
 
 import java.util.ArrayList;
 
+import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
+import workoutsystem.model.GrupoMuscular;
 import workoutsystem.utilitaria.TipoExercicio;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-public class GUICriarExercicio extends Activity{
+public class GUICriarExercicio extends Activity implements View.OnClickListener{
 
 	private Spinner cbxGrupo;
 	private EditText editNomeExercicio;
@@ -43,42 +49,31 @@ public class GUICriarExercicio extends Activity{
 
 	}
 
-	public void criarExercicio(){
+	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
-
+		GrupoMuscular grupo = new GrupoMuscular();
 		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
-
-		if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Peito)){
-			exercicio.setGrupoMuscular(TipoExercicio.Peito.toString());
-		}else
-			if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Costa)){
-				exercicio.setGrupoMuscular(TipoExercicio.Costa.toString());
-			}
-			else
-				if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Biceps)){
-					exercicio.setGrupoMuscular(TipoExercicio.Biceps.toString());
-				}else
-					if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Triceps)){
-						exercicio.setGrupoMuscular(TipoExercicio.Triceps.toString());
-					}
-					else
-						if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Aerobico)){
-							exercicio.setGrupoMuscular(TipoExercicio.Aerobico.toString());
-						}
-						else
-							if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Ombro)){
-								exercicio.setGrupoMuscular(TipoExercicio.Ombro.toString());
-							}
-							else
-								if(cbxGrupo.getSelectedItem().equals(TipoExercicio.MembrosInferiores)){
-									exercicio.setGrupoMuscular(TipoExercicio.MembrosInferiores.toString());
-								}else
-									if(cbxGrupo.getSelectedItem().equals(TipoExercicio.Abdomen)){
-										exercicio.setGrupoMuscular(TipoExercicio.Abdomen.toString());
-									}
-
+		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
-		exercicio.setPersonalizado(true);
+		exercicio.setGrupoMuscular(grupo);
+		//		Toast.makeText(this, exercicio.toString(), Toast.LENGTH_LONG);
+		Log.i("Exercicios",exercicio.toString());
+		return exercicio;
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.btn_criar:
+			Exercicio e = criarExercicio();
+			Toast.makeText(this, 
+					new ControleExercicio().adicionarExercicio(e),
+					Toast.LENGTH_LONG).show();
+			break;
+
+		default:
+			break;
+		}
 
 	}
 }

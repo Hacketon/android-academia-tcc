@@ -65,4 +65,27 @@ public class MedidaDao implements IMedidaDao{
 
 	}
 
+	@SuppressWarnings("null")
+	@Override
+	public Medicao buscarValorMedicao(int codigo) {
+		Medicao medicao = null;
+		try{
+			Connection con = Banco.conexao();
+			String sql ="select (valor) from medicao where codigomedida = ?;";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.next()){
+				medicao.setValor(result.getInt(1));
+			}
+
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return medicao;
+	}
+
 }

@@ -16,4 +16,11 @@ public interface IMedidaDao {
 	 * @return
 	 */
 	public abstract boolean adicionarMedicao(Medicao medicao);
+	
+	/**
+	 * Metodo que trará o valor da medicao , dependendo do codigo informado
+	 * @param codigo
+	 * @return
+	 */
+	public abstract Medicao buscarValorMedicao(int codigo);
 }

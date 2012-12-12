@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import workoutsystem.control.ControleFicha;
+import workoutsystem.model.DiaSemana;
 import workoutsystem.utilitaria.AdaptadorCalendario;
-import workoutsystem.utilitaria.DiaSemana;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rotina);
 
@@ -41,7 +41,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		grupoMuscular = (TextView) findViewById(R.id.grupo_muscular_trab);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
 		treinoDia = (TextView) findViewById(R.id.treino_dia);
-		
 		mes = Calendar.getInstance();
 		dia = Calendar.getInstance();
 		
@@ -57,7 +56,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		gradedias.setAdapter(adapter);
 		gradedias.setOnItemClickListener(this);
 		
-
 		criarTab();
 		criarCombo();
 	}
@@ -84,23 +82,16 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	 */
 
 	public void criarCombo(){
-		//Cria a lista para adicionar os valores
 		List<String> dias = new ArrayList<String>();
-
-		for (DiaSemana d : DiaSemana.values()){
+		List<DiaSemana> listaDias = new ControleFicha().listarDias();
+		for (DiaSemana d : listaDias){
 			dias.add(d.getDiaSemana());
 		}
-
-
-		// Array adapter para preencher o combo, parametros (nesta tela, 
-		// vai selecionar um item, e o vetor que vai preencher o array)
 		ArrayAdapter<String> adapter = new 
 		ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,dias);
-
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		// colocar o array no combo
 		cbxDiaSemana.setAdapter(adapter);
+
 
 	}
 

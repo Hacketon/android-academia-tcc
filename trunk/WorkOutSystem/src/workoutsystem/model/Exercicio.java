@@ -1,5 +1,7 @@
 package workoutsystem.model;
 
+import java.util.List;
+
 public class Exercicio {
 	
 	private long codigo;
@@ -7,6 +9,7 @@ public class Exercicio {
 	private GrupoMuscular grupo;
 	private String descricao;
 	private boolean personalizado;
+	private List<Passo> listaPassos;
 	
 	public Exercicio(){
 		descricao = "";

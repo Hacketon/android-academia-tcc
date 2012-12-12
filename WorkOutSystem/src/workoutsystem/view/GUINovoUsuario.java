@@ -27,7 +27,7 @@ public class GUINovoUsuario extends Activity implements View.OnClickListener{
 
 	@Override
 	public void onClick(View view) {
-		ControleUsuario controle = new ControleUsuario(this);
+		ControleUsuario controle = new ControleUsuario();
 		switch (view.getId()){
 		case R.id.btn_cadastrar:
 			Usuario usuario = criarUsuario();

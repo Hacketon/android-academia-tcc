@@ -31,11 +31,13 @@ public final class R {
         public static final int btn_ajudaficha=0x7f080003;
         public static final int btn_ajudaperfil=0x7f080000;
         public static final int btn_ajudarotina=0x7f080002;
+        public static final int btn_alterar=0x7f08007e;
         public static final int btn_anteriorexercicio=0x7f080015;
         public static final int btn_anteriormes=0x7f08009d;
         public static final int btn_avatar=0x7f080089;
         public static final int btn_cadastrar=0x7f080084;
         public static final int btn_cadperfil=0x7f08005f;
+        public static final int btn_cancelar=0x7f080080;
         public static final int btn_como_fazer=0x7f080094;
         public static final int btn_continuar=0x7f0800bb;
         public static final int btn_criar=0x7f080010;
@@ -62,6 +64,7 @@ public final class R {
         public static final int btn_removerficha=0x7f08002e;
         public static final int btn_removertreino=0x7f08003e;
         public static final int btn_rotina=0x7f08008e;
+        public static final int btn_salvar=0x7f08007f;
         public static final int btn_sobre=0x7f080091;
         public static final int btn_status=0x7f08008b;
         public static final int calendariogrid=0x7f0800a0;
@@ -89,11 +92,9 @@ public final class R {
         public static final int edLogin=0x7f080049;
         public static final int edSenha=0x7f08004a;
         public static final int edUsuario=0x7f080081;
-        public static final int ed_alterar=0x7f08007e;
         public static final int ed_altura=0x7f080064;
         public static final int ed_bracodireito=0x7f08006e;
         public static final int ed_bracoesquerdo=0x7f08006f;
-        public static final int ed_cancelar=0x7f080080;
         public static final int ed_cintura=0x7f080068;
         public static final int ed_coxadireita=0x7f080076;
         public static final int ed_coxaesquerda=0x7f080077;
@@ -102,7 +103,6 @@ public final class R {
         public static final int ed_peito=0x7f080071;
         public static final int ed_peso=0x7f080065;
         public static final int ed_quadril=0x7f080069;
-        public static final int ed_salvar=0x7f08007f;
         public static final int ed_sequencia=0x7f080040;
         public static final int edt_descricaoExercicio=0x7f08000f;
         public static final int edt_duracaodias=0x7f080038;

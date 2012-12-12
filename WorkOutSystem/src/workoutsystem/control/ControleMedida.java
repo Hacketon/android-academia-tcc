@@ -10,18 +10,27 @@ public class ControleMedida {
 	
 	//corrigir codigo
 	public String adicionarMedicao(Medicao medicao){
-		String mensagem = "Erro ao adicionar Medicao";
+		String mensagem = "  Erro ao adicionar Medicao";
 		IMedidaDao dao = new MedidaDao();
 		
 		if(medicao != null){
-			Medida medida = medicao.getCodigoMedida();
 			//verificar codigo
-			dao.buscarMedida(medida.getNome(), medida.getLado());
+			
 			if(dao.adicionarMedicao(medicao)){
 				mensagem = "Medidas adicionadas com sucesso";
 			}
 		}
 
 		return mensagem;	
+	}
+	
+	public int buscarMedida(String nome, String lado){
+		int codigo = 0;
+		IMedidaDao dao = new MedidaDao();
+		
+		if(dao.buscarMedida(nome, lado)!= 0){
+			codigo = dao.buscarMedida(nome, lado);
+		}
+		return codigo;
 	}
 }

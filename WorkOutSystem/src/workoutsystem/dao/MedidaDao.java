@@ -47,9 +47,9 @@ public class MedidaDao implements IMedidaDao{
 			prepare.setDouble(1,medicao.getValor() );
 			java.sql.Date dataSql = new java.sql.Date( medicao.getDataMedicao().getTime());
 			prepare.setDate(2, dataSql);
-			prepare.setInt(3, medicao.getCodigoMedida().getCodigo() );
-			prepare.setInt(4, medicao.getCodigoPerfil().getCodigo());
-			prepare.setInt(5, medicao.getCodigoUsuario().getCodigo());
+			prepare.setInt(3, medicao.getCodigoMedida() );
+			prepare.setInt(4, medicao.getCodigoPerfil());
+			prepare.setInt(5, medicao.getCodigoUsuario());
 			if(prepare.executeUpdate()!=0){
 				verificador = true;
 			}else{

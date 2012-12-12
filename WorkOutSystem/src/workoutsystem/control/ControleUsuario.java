@@ -11,8 +11,7 @@ public class ControleUsuario {
 	private Context contexto;
 
 
-	public ControleUsuario(Context context){
-		contexto = context;
+	public ControleUsuario(){
 	}
 	/**
 	 * Metodo referente a realização de login do usuario

@@ -2,6 +2,8 @@ package workoutsystem.view;
 
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControlePerfil;
+import workoutsystem.dao.IPerfilDao;
+import workoutsystem.dao.PerfilDao;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
@@ -25,6 +27,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	private RadioGroup radioSexo;
 	private RadioButton radioMasculino;
 	private RadioButton radioFeminino;
+	ControlePerfil controle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,13 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		radioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
 		radioMasculino = (RadioButton) findViewById(R.id.rb_masculino);
 		radioFeminino = (RadioButton) findViewById(R.id.rb_feminino);
+
+		IPerfilDao dao = new PerfilDao();
+		Perfil perfil = dao.buscarPerfil();
+
+		//Perfil perfil = controle.buscarPerfil();
+		carregarPerfil(perfil);
+		//		carregarPerfil(controle.buscarPerfil());
 
 	}
 
@@ -72,12 +82,15 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 					Toast.LENGTH_LONG).show();
 			break;
 		case R.id.btn_excperfil:
+			limparCampos();
+			Toast.makeText(this, controle.excluirPerfil(),
+					Toast.LENGTH_LONG).show();
 
 			break;
 		}
 	}
 
-	
+
 	//corrigir codigo , deixando as verificações no controle 
 	public Perfil criaManipulaPerfil(){
 		Usuario usuario = new Usuario(); 
@@ -100,15 +113,20 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	public void carregarPerfil(Perfil p){
 		if (p != null){
 			editNome.setText(p.getNome());
-			if(p.getSexo()== true){
-				radioMasculino.isChecked();
+			if(p.getSexo()){
+				radioMasculino.setChecked(true);
 			}else{
-				radioFeminino.isChecked();
+				radioFeminino.setChecked(true);
 			}
 		}
-		
+
 	}
 
+	public void limparCampos(){
+		editNome.setText("");
+		radioMasculino.setChecked(false);
+		radioFeminino.setChecked(false);
+	}
 	private boolean verificarUsuario() {
 		if (String.valueOf(editNome.getText()).isEmpty() 
 				|| radioSexo.isClickable()){

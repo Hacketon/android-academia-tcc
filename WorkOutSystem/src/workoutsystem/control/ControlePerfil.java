@@ -1,5 +1,6 @@
 package workoutsystem.control;
 
+import android.widget.Toast;
 import workoutsystem.dao.IPerfilDao;
 import workoutsystem.dao.IUsuarioDao;
 import workoutsystem.dao.PerfilDao;
@@ -12,7 +13,7 @@ public class ControlePerfil {
 
 	
 	public String cadastrasPerfil(Perfil perfil){
-		String mensagem = "erro ao cadastrar Perfil";
+		String mensagem = "Erro ao cadastrar Perfil";
 		IPerfilDao dao = new PerfilDao();
 		if(dao.criarPerfil(perfil)){
 			mensagem = "Criado com sucesso";
@@ -22,12 +23,26 @@ public class ControlePerfil {
 		return mensagem;
 	}
 	
-	public void instanciarPerfil(){
-		
+	public Perfil buscarPerfil(){
 		IPerfilDao dao = new PerfilDao();
-		GUIManipularPerfil manipulaperfil = new GUIManipularPerfil();
-		Perfil perfil = dao.buscarPerfil();
-		manipulaperfil.carregarPerfil(perfil);
+		Perfil perfil = null;
 		
+		if(dao.buscarPerfil()!= null){
+			 perfil = dao.buscarPerfil();
+		}
+		
+		return perfil;
+		
+	}
+	
+	public String excluirPerfil(){
+		String mensagem = "erro ao excluir";
+		IPerfilDao dao = new PerfilDao();
+		
+		if(dao.excluirPerfil()){
+			mensagem = "Excluido com sucesso";
+		}
+		
+		return mensagem;
 	}
 }

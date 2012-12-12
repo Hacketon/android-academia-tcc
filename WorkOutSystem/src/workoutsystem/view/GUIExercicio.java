@@ -2,8 +2,8 @@ package workoutsystem.view;
 
 import java.util.ArrayList;
 
-import workoutsystem.utilitaria.TipoExercicio;
-
+import workoutsystem.control.ControleExercicio;
+import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,18 +51,18 @@ public class GUIExercicio extends Activity implements View.OnClickListener{
 	}
 
 	public void criarCombo(){
-		
-		ArrayList<String> tipoExercicio = new ArrayList<String>();
-		
-		for (TipoExercicio t : TipoExercicio.values())
-			tipoExercicio.add(t.getTipoExercicio());
-		
-		
+		ArrayList<String> listaGrupos = new ArrayList<String>();
+		ControleExercicio controle = new ControleExercicio();
+		ArrayList<GrupoMuscular> grupos = 
+			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
+
+		for (GrupoMuscular grupo : grupos){
+			listaGrupos.add(grupo.getNome());
+		}
+
 		ArrayAdapter<String> adapter =
-		new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,tipoExercicio);
-
+			new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listaGrupos);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-
 		cbxExercicioCriado.setAdapter(adapter);
 		cbxExercicioPadrao.setAdapter(adapter);
 	}

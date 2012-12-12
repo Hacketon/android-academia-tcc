@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
-import workoutsystem.utilitaria.TipoExercicio;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -35,15 +34,17 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 	}
 
 	public void criarCombo(){
-		ArrayList<String> tipoExercicio = new ArrayList<String>();
+		ArrayList<String> listaGrupos = new ArrayList<String>();
+		ControleExercicio controle = new ControleExercicio();
+		ArrayList<GrupoMuscular> grupos = 
+			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
 
-		for (TipoExercicio t : TipoExercicio.values())
-			tipoExercicio.add(t.getTipoExercicio());
-
+		for (GrupoMuscular grupo : grupos){
+			listaGrupos.add(grupo.getNome());
+		}
 
 		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,tipoExercicio);
-
+			new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listaGrupos);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		cbxGrupo.setAdapter(adapter);
 
@@ -56,7 +57,6 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
 		exercicio.setGrupoMuscular(grupo);
-//		Toast.makeText(this, exercicio.toString(), Toast.LENGTH_LONG);
 		Log.i("Exercicios",exercicio.toString());
 		return exercicio;
 	}
@@ -75,6 +75,6 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		default:
 			break;
 		}
-		
+
 	}
 }

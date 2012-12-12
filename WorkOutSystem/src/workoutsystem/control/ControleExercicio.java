@@ -1,11 +1,18 @@
 package workoutsystem.control;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.dao.Banco;
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.IExercicioDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Passo;
 import workoutsystem.model.Treino;
 
 public class ControleExercicio {
@@ -13,17 +20,20 @@ public class ControleExercicio {
 	//alterar os metodos no diagrama de classes 
 
 	public String adicionarExercicio(Exercicio exercicio){
-		String mensagem = "Erro ao adicionar o exercicio";
+		String mensagem = "Erro ao adicionar ou exercicio já cadastrado";
 		IExercicioDao dao = new ExercicioDao();
 		
 		if (exercicio!= null){
 			GrupoMuscular grupo = exercicio.getGrupoMuscular();
 			grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
-			if (grupo.getCodigo() != 0 ){
-				if(dao.adicionarExercicio(exercicio)){
-					mensagem = "Exercicio criado com sucesso !";
+			if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
+				if (grupo.getCodigo() != 0 ){
+					if(dao.adicionarExercicio(exercicio)){
+						mensagem = "Exercicio criado com sucesso !";
+					}
 				}
 			}
+			
 		}
 		return mensagem;
 	}
@@ -31,8 +41,9 @@ public class ControleExercicio {
 	public void excluirExercicio(Exercicio exercicio){
 	}
 
-	public List visualizarPassos(Exercicio exercicio){
+	public List<Passo> visualizarPassos(Exercicio exercicio){
 		return null;
+		
 	}
 
 	public List buscarExercicio (Treino treino){
@@ -71,4 +82,7 @@ public class ControleExercicio {
 		return null;
 	}
 
+	public List<GrupoMuscular> listarGrupos(){
+		return new ExercicioDao().listarGrupos();
+	}
 }

@@ -108,6 +108,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 //		Medicao medicao = new Medicao();
 //		//fazer lógica 
 //		
+		//fazer um if para cada edittext e adicionar individualmente ao banco de dados
 //	
 //		//Altura
 //		medida.setNome(textAltura.getText().toString());

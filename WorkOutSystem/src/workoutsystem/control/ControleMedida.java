@@ -17,7 +17,7 @@ public class ControleMedida {
 			//verificar codigo
 			
 			if(dao.adicionarMedicao(medicao)){
-				mensagem = "Medidas adicionadas com sucesso";
+				mensagem = " adicionada com sucesso";
 			}
 		}
 
@@ -33,4 +33,18 @@ public class ControleMedida {
 		}
 		return codigo;
 	}
+	
+	public Double buscarValorMedicao(int codigo){
+		Double valor = null ;
+		Medicao medicao = new Medicao();
+		IMedidaDao dao = new MedidaDao();
+		
+		if(dao.buscarValorMedicao(codigo)!= null){
+			medicao = dao.buscarValorMedicao(codigo);
+			valor = medicao.getValor();
+		}
+		
+		return valor;
+	}
+	
 }

@@ -3,11 +3,9 @@ package workoutsystem.dao;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
-<<<<<<< .mine
 import workoutsystem.model.Passo;
-=======
 import workoutsystem.model.GrupoMuscular;
->>>>>>> .r98
+
 
 public interface IExercicioDao {
 	

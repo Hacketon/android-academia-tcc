@@ -13,12 +13,11 @@ public class PerfilDao implements IPerfilDao{
 		Perfil perfil = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select perfil.nome ,perfil.sexo from usuario inner join perfil on" +
-					" perfil.codigousuario = usuario.codigo;";
+			String sql = "select nome ,sexo from perfil;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
 
-			if(result.next()){
+			while(result.next()){
 				perfil = new Perfil();
 				perfil.setNome(result.getString(1));
 				perfil.setSexo(result.getBoolean(2));
@@ -70,9 +69,31 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 	@Override
-	public boolean excluirPerfil(Perfil perfil) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean excluirPerfil() {
+		
+		try{
+			boolean verificador = false;
+			Connection con = Banco.conexao();
+			String sql = "delete from perfil;";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			
+			int resultado = prepare.executeUpdate();
+			
+			if (resultado == 0 ){
+				verificador = false;
+			}else{
+				verificador = true;
+			}
+			
+			con.close();
+			prepare.close();
+			return verificador;
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
 	}
-
+	
 }

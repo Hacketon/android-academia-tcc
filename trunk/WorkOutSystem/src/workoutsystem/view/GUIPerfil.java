@@ -22,8 +22,8 @@ public class GUIPerfil extends Activity implements View.OnClickListener{
 		ControlePerfil controle = new ControlePerfil();
 		switch (evento.getId()) {
 		case R.id.btn_manipularperfil:
-			controle.instanciarPerfil();
 			startActivity(new Intent("workoutsystem.view.MANIPULARPERFIL"));
+			
 			break;
 		case R.id.btn_medidas:
 			startActivity(new Intent("workoutsystem.view.MEDIDAS"));

@@ -25,6 +25,6 @@ public interface IPerfilDao {
 	 * @param perfil
 	 * @return
 	 */
-	public abstract boolean excluirPerfil(Perfil perfil);
+	public abstract boolean excluirPerfil();
 	
 }

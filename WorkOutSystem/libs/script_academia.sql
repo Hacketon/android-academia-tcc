@@ -46,7 +46,9 @@ select * from passo;
 -- medida
 
 
-insert into medida (nome, lado, unidade) values ('Normal','d','cm'),('Normal','e','cm'),('Normal','n','cm');
+
+insert into medida (nome, lado, unidade) values ('Altura','a','cm'),('Peso','a','kg'),('Cintura','a','cm'),('Quadril','a','cm'),('Peito','a','cm')
+,('Braco','d','cm'),('Braco','e','cm'),('Coxa','d','cm'),('Coxa','e','cm'),('Panturilha','d','cm'),('Panturilha','e','cm');
 
 select * from medida;
 
@@ -98,3 +100,4 @@ select * from frequenciaPerfil;
 insert into grupomuscular (nome) values ('Peito'),('Ombro'),('Costas'),('Biceps'),('Triceps'),('Aerobico'),('Membros Inferiores'),('Abdomen');
 
 select * from grupomuscular;
+

@@ -5,12 +5,20 @@ import java.util.List;
 
 public class Medida {
 
+	private int codigo;
 	private String nome;
+	private String lado;
+	private String unidade;
 	private List<Medicao> medicao;
-	private Perfil perfil;
-	
-	
-	
+
+
+
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -23,10 +31,18 @@ public class Medida {
 	public List<Medicao> getMedicao() {
 		return medicao;
 	}
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public String getLado() {
+		return lado;
 	}
-	public Perfil getPerfil() {
-		return perfil;
+	public void setLado(String lado) {
+		this.lado = lado;
 	}
+	public String getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+
+
 }

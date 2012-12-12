@@ -399,12 +399,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:onClick="onClick"
             android:text="@string/botao_novo" />
         
         
 
         <Button
-            android:id="@+id/ed_alterar"
+            android:id="@+id/btn_alterar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
@@ -412,15 +413,16 @@
             android:text="@string/botao_alterar" />
         
         <Button
-            android:id="@+id/ed_salvar"
+            android:id="@+id/btn_salvar"
             style="@style/textopequenopreto"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:layout_weight="50"
             android:text="@string/botao_salvar" />
 
         <Button
-            android:id="@+id/ed_cancelar"
+            android:id="@+id/btn_cancelar"
             style="@style/textopequenopreto"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

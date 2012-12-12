@@ -8,9 +8,9 @@ public class Medicao {
 
 	private double valor;
 	private	Date dataMedicao;
-	private Medida codigoMedida;
-	private Usuario codigoUsuario;
-	private Perfil codigoPerfil;
+	private int codigoMedida;
+	private int codigoUsuario;
+	private int codigoPerfil;
 	
 	public double getValor() {
 		return valor;
@@ -27,22 +27,22 @@ public class Medicao {
 	public void setDataMedicao(Date dataMedicao) {
 		this.dataMedicao = dataMedicao;
 	}
-	public Medida getCodigoMedida() {
+	public int getCodigoMedida() {
 		return codigoMedida;
 	}
-	public void setCodigoMedida(Medida codigoMedida) {
+	public void setCodigoMedida(int codigoMedida) {
 		this.codigoMedida = codigoMedida;
 	}
-	public Usuario getCodigoUsuario() {
+	public int getCodigoUsuario() {
 		return codigoUsuario;
 	}
-	public void setCodigoUsuario(Usuario codigoUsuario) {
+	public void setCodigoUsuario(int codigoUsuario) {
 		this.codigoUsuario = codigoUsuario;
 	}
-	public Perfil getCodigoPerfil() {
+	public int getCodigoPerfil() {
 		return codigoPerfil;
 	}
-	public void setCodigoPerfil(Perfil codigoPerfil) {
+	public void setCodigoPerfil(int codigoPerfil) {
 		this.codigoPerfil = codigoPerfil;
 	}
 	

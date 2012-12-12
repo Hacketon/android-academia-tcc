@@ -32,7 +32,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		ControleUsuario controle = new ControleUsuario(this);
+		ControleUsuario controle = new ControleUsuario();
 		switch (v.getId()){
 		case R.id.btn_novousuario:
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));

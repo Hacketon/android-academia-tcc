@@ -1,9 +1,16 @@
 package workoutsystem.dao;
 
+import java.util.List;
+
 import workoutsystem.model.Exercicio;
+<<<<<<< .mine
+import workoutsystem.model.Passo;
+=======
 import workoutsystem.model.GrupoMuscular;
+>>>>>>> .r98
 
 public interface IExercicioDao {
+	
 	
 	/**
 	 * Metodo responsavel pela busca de exercicios
@@ -49,22 +56,38 @@ public interface IExercicioDao {
 	 * @param e
 	 * @return
 	 */
-	public abstract Exercicio visualizarPassos(Exercicio e);
+	public abstract List<Passo> visualizarPassos(Exercicio e);
 	
 	/**
 	 * Metodo responsavel pela visualização dos exercicios
 	 * @param e
-	 * @return
+	 * @return exercicio
 	 */
-	
 	public abstract Exercicio visualizarExercicio(Exercicio e);
 	
 	/**
 	 * Metodo que fará a busca do código de cada grupo muscular 
-	 * @return
+	 * @return numero do grupo muscular
 	 */
 	public abstract int buscarGrupoMuscular(String nome);
-
+	/**
+	 * Uma lista de exercicio (personalizados) através do grupo muscular 
+	 * @param grupo = nome do grupo 
+	 * @return Lista de exercicios
+	 */
+	public abstract List<Exercicio> listarExercicioPersonalizado(String grupo);
+	/**
+	 * Uma lista de exercicio através do nome do exercicio
+	 * @param nome = nome do exercicio
+	 * @return objeto do tipo exercicio
+	 */
+	public abstract Exercicio buscarExercicio(String nome);
+	/**
+	 * Lista de exercicios não personalizados através do grupo muscular
+	 * @param grupo
+	 * @return List
+	 */
+	public abstract List<Exercicio> listarExercicios(String grupo);
 	/**
 	 * Metodo responsavel pela busca de exercicio por grupo muscular
 	 * @param grupo

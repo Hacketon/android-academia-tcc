@@ -15,20 +15,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Banco extends Activity {
-	
+
 	public static Connection conexao() {
 		Connection con = null;
 		try{
 			String urldriver = "org.sqldroid.SQLDroidDriver";
-			String url = "jdbc:sqldroid:/data/data/workoutsystem.dao/databases/academiabanco.db";
+			String url = "jdbc:sqldroid:/data/data/workoutsystem.dao" +
+			"/databases/academiabanco.db";
 			Driver driver = (Driver) Class.forName(urldriver).newInstance();
 			con = driver.connect(url, null);
 		}catch (SQLException e){
+			
 		}catch (ClassNotFoundException e) {
+			
 		}catch (InstantiationException e) {
+			
 		}catch (IllegalAccessException e) {
+			
 		}
 		return con;
 	}
-		
+
 }

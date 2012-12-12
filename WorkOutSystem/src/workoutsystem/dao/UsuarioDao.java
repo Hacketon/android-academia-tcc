@@ -29,7 +29,6 @@ public class UsuarioDao implements IUsuarioDao {
 				u.setNome(result.getString(2));
 				u.setSenha(result.getString(3));
 			}
-			
 			prepare.close();
 			con.close();
 		}catch (SQLException e) {

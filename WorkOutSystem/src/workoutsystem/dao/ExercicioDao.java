@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
+import workoutsystem.interfaces.IExercicioDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;
@@ -29,8 +30,6 @@ public class ExercicioDao implements IExercicioDao {
 			Connection con = Banco.conexao();
 			String sql = "insert into exercicio (nome, descricao, personalizado, codigogrupomuscular)" +
 			" values (?,?,?,?) ";
-
-
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, e.getNomeExercicio().trim());

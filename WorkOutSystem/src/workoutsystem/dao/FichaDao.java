@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.interfaces.IDiaSemana;
 import workoutsystem.model.DiaSemana;
 
 public class FichaDao implements IDiaSemana{
 
 	@Override
-	public List<DiaSemana> listarDias() {
+    public List<DiaSemana> listarDias() {
 		List<DiaSemana> listaDias = null;
 		try{
 			Connection con = Banco.conexao();

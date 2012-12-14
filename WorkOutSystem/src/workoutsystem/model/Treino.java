@@ -1,6 +1,7 @@
 package workoutsystem.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Treino {
 	
@@ -8,6 +9,7 @@ public class Treino {
 	private String nomeTreino;
 	private String grupoMusculares;
 	private Date dataRealizacao;
+	private List <Exercicio> exercicios;
 	
 	public long getCodigoTreino() {
 		return codigoTreino;
@@ -32,6 +34,12 @@ public class Treino {
 	}
 	public void setDataRealizacao(Date dataRealizacao) {
 		this.dataRealizacao = dataRealizacao;
+	}
+	public void setExercicios(List <Exercicio> exercicios) {
+		this.exercicios = exercicios;
+	}
+	public List <Exercicio> getExercicios() {
+		return exercicios;
 	}
 	
 

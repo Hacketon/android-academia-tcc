@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import android.content.Context;
 import android.util.Log;
+import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class UsuarioDao implements IUsuarioDao {

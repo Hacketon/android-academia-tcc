@@ -1,5 +1,7 @@
 package workoutsystem.model;
 
+import java.util.List;
+
 public class Ficha {
 	
 	private long codigoFicha;
@@ -7,6 +9,7 @@ public class Ficha {
 	private int duracaoDias;
 	private int realizacoes;
 	private String objetivo;
+	private List<Treino> treinos;
 	
 	public long getCodigoFicha() {
 		return codigoFicha;
@@ -41,5 +44,11 @@ public class Ficha {
 	
 	public int calcularDiasRestantes(){
 		return 0;
+	}
+	public void setTreinos(List<Treino> treinos) {
+		this.treinos = treinos;
+	}
+	public List<Treino> getTreinos() {
+		return treinos;
 	}
 }

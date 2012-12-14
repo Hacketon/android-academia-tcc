@@ -2,13 +2,14 @@ package workoutsystem.view;
 
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControlePerfil;
-import workoutsystem.dao.IPerfilDao;
 import workoutsystem.dao.PerfilDao;
+import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,11 +24,16 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	private TabSpec specfrequencia;
 	private TabSpec specpessoal;
 	private EditText editNome;
-	//radio sexo
 	private RadioGroup radioSexo;
 	private RadioButton radioMasculino;
 	private RadioButton radioFeminino;
-	ControlePerfil controle;
+	private CheckBox frequenciaSegunda;
+	private CheckBox frequenciaTerca;
+	private CheckBox frequenciaQuarta;
+	private CheckBox frequenciaQuinta;
+	private CheckBox frequenciaSexta;
+	private CheckBox frequenciaSabado;
+	private CheckBox frequenciaDomingo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +42,20 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		setContentView(R.layout.manipularperfil);
 		criarTab();
 		editNome = (EditText) findViewById(R.id.etNome);
-		//radio sexo
+
 		radioSexo = (RadioGroup) findViewById(R.id.radio_group_sexo);
 		radioMasculino = (RadioButton) findViewById(R.id.rb_masculino);
 		radioFeminino = (RadioButton) findViewById(R.id.rb_feminino);
 
-		IPerfilDao dao = new PerfilDao();
-		Perfil perfil = dao.buscarPerfil();
+		frequenciaSegunda = (CheckBox) findViewById(R.id.check_segunda);
+		frequenciaTerca = (CheckBox) findViewById(R.id.check_terca);
+		frequenciaQuarta = (CheckBox) findViewById(R.id.check_quarta);
+		frequenciaQuinta = (CheckBox) findViewById(R.id.check_quinta);
+		frequenciaSexta = (CheckBox) findViewById(R.id.check_sexta);
+		frequenciaSabado = (CheckBox) findViewById(R.id.check_sabado);
+		frequenciaDomingo = (CheckBox) findViewById(R.id.check_domingo);
 
-		//Perfil perfil = controle.buscarPerfil();
-		carregarPerfil(perfil);
-		//		carregarPerfil(controle.buscarPerfil());
-
+		carregarPerfil(new ControlePerfil().buscarPerfil());
 	}
 
 
@@ -75,17 +83,18 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
+		Perfil perfil = null;
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
-			Perfil perfil = criaManipulaPerfil();
-			Toast.makeText(this, controle.cadastrasPerfil(perfil),
+			perfil = criaManipulaPerfil();
+			Toast.makeText(this, controle.cadastrarPerfil(perfil),
 					Toast.LENGTH_LONG).show();
 			break;
 		case R.id.btn_excperfil:
 			limparCampos();
-			Toast.makeText(this, controle.excluirPerfil(),
+			perfil = criaManipulaPerfil();
+			Toast.makeText(this, controle.excluirPerfil(perfil),
 					Toast.LENGTH_LONG).show();
-
 			break;
 		}
 	}
@@ -93,7 +102,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 
 	//corrigir codigo , deixando as verificações no controle 
 	public Perfil criaManipulaPerfil(){
-		Usuario usuario = new Usuario(); 
+		Usuario usuario = new Usuario();
 		Perfil perfil = new Perfil();
 		if(verificarUsuario()){
 			perfil.setNome(String.valueOf(editNome.getText()));
@@ -104,8 +113,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			}
 			perfil.setCodigousuario(usuario.getCodigo());
 			return perfil;
-		}else 
-		{
+		}else {
 			return null;
 		}
 	}
@@ -131,7 +139,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		if (String.valueOf(editNome.getText()).isEmpty() 
 				|| radioSexo.isClickable()){
 			Toast.makeText(this, "Digite os campos obrigatorios"
-					, Toast.LENGTH_LONG).show();
+					, Toast.LENGTH_SHORT).show();
 			return false;
 		}else{
 			return true;

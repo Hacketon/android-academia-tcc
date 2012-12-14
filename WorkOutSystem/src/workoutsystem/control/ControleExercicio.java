@@ -9,7 +9,7 @@ import java.util.List;
 
 import workoutsystem.dao.Banco;
 import workoutsystem.dao.ExercicioDao;
-import workoutsystem.dao.IExercicioDao;
+import workoutsystem.interfaces.IExercicioDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;

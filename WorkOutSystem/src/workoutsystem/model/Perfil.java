@@ -1,6 +1,7 @@
 package workoutsystem.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Perfil {
 
@@ -8,6 +9,7 @@ public class Perfil {
 	private String nome;
 	private boolean sexo;
 	private int codigousuario;
+	private List<DiaSemana> frequencia;
 	
 	public int getCodigo() {
 		return codigo;
@@ -33,6 +35,12 @@ public class Perfil {
 	}
 	public void setCodigousuario(int codigousuario) {
 		this.codigousuario = codigousuario;
+	}
+	public void setFrequencia(List<DiaSemana> frequencia) {
+		this.frequencia = frequencia;
+	}
+	public List<DiaSemana> getFrequencia() {
+		return frequencia;
 	}
 	
 }

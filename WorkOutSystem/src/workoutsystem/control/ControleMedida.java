@@ -1,7 +1,7 @@
 package workoutsystem.control;
 
-import workoutsystem.dao.IMedidaDao;
 import workoutsystem.dao.MedidaDao;
+import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
 
 import android.util.Log;

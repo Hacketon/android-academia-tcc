@@ -2,8 +2,8 @@ package workoutsystem.control;
 
 import android.content.Context;
 import android.util.Log;
-import workoutsystem.dao.IUsuarioDao;
 import workoutsystem.dao.UsuarioDao;
+import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class ControleUsuario {

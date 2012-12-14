@@ -24,16 +24,10 @@ public class Banco extends Activity {
 			"/databases/academiabanco.db";
 			Driver driver = (Driver) Class.forName(urldriver).newInstance();
 			con = driver.connect(url, null);
-		}catch (SQLException e){
-			
-		}catch (ClassNotFoundException e) {
-			
-		}catch (InstantiationException e) {
-			
-		}catch (IllegalAccessException e) {
+		}catch (Exception e){
 			
 		}
-		return con;
+			return con;
 	}
 
 }

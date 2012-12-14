@@ -1,4 +1,4 @@
-package workoutsystem.dao;
+package workoutsystem.interfaces;
 import java.util.List;
 import workoutsystem.model.DiaSemana;
 

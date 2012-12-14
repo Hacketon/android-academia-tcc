@@ -3,7 +3,12 @@ package workoutsystem.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import workoutsystem.interfaces.IPerfilDao;
+import workoutsystem.model.DiaSemana;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 
@@ -33,7 +38,8 @@ public class PerfilDao implements IPerfilDao{
 		return perfil;
 
 	}
-
+	
+	
 	@Override
 	public boolean criarPerfil(Perfil perfil) {
 		
@@ -67,16 +73,14 @@ public class PerfilDao implements IPerfilDao{
 		}
 		
 	}
-
+	
 	@Override
-	public boolean excluirPerfil() {
-		
+	public boolean excluirPerfil(int codigoUsuario) {
 		try{
 			boolean verificador = false;
 			Connection con = Banco.conexao();
-			String sql = "delete from perfil;";
+			String sql = "delete from perfil where codigo = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			
 			int resultado = prepare.executeUpdate();
 			
 			if (resultado == 0 ){
@@ -89,11 +93,92 @@ public class PerfilDao implements IPerfilDao{
 			prepare.close();
 			return verificador;
 			
-		}catch (Exception e) {
+		}catch (SQLException e) {
 			// TODO: handle exception
 			return false;
 		}
 		
+	}
+
+	@Override
+	public boolean atualizarPerfil(Perfil perfil) {
+		boolean verificador = true;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "update Perfil set codigo = ? ,nome = ?,sexo = ? , codigousuario = ?" +
+				"where codigo =?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			prepare.setString(2, perfil.getNome());
+			prepare.setBoolean(3, perfil.getSexo());
+			prepare.setInt(4, perfil.getCodigousuario());
+			prepare.setInt(5, perfil.getCodigo());
+			int atualizados =prepare.executeUpdate();
+			if (atualizados >0){
+				verificador = true;
+			}else{
+				verificador = false;
+				
+			}
+			prepare.close();
+			con.close();
+		}catch (SQLException e) {
+			verificador = false;
+		}
+		return verificador;
+
+	}
+
+
+	@Override
+	public boolean frequenciaPerfil(Perfil perfil) {
+		try{
+			Connection con = Banco.conexao();
+			String sql = "delete from frequenciaperfil where codigoperfil = ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			prepare.executeUpdate();
+			
+			sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
+			prepare = con.prepareStatement(sql);
+			for (DiaSemana d: perfil.getFrequencia()){
+				prepare.setInt(1,d.getCodigo());
+				prepare.setInt(2, perfil.getCodigo());
+				prepare.executeUpdate();
+			}
+			
+			return true;
+			
+		}catch (SQLException e) {
+			return false;
+		}
+
+	}
+
+
+	
+	@Override
+	public List<DiaSemana> buscarFrequencia(Perfil perfil) {
+		try{
+			List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
+			Connection con = Banco.conexao();
+			String sql = "select codigodia,codigoperfil from FrequenciaTreino where codigoperfil = ?";
+			PreparedStatement prepared = con.prepareStatement(sql );
+			prepared.setInt(1, perfil.getCodigo());
+			ResultSet result = prepared.executeQuery();
+			while (result.next()){
+				DiaSemana dia = new DiaSemana();
+				dia.setCodigo(result.getInt(1));
+				String sql2 = "select diasemana from DiaSemana where codigoperfil = ?";
+				PreparedStatement prepared2 = con.prepareStatement(sql );
+				//prepared.setInt(1,);
+				//ResultSet result = prepared.executeQuery();
+			}
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 	
 }

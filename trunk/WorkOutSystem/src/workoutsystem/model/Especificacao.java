@@ -5,6 +5,7 @@ public class Especificacao {
 	private String unidade;
 	private int ordem;
 	private int quantidade;
+	
 	// unidade pode ser repetições ou tempo
 	public int getCarga() {
 		return carga;

@@ -1,4 +1,4 @@
-package workoutsystem.dao;
+package workoutsystem.interfaces;
 
 import workoutsystem.model.Medicao;
 

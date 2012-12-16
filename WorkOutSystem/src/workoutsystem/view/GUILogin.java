@@ -2,6 +2,12 @@ package workoutsystem.view;
 
 
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
+
 import workoutsystem.control.ControleUsuario;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
@@ -57,27 +63,11 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 	public Usuario criarLogin(){
 		
-		if (verificarUsuario()){
 			Usuario usuario = new Usuario();
 			usuario.setNome(String.valueOf(editLogin.getText()));
 			usuario.setSenha(String.valueOf(editPassword.getText()));
 			return usuario;
-		}else{
-			return null;
-		}
-
-
 	}
-	
-	private boolean verificarUsuario() {
-		if (String.valueOf(editLogin.getText()).isEmpty() 
-				|| String.valueOf(editPassword.getText()).isEmpty()){
 
-			Toast.makeText(this, "Digite os campos obrigatorios"
-					, Toast.LENGTH_LONG).show();
-			return false;
-		}else{
-			return true;
-		}
-	}
+		
 }

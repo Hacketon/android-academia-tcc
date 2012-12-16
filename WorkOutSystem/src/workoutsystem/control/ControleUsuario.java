@@ -1,5 +1,11 @@
 package workoutsystem.control;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
 import android.content.Context;
 import android.util.Log;
 import workoutsystem.dao.UsuarioDao;
@@ -21,13 +27,18 @@ public class ControleUsuario {
 	 * @return true se o login for possivel caso contrario false
 	 */
 
-	public boolean realizarLogin(Usuario u){
+	public boolean realizarLogin(Usuario usuario){
 		IUsuarioDao daoUsuario = new UsuarioDao();
-		if (u != null){
-			return daoUsuario.realizarLogin(u);	
-		} else {
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+		if (violations.isEmpty()){
+			return daoUsuario.realizarLogin(usuario);
+		}else{
 			return false;
 		}
+		
+	
+		
 	}
 
 	public boolean cadastrarUsuario(Usuario u,String confSenha){

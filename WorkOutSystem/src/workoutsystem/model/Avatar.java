@@ -1,10 +1,15 @@
+
 package workoutsystem.model;
+
+
+
 
 public class Avatar {
 	private String nomeAvatar;
 	private int imagem;
 	private String mensagem;
 	private String nivel;
+	
 	
 	public String getNomeAvatar() {
 		return nomeAvatar;

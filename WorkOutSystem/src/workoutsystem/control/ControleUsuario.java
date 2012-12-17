@@ -32,10 +32,10 @@ public class ControleUsuario {
 	public boolean realizarLogin(Usuario usuario){
 		
 		IUsuarioDao daoUsuario = new UsuarioDao();
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
-		if (violations.isEmpty()){
+		//ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		//Validator validator = factory.getValidator();
+		//Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+		if (usuario != null){
 			return daoUsuario.realizarLogin(usuario);
 		}else{
 			return false;

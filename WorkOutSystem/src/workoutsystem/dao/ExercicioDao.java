@@ -28,7 +28,7 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 			boolean verificador;
 			Connection con = Banco.conexao();
-			String sql = "insert into exercicio (nome, descricao, personalizado, codigogrupomuscular)" +
+			String sql = "insert into exercicio (nomeexercicio, descricao, personalizado, codigogrupomuscular)" +
 			" values (?,?,?,?) ";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -225,19 +225,20 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Exercicio> listarExercicios(String grupo) {
+	public List<Exercicio> listarExercicios(String grupo,boolean personalizado) {
 		List<Exercicio> lista = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select exercicio.codigo,exercicio.nome," +
+			String sql = "select exercicio.codigo,exercicio.nomeexercicio," +
 			"exercicio.descricao,exercicio.personalizado," +
 			"exercicio.codigogrupomuscular,grupomuscular.nome" +
 			"from exercicio inner join grupomuscular " +
 			"on exercicio.codigogrupomuscular = grupomuscular.codigo"+
-			"where grupomuscular.nome like ? and personalizado = 0";
+			"where grupomuscular.nome like ? and personalizado = ?";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, grupo);
+			prepare.setBoolean(2, personalizado);
 			ResultSet resultSet = prepare.executeQuery();
 			lista = new ArrayList<Exercicio>();
 			while (resultSet.next()){

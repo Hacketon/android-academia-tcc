@@ -85,4 +85,10 @@ public class ControleExercicio {
 	public List<GrupoMuscular> listarGrupos(){
 		return new ExercicioDao().listarGrupos();
 	}
+
+	public List<Exercicio> listarExercicios(String grupo, boolean personalizado) {
+		IExercicioDao exercicioDao = new ExercicioDao();
+		return exercicioDao.listarExercicios(grupo, personalizado);
+		
+	}
 }

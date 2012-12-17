@@ -89,7 +89,7 @@ public interface IExercicioDao {
 	 * @param grupo
 	 * @return List
 	 */
-	public abstract List<Exercicio> listarExercicios(String grupo);
+	public abstract List<Exercicio> listarExercicios(String grupo,boolean personalizado);
 	/**
 	 * Metodo responsavel pela busca de exercicio por grupo muscular
 	 * @param grupo

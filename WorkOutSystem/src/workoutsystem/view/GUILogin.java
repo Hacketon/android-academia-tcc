@@ -2,12 +2,6 @@ package workoutsystem.view;
 
 
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.groups.Default;
-
 import workoutsystem.control.ControleUsuario;
 import workoutsystem.model.Usuario;
 import android.app.Activity;

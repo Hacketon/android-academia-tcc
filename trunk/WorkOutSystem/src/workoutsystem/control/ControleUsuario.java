@@ -2,22 +2,24 @@ package workoutsystem.control;
 
 import java.util.Set;
 
+import javax.validation.Configuration;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.ValidationProviderResolver;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.spi.ValidationProvider;
 
-import android.content.Context;
-import android.util.Log;
+
+import workoutsystem.dao.Banco;
 import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class ControleUsuario {
 
-	private Context contexto;
-
-
 	public ControleUsuario(){
+		
 	}
 	/**
 	 * Metodo referente a realização de login do usuario
@@ -28,8 +30,10 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario usuario){
+		
 		IUsuarioDao daoUsuario = new UsuarioDao();
-		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
 		if (violations.isEmpty()){
 			return daoUsuario.realizarLogin(usuario);

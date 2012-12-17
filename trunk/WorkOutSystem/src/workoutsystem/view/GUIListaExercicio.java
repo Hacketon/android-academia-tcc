@@ -10,7 +10,7 @@ public class GUIListaExercicio extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listaexercicios);
+		setContentView(R.layout.lista_exercicios);
 	}
 	
 	public void onClick(View evento) {

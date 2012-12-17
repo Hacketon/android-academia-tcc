@@ -226,8 +226,8 @@ public final class R {
         public static final int fichatreino=0x7f03000c;
         public static final int fichausuario=0x7f03000d;
         public static final int grafico=0x7f03000e;
-        public static final int lista_ficha=0x7f03000f;
-        public static final int listaexercicios=0x7f030010;
+        public static final int lista_exercicios=0x7f03000f;
+        public static final int lista_ficha=0x7f030010;
         public static final int login=0x7f030011;
         public static final int manipularficha=0x7f030012;
         public static final int manipularperfil=0x7f030013;

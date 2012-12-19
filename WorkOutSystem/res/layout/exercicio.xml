@@ -51,6 +51,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
+                            android:dividerHeight="1dp"
                             android:divider="@android:color/white" />
                     </LinearLayout>
                 </LinearLayout>
@@ -75,6 +76,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
+                        android:dividerHeight="1dp"
                         android:divider="@android:color/white" />
 
                     <LinearLayout

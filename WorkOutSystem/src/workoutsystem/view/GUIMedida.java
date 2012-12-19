@@ -75,7 +75,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		editPantuDir = (EditText) findViewById(R.id.ed_panturrilhadireita);
 		editPantuEsq = (EditText) findViewById(R.id.ed_panturilhaesquerda);
 
-		Medicao m = new Medicao();
+		ControleMedida controleMed = new ControleMedida();
+		Medicao m = controleMed.buscarMedicao(1);
+		
 		carregarCampos(m);
 
 	}
@@ -124,18 +126,17 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerf = new ControlePerfil();
 
-		Date data = new Date();
+		Date data = new java.util.Date();
 		Perfil perfil = controlePerf.buscarPerfil();
 		IPerfilDao daoPerf = new PerfilDao();
 		perfil = daoPerf.buscarPerfil();
 		
 		//Altura
-		if(editAltura.getText() != null){
+		if(!editAltura.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
+			medicao.setDataMedicao(data);
 			medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
@@ -149,7 +150,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		//Peso
-		if(editPeso.getText()!= null){
+		if(!editPeso.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -168,7 +169,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		//Cintura
-		if(editCintura.getText() != null){
+		if(!editCintura.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -187,7 +188,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		//Quadril
-		if(editQuadril.getText() != null){
+		if(!editQuadril.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -207,7 +208,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		//Braço Direito
-		if(editBracoDir.getText()!=null){
+		if(!editBracoDir.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -225,7 +226,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					Toast.LENGTH_SHORT).show();}
 
 		//Braço Esquerdo
-		if(editBracoEsq.getText()!=null){
+		if(!editBracoEsq.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -244,7 +245,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		//Peito
-		if(editPeito.getText()!=null){
+		if(!editPeito.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -262,7 +263,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					Toast.LENGTH_SHORT).show();}
 
 		//Coxa Direito
-		if(editCoxaDir.getText()!=null){
+		if(!editCoxaDir.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
@@ -282,7 +283,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		//Coxa Esquerda
 
-		if(editCoxaEsq.getText()!=null){
+		if(!editCoxaEsq.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			
@@ -303,7 +304,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		//Panturrilha Direita
 
-		if(editPantuDir.getText()!=null){
+		if(!editPantuDir.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			
@@ -324,7 +325,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		//Panturrilha Esuerda
 
-		if(editPantuEsq.getText()!=null){
+		if(!editPantuEsq.getText().toString().equalsIgnoreCase("")){
 			//data, codigoPerfil e CodigoUsuario
 			//carregarMedicao();
 			
@@ -349,9 +350,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 public void carregarCampos(Medicao m){
 
-	ControleMedida controleMed = new ControleMedida();
-	
-	m.setValor(controleMed.buscarValorMedicao(1));
+
 	
 	//Altura
 	if(m.getCodigoMedida() == 1){
@@ -401,8 +400,7 @@ public void carregarCampos(Medicao m){
 	
 }
 	
-	
-	
+
 	
 //	public void carregarMedicao(){
 //		Usuario usuario = new Usuario();

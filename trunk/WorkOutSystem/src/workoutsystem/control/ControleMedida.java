@@ -24,6 +24,7 @@ public class ControleMedida {
 		return mensagem;	
 	}
 	
+	
 	public int buscarMedida(String nome, String lado){
 		int codigo = 0;
 		IMedidaDao dao = new MedidaDao();
@@ -34,14 +35,28 @@ public class ControleMedida {
 		return codigo;
 	}
 	
-	public Double buscarValorMedicao(int codigo){
-		Double valor = null ;
+	
+	public Medicao buscarMedicao(int codigo){
+		
 		Medicao medicao = new Medicao();
 		IMedidaDao dao = new MedidaDao();
 		
+		if(dao.buscarMedicao(codigo)!= null){
+			medicao = dao.buscarMedicao(codigo);
+			
+		}
+		
+		return medicao;
+	}
+	
+	
+	public Double buscarValor(int codigo){
+		Double valor = null ;
+		IMedidaDao dao = new MedidaDao();
+		
 		if(dao.buscarValorMedicao(codigo)!= null){
-			medicao = dao.buscarValorMedicao(codigo);
-			valor = medicao.getValor();
+			valor = dao.buscarValorMedicao(codigo);
+		
 		}
 		
 		return valor;

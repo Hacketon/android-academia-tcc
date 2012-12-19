@@ -4,20 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import android.content.Context;
 import android.util.Log;
 import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;
 
 public class UsuarioDao implements IUsuarioDao {
-	public UsuarioDao(){
-		
-	}
+	
 	@Override
 	public Usuario buscarUsuario(Usuario u) {
 		try {
-			
 			Connection con = Banco.conexao();
 			String sql = "select codigo,nome,senha from usuario where nome like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -36,9 +32,8 @@ public class UsuarioDao implements IUsuarioDao {
 			Log.e ("SQL",e.getMessage());
 		}
 		return u;
-		
 	}
-
+	
 	@Override
 	public boolean cadastrarUsuario(Usuario u) {
 		try{
@@ -61,35 +56,32 @@ public class UsuarioDao implements IUsuarioDao {
 			Log.e ("SQL",e.getMessage());
 			return false;
 		}
-	
 	}
+	
 	@Override
 	public boolean realizarLogin(Usuario u) {
 		try{
 			boolean verificador;
 			Connection con = Banco.conexao();
-			String sql = "select codigo, nome,senha from usuario where nome like ? and senha like ?";
+			String sql = "select codigo, nome,senha from usuario" +
+					" where nome like ? and senha like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1,u.getNome().trim());
 			prepare.setString(2, u.getSenha().trim());
 			ResultSet result = prepare.executeQuery();
+			
 			if (result.next()){
 				verificador = true;
 			}else{
 				verificador =  false;
 			}
+			
 			prepare.close();
 			con.close();
-			
 			return verificador;
 			
 		}catch (SQLException e){
 			return false;
 		}
-		
 	}
-	
-	
-
-
 }

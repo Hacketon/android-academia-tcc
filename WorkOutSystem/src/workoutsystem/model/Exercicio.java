@@ -8,12 +8,12 @@ public class Exercicio {
 	private String nomeExercicio;
 	private GrupoMuscular grupo;
 	private String descricao;
-	private boolean personalizado;
+	private int personalizado;
 	private List<Passo> listaPassos;
 	
 	public Exercicio(){
 		descricao = "";
-		personalizado = true;
+		personalizado = 1;
 	}
 
 	public String toString(){
@@ -46,7 +46,7 @@ public class Exercicio {
 	} 
 	 */
 	
-	public boolean isPersonalizado() {
+	public int getPersonalizado() {
 		return personalizado;
 	}
 	public void setCodigo(long codigo) {
@@ -61,7 +61,15 @@ public class Exercicio {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public void setPersonalizado(boolean personalizado) {
+	public void setPersonalizado(int personalizado) {
 		this.personalizado = personalizado;
+	}
+
+	public void setListaPassos(List<Passo> listaPassos) {
+		this.listaPassos = listaPassos;
+	}
+
+	public List<Passo> getListaPassos() {
+		return listaPassos;
 	}
 }

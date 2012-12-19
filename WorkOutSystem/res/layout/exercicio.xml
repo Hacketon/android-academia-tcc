@@ -47,7 +47,7 @@
                             android:prompt="@string/title_activity_tela_exercicio" />
 
                         <ListView
-                            android:id="@+id/listaexercicios"
+                            android:id="@+id/listapadrao"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
@@ -71,7 +71,7 @@
                             android:prompt="@string/title_activity_tela_exercicio" />
                 
                     <ListView
-                        android:id="@+id/listaexercicios"
+                        android:id="@+id/listacriado"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"

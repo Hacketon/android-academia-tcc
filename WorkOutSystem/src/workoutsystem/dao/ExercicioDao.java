@@ -28,13 +28,13 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 			boolean verificador;
 			Connection con = Banco.conexao();
-			String sql = "insert into exercicio (nomeexercicio, descricao, personalizado, codigogrupomuscular)" +
+			String sql = "insert into exercicio (nome, descricao, personalizado, codigogrupomuscular)" +
 			" values (?,?,?,?) ";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, e.getNomeExercicio().trim());
 			prepare.setString(2, e.getDescricao().trim());
-			prepare.setBoolean(3, e.isPersonalizado());
+			prepare.setInt(3, e.getPersonalizado());
 			prepare.setInt(4, e.getGrupoMuscular().getCodigo());
 
 			if(prepare.executeUpdate()!=0){
@@ -155,45 +155,8 @@ public class ExercicioDao implements IExercicioDao {
 	}
 
 
-	@Override
-	public List<Exercicio> listarExercicioPersonalizado(String grupo) {
-		List<Exercicio> lista = null;
-		try{
-			Connection con = Banco.conexao();
 
-			String sql = "select exercicio.codigo,exercicio.nomeexercicio," +
-			"exercicio.descricao,exercicio.personalizado," +
-			"exercicio.codigogrupomuscular,grupomuscular.nome" +
-			"from exercicio inner join grupomuscular " +
-			"on exercicio.codigogrupomuscular = grupomuscular.codigo"+
-			"where grupomuscular.nome like ? and personalizado = 1";
-
-			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setString(1, grupo);
-			ResultSet resultSet = prepare.executeQuery();
-			lista = new ArrayList<Exercicio>();
-			while (resultSet.next()){
-				Exercicio exercicio = new Exercicio();
-				exercicio.setCodigo(resultSet.getInt(1));
-				exercicio.setNomeExercicio(resultSet.getString(2));
-				exercicio.setDescricao(resultSet.getString(3));
-				exercicio.setPersonalizado(resultSet.getBoolean(4));
-				GrupoMuscular grupoMuscular= new GrupoMuscular();
-				grupoMuscular.setCodigo(resultSet.getInt(5));
-				grupoMuscular.setNome(resultSet.getString(6));
-				exercicio.setGrupoMuscular(grupoMuscular);
-
-				lista.add(exercicio);
-			}
-
-			prepare.close();
-			con.close();
-		}catch (SQLException e) {
-			// TODO: handle exception
-		}
-		return lista;
-	}
-
+	
 	@Override
 	public Exercicio buscarExercicio(String nome) {
 		Exercicio exercicio = null;
@@ -209,7 +172,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setCodigo(result.getInt(1));
 				exercicio.setNomeExercicio(result.getString(2));
 				exercicio.setDescricao(result.getString(3));
-				exercicio.setPersonalizado(result.getBoolean(4));
+				exercicio.setPersonalizado(result.getInt(4));
 				GrupoMuscular grupo = new GrupoMuscular();
 				grupo.setCodigo(result.getInt(5));
 				exercicio.setGrupoMuscular(grupo);
@@ -225,20 +188,20 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Exercicio> listarExercicios(String grupo,boolean personalizado) {
+	public List<Exercicio> listarExercicios(String grupo,int personalizado) {
 		List<Exercicio> lista = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select exercicio.codigo,exercicio.nomeexercicio," +
-			"exercicio.descricao,exercicio.personalizado," +
-			"exercicio.codigogrupomuscular,grupomuscular.nome" +
+			String sql = "select exercicio.codigo,exercicio.nome, " +
+			"exercicio.descricao,exercicio.personalizado, " +
+			"exercicio.codigogrupomuscular,grupomuscular.nome " +
 			"from exercicio inner join grupomuscular " +
-			"on exercicio.codigogrupomuscular = grupomuscular.codigo"+
-			"where grupomuscular.nome like ? and personalizado = ?";
+			"on exercicio.codigogrupomuscular = grupomuscular.codigo "+
+			"where grupomuscular.nome like ? and exercicio.personalizado = ?";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, grupo);
-			prepare.setBoolean(2, personalizado);
+			prepare.setInt(2, personalizado);
 			ResultSet resultSet = prepare.executeQuery();
 			lista = new ArrayList<Exercicio>();
 			while (resultSet.next()){
@@ -246,12 +209,12 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setCodigo(resultSet.getInt(1));
 				exercicio.setNomeExercicio(resultSet.getString(2));
 				exercicio.setDescricao(resultSet.getString(3));
-				exercicio.setPersonalizado(resultSet.getBoolean(4));
+				exercicio.setPersonalizado(resultSet.getInt(4));
 				GrupoMuscular grupoMuscular= new GrupoMuscular();
 				grupoMuscular.setCodigo(resultSet.getInt(5));
 				grupoMuscular.setNome(resultSet.getString(6));
 				exercicio.setGrupoMuscular(grupoMuscular);
-
+				exercicio.setListaPassos(visualizarPassos(exercicio));
 				lista.add(exercicio);
 			}
 
@@ -274,7 +237,7 @@ public Exercicio buscarExercicioPersonalizado(Exercicio exercicio) {
 		String sql = "select (nome, descricao, personalizado, codigogrupomuscular) from exercicio where personalizado = ?;";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setBoolean(1, exercicio.isPersonalizado());
+		prepare.setInt(1, exercicio.getPersonalizado());
 		ResultSet result = prepare.executeQuery();
 
 
@@ -282,7 +245,7 @@ public Exercicio buscarExercicioPersonalizado(Exercicio exercicio) {
 		if (result.next()){
 			exercicio.setNomeExercicio(result.getString(1));
 			exercicio.setDescricao(result.getString(2));
-			exercicio.setPersonalizado(result.getBoolean(3));
+			exercicio.setPersonalizado(result.getInt(3));
 			// ver se está correto essa parte 
 			grupomuscular.setCodigo(result.getInt(4));
 			exercicio.setGrupoMuscular(grupomuscular);
@@ -317,7 +280,7 @@ public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
 			grupomuscular.setCodigo(result.getInt(3));
 			exercicio.setGrupoMuscular(grupomuscular);
 			//
-			exercicio.setPersonalizado(result.getBoolean(4));
+			exercicio.setPersonalizado(result.getInt(4));
 		}
 
 		prepare.close();

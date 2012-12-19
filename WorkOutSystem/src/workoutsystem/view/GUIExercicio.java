@@ -8,11 +8,13 @@ import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -23,24 +25,29 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
 	private TabSpec tabcriado;
+	private ListView listapadrao;
+	private ListView listacriado;
 	private Spinner cbxExercicioPadrao;
 	private Spinner cbxExercicioCriado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.exercicio);
 
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
+
 		cbxExercicioCriado.setOnItemSelectedListener(this);
 		cbxExercicioPadrao.setOnItemSelectedListener(this);
+
+		listapadrao = (ListView) findViewById(R.id.listapadrao);
+		listacriado = (ListView) findViewById(R.id.listacriado);
+
 		criarTabs();
 		criarCombo();
 	}
-
-
 
 	public void criarTabs(){
 		hospedeiro = (TabHost) findViewById(R.id.hospedeiro);
@@ -75,9 +82,6 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 		cbxExercicioPadrao.setAdapter(adapter);
 	}
 
-
-
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -94,20 +98,16 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 
 	}
 
-
-
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 		ControleExercicio controle = new ControleExercicio();
 		List<Exercicio> listaExercicios = null;
-		switch (parent.getId()) {
-		case R.id.cbx_grupocriado:
-			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),true);
-			
-			break;
-		case R.id.cbx_grupopadrao:
-			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),false);
-			break;
+		if (parent.getId() == R.id.cbx_grupocriado){
+			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),1);
+			createListView(listaExercicios,listacriado);
+		}else{
+			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),0);
+			createListView(listaExercicios,listapadrao);
 		}
 
 	}
@@ -121,6 +121,15 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 	}
 
 
+	private void createListView(List <Exercicio> exercicios,ListView lista) {
+		ArrayList<String> nomes = new ArrayList<String>();
+		for (Exercicio e : exercicios){
+			nomes.add(e.getNomeExercicio());
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nomes);
+		lista.setAdapter(adapter);
+		lista.setCacheColorHint(Color.TRANSPARENT);
+	}
 
 
 

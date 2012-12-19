@@ -86,7 +86,7 @@ public class ControleExercicio {
 		return new ExercicioDao().listarGrupos();
 	}
 
-	public List<Exercicio> listarExercicios(String grupo, boolean personalizado) {
+	public List<Exercicio> listarExercicios(String grupo, int personalizado) {
 		IExercicioDao exercicioDao = new ExercicioDao();
 		return exercicioDao.listarExercicios(grupo, personalizado);
 		

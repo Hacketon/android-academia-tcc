@@ -66,10 +66,9 @@ public class MedidaDao implements IMedidaDao{
 
 	}
 
-	@SuppressWarnings("null")
 	@Override
-	public Medicao buscarValorMedicao(int codigo) {
-		Medicao medicao = null;
+	public Double buscarValorMedicao(int codigo) {
+		Double valor = null;
 		try{
 			Connection con = Banco.conexao();
 			String sql ="select (valor) from medicao where codigomedida = ?;";
@@ -78,7 +77,37 @@ public class MedidaDao implements IMedidaDao{
 			ResultSet result = prepare.executeQuery();
 			
 			if(result.next()){
-				medicao.setValor(result.getInt(1));
+				valor = result.getDouble(1);
+			}
+
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return valor;
+	}
+
+	
+	@Override
+	public Medicao buscarMedicao(int codigo) {
+		Medicao medicao = null;
+		try{
+			Connection con = Banco.conexao();
+			String sql ="select valor, datamedicao,codigomedida,  codigousuario, codigoperfil " +
+					"from medicao where codigomedida = ?;";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				medicao = new Medicao();
+				medicao.setValor(result.getDouble(1));
+				medicao.setDataMedicao(result.getDate(2));
+				medicao.setCodigoMedida(result.getInt(3));
+				medicao.setCodigoPerfil(result.getInt(4));
+				medicao.setCodigoUsuario(result.getInt(5));
+				
 			}
 
 			prepare.close();
@@ -87,6 +116,8 @@ public class MedidaDao implements IMedidaDao{
 			// TODO: handle exception
 		}
 		return medicao;
+	
+	
 	}
 
 }

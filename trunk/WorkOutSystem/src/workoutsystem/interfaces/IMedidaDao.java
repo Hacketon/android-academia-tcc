@@ -22,5 +22,11 @@ public interface IMedidaDao {
 	 * @param codigo
 	 * @return
 	 */
-	public abstract Medicao buscarValorMedicao(int codigo);
+	public abstract Double buscarValorMedicao(int codigo);
+	/**
+	 * Metodo que TUDO de medicao
+	 * @param codigo
+	 * @return
+	 */
+	public abstract Medicao buscarMedicao(int codigo);
 }

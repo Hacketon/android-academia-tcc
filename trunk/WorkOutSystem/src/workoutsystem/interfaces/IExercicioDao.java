@@ -72,24 +72,19 @@ public interface IExercicioDao {
 	 * @return numero do grupo muscular
 	 */
 	public abstract int buscarGrupoMuscular(String nome);
-	/**
-	 * Uma lista de exercicio (personalizados) através do grupo muscular 
-	 * @param grupo = nome do grupo 
-	 * @return Lista de exercicios
-	 */
-	public abstract List<Exercicio> listarExercicioPersonalizado(String grupo);
-	/**
+		/**
 	 * Uma lista de exercicio através do nome do exercicio
 	 * @param nome = nome do exercicio
 	 * @return objeto do tipo exercicio
 	 */
 	public abstract Exercicio buscarExercicio(String nome);
 	/**
-	 * Lista de exercicios não personalizados através do grupo muscular
+	 * Lista de exercicios não personalizados ou personalizados através do grupo muscular e 
+	 * booleano indicando se esta ou não personalizado
 	 * @param grupo
 	 * @return List
 	 */
-	public abstract List<Exercicio> listarExercicios(String grupo,boolean personalizado);
+	public abstract List<Exercicio> listarExercicios(String grupo,int personalizado);
 	/**
 	 * Metodo responsavel pela busca de exercicio por grupo muscular
 	 * @param grupo

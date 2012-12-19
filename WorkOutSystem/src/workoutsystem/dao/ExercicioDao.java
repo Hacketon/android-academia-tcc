@@ -161,7 +161,7 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 			Connection con = Banco.conexao();
 
-			String sql = "select exercicio.codigo,exercicio.nome," +
+			String sql = "select exercicio.codigo,exercicio.nomeexercicio," +
 			"exercicio.descricao,exercicio.personalizado," +
 			"exercicio.codigogrupomuscular,grupomuscular.nome" +
 			"from exercicio inner join grupomuscular " +
@@ -199,8 +199,8 @@ public class ExercicioDao implements IExercicioDao {
 		Exercicio exercicio = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select codigo,nome,descricao,personalizado,codigogrupomuscular" +
-			" from exercicio where nome like ?";
+			String sql = "select codigo,nomeexercicio,descricao,personalizado,codigogrupomuscular" +
+			" from exercicio where nomeexercicio like ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setString(1, nome);
 			ResultSet result = prepared.executeQuery();
@@ -303,7 +303,7 @@ public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
 	GrupoMuscular grupomuscular = new GrupoMuscular();
 	try{
 		Connection con = Banco.conexao();
-		String sql = "select (nome, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
+		String sql = "select (nomeexercicio, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
 		PreparedStatement prepare = con.prepareStatement(sql);	
 		prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
 		ResultSet result  = prepare.executeQuery();

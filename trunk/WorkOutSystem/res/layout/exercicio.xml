@@ -50,9 +50,7 @@
                             android:id="@+id/listapadrao"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:layout_weight="1"
-                            android:dividerHeight="1dp"
-                            android:divider="@android:color/white" />
+                            android:layout_weight="1" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -64,20 +62,18 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
 
-                          <Spinner
-                            android:id="@+id/cbx_grupocriado"
-                            style="@style/AppTheme"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:prompt="@string/title_activity_tela_exercicio" />
-                
+                    <Spinner
+                        android:id="@+id/cbx_grupocriado"
+                        style="@style/AppTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:prompt="@string/title_activity_tela_exercicio" />
+
                     <ListView
                         android:id="@+id/listacriado"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:dividerHeight="1dp"
-                        android:divider="@android:color/white" />
+                        android:layout_weight="1" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -105,7 +101,7 @@
                             android:onClick="onClick"
                             android:text="@string/botao_excluir" />
                     </LinearLayout>
-            </LinearLayout>
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

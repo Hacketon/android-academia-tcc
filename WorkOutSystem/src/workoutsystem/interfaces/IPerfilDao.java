@@ -13,14 +13,14 @@ public interface IPerfilDao {
 	 * @param u
 	 * @return
 	 */
-	public abstract Perfil buscarPerfil();
+	public abstract Perfil buscarPerfil(Usuario u);
 	
 	/**
 	 * metodo responsavel pela criação de um perfil
 	 * @param perfil
 	 * @return
 	 */
-	public abstract boolean criarPerfil(Perfil perfil);
+	public abstract boolean criarPerfil(Perfil perfil,Usuario usuario);
 	
 	
 	/**
@@ -33,7 +33,7 @@ public interface IPerfilDao {
 	 * Metodo responsavel pela atualização do perfil do usuario
 	 * @return true = possivel atualizar caso contrario false;
 	 */
-	public abstract boolean atualizarPerfil(Perfil perfil);
+	public abstract boolean atualizarPerfil(Perfil perfil,Usuario usuario);
 	/**
 	 * Metodo responsavel pela atualização da frequencia perfil do usuario
 	 * @param perfil

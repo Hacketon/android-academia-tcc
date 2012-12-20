@@ -46,10 +46,10 @@ public class ControleUsuario {
 	}
 
 	public boolean cadastrarUsuario(Usuario u,String confSenha){
-		IUsuarioDao daoUsuarioDao = new UsuarioDao();
+		IUsuarioDao daoUsuario = new UsuarioDao();
 		if (u.getSenha().equalsIgnoreCase(confSenha)){
-			if (daoUsuarioDao.buscarUsuario(u) == null){
-				return daoUsuarioDao.cadastrarUsuario(u);
+			if (daoUsuario.buscarUsuario(u) == null){
+				return daoUsuario.cadastrarUsuario(u);
 			}else{
 				return false;
 			}
@@ -57,6 +57,11 @@ public class ControleUsuario {
 		}else{
 			return false;
 		}		
+	}
+	
+	public Usuario buscarUsuario(){
+		IUsuarioDao daoUsuario = new UsuarioDao();
+		return daoUsuario.buscarUsuario();
 	}
 
 }

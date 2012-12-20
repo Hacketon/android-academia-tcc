@@ -39,10 +39,11 @@ public class UsuarioDao implements IUsuarioDao {
 		try{
 			boolean verificador;
 			Connection con = Banco.conexao();
-			String sql = "insert into usuario (nome,senha) values (?,?)";
+			String sql = "insert into usuario (nome,senha,logado) values (?,?,?)";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1,u.getNome().trim());
 			prepare.setString(2,u.getSenha().trim());
+			prepare.setInt(3, u.getLogado());
 			int resultado = prepare.executeUpdate();
 			if (resultado == 0 ){
 				verificador = false;
@@ -72,6 +73,16 @@ public class UsuarioDao implements IUsuarioDao {
 			
 			if (result.next()){
 				verificador = true;
+				
+				sql = "update usuario set logado = 0";
+				prepare = con.prepareStatement(sql);
+				prepare.executeUpdate();
+				sql = "update usuario set logado = 1 " +
+						" where codigo = ?";
+				prepare = con.prepareStatement(sql);
+				prepare.setInt(1, result.getInt(1));
+				prepare.executeUpdate();
+				System.out.println("");
 			}else{
 				verificador =  false;
 			}
@@ -84,4 +95,29 @@ public class UsuarioDao implements IUsuarioDao {
 			return false;
 		}
 	}
+
+	@Override
+	public Usuario buscarUsuario() {
+		Usuario u = null;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select codigo,nome,senha,logado from usuario " +
+					"where logado = 1" ;
+			PreparedStatement prepare = con.prepareStatement(sql);
+			ResultSet result = prepare.executeQuery();
+			if (result.next()){
+				u = new Usuario();
+				u.setCodigo(result.getInt(1));
+				u.setNome(result.getString(2));
+				u.setSenha(result.getString(3));
+				u.setLogado(result.getInt(4));
+			}
+			prepare.close();
+			con.close();
+		}catch (SQLException e) {
+			
+		}
+		return u;
+	}
+	
 }

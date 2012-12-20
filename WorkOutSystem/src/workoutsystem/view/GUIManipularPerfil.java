@@ -102,7 +102,6 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 
 	//corrigir codigo , deixando as verificações no controle 
 	public Perfil criaManipulaPerfil(){
-		Usuario usuario = new Usuario();
 		Perfil perfil = new Perfil();
 		if(verificarUsuario()){
 			perfil.setNome(String.valueOf(editNome.getText()));
@@ -111,7 +110,6 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			}else {
 				perfil.setSexo(false);
 			}
-			perfil.setCodigousuario(usuario.getCodigo());
 			return perfil;
 		}else {
 			return null;

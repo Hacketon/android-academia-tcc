@@ -16,12 +16,17 @@ public class ControlePerfil {
 		String mensagem = "Erro ao cadastrar Perfil";
 		IPerfilDao dao = new PerfilDao();
 		boolean verificar = false;
+		ControleUsuario controle = new ControleUsuario();
+		Usuario u = controle.buscarUsuario();
 		if(buscarPerfil() == null){
-			if(dao.criarPerfil(perfil) && dao.frequenciaPerfil(perfil)){
-				mensagem ="Criado com sucesso"; 
-			}else{
-				mensagem = atualizarPerfil(perfil);
+			if (u != null){
+				if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+					mensagem ="Criado com sucesso"; 
+				}else{
+					mensagem = atualizarPerfil(perfil);
+				}
 			}
+			
 		}
 		return mensagem;
 	}
@@ -29,18 +34,29 @@ public class ControlePerfil {
 	public String atualizarPerfil(Perfil perfil){
 		String mensagem = "Erro ao atualizar perfil";
 		IPerfilDao dao = new PerfilDao();
+		ControleUsuario controle = new ControleUsuario();
 		boolean verificar = false;
-		if(dao.buscarPerfil() != null){
-			if(dao.atualizarPerfil(perfil) && dao.frequenciaPerfil(perfil)){
-				mensagem ="Atualizado com sucesso"; 
+		Usuario u = controle.buscarUsuario();
+		if (u!= null){
+			if(dao.buscarPerfil(u) != null){
+				if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+					mensagem ="Atualizado com sucesso"; 
+				}
 			}
 		}
+		
 		return mensagem;
 	}
 
 	public Perfil buscarPerfil(){
 		IPerfilDao dao = new PerfilDao();
-		Perfil perfil = dao.buscarPerfil();
+		Perfil perfil = null;
+		ControleUsuario controle = new ControleUsuario();
+		Usuario u = controle.buscarUsuario();
+		if (u!= null){
+			perfil = dao.buscarPerfil(u);
+		}
+		
 		return perfil;
 
 	}

@@ -12,6 +12,7 @@ public class Usuario {
 	private String nome;
 	@NotNull(message = "Senha não pode ser vazia")
 	private String senha;
+	private int logado;
 	
 	public String getNome() {
 		
@@ -31,6 +32,12 @@ public class Usuario {
 	}
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+	public void setLogado(int logado) {
+		this.logado = logado;
+	}
+	public int getLogado() {
+		return logado;
 	}
 	
 	

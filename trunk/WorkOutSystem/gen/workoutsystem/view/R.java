@@ -227,21 +227,22 @@ public final class R {
         public static final int fichatreino=0x7f03000c;
         public static final int fichausuario=0x7f03000d;
         public static final int grafico=0x7f03000e;
-        public static final int lista_exercicios=0x7f03000f;
-        public static final int lista_ficha=0x7f030010;
-        public static final int login=0x7f030011;
-        public static final int manipularficha=0x7f030012;
-        public static final int manipularperfil=0x7f030013;
-        public static final int medidas=0x7f030014;
-        public static final int novousuario=0x7f030015;
-        public static final int passo=0x7f030016;
-        public static final int perfil=0x7f030017;
-        public static final int principal=0x7f030018;
-        public static final int realizarexercicio=0x7f030019;
-        public static final int rotina=0x7f03001a;
-        public static final int sobre=0x7f03001b;
-        public static final int status=0x7f03001c;
-        public static final int treino=0x7f03001d;
+        public static final int itens_simple_lista=0x7f03000f;
+        public static final int lista_exercicios=0x7f030010;
+        public static final int lista_ficha=0x7f030011;
+        public static final int login=0x7f030012;
+        public static final int manipularficha=0x7f030013;
+        public static final int manipularperfil=0x7f030014;
+        public static final int medidas=0x7f030015;
+        public static final int novousuario=0x7f030016;
+        public static final int passo=0x7f030017;
+        public static final int perfil=0x7f030018;
+        public static final int principal=0x7f030019;
+        public static final int realizarexercicio=0x7f03001a;
+        public static final int rotina=0x7f03001b;
+        public static final int sobre=0x7f03001c;
+        public static final int status=0x7f03001d;
+        public static final int treino=0x7f03001e;
     }
     public static final class menu {
         public static final int activity_tela_principal=0x7f070000;

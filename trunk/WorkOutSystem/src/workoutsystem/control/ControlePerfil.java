@@ -20,7 +20,8 @@ public class ControlePerfil {
 		Usuario u = controle.buscarUsuario();
 		if(buscarPerfil() == null){
 			if (u != null){
-				if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				//if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				if(dao.criarPerfil(perfil,u)){
 					mensagem ="Criado com sucesso"; 
 				}else{
 					mensagem = atualizarPerfil(perfil);
@@ -39,7 +40,8 @@ public class ControlePerfil {
 		Usuario u = controle.buscarUsuario();
 		if (u!= null){
 			if(dao.buscarPerfil(u) != null){
-				if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				//if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				if(dao.atualizarPerfil(perfil,u)){
 					mensagem ="Atualizado com sucesso"; 
 				}
 			}
@@ -61,10 +63,10 @@ public class ControlePerfil {
 
 	}
 
-	public String excluirPerfil(Perfil perfil){
+	public String excluirPerfil(Usuario usuario){
 		String mensagem = "Erro ao excluir";
 		IPerfilDao dao = new PerfilDao();
-		if(dao.excluirPerfil(perfil.getCodigo())){
+		if(dao.excluirPerfil(usuario.getCodigo())){
 			mensagem = "Excluido com sucesso";
 		}
 		return mensagem;

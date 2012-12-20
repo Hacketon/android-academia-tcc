@@ -80,8 +80,9 @@ public class PerfilDao implements IPerfilDao{
 		try{
 			boolean verificador = false;
 			Connection con = Banco.conexao();
-			String sql = "delete from perfil where codigo = ?";
+			String sql = "delete from perfil where codigousuario = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigoUsuario);
 			int resultado = prepare.executeUpdate();
 			
 			if (resultado == 0 ){
@@ -106,14 +107,14 @@ public class PerfilDao implements IPerfilDao{
 		boolean verificador = true;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "update Perfil set codigo = ? ,nome = ?,sexo = ? , codigousuario = ?" +
-				"where codigo =?";
+			String sql = "update Perfil set nome = ?,sexo = ? , codigousuario = ?" +
+				"where codigousuario =?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setInt(1, perfil.getCodigo());
-			prepare.setString(2, perfil.getNome());
-			prepare.setBoolean(3, perfil.getSexo());
+			//prepare.setInt(1, perfil.getCodigo());
+			prepare.setString(1, perfil.getNome());
+			prepare.setBoolean(2, perfil.getSexo());
+			prepare.setInt(3, usuario.getCodigo());
 			prepare.setInt(4, usuario.getCodigo());
-			prepare.setInt(5, perfil.getCodigo());
 			int atualizados =prepare.executeUpdate();
 			if (atualizados >0){
 				verificador = true;
@@ -129,7 +130,6 @@ public class PerfilDao implements IPerfilDao{
 		return verificador;
 
 	}
-
 
 	@Override
 	public boolean frequenciaPerfil(Perfil perfil) {
@@ -157,7 +157,6 @@ public class PerfilDao implements IPerfilDao{
 		}
 
 	}
-
 
 	
 	@Override

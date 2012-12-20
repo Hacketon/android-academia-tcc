@@ -6,4 +6,5 @@ public interface IDiaSemana {
 	
 	public abstract List<DiaSemana> listarDias();
 	
+	public abstract int buscarCodigoDia(String Nome);
 }

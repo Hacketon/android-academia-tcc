@@ -1,8 +1,11 @@
 package workoutsystem.control;
 
 import android.widget.Toast;
+import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.PerfilDao;
 import workoutsystem.dao.UsuarioDao;
+import workoutsystem.interfaces.IDiaSemana;
+import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Perfil;
@@ -20,11 +23,9 @@ public class ControlePerfil {
 		Usuario u = controle.buscarUsuario();
 		if(buscarPerfil() == null){
 			if (u != null){
-				//if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
-				if(dao.criarPerfil(perfil,u)){
+				if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				//if(dao.criarPerfil(perfil,u)){
 					mensagem ="Criado com sucesso"; 
-				}else{
-					mensagem = atualizarPerfil(perfil);
 				}
 			}
 			
@@ -40,8 +41,8 @@ public class ControlePerfil {
 		Usuario u = controle.buscarUsuario();
 		if (u!= null){
 			if(dao.buscarPerfil(u) != null){
-				//if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
-				if(dao.atualizarPerfil(perfil,u)){
+				if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
+				//if(dao.atualizarPerfil(perfil,u)){
 					mensagem ="Atualizado com sucesso"; 
 				}
 			}
@@ -55,7 +56,7 @@ public class ControlePerfil {
 		Perfil perfil = null;
 		ControleUsuario controle = new ControleUsuario();
 		Usuario u = controle.buscarUsuario();
-		if (u!= null){
+		if (u != null){
 			perfil = dao.buscarPerfil(u);
 		}
 		
@@ -71,4 +72,15 @@ public class ControlePerfil {
 		}
 		return mensagem;
 	}
+	
+	public int codigoFrequencia(String Nome){
+		int codigo = 0;
+		IDiaSemana dao = new FichaDao();
+		if(dao.buscarCodigoDia(Nome) != 0){
+			codigo = dao.buscarCodigoDia(Nome);
+		}
+		return codigo;
+	}
+	
+	
 }

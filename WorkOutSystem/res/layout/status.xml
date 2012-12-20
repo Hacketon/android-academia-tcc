@@ -91,7 +91,7 @@
                 android:weightSum="150" >
 
                 <TextView
-                    android:id="@+id/tv_alturaa"
+                    android:id="@+id/tv_alturausuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     android:text="@string/label_altura" />
 
                 <TextView
-                    android:id="@+id/tv_datanascc"
+                    android:id="@+id/tv_pesousuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:text="@string/label_peso" />
 
                 <TextView
-                    android:id="@+id/tv_cinturaa"
+                    android:id="@+id/tv_cinturausuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                     android:text="@string/label_cintura" />
 
                 <TextView
-                    android:id="@+id/tv_quadrill"
+                    android:id="@+id/tv_quadrilusaurio"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                     android:text="@string/label_quadril" />
 
                 <TextView
-                    android:id="@+id/tv_peitoo"
+                    android:id="@+id/tv_peitousuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                 android:weightSum="100" >
 
                 <TextView
-                    android:id="@+id/tv_bracodir"
+                    android:id="@+id/tv_bracodirusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                     android:text="@string/label_direita" />
 
                 <TextView
-                    android:id="@+id/tv_bracoesq"
+                    android:id="@+id/tv_bracoesqusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                 android:weightSum="150" >
 
                 <TextView
-                    android:id="@+id/tv_coxaa"
+                    android:id="@+id/tv_coxa"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                 android:weightSum="100" >
 
                 <TextView
-                    android:id="@+id/tv_coxadir"
+                    android:id="@+id/tv_coxadirusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                     android:text="@string/label_direita" />
 
                 <TextView
-                    android:id="@+id/tv_coxaesq"
+                    android:id="@+id/tv_coxaesqusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
                 android:weightSum="100" >
 
                 <TextView
-                    android:id="@+id/tv_panturillhadir"
+                    android:id="@+id/tv_panturillhadirusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
                     android:text="@string/label_direita" />
 
                 <TextView
-                    android:id="@+id/tv_panturillhaesq"
+                    android:id="@+id/tv_panturillhaesqusuario"
                     style="@style/textopequeno"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

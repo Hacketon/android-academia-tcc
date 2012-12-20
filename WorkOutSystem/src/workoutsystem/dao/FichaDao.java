@@ -35,4 +35,23 @@ public class FichaDao implements IDiaSemana{
 		return listaDias;
 	}
 
+	public int buscarCodigoDia(String Nome){
+		int codigo = 0;
+		try{
+			Connection con = Banco.conexao();
+			String sql =" select codigo from diaSemana where diaSemana = ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setString(1, Nome);
+			ResultSet result = prepare.executeQuery();
+			
+			while (result.next()) {
+				codigo = result.getInt(1);
+			}
+			
+		}catch (SQLException e) {
+			
+		}
+		return codigo;
+		
+	}
 }

@@ -20,7 +20,8 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
-public class GUIExercicio extends Activity implements View.OnClickListener,Spinner.OnItemSelectedListener{
+public class GUIExercicio extends Activity 
+implements View.OnClickListener,Spinner.OnItemSelectedListener{
 
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
@@ -49,7 +50,7 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 		criarCombo();
 	}
 
-	public void criarTabs(){
+	private void criarTabs(){
 		hospedeiro = (TabHost) findViewById(R.id.hospedeiro);
 		hospedeiro.setup();
 
@@ -65,7 +66,7 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 
 	}
 
-	public void criarCombo(){
+	private void criarCombo(){
 		ArrayList<String> listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
 		ArrayList<GrupoMuscular> grupos = 
@@ -103,11 +104,21 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 		ControleExercicio controle = new ControleExercicio();
 		List<Exercicio> listaExercicios = null;
 		if (parent.getId() == R.id.cbx_grupocriado){
-			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),1);
+			
+			listaExercicios = controle.listarExercicios
+			(parent.getItemAtPosition(pos).toString(),1);
 			createListView(listaExercicios,listacriado);
-		}else{
-			listaExercicios = controle.listarExercicios(parent.getItemAtPosition(pos).toString(),0);
+			
+		}else if (parent.getId()== R.id.cbx_grupopadrao){
+			
+			listaExercicios = controle.listarExercicios
+			(parent.getItemAtPosition(pos).toString(),0);
 			createListView(listaExercicios,listapadrao);
+			
+		}else if (parent.getId() == R.id.listacriado){
+			
+		}else{
+
 		}
 
 	}
@@ -126,9 +137,10 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Spinn
 		for (Exercicio e : exercicios){
 			nomes.add(e.getNomeExercicio());
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nomes);
+		ArrayAdapter<String> adapter =
+			new ArrayAdapter<String>(this,R.layout.itens_simple_lista,nomes);
 		lista.setAdapter(adapter);
-		lista.setCacheColorHint(Color.TRANSPARENT);
+		lista.setCacheColorHint(Color.BLUE);
 	}
 
 

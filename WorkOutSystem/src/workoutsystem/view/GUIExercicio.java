@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.SyncStateContract.Constants;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,8 +22,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
-public class GUIExercicio extends Activity 
-implements View.OnClickListener,Spinner.OnItemSelectedListener{
+public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, ListView.OnItemClickListener{
 
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
@@ -39,12 +40,13 @@ implements View.OnClickListener,Spinner.OnItemSelectedListener{
 
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
+		listapadrao = (ListView) findViewById(R.id.listapadrao);
+		listacriado = (ListView) findViewById(R.id.listacriado);
 
 		cbxExercicioCriado.setOnItemSelectedListener(this);
 		cbxExercicioPadrao.setOnItemSelectedListener(this);
-
-		listapadrao = (ListView) findViewById(R.id.listapadrao);
-		listacriado = (ListView) findViewById(R.id.listacriado);
+		listacriado.setOnItemClickListener(this);
+		listapadrao.setOnItemClickListener(this);
 
 		criarTabs();
 		criarCombo();
@@ -104,23 +106,16 @@ implements View.OnClickListener,Spinner.OnItemSelectedListener{
 		ControleExercicio controle = new ControleExercicio();
 		List<Exercicio> listaExercicios = null;
 		if (parent.getId() == R.id.cbx_grupocriado){
-			
 			listaExercicios = controle.listarExercicios
 			(parent.getItemAtPosition(pos).toString(),1);
 			createListView(listaExercicios,listacriado);
-			
+
 		}else if (parent.getId()== R.id.cbx_grupopadrao){
-			
 			listaExercicios = controle.listarExercicios
 			(parent.getItemAtPosition(pos).toString(),0);
 			createListView(listaExercicios,listapadrao);
-			
-		}else if (parent.getId() == R.id.listacriado){
-			
-		}else{
 
 		}
-
 	}
 
 
@@ -141,6 +136,28 @@ implements View.OnClickListener,Spinner.OnItemSelectedListener{
 			new ArrayAdapter<String>(this,R.layout.itens_simple_lista,nomes);
 		lista.setAdapter(adapter);
 		lista.setCacheColorHint(Color.BLUE);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+		ControleExercicio controle = new ControleExercicio();
+		Bundle b = new Bundle();
+		Intent i = new Intent();
+		
+		if (parent.getId() == R.id.listacriado){
+
+			Exercicio exercicio = controle.buscarExercicio
+			(parent.getItemAtPosition(pos).toString());
+			b.putParcelable("Exercicio", exercicio);
+			i.putExtra("bundle", b);
+			i.setClass(this, GUICriarExercicio.class);
+			startActivity(i);
+
+		}else if (parent.getId() == R.id.listapadrao){
+
+		}
+
+		
 	}
 
 

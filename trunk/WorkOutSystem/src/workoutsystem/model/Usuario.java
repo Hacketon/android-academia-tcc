@@ -14,6 +14,9 @@ public class Usuario {
 	private String senha;
 	private int logado;
 	
+	public Usuario (){
+		logado = 0;
+	}
 	public String getNome() {
 		
 		return nome;

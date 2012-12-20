@@ -129,7 +129,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		Date data = new java.util.Date();
 		Perfil perfil = controlePerf.buscarPerfil();
 		IPerfilDao daoPerf = new PerfilDao();
-		perfil = daoPerf.buscarPerfil();
+		//perfil = daoPerf.buscarPerfil();
 		
 		//Altura
 		if(!editAltura.getText().toString().equalsIgnoreCase("")){
@@ -137,7 +137,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
 			medicao.setDataMedicao(data);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			//medida
@@ -155,7 +155,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPeso.getText().toString()));
@@ -174,7 +174,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCintura.getText().toString()));
@@ -193,7 +193,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editQuadril.getText().toString()));
@@ -213,7 +213,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editBracoDir.getText().toString()));
@@ -231,7 +231,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
@@ -250,7 +250,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPeito.getText().toString()));
@@ -268,7 +268,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//carregarMedicao();
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
@@ -289,7 +289,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
@@ -310,7 +310,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPantuDir.getText().toString()));
@@ -331,7 +331,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			
 			java.sql.Date data1 = new java.sql.Date( data.getDate());
 			medicao.setDataMedicao(data1);
-			medicao.setCodigoUsuario(perfil.getCodigousuario());
+			//medicao.setCodigoUsuario(perfil.getCodigousuario());
 			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPantuEsq.getText().toString()));

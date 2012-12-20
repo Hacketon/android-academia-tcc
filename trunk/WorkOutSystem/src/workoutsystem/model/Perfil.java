@@ -10,7 +10,6 @@ public class Perfil {
 	@NotNull
 	private String nome;
 	private boolean sexo;
-	private int codigousuario;
 	private List<DiaSemana> frequencia;
 	
 	public int getCodigo() {
@@ -32,12 +31,7 @@ public class Perfil {
 		this.sexo = sexo;
 
 	}
-	public int getCodigousuario() {
-		return codigousuario;
-	}
-	public void setCodigousuario(int codigousuario) {
-		this.codigousuario = codigousuario;
-	}
+	
 	public void setFrequencia(List<DiaSemana> frequencia) {
 		this.frequencia = frequencia;
 	}

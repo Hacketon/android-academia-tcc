@@ -14,18 +14,20 @@ import workoutsystem.model.Usuario;
 
 public class PerfilDao implements IPerfilDao{
 
-	public Perfil buscarPerfil() {
+	public Perfil buscarPerfil(Usuario u) {
 		Perfil perfil = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select nome ,sexo from perfil;";
+			String sql = "select codigo, nome ,sexo from perfil where codigousuario = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, u.getCodigo());
 			ResultSet result = prepare.executeQuery();
-
-			while(result.next()){
+			
+			if (result.next()){
 				perfil = new Perfil();
-				perfil.setNome(result.getString(1));
-				perfil.setSexo(result.getBoolean(2));
+				perfil.setCodigo(result.getInt(1));
+				perfil.setNome(result.getString(2));
+				perfil.setSexo(result.getBoolean(3));
 			}
 
 			prepare.close();
@@ -41,17 +43,16 @@ public class PerfilDao implements IPerfilDao{
 	
 	
 	@Override
-	public boolean criarPerfil(Perfil perfil) {
+	public boolean criarPerfil(Perfil perfil,Usuario usuario) {
 		
 		try{
 			boolean verificador = false;
 			Connection con = Banco.conexao();
-			String sql ="insert into perfil (nome, sexo, codigousuario) values (?,? ,? );";
+			String sql ="insert into perfil (nome, sexo, codigousuario) values (?,? ,?);";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
-			prepare.setInt(3, perfil.getCodigousuario());
+			prepare.setInt(3, usuario.getCodigo());
 			
 			int resultado = prepare.executeUpdate();
 			
@@ -101,7 +102,7 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 	@Override
-	public boolean atualizarPerfil(Perfil perfil) {
+	public boolean atualizarPerfil(Perfil perfil,Usuario usuario) {
 		boolean verificador = true;
 		try{
 			Connection con = Banco.conexao();
@@ -111,7 +112,7 @@ public class PerfilDao implements IPerfilDao{
 			prepare.setInt(1, perfil.getCodigo());
 			prepare.setString(2, perfil.getNome());
 			prepare.setBoolean(3, perfil.getSexo());
-			prepare.setInt(4, perfil.getCodigousuario());
+			prepare.setInt(4, usuario.getCodigo());
 			prepare.setInt(5, perfil.getCodigo());
 			int atualizados =prepare.executeUpdate();
 			if (atualizados >0){
@@ -139,13 +140,15 @@ public class PerfilDao implements IPerfilDao{
 			prepare.setInt(1, perfil.getCodigo());
 			prepare.executeUpdate();
 			
-			sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
-			prepare = con.prepareStatement(sql);
 			for (DiaSemana d: perfil.getFrequencia()){
+				sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
+				prepare = con.prepareStatement(sql);
 				prepare.setInt(1,d.getCodigo());
 				prepare.setInt(2, perfil.getCodigo());
 				prepare.executeUpdate();
 			}
+			prepare.close();
+			con.close();
 			
 			return true;
 			

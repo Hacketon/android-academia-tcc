@@ -63,18 +63,9 @@ public class ControleExercicio {
 		return mensagem;
 	}
 	
-	public String buscarExercicioPersonalizado(Exercicio exercicio){
-
-		String mensagem = "Erro ao buscar exercicios personalizados";
+	public Exercicio buscarExercicio(String nome){
 		IExercicioDao dao = new ExercicioDao();
-
-		if(dao.buscarExercicioPersonalizado(exercicio) != null){
-			mensagem = "Exercicios encontrados";
-		}else {
-			mensagem = "Não foram encontrados exercicios";
-		}
-
-		return mensagem;
+		return dao.buscarExercicio(nome);
 	}
 
 	

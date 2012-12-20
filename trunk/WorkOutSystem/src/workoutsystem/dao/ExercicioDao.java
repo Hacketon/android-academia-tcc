@@ -163,8 +163,8 @@ public class ExercicioDao implements IExercicioDao {
 		Exercicio exercicio = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select codigo,nomeexercicio,descricao,personalizado,codigogrupomuscular" +
-			" from exercicio where nomeexercicio like ?";
+			String sql = "select codigo,nome,descricao,personalizado,codigogrupomuscular" +
+			" from exercicio where nome like ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setString(1, nome);
 			ResultSet result = prepared.executeQuery();

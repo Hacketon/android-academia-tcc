@@ -6,6 +6,7 @@ import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.util.Log;
@@ -31,6 +32,19 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		criarCombo();
 		editNomeExercicio = (EditText) findViewById(R.id.edt_nomeExercicio);
 		editDescricaoExercicio = (EditText) findViewById(R.id.edt_descricaoExercicio);
+		
+		carregarExercicio();
+		
+	}
+	
+	public void carregarExercicio(){
+		Bundle b = this.getIntent().getExtras();
+		if (b != null){
+			Exercicio e = b.getParcelable("Exercicio");
+			editNomeExercicio.setText(e.getNomeExercicio());
+			editDescricaoExercicio.setText(e.getDescricao());
+			//cbxGrupo.setSelection(e.getGrupoMuscular().getNome());
+		}
 	}
 
 	public void criarCombo(){

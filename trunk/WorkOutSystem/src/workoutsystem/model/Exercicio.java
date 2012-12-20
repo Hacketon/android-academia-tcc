@@ -1,8 +1,12 @@
 package workoutsystem.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Exercicio {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Exercicio implements Serializable, Parcelable {
 	
 	private long codigo;
 	private String nomeExercicio;
@@ -63,5 +67,17 @@ public class Exercicio {
 
 	public List<Passo> getListaPassos() {
 		return listaPassos;
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -23,4 +23,10 @@ public interface IUsuarioDao {
 	 * @return true = usuario pode logar , false = usuario não pode logar
 	 */
 	public abstract boolean realizarLogin(Usuario u);
+	/**
+	 * Busca o usuario que esta logado no sistema
+	 * @return usuario logado caso contrario null
+	 */
+	public abstract Usuario buscarUsuario();
 }
+	

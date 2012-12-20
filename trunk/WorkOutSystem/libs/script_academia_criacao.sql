@@ -1,14 +1,16 @@
+
 create table treino
 (
 	codigo integer primary key autoincrement,
-	nometreino varchar (2) not null
+	nome varchar (2) not null
 );
 
 create table usuario 
 (	
 	codigo integer primary key autoincrement,
 	nome varchar(12) not null,
-	senha varchar(20) not null
+	senha varchar(20) not null,
+	logado boolean not null
 );
 
 create table medida
@@ -31,9 +33,20 @@ create table diaSemana
 create table grupomuscular
 (
 	codigo integer primary key autoincrement,
-	nomegrupomuscular varchar(30) not null
+	nome varchar(30) not null
 
 );
+
+create table ficha
+(
+	codigo integer primary key autoincrement,
+	nome varchar(20) not null,
+	duracaoDias int not null,
+	objetivo varchar (100) null,
+	realizacoes int not null
+ 
+);
+
 
 
 -- Com chave estrangeira
@@ -41,11 +54,13 @@ create table grupomuscular
 create table exercicio 
 (
 	codigo integer primary key autoincrement,
-	nomeexercicio varchar(30) not null,
+	nome varchar(30) not null,
 	descricao varchar (100) null,
 	personalizado boolean not null,
 	codigogrupomuscular int not null,
-	foreign key (codigogrupomuscular) references grupomuscular (codigo)
+	foreign key (codigogrupomuscular) references grupomuscular 
+
+(codigo)
 );
 
 
@@ -65,27 +80,22 @@ create table perfil
 create table frequenciaPerfil
 (
      codigodia int not null,   
-     codigoperfil int not null,
-     codigousuario int not null,          
+     codigoperfil int not null,         
 
-     foreign key (codigousuario) references  usuario(codigo),
      foreign key (codigoperfil) references  perfil(codigo),
      foreign key (codigodia) references  diaSemana(codigo)
 
 );
 
-create table ficha
+create table perfilFicha
 (
-	codigo integer primary key autoincrement,
-	nomeficha varchar(20) not null,
-	duracaoDias int not null,
-	objetivo varchar (100) null,
-	realizacoes int not null,
-	codigoperfil int not null,
-  codigousuario int not null,  
+       codigoperfil int not null,       
+       codigoficha int not null,       
+       atual boolean not null,       
 
-	foreign key (codigousuario) references usuario (codigo),
-	foreign key (codigoperfil) references perfil (codigo)
+       foreign key (codigoperfil) references perfil(codigo),
+       foreign key (codigoficha) references ficha(codigo)
+       
 );
 
 create table realizacao
@@ -116,10 +126,8 @@ create table medicao
 	valor decimal (9,2) not null,
 	datamedicao datetime not null,
 	codigomedida int not null,
-	codigousuario int not null,
-  codigoperfil int not null,  
+	codigoperfil int not null,  
 
-  foreign key (codigousuario) references usuario (codigo),
 	foreign key (codigoperfil) references perfil (codigo),
 	foreign key (codigomedida) references medida (codigo)
 );
@@ -127,14 +135,12 @@ create table medicao
 create table avatar
 (
 	codigo integer primary key autoincrement,
-	nomeavatar varchar (20) not null,
+	nome varchar (20) not null,
 	imagem int not null,
 	nivel varchar (30) not null,
 	mensagem varchar (200) not null,
 	codigoperfil int not null,
- 	codigousuario int not null,
 	
-	foreign key (codigousuario) references usuario (codigo),
 	foreign key (codigoperfil) references perfil (codigo)	
 );
 
@@ -166,5 +172,3 @@ create table especificacao
 	foreign key (codigotreino) references treino (codigo)
 
 );
-
-

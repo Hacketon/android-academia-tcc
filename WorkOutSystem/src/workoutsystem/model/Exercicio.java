@@ -36,16 +36,8 @@ public class Exercicio {
 	public String getDescricao() {
 		return descricao;
 	}
-	/*
-	 *public int getPersonalizado(){
-		if (personalizado = true){
-			return 1;
-		}else{
-			return 0;
-		}
-	} 
-	 */
 	
+		
 	public int getPersonalizado() {
 		return personalizado;
 	}

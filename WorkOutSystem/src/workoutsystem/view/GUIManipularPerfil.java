@@ -2,6 +2,7 @@ package workoutsystem.view;
 
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControlePerfil;
+import workoutsystem.control.ControleUsuario;
 import workoutsystem.dao.PerfilDao;
 import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.model.Perfil;
@@ -83,17 +84,25 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	@Override
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
+		ControleUsuario controleUsu = new ControleUsuario();
+		Usuario u = controleUsu.buscarUsuario();
 		Perfil perfil = null;
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
 			perfil = criaManipulaPerfil();
+			if(controle.buscarPerfil()==null){
 			Toast.makeText(this, controle.cadastrarPerfil(perfil),
 					Toast.LENGTH_LONG).show();
+			}else{
+
+				Toast.makeText(this, controle.atualizarPerfil(perfil),
+						Toast.LENGTH_LONG).show();
+			}
 			break;
 		case R.id.btn_excperfil:
 			limparCampos();
 			perfil = criaManipulaPerfil();
-			Toast.makeText(this, controle.excluirPerfil(perfil),
+			Toast.makeText(this, controle.excluirPerfil(u),
 					Toast.LENGTH_LONG).show();
 			break;
 		}

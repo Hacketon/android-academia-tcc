@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
@@ -37,25 +38,30 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 	@Override
-	public boolean adicionarMedicao(Medicao medicao) {
+	public boolean adicionarMedicao(List<Medicao> medicoes) {
 		boolean verificador = false;
 		try{
 			Connection con = Banco.conexao();
-			String sql ="insert into medicao (valor, datamedicao, codigomedida, codigousuario, codigoperfil )" +
-			" values (?,?,?,?,?);";
-			PreparedStatement prepare = con.prepareStatement(sql);
+			PreparedStatement prepare = null;
 
-			prepare.setDouble(1,medicao.getValor() );
-			java.sql.Date dataSql = new java.sql.Date( medicao.getDataMedicao().getTime());
-			prepare.setDate(2, dataSql);
-			prepare.setInt(3, medicao.getCodigoMedida() );
-			prepare.setInt(4, medicao.getCodigoPerfil());
-			prepare.setInt(5, medicao.getCodigoUsuario());
-			if(prepare.executeUpdate()!=0){
-				verificador = true;
-			}else{
-				verificador = false;
+			for(Medicao m: medicoes){
+				String sql ="insert into medicao (valor, datamedicao, codigomedida, codigousuario, codigoperfil )" +
+				" values (?,?,?,?,?);";
+				 prepare = con.prepareStatement(sql);
+
+				prepare.setDouble(1,m.getValor() );
+				java.sql.Date dataSql = new java.sql.Date( m.getDataMedicao().getTime());
+				prepare.setDate(2, dataSql);
+				prepare.setInt(3, m.getCodigoMedida() );
+				prepare.setInt(4, m.getCodigoPerfil());
+				prepare.setInt(5, m.getCodigoUsuario());
+				if(prepare.executeUpdate()!=0){
+					verificador = true;
+				}else{
+					verificador = false;
+				}
 			}
+
 			prepare.close();
 			con.close();
 			return verificador;
@@ -75,7 +81,7 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			ResultSet result = prepare.executeQuery();
-			
+
 			if(result.next()){
 				valor = result.getDouble(1);
 			}
@@ -88,18 +94,18 @@ public class MedidaDao implements IMedidaDao{
 		return valor;
 	}
 
-	
+
 	@Override
 	public Medicao buscarMedicao(int codigo) {
 		Medicao medicao = null;
 		try{
 			Connection con = Banco.conexao();
 			String sql ="select valor, datamedicao,codigomedida,  codigousuario, codigoperfil " +
-					"from medicao where codigomedida = ?;";
+			"from medicao where codigomedida = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			ResultSet result = prepare.executeQuery();
-			
+
 			while(result.next()){
 				medicao = new Medicao();
 				medicao.setValor(result.getDouble(1));
@@ -107,7 +113,7 @@ public class MedidaDao implements IMedidaDao{
 				medicao.setCodigoMedida(result.getInt(3));
 				medicao.setCodigoPerfil(result.getInt(4));
 				medicao.setCodigoUsuario(result.getInt(5));
-				
+
 			}
 
 			prepare.close();
@@ -116,8 +122,8 @@ public class MedidaDao implements IMedidaDao{
 			// TODO: handle exception
 		}
 		return medicao;
-	
-	
+
+
 	}
 
 }

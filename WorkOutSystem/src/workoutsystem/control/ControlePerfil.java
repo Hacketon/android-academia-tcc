@@ -1,5 +1,8 @@
 package workoutsystem.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.widget.Toast;
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.PerfilDao;
@@ -8,6 +11,7 @@ import workoutsystem.interfaces.IDiaSemana;
 import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.interfaces.IUsuarioDao;
+import workoutsystem.model.DiaSemana;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 import workoutsystem.view.GUIManipularPerfil;
@@ -24,7 +28,6 @@ public class ControlePerfil {
 		if(buscarPerfil() == null){
 			if (u != null){
 				if(dao.criarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
-				//if(dao.criarPerfil(perfil,u)){
 					mensagem ="Criado com sucesso"; 
 				}
 			}
@@ -42,7 +45,6 @@ public class ControlePerfil {
 		if (u!= null){
 			if(dao.buscarPerfil(u) != null){
 				if(dao.atualizarPerfil(perfil,u) && dao.frequenciaPerfil(perfil)){
-				//if(dao.atualizarPerfil(perfil,u)){
 					mensagem ="Atualizado com sucesso"; 
 				}
 			}
@@ -82,5 +84,20 @@ public class ControlePerfil {
 		return codigo;
 	}
 	
-	
+
+	public List<DiaSemana> buscarFrequencia(Perfil perfil){
+		List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
+		IPerfilDao dao = new PerfilDao();
+		
+		if(dao.buscarFrequencia(perfil)!= null){
+			dias = dao.buscarFrequencia(perfil);
+		}else{
+			dias = null;
+		}
+		
+		
+		return dias;
+		
+	}
 }
+

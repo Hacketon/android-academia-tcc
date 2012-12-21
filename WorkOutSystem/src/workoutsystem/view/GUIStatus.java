@@ -67,7 +67,7 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 			sexo = "Feminino";
 		}
 		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
-		txtFrequencia.setText(txtFrequencia.getText()+ "   " + perfil.getTotalFrequencia());
+		txtFrequencia.setText(txtFrequencia.getText()+ "   " );
 		
 		//Medidas
 	}

@@ -10,7 +10,6 @@ public class Perfil {
 	@NotNull
 	private String nome;
 	private boolean sexo;
-	private int totalFrequencia;
 	private List<DiaSemana> frequencia;
 	
 	public int getCodigo() {
@@ -37,11 +36,6 @@ public class Perfil {
 	public List<DiaSemana> getFrequencia() {
 		return frequencia;
 	}
-	public int getTotalFrequencia() {
-		return totalFrequencia;
-	}
-	public void setTotalFrequencia(int totalFrequencia) {
-		this.totalFrequencia = totalFrequencia;
-	}
+	
 	
 }

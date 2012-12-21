@@ -28,6 +28,8 @@ public class FichaDao implements IDiaSemana{
 				listaDias.add(dia);
 			}
 			
+			prepare.close();
+			con.close();
 		}catch (SQLException e) {
 			
 		}
@@ -39,18 +41,20 @@ public class FichaDao implements IDiaSemana{
 		int codigo = 0;
 		try{
 			Connection con = Banco.conexao();
-			String sql =" select codigo from diaSemana where diaSemana = ?";
-			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setString(1, Nome);
-			ResultSet result = prepare.executeQuery();
+			String sql =" select codigo from diaSemana where diaSemana like ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setString(1, Nome);
+			ResultSet result = prepared.executeQuery();
 			
-			while (result.next()) {
+			if (result.next()) {
 				codigo = result.getInt(1);
 			}
-			
+			prepared.close();
+			con.close();
 		}catch (SQLException e) {
 			
 		}
+		
 		return codigo;
 		
 	}

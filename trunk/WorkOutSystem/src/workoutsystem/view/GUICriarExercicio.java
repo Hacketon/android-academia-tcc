@@ -32,20 +32,13 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		criarCombo();
 		editNomeExercicio = (EditText) findViewById(R.id.edt_nomeExercicio);
 		editDescricaoExercicio = (EditText) findViewById(R.id.edt_descricaoExercicio);
+		Exercicio exercicio = (Exercicio) getIntent().getSerializableExtra("exercicio");
+		carregarExercicio(exercicio);
+
 		
-		carregarExercicio();
-		
+
 	}
-	
-	public void carregarExercicio(){
-		Bundle b = this.getIntent().getExtras();
-		if (b != null){
-			Exercicio e = b.getParcelable("Exercicio");
-			editNomeExercicio.setText(e.getNomeExercicio());
-			editDescricaoExercicio.setText(e.getDescricao());
-			//cbxGrupo.setSelection(e.getGrupoMuscular().getNome());
-		}
-	}
+
 
 	public void criarCombo(){
 		ArrayList<String> listaGrupos = new ArrayList<String>();
@@ -84,11 +77,21 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 			Toast.makeText(this, 
 					ex.adicionarExercicio(e),
 					Toast.LENGTH_LONG).show();
+			finish();
 			break;
 
 		default:
 			break;
 		}
 
+	}
+
+
+	private void carregarExercicio(Exercicio exercicio) {
+		if (exercicio != null){
+			editNomeExercicio.setText(exercicio.getNomeExercicio());
+			editDescricaoExercicio.setText(exercicio.getDescricao());
+		}
+		
 	}
 }

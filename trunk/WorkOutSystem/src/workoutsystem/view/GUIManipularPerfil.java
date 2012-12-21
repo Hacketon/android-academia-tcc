@@ -121,8 +121,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			perfil = new Perfil();	
 		}
 
-		perfil.setNome(String.valueOf(editNome.getText()));
-		//perfil.setNome(editNome.getText().toString().trim());
+		perfil.setNome(String.valueOf(editNome.getText()).trim());
 		if (radioMasculino.isChecked()){
 			perfil.setSexo(true);
 		}else {
@@ -141,7 +140,10 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			}else{
 				radioFeminino.setChecked(true);
 			}
+			carregarFrequencia(p);
 		}
+		
+		
 
 	}
 	public Perfil carregarFrequencia(Perfil perfil){

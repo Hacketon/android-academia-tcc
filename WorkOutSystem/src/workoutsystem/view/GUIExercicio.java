@@ -129,32 +129,32 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 
 	private void createListView(List <Exercicio> exercicios,ListView lista) {
 		ArrayList<String> nomes = new ArrayList<String>();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.itens_simple_lista,nomes);
-		lista.setAdapter(adapter);
-		
 		for (Exercicio e : exercicios){
 			nomes.add(e.getNomeExercicio());
 		}
-		adapter = null;
+		ArrayAdapter<String> adapter = 
+										new ArrayAdapter<String>
+										(this,R.layout.itens_simple_lista,nomes);
 		adapter = new ArrayAdapter<String>(this,R.layout.itens_simple_lista,nomes);
+		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
 		lista.setCacheColorHint(Color.BLUE);
+		
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
-		
+		Exercicio exercicio = 
+			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+		Intent i = null ;
 		if (parent.getId() == R.id.listacriado){
-			Exercicio exercicio = controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
-			Intent i = new Intent(this, GUICriarExercicio.class);
-			i.putExtra("exercicio",exercicio);
-			startActivity(i);
-			
+			i = new Intent(this, GUICriarExercicio.class);
 		}else if (parent.getId() == R.id.listapadrao){
-
+			i = new Intent(this,GUIPasso.class);
 		}
-
+		i.putExtra("exercicio",exercicio);
+		startActivity(i);
 		
 	}
 

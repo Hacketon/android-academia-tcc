@@ -49,9 +49,31 @@ public class ExercicioDao implements IExercicioDao {
 	}
 
 	@Override
-	public boolean alterarExercicio(int codigo, Exercicio e) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean alterarExercicio(long codigo, Exercicio e) {
+		boolean verificador = false;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "update exercicio set " +
+			"  nome = ? , descricao = ? , codigogrupomuscular = ? " +
+			" where codigo = ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setString(1, e.getNomeExercicio());
+			prepared.setString(2, e.getDescricao());
+			prepared.setInt(3, e.getGrupoMuscular().getCodigo());
+			prepared.setLong(4, codigo);
+			int resultado = prepared.executeUpdate();
+			if (resultado > 0 ){
+				verificador = true;
+			}
+			
+			prepared.close();
+			con.close();
+			
+			
+		}catch (SQLException ex){
+			
+		}
+		return verificador;
 	}
 
 	
@@ -264,7 +286,7 @@ public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
 	GrupoMuscular grupomuscular = new GrupoMuscular();
 	try{
 		Connection con = Banco.conexao();
-		String sql = "select (nomeexercicio, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
+		String sql = "select (nome, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
 		PreparedStatement prepare = con.prepareStatement(sql);	
 		prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
 		ResultSet result  = prepare.executeQuery();
@@ -294,8 +316,23 @@ public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
 
 @Override
 public boolean buscarExercicio(Exercicio e) {
-	
-	return true;
+	boolean verificador = false;
+	try{
+		Connection con = Banco.conexao();
+		String sql = "select * from exercicio where codigo = ?";
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setLong(1, e.getCodigo());
+		ResultSet result = prepared.executeQuery();
+		
+		if (!result.next()){
+			verificador = true;
+		}
+		prepared.close();
+		con.close();
+	}catch(SQLException ex){
+		
+	}
+	return verificador;
 }
 
 

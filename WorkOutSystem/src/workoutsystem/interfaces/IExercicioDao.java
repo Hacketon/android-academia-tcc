@@ -43,7 +43,7 @@ public interface IExercicioDao {
 	 * @return
 	 */
 	
-	public abstract boolean alterarExercicio(int codigo, Exercicio e);
+	public abstract boolean alterarExercicio(long codigo, Exercicio e);
 	
 	/**
 	 * Metodo responsavel pela exclusão de exercicios 

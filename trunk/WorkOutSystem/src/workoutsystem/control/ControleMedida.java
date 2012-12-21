@@ -1,5 +1,6 @@
 package workoutsystem.control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.dao.MedidaDao;
@@ -38,17 +39,16 @@ public class ControleMedida {
 	}
 	
 	
-	public Medicao buscarMedicao(int codigo){
-		
-		Medicao medicao = new Medicao();
+	public List<Medicao> buscarMedicao(int codigo){
+		List<Medicao> lista = new ArrayList<Medicao>();
 		IMedidaDao dao = new MedidaDao();
 		
 		if(dao.buscarMedicao(codigo)!= null){
-			medicao = dao.buscarMedicao(codigo);
+			lista  = dao.buscarMedicao(codigo);
 			
 		}
 		
-		return medicao;
+		return lista;
 	}
 	
 	

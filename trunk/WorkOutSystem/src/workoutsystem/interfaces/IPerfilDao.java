@@ -59,4 +59,8 @@ public interface IPerfilDao {
 	 * @return
 	 */
 	public abstract int codigoPerfil(Usuario u);
+	/**
+	 * Metodos que buscará a quantida de dias selecionados
+	 */
+	public abstract int quantidadeDias(Perfil perfil);
 }

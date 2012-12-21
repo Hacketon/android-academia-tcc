@@ -1,9 +1,14 @@
 package workoutsystem.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import workoutsystem.interfaces.IMedidaDao;
@@ -21,7 +26,7 @@ public class MedidaDao implements IMedidaDao{
 			String sql = "select codigo from medida where nome = ? and lado= ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, nome);
-			prepare.setString(1, lado);
+			prepare.setString(2, lado);
 			ResultSet result = prepare.executeQuery();
 
 			while(result.next()){
@@ -45,16 +50,17 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepare = null;
 
 			for(Medicao m: medicoes){
-				String sql ="insert into medicao (valor, datamedicao, codigomedida, codigousuario, codigoperfil )" +
-				" values (?,?,?,?,?);";
-				 prepare = con.prepareStatement(sql);
-
+				String sql ="insert into medicao (valor,  codigomedida,codigoperfil,datamedicao) values " +
+				"(?,?,?,?);";
+				prepare = con.prepareStatement(sql);
 				prepare.setDouble(1,m.getValor() );
-				java.sql.Date dataSql = new java.sql.Date( m.getDataMedicao().getTime());
-				prepare.setDate(2, dataSql);
-				prepare.setInt(3, m.getCodigoMedida() );
-				prepare.setInt(4, m.getCodigoPerfil());
-				prepare.setInt(5, m.getCodigoUsuario());
+				prepare.setInt(2, m.getCodigoMedida() );
+				prepare.setInt(3, m.getCodigoPerfil());
+				
+				//arruamr data pois fiz uma alteração no banco para add com data null (data sempre = null)
+				java.sql.Date dataParaGravar = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+				prepare.setDate(4, dataParaGravar);
+
 				if(prepare.executeUpdate()!=0){
 					verificador = true;
 				}else{
@@ -96,24 +102,25 @@ public class MedidaDao implements IMedidaDao{
 
 
 	@Override
-	public Medicao buscarMedicao(int codigo) {
-		Medicao medicao = null;
+	public List<Medicao> buscarMedicao(int codigo) {
+		List<Medicao> lista = new ArrayList<Medicao>();
+		
+		
 		try{
 			Connection con = Banco.conexao();
-			String sql ="select valor, datamedicao,codigomedida,  codigousuario, codigoperfil " +
-			"from medicao where codigomedida = ?;";
+			String sql ="select valor, datamedicao, codigomedida, codigoperfil " +
+			"from medicao where codigoperfil = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			ResultSet result = prepare.executeQuery();
 
 			while(result.next()){
-				medicao = new Medicao();
+				Medicao medicao = new Medicao();
 				medicao.setValor(result.getDouble(1));
 				medicao.setDataMedicao(result.getDate(2));
 				medicao.setCodigoMedida(result.getInt(3));
 				medicao.setCodigoPerfil(result.getInt(4));
-				medicao.setCodigoUsuario(result.getInt(5));
-
+				lista.add(medicao);
 			}
 
 			prepare.close();
@@ -121,7 +128,7 @@ public class MedidaDao implements IMedidaDao{
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return medicao;
+		return lista;
 
 
 	}

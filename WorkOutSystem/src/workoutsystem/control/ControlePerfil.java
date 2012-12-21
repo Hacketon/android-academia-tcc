@@ -105,5 +105,13 @@ public class ControlePerfil {
 		return dias;
 
 	}
+	public int quantidadeDias(Perfil perfil){
+		int qtd = 0;
+		IPerfilDao dao = new PerfilDao();
+		if(dao.quantidadeDias(perfil)!= 0){
+			qtd = dao.quantidadeDias(perfil);
+		}
+		return qtd;
+	}
 }
 

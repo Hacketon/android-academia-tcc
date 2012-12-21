@@ -234,4 +234,23 @@ public class PerfilDao implements IPerfilDao{
 
 	}
 
+	@Override
+	public int quantidadeDias(Perfil perfil) {
+		int quantidade = 0;
+		try{
+			Connection con = Banco.conexao();
+			String sql = " select count (*) codigodia from frequenciaPerfil where codigoperfil = ?;";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setInt(1, perfil.getCodigo());
+			ResultSet result = prepared.executeQuery();
+			
+			while(result.next()){
+				quantidade = result.getInt(1);
+			}
+
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return quantidade;
+	}
 }

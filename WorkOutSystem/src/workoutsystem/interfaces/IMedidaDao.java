@@ -25,7 +25,8 @@ public interface IMedidaDao {
 	 * @param codigo
 	 * @return
 	 */
-	public abstract Medicao buscarMedicao(int codigo);
+
+	public abstract List<Medicao> buscarMedicao(int codigo);
 
 	/**
 	 * metodo que ira adicionar medições por uma lista 

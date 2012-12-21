@@ -9,7 +9,6 @@ public class Medicao {
 	private double valor;
 	private	Date dataMedicao;
 	private int codigoMedida;
-	private int codigoUsuario;
 	private int codigoPerfil;
 	
 	public double getValor() {
@@ -32,12 +31,6 @@ public class Medicao {
 	}
 	public void setCodigoMedida(int codigoMedida) {
 		this.codigoMedida = codigoMedida;
-	}
-	public int getCodigoUsuario() {
-		return codigoUsuario;
-	}
-	public void setCodigoUsuario(int codigoUsuario) {
-		this.codigoUsuario = codigoUsuario;
 	}
 	public int getCodigoPerfil() {
 		return codigoPerfil;

@@ -1,5 +1,7 @@
 package workoutsystem.control;
 
+import java.util.List;
+
 import workoutsystem.dao.MedidaDao;
 import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
@@ -9,14 +11,14 @@ public class ControleMedida {
 	
 	
 	//corrigir codigo
-	public String adicionarMedicao(Medicao medicao){
+	public String adicionarMedicao(List<Medicao> medicoes){
 		String mensagem = "  Erro ao adicionar Medicao";
 		IMedidaDao dao = new MedidaDao();
 		
-		if(medicao != null){
+		if(medicoes != null){
 			//verificar codigo
 			
-			if(dao.adicionarMedicao(medicao)){
+			if(dao.adicionarMedicao(medicoes)){
 				mensagem = " adicionada com sucesso";
 			}
 		}

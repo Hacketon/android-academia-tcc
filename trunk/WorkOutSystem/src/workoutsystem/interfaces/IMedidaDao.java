@@ -1,5 +1,7 @@
 package workoutsystem.interfaces;
 
+import java.util.List;
+
 import workoutsystem.model.Medicao;
 
 public interface IMedidaDao {
@@ -10,12 +12,7 @@ public interface IMedidaDao {
  */
 	public abstract int buscarMedida(String nome, String lado);
 	
-	/**
-	 * Metodo responsavel por adicionar medida
-	 * @param medicao
-	 * @return
-	 */
-	public abstract boolean adicionarMedicao(Medicao medicao);
+	
 	
 	/**
 	 * Metodo que trará o valor da medicao , dependendo do codigo informado
@@ -29,4 +26,11 @@ public interface IMedidaDao {
 	 * @return
 	 */
 	public abstract Medicao buscarMedicao(int codigo);
+
+	/**
+	 * metodo que ira adicionar medições por uma lista 
+	 * @param medicao
+	 * @return
+	 */
+	public abstract boolean adicionarMedicao(List<Medicao> medicao);
 }

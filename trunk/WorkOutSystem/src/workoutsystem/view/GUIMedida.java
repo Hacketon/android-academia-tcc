@@ -1,6 +1,8 @@
 package workoutsystem.view;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
@@ -11,6 +13,7 @@ import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.interfaces.IUsuarioDao;
+import workoutsystem.model.DiaSemana;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
@@ -77,7 +80,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		ControleMedida controleMed = new ControleMedida();
 		Medicao m = controleMed.buscarMedicao(1);
-		
+
 		carregarCampos(m);
 
 	}
@@ -121,300 +124,250 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	}
 
 	public void criaMedida(){
-		Medida medida = new Medida();
-		Medicao medicao = new Medicao();
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerf = new ControlePerfil();
 
+		List<Medicao> listaMedicao = new ArrayList<Medicao>();
+
+
 		Date data = new java.util.Date();
 		Perfil perfil = controlePerf.buscarPerfil();
-		IPerfilDao daoPerf = new PerfilDao();
-		//perfil = daoPerf.buscarPerfil();
-		
+
 		//Altura
 		if(!editAltura.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
 			medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
 			medicao.setDataMedicao(data);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
 			medicao.setCodigoPerfil(perfil.getCodigo());
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Altura", "a"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
-			Toast.makeText(this, "Altura" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+
+			listaMedicao.add(medicao);
 
 		}
 
 		//Peso
 		if(!editPeso.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPeso.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Peso", "a"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
-			Toast.makeText(this, "Peso" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+
+			listaMedicao.add(medicao);
 
 		}
 
 		//Cintura
 		if(!editCintura.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCintura.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Cintura", "a"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
-			Toast.makeText(this, "Medida Cintura" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
 
+			listaMedicao.add(medicao);
 		}
 
 		//Quadril
 		if(!editQuadril.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editQuadril.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Quadril", "a"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Quadril" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+			listaMedicao.add(medicao);
 
 		}
 
 		//Braço Direito
 		if(!editBracoDir.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editBracoDir.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Braco", "d"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Braço Direito" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();}
+			listaMedicao.add(medicao);
+		}
 
 		//Braço Esquerdo
 		if(!editBracoEsq.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Braco", "e"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Braço Esquerdo" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+			listaMedicao.add(medicao);
 		}
 
 		//Peito
 		if(!editPeito.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPeito.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Peito", "a"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Peito" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();}
+			listaMedicao.add(medicao);
+		}
 
 		//Coxa Direito
 		if(!editCoxaDir.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Coxa", "d"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
-		
-			Toast.makeText(this, "Medida Coxa Direita" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+
+			listaMedicao.add(medicao);
 		}
 
 		//Coxa Esquerda
 
 		if(!editCoxaEsq.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Coxa", "e"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Coxa Esquerda" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+			listaMedicao.add(medicao);
 		}
 
 		//Panturrilha Direita
 
 		if(!editPantuDir.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPantuDir.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Panturrilha", "d"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
 
-			Toast.makeText(this, "Medida Panturrilha Direita" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
+
+			listaMedicao.add(medicao);
 		}
 
 		//Panturrilha Esuerda
 
 		if(!editPantuEsq.getText().toString().equalsIgnoreCase("")){
-			//data, codigoPerfil e CodigoUsuario
-			//carregarMedicao();
-			
-			java.sql.Date data1 = new java.sql.Date( data.getDate());
-			medicao.setDataMedicao(data1);
-			//medicao.setCodigoUsuario(perfil.getCodigousuario());
-			//carregar perfil
+			Medida medida = new Medida();
+			Medicao medicao = new Medicao();
+
+			medicao.setDataMedicao(data);
 			medicao.setCodigoPerfil(perfil.getCodigo());
 			medicao.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
-			//medida
 			medida.setCodigo(controleMed.buscarMedida("Panturrilha", "e"));
 			medicao.setCodigoMedida(medida.getCodigo());
-			//adicionar no banco
-		
 
-			Toast.makeText(this, "Medida Panturrilha Esquerda" + controleMed.adicionarMedicao(medicao),
-					Toast.LENGTH_SHORT).show();
-		
+
+			listaMedicao.add(medicao);
+		}
+
+		Toast.makeText(this,controleMed.adicionarMedicao(listaMedicao),
+				Toast.LENGTH_LONG).show();
+
+	}
+
+	
+	public void carregarCampos(Medicao m){
+
+		//Altura
+		if(m.getCodigoMedida() == 1){
+			editAltura.setText(Double.toString(m.getValor()));
+		}
+
+		//Peso
+		if(m.getCodigoMedida() == 2){
+			editPeso.setText(Double.toString(m.getValor()));
+		}
+		//Cintura
+		if(m.getCodigoMedida() == 3){
+			editCintura.setText(Double.toString(m.getValor()));
+		}
+		//Quadril
+		if(m.getCodigoMedida() == 4){
+			editQuadril.setText(Double.toString(m.getValor()));
+		}
+		//Braço Direito
+		if(m.getCodigoMedida() == 6){
+			editBracoDir.setText(Double.toString(m.getValor()));
+		}
+		//Braço Esquerdo
+		if(m.getCodigoMedida() == 7){
+			editBracoEsq.setText(Double.toString(m.getValor()));
+		}
+		//Peito
+		if(m.getCodigoMedida() == 5){
+			editPeito.setText(Double.toString(m.getValor()));
+		}
+		//Coxa Direito
+		if(m.getCodigoMedida() == 8){
+			editCoxaDir.setText(Double.toString(m.getValor()));
+		}
+		//Coxa Esquerda
+		if(m.getCodigoMedida() == 9){
+			editCoxaEsq.setText(Double.toString(m.getValor()));
+		}
+		//Panturrilha Direita
+		if(m.getCodigoMedida() == 10){
+			editPantuDir.setText(Double.toString(m.getValor()));
+		}
+		//Panturrilha Esuerda
+		if(m.getCodigoMedida() == 11){
+			editPantuEsq.setText(Double.toString(m.getValor()));
 		}
 
 	}
 
-public void carregarCampos(Medicao m){
 
 
-	
-	//Altura
-	if(m.getCodigoMedida() == 1){
-		editAltura.setText(Double.toString(m.getValor()));
-	}
-
-	//Peso
-	if(m.getCodigoMedida() == 2){
-		editPeso.setText(Double.toString(m.getValor()));
-	}
-	//Cintura
-	if(m.getCodigoMedida() == 3){
-		editCintura.setText(Double.toString(m.getValor()));
-	}
-	//Quadril
-	if(m.getCodigoMedida() == 4){
-		editQuadril.setText(Double.toString(m.getValor()));
-	}
-	//Braço Direito
-	if(m.getCodigoMedida() == 6){
-		editBracoDir.setText(Double.toString(m.getValor()));
-	}
-	//Braço Esquerdo
-	if(m.getCodigoMedida() == 7){
-		editBracoEsq.setText(Double.toString(m.getValor()));
-	}
-	//Peito
-	if(m.getCodigoMedida() == 5){
-		editPeito.setText(Double.toString(m.getValor()));
-	}
-	//Coxa Direito
-	if(m.getCodigoMedida() == 8){
-		editCoxaDir.setText(Double.toString(m.getValor()));
-	}
-	//Coxa Esquerda
-	if(m.getCodigoMedida() == 9){
-		editCoxaEsq.setText(Double.toString(m.getValor()));
-	}
-	//Panturrilha Direita
-	if(m.getCodigoMedida() == 10){
-		editPantuDir.setText(Double.toString(m.getValor()));
-	}
-	//Panturrilha Esuerda
-	if(m.getCodigoMedida() == 11){
-		editPantuEsq.setText(Double.toString(m.getValor()));
-	}
-	
-}
-	
-
-	
-//	public void carregarMedicao(){
-//		Usuario usuario = new Usuario();
-//		Date data = new Date();
-//		Medicao medicao = new Medicao();
-//		Perfil perfil = new Perfil();
-//
-//		java.sql.Date data1 = new java.sql.Date( data.getDate());
-//		medicao.setDataMedicao(data1);
-//		usuario.setCodigo(perfil.getCodigousuario());
-//		medicao.setCodigoUsuario(perfil.getCodigousuario());
-//		//carregar perfil
-//		medicao.setCodigoPerfil(perfil.getCodigo());
-//
-//	}
+	//	public void carregarMedicao(){
+	//		Usuario usuario = new Usuario();
+	//		Date data = new Date();
+	//		Medicao medicao = new Medicao();
+	//		Perfil perfil = new Perfil();
+	//
+	//		java.sql.Date data1 = new java.sql.Date( data.getDate());
+	//		medicao.setDataMedicao(data1);
+	//		usuario.setCodigo(perfil.getCodigousuario());
+	//		medicao.setCodigoUsuario(perfil.getCodigousuario());
+	//		//carregar perfil
+	//		medicao.setCodigoPerfil(perfil.getCodigo());
+	//
+	//	}
 
 }

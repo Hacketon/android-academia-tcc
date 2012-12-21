@@ -19,7 +19,7 @@ public interface IExercicioDao {
 	 * @param e
 	 * @return
 	 */
-	public abstract Exercicio buscarExercicio(Exercicio e);
+	public abstract boolean buscarExercicio(Exercicio e);
 	
 	
 	/**

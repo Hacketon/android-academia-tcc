@@ -16,11 +16,7 @@ import workoutsystem.model.Passo;
 public class ExercicioDao implements IExercicioDao {
 
 
-	@Override
-	public Exercicio buscarExercicio(Exercicio e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	@Override
@@ -176,6 +172,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setPersonalizado(result.getInt(4));
 				GrupoMuscular grupo = new GrupoMuscular();
 				grupo.setCodigo(result.getInt(5));
+				exercicio.setListaPassos(visualizarPassos(exercicio));
 				exercicio.setGrupoMuscular(grupo);
 			}
 			prepared.close();
@@ -292,6 +289,13 @@ public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
 	}
 
 	return exercicio;
+}
+
+
+@Override
+public boolean buscarExercicio(Exercicio e) {
+	
+	return true;
 }
 
 

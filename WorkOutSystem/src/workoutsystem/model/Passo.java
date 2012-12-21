@@ -1,6 +1,8 @@
 package workoutsystem.model;
 
-public class Passo {
+import java.io.Serializable;
+
+public class Passo implements Serializable{
 	
 	private int sequencia;
 	private String explicacao;

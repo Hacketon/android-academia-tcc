@@ -136,18 +136,19 @@ public class PerfilDao implements IPerfilDao{
 
 	@Override
 	public boolean frequenciaPerfil(Perfil perfil) {
+		PreparedStatement prepare = null;
+		String sql = "";
 		try{
 			Connection con = Banco.conexao();
-			//String sql = "delete from frequenciaperfil where codigoperfil = ?";
-			//PreparedStatement prepare = con.prepareStatement(sql);
-			//prepare.setInt(1, perfil.getCodigo());
-			//prepare.executeUpdate();
+			sql = "delete from frequenciaperfil where codigoperfil = ?";
+			prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			prepare.executeUpdate();
 
-			PreparedStatement prepare = null;
-
+			
 			for (DiaSemana d: perfil.getFrequencia()){
 
-				String sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
+				sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
 				prepare = con.prepareStatement(sql);
 				prepare.setInt(1,d.getCodigo());
 				prepare.setInt(2, perfil.getCodigo());
@@ -167,26 +168,26 @@ public class PerfilDao implements IPerfilDao{
 
 	@Override
 	public List<DiaSemana> buscarFrequencia(Perfil perfil) {
+		List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
+
+
 		try{
-			List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
 			Connection con = Banco.conexao();
-			String sql = "select codigodia,codigoperfil from FrequenciaTreino where codigoperfil = ?";
+			String sql = "select codigodia,codigoperfil from frequenciaPerfil where codigoperfil = ?";
 			PreparedStatement prepared = con.prepareStatement(sql );
 			prepared.setInt(1, perfil.getCodigo());
 			ResultSet result = prepared.executeQuery();
 			while (result.next()){
 				DiaSemana dia = new DiaSemana();
 				dia.setCodigo(result.getInt(1));
-				String sql2 = "select diasemana from DiaSemana where codigoperfil = ?";
-				PreparedStatement prepared2 = con.prepareStatement(sql );
-				//prepared.setInt(1,);
-				//ResultSet result = prepared.executeQuery();
+				perfil.setCodigo(result.getInt(2));
+				dias.add(dia);
 			}
 
 		}catch (SQLException e) {
 			// TODO: handle exception
 		}
-		return null;
+		return dias;
 	}
 
 }

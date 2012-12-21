@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
+import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.control.ControleUsuario;
 import workoutsystem.dao.PerfilDao;
@@ -61,6 +62,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		frequenciaDomingo = (CheckBox) findViewById(R.id.check_domingo);
 
 		carregarPerfil(new ControlePerfil().buscarPerfil());
+		InicializarFrequencia();
 	}
 
 
@@ -100,6 +102,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			}else{
 				Toast.makeText(this, controle.cadastrarPerfil(perfil),
 						Toast.LENGTH_LONG).show();
+
 			}
 			break;
 		case R.id.btn_excperfil:
@@ -201,13 +204,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			listaDias.add(dia);
 			x++;
 		}
-
-		//		if(controlePerf.buscarPerfil()!= null){
-		//		perfil = controlePerf.buscarPerfil();
-		//		}else{
-		//			perfil = new Perfil();
-		//		}
-		//			
+		
 		perfil.setFrequencia(listaDias);
 		perfil.setTotalFrequencia(x);
 		return perfil;
@@ -230,4 +227,69 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		}
 	}
 
+	public void InicializarFrequencia(){
+		ControlePerfil controlePerfil = new ControlePerfil();
+		Perfil perfil = controlePerfil.buscarPerfil();
+		perfil.setFrequencia(controlePerfil.buscarFrequencia(perfil));
+		
+		
+
+		DiaSemana diaPadrao = new DiaSemana();
+		
+		for(DiaSemana d: perfil.getFrequencia()){
+			
+			diaPadrao.setDiaSemana("Domingo");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaDomingo.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Segunda");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaSegunda.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Terça");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaTerca.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Quarta");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaQuarta.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Quinta");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaQuinta.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Sexta");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaSexta.setChecked(true);
+			}
+			
+			diaPadrao.setDiaSemana("Sabado");
+			diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+			
+			if(d.getCodigo() == diaPadrao.getCodigo() ){
+				frequenciaSabado.setChecked(true);
+			}
+			
+			
+		}
+		
+
+	}
 }

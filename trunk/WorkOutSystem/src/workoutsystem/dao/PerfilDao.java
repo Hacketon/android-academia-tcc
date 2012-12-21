@@ -28,7 +28,7 @@ public class PerfilDao implements IPerfilDao{
 				perfil.setCodigo(result.getInt(1));
 				perfil.setNome(result.getString(2));
 				perfil.setSexo(result.getBoolean(3));
-				
+
 			}
 
 			prepare.close();
@@ -93,7 +93,7 @@ public class PerfilDao implements IPerfilDao{
 			}
 			prepare.close();
 			con.close();
-			
+
 			return verificador;
 
 		}catch (SQLException e) {
@@ -111,7 +111,7 @@ public class PerfilDao implements IPerfilDao{
 			String sql = "update Perfil set nome = ?,sexo = ?" +
 			"where codigousuario =?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			
+
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
 			prepare.setInt(3, usuario.getCodigo());
@@ -133,6 +133,7 @@ public class PerfilDao implements IPerfilDao{
 
 	@Override
 	public boolean frequenciaPerfil(Perfil perfil) {
+
 		PreparedStatement prepare = null;
 		String sql = "";
 		try{
@@ -142,7 +143,7 @@ public class PerfilDao implements IPerfilDao{
 			prepare.setInt(1, perfil.getCodigo());
 			prepare.executeUpdate();
 
-			
+
 			for (DiaSemana d: perfil.getFrequencia()){
 
 				sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
@@ -159,6 +160,26 @@ public class PerfilDao implements IPerfilDao{
 		}catch (SQLException e) {
 			return false;
 		}
+
+	}
+	public boolean excluirFrequencia(Perfil perfil){
+		PreparedStatement prepare = null;
+		String sql = "";
+		try{
+			Connection con = Banco.conexao();
+			sql = "delete from frequenciaperfil where codigoperfil = ?";
+			prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			prepare.executeUpdate();
+			prepare.close();
+			con.close();
+
+			return true;
+
+		}catch (SQLException e) {
+			return false;
+		}
+
 
 	}
 
@@ -180,7 +201,7 @@ public class PerfilDao implements IPerfilDao{
 				perfil.setCodigo(result.getInt(2));
 				dias.add(dia);
 			}
-			
+
 			prepared.close();
 			con.close();
 
@@ -188,6 +209,29 @@ public class PerfilDao implements IPerfilDao{
 			// TODO: handle exception
 		}
 		return dias;
+	}
+
+
+	@Override
+	public int codigoPerfil(Usuario u) {
+		int codigo = 0;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "	select codigo from perfil where codigousuario  = ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setInt(1, u.getCodigo());
+			ResultSet result = prepared.executeQuery();
+			
+			while(result.next()){
+				codigo = result.getInt(1);
+			}
+
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return codigo;
+
+
 	}
 
 }

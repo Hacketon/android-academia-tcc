@@ -47,5 +47,16 @@ public interface IPerfilDao {
 	 */
 	public abstract List<DiaSemana> buscarFrequencia(Perfil perfil);
 		
-	
+	/**
+	 * Metodo responsavel pela exclusão das frequencias
+	 * @param perfil
+	 * @return
+	 */
+	public abstract boolean excluirFrequencia(Perfil perfil);
+	/**
+	 * Metodo que buscara o codigo do perfil apartir do usuario
+	 * @param u
+	 * @return
+	 */
+	public abstract int codigoPerfil(Usuario u);
 }

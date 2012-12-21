@@ -74,8 +74,7 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		case R.id.btn_criar:
 			Exercicio e = criarExercicio();
 			ControleExercicio ex = new ControleExercicio();
-			Toast.makeText(this, 
-					ex.adicionarExercicio(e),
+			Toast.makeText(this,ex.manipularExercicio(e),
 					Toast.LENGTH_LONG).show();
 			finish();
 			break;

@@ -3,10 +3,13 @@ package workoutsystem.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.util.NewInstance;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Exercicio implements Serializable, Parcelable {
+@SuppressWarnings("serial")
+public class Exercicio implements Serializable {
 	
 	private long codigo;
 	private String nomeExercicio;
@@ -19,7 +22,8 @@ public class Exercicio implements Serializable, Parcelable {
 		descricao = "";
 		personalizado = 1;
 	}
-
+	
+	
 	public String toString(){
 		
 		return String.format("codigo : %s \n , nome : %s \n " +
@@ -67,17 +71,5 @@ public class Exercicio implements Serializable, Parcelable {
 
 	public List<Passo> getListaPassos() {
 		return listaPassos;
-	}
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		
 	}
 }

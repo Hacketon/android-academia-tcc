@@ -20,7 +20,7 @@ public class ControleExercicio {
 	//alterar os metodos no diagrama de classes 
 
 	public String manipularExercicio(Exercicio exercicio){
-		String mensagem = "Erro ao adicionar ou exercicio já cadastrado";
+		String mensagem = "Operação com erro";
 		IExercicioDao dao = new ExercicioDao();
 
 		if (exercicio!= null){
@@ -28,17 +28,17 @@ public class ControleExercicio {
 			grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
 			if (!dao.buscarExercicio(exercicio)){
 				if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
-					if (grupo.getCodigo() != 0 ){
-						if(dao.adicionarExercicio(exercicio)){
+					 if(dao.adicionarExercicio(exercicio)){
 							mensagem = "Exercicio criado com sucesso !";
 						}
 					}
+				}else{
+					if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
+						mensagem = "Exercicio atualizado com sucesso";
 				}
-			}else{
-				if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
-					mensagem = "Exercicio atualizado com sucesso";
-				}
+				
 			}
+			
 		}
 
 		return mensagem;

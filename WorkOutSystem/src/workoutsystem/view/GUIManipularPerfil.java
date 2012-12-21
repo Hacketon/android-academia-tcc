@@ -57,8 +57,11 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		frequenciaSabado = (CheckBox) findViewById(R.id.check_sabado);
 		frequenciaDomingo = (CheckBox) findViewById(R.id.check_domingo);
 
-		carregarPerfil(new ControlePerfil().buscarPerfil());
-		InicializarFrequencia();
+		ControlePerfil controlePerfil = new ControlePerfil();
+		if(controlePerfil.buscarPerfil()!=null){
+			carregarPerfil(controlePerfil.buscarPerfil());
+			InicializarFrequencia();
+		}
 	}
 
 
@@ -92,11 +95,17 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
 			perfil = criaManipulaPerfil();
-			if(controle.buscarPerfil()!= null){
-				Toast.makeText(this, controle.atualizarPerfil(perfil),
-						Toast.LENGTH_LONG).show();
+			if(verificarCampos()){
+				if(controle.buscarPerfil()!= null){
+					Toast.makeText(this, controle.atualizarPerfil(perfil),
+							Toast.LENGTH_LONG).show();
+				}else{
+					Toast.makeText(this, controle.cadastrarPerfil(perfil),
+							Toast.LENGTH_LONG).show();
+
+				}
 			}else{
-				Toast.makeText(this, controle.cadastrarPerfil(perfil),
+				Toast.makeText(this, "Digite os campos (Principais / Frequencia)",
 						Toast.LENGTH_LONG).show();
 
 			}
@@ -104,7 +113,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		case R.id.btn_excperfil:
 			limparCampos();
 			perfil = criaManipulaPerfil();
-			Toast.makeText(this, controle.excluirPerfil(u),
+			Toast.makeText(this, controle.excluirPerfil(u,perfil),
 					Toast.LENGTH_LONG).show();
 			break;
 		}
@@ -142,8 +151,8 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 			}
 			carregarFrequencia(p);
 		}
-		
-		
+
+
 
 	}
 	public Perfil carregarFrequencia(Perfil perfil){
@@ -210,6 +219,31 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		editNome.setText("");
 		radioMasculino.setChecked(false);
 		radioFeminino.setChecked(false);
+		frequenciaSegunda.setChecked(false);
+		frequenciaTerca.setChecked(false);
+		frequenciaQuarta.setChecked(false);
+		frequenciaQuinta.setChecked(false);
+		frequenciaSexta.setChecked(false);
+		frequenciaSabado.setChecked(false);
+		frequenciaDomingo.setChecked(false);
+	}
+
+	public boolean verificarCampos(){
+		boolean verifica = false;
+		if(!editNome.getText().toString().equals("")){
+			if(radioFeminino.isChecked()== true || radioMasculino.isChecked() == true ){
+				if(frequenciaDomingo.isChecked()== true || 	frequenciaSegunda.isChecked() == true ||
+						frequenciaTerca.isChecked()== true || frequenciaQuarta.isChecked()== true ||
+						frequenciaQuinta.isChecked() == true || 	frequenciaSexta.isChecked() == true||
+						frequenciaSabado.isChecked() == true){
+					
+					verifica = true;
+
+				}
+			}
+		}
+		return verifica;
+
 	}
 
 

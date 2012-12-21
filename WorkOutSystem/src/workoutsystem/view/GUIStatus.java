@@ -24,8 +24,8 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 	private TextView txtCoxaEsq; 
 	private TextView txtPantuDir; 
 	private TextView txtPantuEsq;
-	
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,31 +45,35 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 		txtCoxaEsq = (TextView) findViewById(R.id.tv_coxaesqusuario);
 		txtPantuDir = (TextView) findViewById(R.id.tv_panturillhadirusuario);
 		txtPantuEsq = (TextView) findViewById(R.id.tv_panturillhaesqusuario);
-		carregarStatus();
-		
+
+		ControlePerfil controlePerf = new ControlePerfil();
+		if(controlePerf.buscarPerfil()!=null){
+			carregarStatus();
+		}
+
 	}
 
 	public void onClick (View evento){
-	
-		
+
+
 	}
-	
-	
+
+
 	public void carregarStatus(){
 		ControlePerfil controle = new ControlePerfil();
 		Perfil perfil = controle.buscarPerfil();
 		String sexo="";
-		
+
 		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
 		if(perfil.getSexo()){
-			 sexo = "Masculino";
+			sexo = "Masculino";
 		}else{
 			sexo = "Feminino";
 		}
 		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
 		txtFrequencia.setText(txtFrequencia.getText()+ "   " );
-		
+
 		//Medidas
 	}
-	
+
 }

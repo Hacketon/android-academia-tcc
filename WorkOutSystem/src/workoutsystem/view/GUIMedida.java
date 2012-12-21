@@ -1,5 +1,6 @@
 package workoutsystem.view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -130,7 +131,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		List<Medicao> listaMedicao = new ArrayList<Medicao>();
 
 
-		Date data = new java.util.Date();
+		Date data = new Date(); 
+
+
 		Perfil perfil = controlePerf.buscarPerfil();
 
 		//Altura

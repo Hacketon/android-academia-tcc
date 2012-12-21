@@ -18,7 +18,7 @@ public class PerfilDao implements IPerfilDao{
 		Perfil perfil = null;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select codigo, nome ,sexo, totalfrequencia from perfil where codigousuario = ?";
+			String sql = "select codigo, nome ,sexo from perfil where codigousuario = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, u.getCodigo());
 			ResultSet result = prepare.executeQuery();
@@ -28,7 +28,7 @@ public class PerfilDao implements IPerfilDao{
 				perfil.setCodigo(result.getInt(1));
 				perfil.setNome(result.getString(2));
 				perfil.setSexo(result.getBoolean(3));
-				perfil.setTotalFrequencia(result.getInt(4));
+				
 			}
 
 			prepare.close();
@@ -49,12 +49,11 @@ public class PerfilDao implements IPerfilDao{
 		try{
 			boolean verificador = false;
 			Connection con = Banco.conexao();
-			String sql ="insert into perfil (nome, sexo,totalfrequencia, codigousuario) values (?,?, ? ,?);";
+			String sql ="insert into perfil (nome, sexo, codigousuario) values (?,?,?);";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
-			prepare.setInt(3, perfil.getTotalFrequencia());
-			prepare.setInt(4, usuario.getCodigo());
+			prepare.setInt(3, usuario.getCodigo());
 
 			int resultado = prepare.executeUpdate();
 
@@ -92,9 +91,9 @@ public class PerfilDao implements IPerfilDao{
 			}else{
 				verificador = true;
 			}
-
-			con.close();
 			prepare.close();
+			con.close();
+			
 			return verificador;
 
 		}catch (SQLException e) {
@@ -109,15 +108,13 @@ public class PerfilDao implements IPerfilDao{
 		boolean verificador = true;
 		try{
 			Connection con = Banco.conexao();
-			String sql = "update Perfil set nome = ?,sexo = ? ,totalfrequencia=? ,codigousuario = ?" +
+			String sql = "update Perfil set nome = ?,sexo = ?" +
 			"where codigousuario =?";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			//prepare.setInt(1, perfil.getCodigo());
+			
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
-			prepare.setInt(3, perfil.getTotalFrequencia());
-			prepare.setInt(4, usuario.getCodigo());
-			prepare.setInt(5, usuario.getCodigo());
+			prepare.setInt(3, usuario.getCodigo());
 			int atualizados =prepare.executeUpdate();
 			if (atualizados >0){
 				verificador = true;
@@ -183,6 +180,9 @@ public class PerfilDao implements IPerfilDao{
 				perfil.setCodigo(result.getInt(2));
 				dias.add(dia);
 			}
+			
+			prepared.close();
+			con.close();
 
 		}catch (SQLException e) {
 			// TODO: handle exception

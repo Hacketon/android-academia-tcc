@@ -22,19 +22,24 @@ public class ControleExercicio {
 	public String adicionarExercicio(Exercicio exercicio){
 		String mensagem = "Erro ao adicionar ou exercicio já cadastrado";
 		IExercicioDao dao = new ExercicioDao();
-		
+
 		if (exercicio!= null){
 			GrupoMuscular grupo = exercicio.getGrupoMuscular();
 			grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
-			if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
-				if (grupo.getCodigo() != 0 ){
-					if(dao.adicionarExercicio(exercicio)){
-						mensagem = "Exercicio criado com sucesso !";
+			if (dao.buscarExercicio(exercicio)){
+				if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
+					if (grupo.getCodigo() != 0 ){
+						if(dao.adicionarExercicio(exercicio)){
+							mensagem = "Exercicio criado com sucesso !";
+						}
 					}
 				}
+
+			}else{
+				// implementar a alteração do exercicio
 			}
-			
 		}
+
 		return mensagem;
 	}
 
@@ -43,32 +48,32 @@ public class ControleExercicio {
 
 	public List<Passo> visualizarPassos(Exercicio exercicio){
 		return null;
-		
+
 	}
 
 	public List buscarExercicio (Treino treino){
 		return null;
 	}
-	
+
 	public String buscarExercicio(GrupoMuscular gMuscular){
 		String mensagem = "Erro ao buscar Exercicio";
 		IExercicioDao dao = new ExercicioDao();
-		
+
 		if(dao.buscarExercicioGrupoMuscular(gMuscular) != null){
 			mensagem = "Encontardos os exercicios";
 		}else{
 			mensagem = "Exercicio não foram encontrados";
 		}
-				
+
 		return mensagem;
 	}
-	
+
 	public Exercicio buscarExercicio(String nome){
 		IExercicioDao dao = new ExercicioDao();
 		return dao.buscarExercicio(nome);
 	}
 
-	
+
 	public Exercicio visualizarExercicio(String nomeExercicio){
 		return null;
 	}
@@ -80,6 +85,6 @@ public class ControleExercicio {
 	public List<Exercicio> listarExercicios(String grupo, int personalizado) {
 		IExercicioDao exercicioDao = new ExercicioDao();
 		return exercicioDao.listarExercicios(grupo, personalizado);
-		
+
 	}
 }

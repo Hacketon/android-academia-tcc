@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class GUIPasso extends Activity implements View.OnClickListener{
 
-	private EditText editNome;
-	private EditText editDescricao;
-	private EditText editSequencia;
+	private TextView textNome;
+	private TextView textDescricao;
+	private TextView textSequencia;
 	private int indice;
 	private List<Passo> passo;
 
@@ -23,14 +24,14 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.passo);
 		
-		editNome = (EditText) findViewById(R.id.txt_nomeexercicio);
-		editSequencia = (EditText) findViewById(R.id.txt_sequenciapasso);
-		editDescricao = (EditText) findViewById(R.id.txt_descricao_passo);
+		textNome = (TextView) findViewById(R.id.txt_nome_exercicio);
+		textSequencia = (TextView) findViewById(R.id.txt_sequenciapasso);
+		textDescricao = (TextView) findViewById(R.id.txt_descricao_passo);
 		
 		indice = 0 ;
 		Exercicio exercicio = (Exercicio) getIntent().getExtras().getSerializable("exercicio");
 		passo = exercicio.getListaPassos();
-		editNome.setText(exercicio.getNomeExercicio());
+		textNome.setText(exercicio.getNomeExercicio());
 		anteriorPasso();
 	}
 
@@ -87,8 +88,8 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 
 
 	private void carregarPasso(Passo o) {
-		editDescricao.setText(o.getExplicacao());
-		editSequencia.setText("Passo "+o.getSequencia());
+		textDescricao.setText(o.getExplicacao());
+		textSequencia.setText("Passo "+o.getSequencia());
 		
 	}
 

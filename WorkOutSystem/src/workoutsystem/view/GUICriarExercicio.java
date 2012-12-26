@@ -6,6 +6,8 @@ import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -16,7 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class GUICriarExercicio extends Activity implements View.OnClickListener{
+public class GUICriarExercicio extends Activity 
+implements View.OnClickListener{
 
 	private Spinner cbxGrupo;
 	private EditText editNomeExercicio;
@@ -32,10 +35,7 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 		criarCombo();
 		editNomeExercicio = (EditText) findViewById(R.id.edt_nomeExercicio);
 		editDescricaoExercicio = (EditText) findViewById(R.id.edt_descricaoExercicio);
-		Exercicio exercicio = (Exercicio) getIntent().getSerializableExtra("exercicio");
-		carregarExercicio(exercicio);
-
-		
+		carregarExercicio();
 
 	}
 
@@ -58,7 +58,12 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 	}
 
 	public Exercicio criarExercicio(){
-		Exercicio exercicio = new Exercicio();
+		Exercicio exercicio = (Exercicio) getIntent().getSerializableExtra("exercicio");
+
+		if (exercicio == null){
+			exercicio = new Exercicio();
+		}
+
 		GrupoMuscular grupo = new GrupoMuscular();
 		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
@@ -78,19 +83,20 @@ public class GUICriarExercicio extends Activity implements View.OnClickListener{
 					Toast.LENGTH_LONG).show();
 			finish();
 			break;
-
-		default:
-			break;
 		}
 
 	}
 
 
-	private void carregarExercicio(Exercicio exercicio) {
+	private void carregarExercicio() {
+		Exercicio exercicio = (Exercicio) getIntent().getSerializableExtra("exercicio");
 		if (exercicio != null){
 			editNomeExercicio.setText(exercicio.getNomeExercicio());
 			editDescricaoExercicio.setText(exercicio.getDescricao());
 		}
-		
+
 	}
+
+
+
 }

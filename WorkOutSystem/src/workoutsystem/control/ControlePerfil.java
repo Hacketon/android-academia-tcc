@@ -3,18 +3,13 @@ package workoutsystem.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.widget.Toast;
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.PerfilDao;
-import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IDiaSemana;
-import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.interfaces.IPerfilDao;
-import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.DiaSemana;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
-import workoutsystem.view.GUIManipularPerfil;
 
 public class ControlePerfil {
 

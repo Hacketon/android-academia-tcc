@@ -3,10 +3,15 @@ package workoutsystem.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.ExemptionMechanismException;
+
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +27,8 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
-public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, ListView.OnItemClickListener{
+public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, 
+ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,DialogInterface.OnClickListener{
 
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
@@ -31,6 +37,8 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 	private ListView listacriado;
 	private Spinner cbxExercicioPadrao;
 	private Spinner cbxExercicioCriado;
+	private boolean [] selecaoexc;
+	private String [] exercicios;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,14 +98,15 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 		switch (v.getId()) {
 		case (R.id.btn_add):
 			startActivity(new Intent("workoutsystem.view.CRIAREXERCICIO"));
+			
 		break;
-
-		case (R.id.tabcriado):
-			System.out.print("Clicou criado");
+		case (R.id.btn_exc):
+			if (exercicios != null && selecaoexc != null){
+				showDialog(0);
+			}
 		break;
-		default:
-			break;
 		}
+		
 
 	}
 
@@ -109,6 +118,7 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 			listaExercicios = controle.listarExercicios
 			(parent.getItemAtPosition(pos).toString(),1);
 			createListView(listaExercicios,listacriado);
+			criarExclusao(listaExercicios);
 
 		}else if (parent.getId()== R.id.cbx_grupopadrao){
 			listaExercicios = controle.listarExercicios
@@ -119,6 +129,18 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 	}
 
 
+
+	private void criarExclusao(List<Exercicio> listaExercicios) {
+		int i = 0 ;
+		exercicios = null;
+		selecaoexc = null;
+		exercicios = new String[listaExercicios.size()]; 
+		for (Exercicio e : listaExercicios){
+			exercicios[i] = e.getNomeExercicio();
+			i++;
+		}
+		selecaoexc = new boolean[exercicios.length];
+	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
@@ -132,10 +154,8 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 		for (Exercicio e : exercicios){
 			nomes.add(e.getNomeExercicio());
 		}
-		ArrayAdapter<String> adapter = 
-										new ArrayAdapter<String>
-										(this,R.layout.itens_simple_lista,nomes);
-		adapter = new ArrayAdapter<String>(this,R.layout.itens_simple_lista,nomes);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>
+		(this,R.layout.itens_simple_lista,nomes);
 		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
 		lista.setCacheColorHint(Color.BLUE);
@@ -157,6 +177,70 @@ public class GUIExercicio extends Activity implements View.OnClickListener,Adapt
 		startActivity(i);
 		
 	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		// TODO Auto-generated method stub
+		return new AlertDialog.Builder(this)
+		.setTitle("Exercicios")
+		.setMultiChoiceItems(exercicios, selecaoexc, this)
+		.setPositiveButton("Deletar",this)
+		.setNeutralButton("Cancelar",this)
+		.create();
+		
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int clicked) {
+		switch (clicked) {
+		case DialogInterface.BUTTON_POSITIVE:
+			Toast.makeText(this, deletarExercicios(),Toast.LENGTH_SHORT).show();
+		break;
+
+		}
+		
+	}
+
+	private String deletarExercicios() {
+		ControleExercicio controle = new ControleExercicio();
+		int i = 0 ;
+		int contador = 0;
+		ArrayList<String> opc = new ArrayList<String>();
+		
+		for (boolean b : selecaoexc){
+			if (b == true){
+				contador++;
+			}else{
+				opc.add(exercicios[i]);
+			}
+			i++;
+		}
+		i = 0;
+		contador = exercicios.length - contador;
+		exercicios = null;
+		selecaoexc = null;
+		if (contador != 0){
+			exercicios = new String[contador];
+			selecaoexc = new boolean[contador];
+			for (String o : opc ){
+				exercicios[i] = o;
+				i++;
+			}
+
+		}
+
+		return controle.excluirExercicio(exercicios);
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+		// TODO Auto-generated method stub
+		selecaoexc[which]= isChecked;
+	}
+
+	
+	
+	
 
 
 

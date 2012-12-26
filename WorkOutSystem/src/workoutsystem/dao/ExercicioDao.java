@@ -16,13 +16,14 @@ import workoutsystem.model.Passo;
 public class ExercicioDao implements IExercicioDao {
 
 
-	
+
 
 
 	@Override
 	public boolean adicionarExercicio(Exercicio e) {
+		boolean verificador;
 		try{
-			boolean verificador;
+
 			Connection con = Banco.conexao();
 			String sql = "insert into exercicio (nome, descricao, personalizado, codigogrupomuscular)" +
 			" values (?,?,?,?) ";
@@ -40,13 +41,19 @@ public class ExercicioDao implements IExercicioDao {
 			}
 			prepare.close();
 			con.close();
-			return verificador;
+
 		}catch (SQLException erro) {
 			Log.e ("SQL",erro.getMessage());
 			return false;
 		}
 
+		return verificador;
+
 	}
+
+
+
+
 
 	@Override
 	public boolean alterarExercicio(long codigo, Exercicio e) {
@@ -65,22 +72,39 @@ public class ExercicioDao implements IExercicioDao {
 			if (resultado > 0 ){
 				verificador = true;
 			}
-			
+
 			prepared.close();
 			con.close();
-			
-			
+
+
 		}catch (SQLException ex){
-			
+
 		}
 		return verificador;
 	}
 
-	
+
 	@Override
-	public boolean excluirExercicio(int codigo) {
-		
-		return false;
+	public boolean excluirExercicio(long codigo) {
+		boolean verificador = false;
+		try{
+
+			Connection con = Banco.conexao(); 
+			String sql = "delete from exercicio where codigo = ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setLong(1, codigo);
+			int resultado = prepare.executeUpdate();
+
+			if (resultado != 0 ){
+				verificador = true;
+			}else{
+				verificador = false;
+			}
+
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return verificador;
 	}
 
 	@Override
@@ -175,7 +199,29 @@ public class ExercicioDao implements IExercicioDao {
 
 
 
-	
+	@Override
+	public boolean buscarExercicio(String nome,long codigo){
+		boolean verificador = false;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select * from exercicio where nome like ? and codigo != ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setString(1,nome);
+			prepare.setLong(2,codigo);
+			ResultSet result = prepare.executeQuery();
+			if (result.next()){
+				verificador = true;
+			}
+
+			prepare.close();
+			con.close();
+		}catch (SQLException e) {
+			
+		}
+
+		return verificador;
+	}
+
 	@Override
 	public Exercicio buscarExercicio(String nome) {
 		Exercicio exercicio = null;
@@ -248,92 +294,61 @@ public class ExercicioDao implements IExercicioDao {
 
 
 
-@Override
-public Exercicio buscarExercicioPersonalizado(Exercicio exercicio) {
-	GrupoMuscular grupomuscular = new GrupoMuscular();
 
-	try{
-		Connection con = Banco.conexao();
-		String sql = "select (nome, descricao, personalizado, codigogrupomuscular) from exercicio where personalizado = ?;";
+	@Override
+	public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
+		Exercicio exercicio = new Exercicio();
+		GrupoMuscular grupomuscular = new GrupoMuscular();
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select (nome, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
+			PreparedStatement prepare = con.prepareStatement(sql);	
+			prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
+			ResultSet result  = prepare.executeQuery();
 
-		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setInt(1, exercicio.getPersonalizado());
-		ResultSet result = prepare.executeQuery();
 
+			//Verificar se está correto 
+			if(result.next()){
+				exercicio.setNomeExercicio(result.getString(1));
+				exercicio.setDescricao(result.getString(2));
+				//verificar está parte
+				grupomuscular.setCodigo(result.getInt(3));
+				exercicio.setGrupoMuscular(grupomuscular);
+				//
+				exercicio.setPersonalizado(result.getInt(4));
+			}
 
-		//Verificar se está correto 
-		if (result.next()){
-			exercicio.setNomeExercicio(result.getString(1));
-			exercicio.setDescricao(result.getString(2));
-			exercicio.setPersonalizado(result.getInt(3));
-			// ver se está correto essa parte 
-			grupomuscular.setCodigo(result.getInt(4));
-			exercicio.setGrupoMuscular(grupomuscular);
+			prepare.close();
+			result.close();
+
+		}catch (Exception e) {
+			Log.e ("SQL",e.getMessage());
 		}
 
-		prepare.close();
-		con.close();
-
-	}catch(SQLException e) {
-		Log.e ("SQL",e.getMessage());
+		return exercicio;
 	}
-	return exercicio;
-}
-
-@Override
-public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
-	Exercicio exercicio = new Exercicio();
-	GrupoMuscular grupomuscular = new GrupoMuscular();
-	try{
-		Connection con = Banco.conexao();
-		String sql = "select (nome, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
-		PreparedStatement prepare = con.prepareStatement(sql);	
-		prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
-		ResultSet result  = prepare.executeQuery();
 
 
-		//Verificar se está correto 
-		if(result.next()){
-			exercicio.setNomeExercicio(result.getString(1));
-			exercicio.setDescricao(result.getString(2));
-			//verificar está parte
-			grupomuscular.setCodigo(result.getInt(3));
-			exercicio.setGrupoMuscular(grupomuscular);
-			//
-			exercicio.setPersonalizado(result.getInt(4));
+	@Override
+	public boolean buscarExercicio (long codigo) {
+		boolean verificador = false;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select * from exercicio where codigo = ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setLong(1, codigo);
+			ResultSet result = prepared.executeQuery();
+
+			if (result.next()){
+				verificador = true;
+			}
+			prepared.close();
+			con.close();
+		}catch(SQLException ex){
+
 		}
-
-		prepare.close();
-		result.close();
-
-	}catch (Exception e) {
-		Log.e ("SQL",e.getMessage());
+		return verificador;
 	}
-
-	return exercicio;
-}
-
-
-@Override
-public boolean buscarExercicio(Exercicio e) {
-	boolean verificador = false;
-	try{
-		Connection con = Banco.conexao();
-		String sql = "select * from exercicio where codigo = ?";
-		PreparedStatement prepared = con.prepareStatement(sql);
-		prepared.setLong(1, e.getCodigo());
-		ResultSet result = prepared.executeQuery();
-		
-		if (!result.next()){
-			verificador = true;
-		}
-		prepared.close();
-		con.close();
-	}catch(SQLException ex){
-		
-	}
-	return verificador;
-}
 
 
 }

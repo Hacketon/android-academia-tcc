@@ -42,6 +42,12 @@ public class GUILogin extends Activity implements View.OnClickListener{
 					if (controle.realizarLogin(u)){
 					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
 					limparCampos();
+					try {
+						finalize();
+					} catch (Throwable e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					}else{
 						Toast.makeText(this, "Dados Invalidos!", Toast.LENGTH_LONG).show();
 					}

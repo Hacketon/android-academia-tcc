@@ -12,22 +12,22 @@ import workoutsystem.model.GrupoMuscular;
 
 
 public interface IExercicioDao {
-	
+	/**
+	 *  Busca exercicio pelo nome e por codigo 
+	 * @param nome
+	 * @param codigo
+	 * @return true = exercicio existente com este nome e codigo diferente caso contrario false
+	 */
+	public abstract boolean buscarExercicio(String nome,long codigo);
 	
 	/**
 	 * Metodo responsavel pela busca de exercicios
-	 * @param e
+	 * @param e busca pelo codigo do exercicio
 	 * @return
 	 */
-	public abstract boolean buscarExercicio(Exercicio e);
+	public abstract boolean buscarExercicio(long codigo);
 	
 	
-	/**
-	 * Metodo que realizará a busca de exercicios personalizados
-	 * @param e
-	 * @return
-	 */
-	public abstract Exercicio buscarExercicioPersonalizado(Exercicio exercicio);
 	/**
 	 * Metodo responsavel pela criação de um novo exercicio
 	 * @param e
@@ -47,11 +47,11 @@ public interface IExercicioDao {
 	
 	/**
 	 * Metodo responsavel pela exclusão de exercicios 
-	 * @param codigo
+	 * @param l
 	 * @return
 	 */
 	
-	public abstract boolean excluirExercicio(int codigo);
+	public abstract boolean excluirExercicio(long l);
 	
 	/**
 	 * Metodo responsavel pela visualização dos Passos de cada exercicio

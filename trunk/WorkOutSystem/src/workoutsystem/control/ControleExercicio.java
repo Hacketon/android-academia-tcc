@@ -26,25 +26,43 @@ public class ControleExercicio {
 		if (exercicio!= null){
 			GrupoMuscular grupo = exercicio.getGrupoMuscular();
 			grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
-			if (!dao.buscarExercicio(exercicio)){
+
+			if (!dao.buscarExercicio(exercicio.getCodigo())){
 				if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
-					 if(dao.adicionarExercicio(exercicio)){
-							mensagem = "Exercicio criado com sucesso !";
-						}
+					if(dao.adicionarExercicio(exercicio)){
+						mensagem = "Exercicio criado com sucesso !";
 					}
-				}else{
+				}
+			}else{
+				if (!dao.buscarExercicio(exercicio.getNomeExercicio(),exercicio.getCodigo())){
 					if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
 						mensagem = "Exercicio atualizado com sucesso";
+					}
 				}
-				
 			}
-			
 		}
 
 		return mensagem;
 	}
 
-	public void excluirExercicio(Exercicio exercicio){
+
+	public String excluirExercicio(String [] exercicios){
+		boolean resultado = true;
+		int i = 0;
+		IExercicioDao dao = new  ExercicioDao();
+		String mensagem = "Exercicio excluido!";
+
+		while (i != exercicios.length || resultado == false){
+			String nome = exercicios[i];
+			Exercicio exercicio = dao.buscarExercicio(nome);
+			resultado = dao.excluirExercicio(exercicio.getCodigo());
+			i++;
+		}
+		if (resultado == false){
+			mensagem = "Erro ao excluir os exercicios";
+		}
+
+		return mensagem;
 	}
 
 	public List<Passo> visualizarPassos(Exercicio exercicio){

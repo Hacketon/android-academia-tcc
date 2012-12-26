@@ -11,6 +11,7 @@ public class GUIFicha extends Activity implements View.OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.ficha);
 	}
 
@@ -21,7 +22,9 @@ public class GUIFicha extends Activity implements View.OnClickListener {
 		case (R.id.btn_adicionarficha):
 			startActivity(new Intent("workoutsystem.view.FICHAMANIPULAR"));
 			break;
-		default:
+		case (R.id.btn_removerficha):
+			break;
+		case (R.id.btn_mudarficha):
 			break;
 		}
 		

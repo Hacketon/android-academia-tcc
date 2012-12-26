@@ -38,7 +38,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		cbxDiaSemana = (Spinner)findViewById(R.id.combo_treinos);
 		diaSemana = (TextView) findViewById(R.id.diaSemana);
 		textomes = (TextView) findViewById(R.id.txt_mes);
-		grupoMuscular = (TextView) findViewById(R.id.grupo_muscular_trab);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
 		treinoDia = (TextView) findViewById(R.id.treino_dia);
 		mes = Calendar.getInstance();

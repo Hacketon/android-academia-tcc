@@ -24,6 +24,7 @@ implements View.OnClickListener{
 	private Spinner cbxGrupo;
 	private EditText editNomeExercicio;
 	private EditText editDescricaoExercicio;
+	private ArrayList<String> listaGrupos;
 
 
 	@Override
@@ -41,7 +42,7 @@ implements View.OnClickListener{
 
 
 	public void criarCombo(){
-		ArrayList<String> listaGrupos = new ArrayList<String>();
+		listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
 		ArrayList<GrupoMuscular> grupos = 
 			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
@@ -89,11 +90,23 @@ implements View.OnClickListener{
 
 
 	private void carregarExercicio() {
-		Exercicio exercicio = (Exercicio) getIntent().getSerializableExtra("exercicio");
+		Exercicio exercicio = (Exercicio) 
+		getIntent().getSerializableExtra("exercicio");
+		int i = 0;
 		if (exercicio != null){
 			editNomeExercicio.setText(exercicio.getNomeExercicio());
 			editDescricaoExercicio.setText(exercicio.getDescricao());
+			for (String l : listaGrupos){
+				if (l.equalsIgnoreCase(exercicio.getGrupoMuscular().getNome())){
+					cbxGrupo.setSelection(i);
+					break;
+				}
+				i++;
+			}
+
 		}
+
+
 
 	}
 

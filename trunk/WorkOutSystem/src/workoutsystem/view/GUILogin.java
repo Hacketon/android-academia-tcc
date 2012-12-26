@@ -43,7 +43,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
 					limparCampos();
 					try {
-						finalize();
+						this.finalize();
 					} catch (Throwable e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

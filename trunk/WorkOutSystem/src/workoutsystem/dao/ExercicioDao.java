@@ -240,6 +240,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setPersonalizado(result.getInt(4));
 				GrupoMuscular grupo = new GrupoMuscular();
 				grupo.setCodigo(result.getInt(5));
+				grupo.setNome(buscarGrupoMuscular(grupo.getCodigo()));
 				exercicio.setListaPassos(visualizarPassos(exercicio));
 				exercicio.setGrupoMuscular(grupo);
 			}
@@ -348,6 +349,35 @@ public class ExercicioDao implements IExercicioDao {
 
 		}
 		return verificador;
+	}
+
+
+
+
+
+	@Override
+	public String buscarGrupoMuscular(int codigo) {
+		String nome= "";
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select grupomuscular.nome from grupomuscular where " +
+			" grupomuscular.codigo like ? ";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+
+			if (result.next()){
+				nome = result.getString(1);
+			}
+
+			prepare.close();
+			con.close();
+
+		}catch(SQLException e) {
+			Log.e ("SQL",e.getMessage());
+		}
+
+		return nome;
 	}
 
 

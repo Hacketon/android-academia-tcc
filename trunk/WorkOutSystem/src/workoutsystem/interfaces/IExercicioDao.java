@@ -72,6 +72,7 @@ public interface IExercicioDao {
 	 * @return numero do grupo muscular
 	 */
 	public abstract int buscarGrupoMuscular(String nome);
+	public abstract String buscarGrupoMuscular(int codigo);
 		/**
 	 * Uma lista de exercicio através do nome do exercicio
 	 * @param nome = nome do exercicio

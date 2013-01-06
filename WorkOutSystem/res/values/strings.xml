@@ -22,6 +22,7 @@
     <string name="title_activity_tela_ajuda">Ajuda</string>
     <string name="title_activity_configuracoes">Configurações</string>
     <string name="title_activity_tela_status">Status</string>
+    <string name="botao_visualizar">Visualizar </string>
 
     <!-- texto medidas ! -->
 
@@ -52,7 +53,6 @@
     <string name="botao_excluir">Excluir</string>
     <string name="botao_cadastro">Cadastrar</string>
     <string name="botao_alterar">Alterar</string>
-    <string name="botao_visualizar">Visualizar</string>
     <string name="botao_cancelar">Cancelar</string>
     <string name="label_nomeapelido">Nome/Apelido</string>
     <string name="label_datanasc">Data de Nascimento</string>
@@ -113,11 +113,12 @@
     <string name="check_aerobico">Aerobico</string>
     <string name="label_treino">Treino</string>
     <string name="button_continuar">Continuar</string>
+    
     <!-- Fichaa -->
     <string name="botao_adicionar">Adicionar</string>
     <string name="botao_remover">Remover</string>
     <string name="botao_rem">-</string>
-    <string name="botao_mudarficha">Mudar</string>
+    <string name="botao_mudarficha">Mudar ficha atual</string>
     <string name="label_ficha_atual"> Ficha atual </string>
     <string name="label_nomeficha"> Nome ficha </string>
     <!-- Exercicio Ficha -->
@@ -189,5 +190,15 @@
     <string name="label_data2">Data 2</string>
     <string name="calendario_mes"> Mês </string>
     <string name="label_data3">Data 3</string>
-
+    
+    
+    
+    <string name="botao_existente">Treino existente</string>
+    <string name="botao_finalizar">Finalizar edição</string>
+    <string name="botao_novotreino">Novo treino</string>
+    <string name="botao_removertreino">Remover treino</string>
+	<string name="botao_visualizarficha">Visualizar ficha</string>
+	<string name="botao_adicionarexercicio">Adicionar exercicio</string>
+	<string name="botao_removerexercicio">Remover exercicio</string>
+	
 </resources>

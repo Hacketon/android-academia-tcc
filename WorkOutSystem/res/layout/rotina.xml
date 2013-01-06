@@ -58,7 +58,7 @@
                             android:id="@+id/combo_treinos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/label_diasemana" />
+                            android:prompt="@string/label_treino" />
                     </LinearLayout>
                     <!-- Layout Treino do Dia -->
 

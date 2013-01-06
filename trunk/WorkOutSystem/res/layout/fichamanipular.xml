@@ -73,21 +73,7 @@
                         android:inputType="textMultiLine" 
                         android:maxLength="100"/>
 
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_gravity="bottom"
-                        android:weightSum="100" >
-
-                        <Button
-                            android:id="@+id/botao_salvar"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="center"
-                            android:onClick="onClick"
-                            android:text="@string/botao_salvar" />
-                    </LinearLayout>
+             
                 </LinearLayout>
 
                 <!-- Treinos -->
@@ -104,31 +90,7 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1" />
 
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:weightSum="100" >
-
-                        <Button
-                            android:id="@+id/btn_adicionartreino"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="50"
-                            android:onClick="onClick"
-                            android:text="@string/botao_adicionar" />
-
-                        <Button
-                            android:id="@+id/btn_removertreino"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="50"
-                            android:onClick="onClick"
-                            android:text="@string/botao_remover" />
                     </LinearLayout>
-                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

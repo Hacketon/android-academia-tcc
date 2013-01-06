@@ -5,110 +5,41 @@
     android:background="@drawable/background_padrao"
     android:orientation="vertical" >
 
-    <TabHost
-        android:id="@+id/hostfichatreino"
+    <!-- Ficha treinos -->
+
+    <LinearLayout
+        android:id="@+id/tabfichastreino"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+        <TextView
+            style="@style/textopequeno"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/label_treino" />
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
+        <EditText
+            android:id="@+id/ed_sequencia"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+        <TextView
+            style="@style/textopequeno"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/title_activity_tela_exercicio" />
+        <ListView
+            android:id="@+id/listaexercicios"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:divider="@android:color/white" />
 
-                <!-- Ficha treinos -->
-
-                <LinearLayout
-                    android:id="@+id/tabfichastreino"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="5dp" >
-
-                    <TextView
-                        style="@style/textopequeno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:text="@string/label_nome" />
-
-                    <EditText
-                        android:id="@+id/ed_sequencia"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" 
-                        android:maxLines="1"/>
-
-                    <Button
-                        style="@style/textopequenopreto"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_diasemana" />
-
-                    <ListView
-                        android:id="@+id/listadias"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:divider="@android:color/white" />
-
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:weightSum="100" >
-
-                        <Button
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="@string/botao_salvar" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Ficha Exercicios -->
-
-                <LinearLayout
-                    android:id="@+id/tabfichaexercicio"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <ListView
-                        android:id="@+id/lista_exercicios"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:weightSum="100" >
-
-                        <Button
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="@string/botao_adicionar" />
-
-                        <Button
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="@string/botao_remover" />
-                    </LinearLayout>
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+    </LinearLayout>
 
 </LinearLayout>

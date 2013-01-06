@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/adicionar_ficha"
+        android:title="@string/botao_adicionar"/>
+    <item
+        android:id="@+id/remover_ficha"
+        android:title="@string/botao_remover"/>
+    <item
+        android:id="@+id/mudar_ficha"
+        android:title="@string/botao_mudarficha"/>
+
+</menu>

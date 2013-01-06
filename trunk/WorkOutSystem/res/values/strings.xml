@@ -88,11 +88,11 @@
 
     <!-- texto de label -->
 
-    <string name="label_usuario">Usuario :</string>
-    <string name="label_senha">Senha :</string>
-    <string name="label_confirmarsenha">Confirmar Senha:</string>
-    <string name="label_diasemana">Dias da Semana</string>
-    <string name="label_duracaodias">Duração(Dias):</string>
+    <string name="label_usuario">Usuario </string>
+    <string name="label_senha">Senha </string>
+    <string name="label_confirmarsenha">Confirmar senha </string>
+    <string name="label_diasemana">Dias da semana </string>
+    <string name="label_duracaodias">Duração(Dias) </string>
     <!-- Ajudas -->
 
 
@@ -118,14 +118,14 @@
     <string name="botao_remover">Remover</string>
     <string name="botao_rem">-</string>
     <string name="botao_mudarficha">Mudar</string>
-    <string name="label_ficha_atual"> Ficha Atual: </string>
-    <string name="label_nomeficha"> Nome Ficha </string>
+    <string name="label_ficha_atual"> Ficha atual </string>
+    <string name="label_nomeficha"> Nome ficha </string>
     <!-- Exercicio Ficha -->
     <string name="botao_ordenar"> Ordenar </string>
     
     <!-- Tela Passos -->
     
-    <string name="label_passos"> Passo () </string>
+    <string name="label_passos"> Passo  </string>
     <string name="label_descricao_passo"> Realização do exercicio, bla bla bla bla 
         bla bla bla bal bal blan lbanba dbvjsd djbvdshdb</string>
 

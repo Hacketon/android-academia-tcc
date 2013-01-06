@@ -1,20 +1,13 @@
 package workoutsystem.dao;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import android.app.Activity;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class Banco extends Activity {
+public class Banco{
 
 	public static Connection conexao() {
 		Connection con = null;
@@ -25,7 +18,7 @@ public class Banco extends Activity {
 			Driver driver = (Driver) Class.forName(urldriver).newInstance();
 			con = driver.connect(url, null);
 		}catch (Exception e){
-			
+			Log.e("Erro",e.getMessage());
 		}
 			return con;
 	}

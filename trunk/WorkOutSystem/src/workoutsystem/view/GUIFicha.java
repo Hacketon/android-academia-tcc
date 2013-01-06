@@ -3,6 +3,8 @@ package workoutsystem.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 public class GUIFicha extends Activity implements View.OnClickListener {
@@ -28,6 +30,14 @@ public class GUIFicha extends Activity implements View.OnClickListener {
 			break;
 		}
 		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_principal_ficha, menu);
+		return true;
 	}
 
 	

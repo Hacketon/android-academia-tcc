@@ -34,6 +34,7 @@ public class GUINovoUsuario extends Activity implements View.OnClickListener{
 			if (usuario != null && controle.cadastrarUsuario
 					(usuario, String.valueOf(editConfirmarSenha.getText()))){
 				Toast.makeText(this, "Usuario cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+				finish();
 			}else{
 				Toast.makeText(this, "Usuario não pode ser cadastrado", Toast.LENGTH_SHORT).show();
 			}

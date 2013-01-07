@@ -3,22 +3,28 @@ package workoutsystem.model;
 import java.util.Date;
 import java.util.List;
 
-public class Medicao {
-	
+import android.text.method.DateTimeKeyListener;
 
+public class Medicao {
+
+
+	private int codigo;
 	private double valor;
 	private	Date dataMedicao;
 	private int codigoMedida;
 	private int codigoPerfil;
-	
+
+	public int getCodigo(){
+		return codigo;
+	}
 	public double getValor() {
 		return valor;
 	}
-	
+
 	public Date getDataMedicao() {
 		return dataMedicao;
 	}
-	
+
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
@@ -35,10 +41,14 @@ public class Medicao {
 	public int getCodigoPerfil() {
 		return codigoPerfil;
 	}
+
+	public void setCodigio(int codigo){
+		this.codigo = codigo;
+	}
 	public void setCodigoPerfil(int codigoPerfil) {
 		this.codigoPerfil = codigoPerfil;
 	}
-	
-		
+
+
 
 }

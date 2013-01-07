@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical">
     
     
     <LinearLayout
@@ -14,10 +13,10 @@
         android:orientation="vertical" >
 
         <Spinner
-            android:id="@+id/cbx_grupopadrao"
+            android:id="@+id/cbx_buscaexercicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:prompt="@string/title_activity_tela_exercicio" />
+            android:prompt="@string/label_grupo_muscular" />
 
         <ListView
             android:id="@+id/listapadrao"

@@ -56,7 +56,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		gradedias.setOnItemClickListener(this);
 		
 		criarTab();
-		criarCombo();
+//		criarCombo();
 	}
 /**
  * Metodo de criação das tab spec e tab host
@@ -80,19 +80,19 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	 * Criação do objeto Spinner (Combo Box)
 	 */
 
-	public void criarCombo(){
-		List<String> dias = new ArrayList<String>();
-		List<DiaSemana> listaDias = new ControleFicha().listarDias();
-		for (DiaSemana d : listaDias){
-			dias.add(d.getDiaSemana());
-		}
-		ArrayAdapter<String> adapter = new 
-		ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,dias);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		cbxDiaSemana.setAdapter(adapter);
-
-
-	}
+//	public void criarCombo(){
+//		List<String> dias = new ArrayList<String>();
+//		List<DiaSemana> listaDias = new ControleFicha().listarDias();
+//		for (DiaSemana d : listaDias){
+//			dias.add(d.getDiaSemana());
+//		}
+//		ArrayAdapter<String> adapter = new 
+//		ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,dias);
+//		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		cbxDiaSemana.setAdapter(adapter);
+//
+//
+//	}
 
 	@Override
 	

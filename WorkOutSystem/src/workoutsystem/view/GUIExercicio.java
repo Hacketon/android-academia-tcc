@@ -3,8 +3,6 @@ package workoutsystem.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.ExemptionMechanismException;
-
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
@@ -15,17 +13,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.SyncStateContract.Constants;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, 
 ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,DialogInterface.OnClickListener{
@@ -127,8 +122,6 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 
 		}
 	}
-
-
 
 	private void criarExclusao(List<Exercicio> listaExercicios) {
 		int i = 0 ;

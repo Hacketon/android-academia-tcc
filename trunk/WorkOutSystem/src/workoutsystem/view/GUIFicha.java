@@ -5,32 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
+import android.view.MenuItem;
 
-public class GUIFicha extends Activity implements View.OnClickListener {
+public class GUIFicha extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.ficha);
 	}
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case (R.id.btn_adicionarficha):
-			startActivity(new Intent("workoutsystem.view.FICHAMANIPULAR"));
-			break;
-		case (R.id.btn_removerficha):
-			break;
-		case (R.id.btn_mudarficha):
-			break;
-		}
-		
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,6 +26,26 @@ public class GUIFicha extends Activity implements View.OnClickListener {
 		return true;
 	}
 
-	
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case R.id.adicionar_ficha:
+			startActivity(new Intent("workoutsystem.view.FICHAMANIPULAR"));
+			break;
+
+		case R.id.remover_ficha:
+
+			break;
+		case R.id.mudar_ficha:
+			break;
+		}
+		
+		return false;
+	}
+
+
+
 }

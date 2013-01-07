@@ -56,10 +56,11 @@ public class MedidaDao implements IMedidaDao{
 				prepare.setDouble(1,m.getValor() );
 				prepare.setInt(2, m.getCodigoMedida() );
 				prepare.setInt(3, m.getCodigoPerfil());
+				 
+				java.sql.Date dataSql = new java.sql.Date(m.getDataMedicao().getTime()); 
 				
-				//arruamr data pois fiz uma alteração no banco para add com data null (data sempre = null)
-				java.sql.Date dataParaGravar = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-				prepare.setDate(4, dataParaGravar);
+				prepare.setDate(4, dataSql );
+
 
 				if(prepare.executeUpdate()!=0){
 					verificador = true;
@@ -104,8 +105,8 @@ public class MedidaDao implements IMedidaDao{
 	@Override
 	public List<Medicao> buscarMedicao(int codigo) {
 		List<Medicao> lista = new ArrayList<Medicao>();
-		
-		
+
+
 		try{
 			Connection con = Banco.conexao();
 			String sql ="select valor, datamedicao, codigomedida, codigoperfil " +
@@ -117,7 +118,7 @@ public class MedidaDao implements IMedidaDao{
 			while(result.next()){
 				Medicao medicao = new Medicao();
 				medicao.setValor(result.getDouble(1));
-				medicao.setDataMedicao(result.getDate(2));
+				//medicao.setDataMedicao(result.getDate(2));
 				medicao.setCodigoMedida(result.getInt(3));
 				medicao.setCodigoPerfil(result.getInt(4));
 				lista.add(medicao);

@@ -21,6 +21,7 @@ import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.DateTimeKeyListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,10 +85,16 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		List<Medicao> lista = new ArrayList<Medicao>();
 		Perfil perfil = new Perfil();
 		perfil = controle.buscarPerfil();
-
+		
+		if(perfil != null){
 		lista = controleMed.buscarMedicao(perfil.getCodigo());
 		carregarCampos(lista);
+		}else{
 
+			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
+					Toast.LENGTH_LONG).show();
+			
+		}
 	}
 
 
@@ -134,18 +141,18 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		List<Medicao> listaMedicao = new ArrayList<Medicao>();
 
-
-		Date data = new Date(); 
-
+		
+		java.util.Date data = new java.util.Date();  
 
 		Perfil perfil = controlePerf.buscarPerfil();
 		if(perfil != null){
 
 			//Altura
 			if(!editAltura.getText().toString().equalsIgnoreCase("")){
+				
 				Medida medida = new Medida();
 				Medicao medicao = new Medicao();
-
+				
 				medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
 				medicao.setDataMedicao(data);
 				medicao.setCodigoPerfil(perfil.getCodigo());

@@ -98,7 +98,7 @@
 
     <!-- texto rotina -->
     <string name="label_treino_dia">Treino Dia</string>
-    <string name="label_grupo_muscular">Grupo Muscular</string>
+    <string name="label_grupo_muscular">Grupo</string>
     <string name="label_grupo_muscular_trab">Peito e Costas</string>
     <string name="button_realizar_treino">Realizar</string>
 

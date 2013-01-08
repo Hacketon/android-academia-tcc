@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,8 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 	private Spinner cbxExercicioCriado;
 	private boolean [] selecaoexc;
 	private String [] exercicios;
+	private ArrayAdapter<String> adapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +150,7 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		for (Exercicio e : exercicios){
 			nomes.add(e.getNomeExercicio());
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>
+		 adapter = new ArrayAdapter<String>
 		(this,R.layout.itens_simple_lista,nomes);
 		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
@@ -188,6 +191,9 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		switch (clicked) {
 		case DialogInterface.BUTTON_POSITIVE:
 			Toast.makeText(this, deletarExercicios(),Toast.LENGTH_SHORT).show();
+			List<Exercicio> listarExercicios = new ControleExercicio().listarExercicios(cbxExercicioCriado.toString(), 1);
+			createListView(listarExercicios, listacriado);
+			
 		break;
 
 		}
@@ -198,13 +204,15 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		ControleExercicio controle = new ControleExercicio();
 		int i = 0 ;
 		int contador = 0;
-		ArrayList<String> opc = new ArrayList<String>();
+		ArrayList<String> deletados = new ArrayList<String>();
+		ArrayList<String> ndeletados = new ArrayList<String>();
 		
 		for (boolean b : selecaoexc){
 			if (b == true){
+				deletados.add(exercicios[i]);
 				contador++;
 			}else{
-				opc.add(exercicios[i]);
+				ndeletados.add(exercicios[i]);
 			}
 			i++;
 		}
@@ -215,14 +223,14 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		if (contador != 0){
 			exercicios = new String[contador];
 			selecaoexc = new boolean[contador];
-			for (String o : opc ){
+			for (String o : ndeletados){
 				exercicios[i] = o;
 				i++;
 			}
 
 		}
 
-		return controle.excluirExercicio(exercicios);
+		return controle.excluirExercicio(deletados);
 	}
 
 	@Override
@@ -231,10 +239,15 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		selecaoexc[which]= isChecked;
 	}
 
-	
-	
-	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		super.onPrepareDialog(id, dialog);
+			ArrayAdapter<String> list = new ArrayAdapter<String>
+			(this, android.R.layout.select_dialog_multichoice,exercicios);
+			AlertDialog alerta = (AlertDialog) dialog;
+			alerta.getListView().setAdapter(list);
+			list.notifyDataSetChanged();
 
 
-
+	}
 }

@@ -1,5 +1,6 @@
 package workoutsystem.view;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,10 +142,29 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		List<Medicao> listaMedicao = new ArrayList<Medicao>();
 
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		java.util.Date data = new java.util.Date();  
-
+		
+		java.util.Date data = new java.util.Date(); 
+		
+		
+//		
+//		String s = sdf.format(data);
+//		Date parse2 = null ;
+//		
+//		try {
+//			 parse2 = sdf.parse(s);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		
+		
+		
+		// debuga aki nesta lista para ver como vindo o formato da data ug
 		Perfil perfil = controlePerf.buscarPerfil();
+		
 		if(perfil != null){
 
 			//Altura
@@ -314,6 +334,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 			Toast.makeText(this,controleMed.adicionarMedicao(listaMedicao),
 					Toast.LENGTH_LONG).show();
+			MedidaDao dao = new MedidaDao();
+			dao.buscarData(1);
+			
 		}else{
 
 			Toast.makeText(this,"Primeiro crie seu Perfil !",

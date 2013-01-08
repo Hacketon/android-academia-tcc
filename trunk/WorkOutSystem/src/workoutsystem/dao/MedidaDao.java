@@ -47,22 +47,21 @@ public class MedidaDao implements IMedidaDao{
 		boolean verificador = false;
 		try{
 			Connection con = Banco.conexao();
-			PreparedStatement prepare = null;
+			String sql ="insert into medicao (valor,  codigomedida,codigoperfil,datamedicao) values (?,?,?,?);";
+			PreparedStatement prepare = con.prepareStatement(sql);
 
 			for(Medicao m: medicoes){
-				String sql ="insert into medicao (valor,  codigomedida,codigoperfil,datamedicao) values " +
-				"(?,?,?,?);";
-				prepare = con.prepareStatement(sql);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
 				prepare.setDouble(1,m.getValor() );
 				prepare.setInt(2, m.getCodigoMedida() );
 				prepare.setInt(3, m.getCodigoPerfil());
-				 
-				java.sql.Date dataSql = new java.sql.Date(m.getDataMedicao().getTime()); 
-				
-				prepare.setDate(4, dataSql );
+				String s = sdf.format(m.getDataMedicao());  
+				prepare.setString(4, s);
 
+			//	Log.i("Dados", m.toString());
 
-				if(prepare.executeUpdate()!=0){
+				if(prepare.executeUpdate()!= 0){
 					verificador = true;
 				}else{
 					verificador = false;
@@ -78,7 +77,53 @@ public class MedidaDao implements IMedidaDao{
 		}
 
 	}
+	
+//	public void deleta(){
+//		try{
+//			Connection con = Banco.conexao();		
+//			String sql ="delete from medidcao ;";
+//			PreparedStatement prepare = con.prepareStatement(sql);
+//      		prepare.executeUpdate();
+//			prepare.close();
+//			con.close();
+//			
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//	}
 
+	public Medicao buscarData(int codigo){
+		Medicao medicao = null;
+		try{
+			Connection con = Banco.conexao();		
+			String sql ="select valor,datamedicao from medicao;";
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			PreparedStatement prepare = con.prepareStatement(sql);
+			//prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+			while(result.next()){
+				Double string2 = result.getDouble(1);
+				String string = result.getString(2);
+				//Date date = result.getDate(2);
+				
+				String Resultado = "Valor :" +string2 + "Data String : "+ string;
+				
+				
+				
+			}
+
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			
+			// TODO: handle exceptionma
+			
+		}
+		return medicao;
+		
+	}
+	
 	@Override
 	public Double buscarValorMedicao(int codigo) {
 		Double valor = null;

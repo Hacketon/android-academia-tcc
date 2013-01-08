@@ -48,7 +48,17 @@ public class Medicao {
 	public void setCodigoPerfil(int codigoPerfil) {
 		this.codigoPerfil = codigoPerfil;
 	}
+	@Override
+	public String toString() {
+		String texto = String.format("codigo perfil : %d /n " +
+				" codigo : %d " +
+				"/n data : %s " +
+				"/n valor : %f" +
+				" /n ", codigoPerfil,codigo,""+dataMedicao,valor);
+		
+		return texto;
+	}
 
-
+	
 
 }

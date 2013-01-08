@@ -409,6 +409,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:onClick="onClick"
             style="@style/textopequenopreto"
             android:text="@string/botao_alterar" />
         
@@ -426,8 +427,9 @@
             style="@style/textopequenopreto"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:layout_weight="50"
-            android:text="@string/botao_excluir" />
+            android:text="@string/botao_cancelar" />
 
     </LinearLayout>
 

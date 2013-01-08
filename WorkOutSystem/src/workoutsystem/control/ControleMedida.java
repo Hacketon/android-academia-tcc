@@ -64,4 +64,25 @@ public class ControleMedida {
 		return valor;
 	}
 	
+	public String alterarMedicoes(List<Medicao> medicoes){
+		String mensagem = "Erro ao atualizar";
+		IMedidaDao dao = new MedidaDao();
+		
+		if(dao.alterarMedicao(medicoes)== true){
+			mensagem = "Atualizado com sucesso";
+		}		
+		
+		return mensagem;
+	}
+	
+	public String alterarUltimasMedicoes(List<Medicao> medicoes){
+		String mensagem = "Erro ao atualizar";
+		IMedidaDao dao = new MedidaDao();
+		
+		if(dao.alterarUltimaMedicao(medicoes)!= false){
+			mensagem = "Atualizado com sucesso";
+		}		
+		
+		return mensagem;
+	}
 }

@@ -53,7 +53,7 @@
     <string name="botao_excluir">Excluir</string>
     <string name="botao_cadastro">Cadastrar</string>
     <string name="botao_alterar">Alterar</string>
-    <string name="botao_cancelar">Cancelar</string>
+    <string name="botao_cancelar">Cancela</string>
     <string name="label_nomeapelido">Nome/Apelido</string>
     <string name="label_datanasc">Data de Nascimento</string>
     <string name="label_sexo">Sexo</string>

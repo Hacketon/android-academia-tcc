@@ -34,4 +34,17 @@ public interface IMedidaDao {
 	 * @return
 	 */
 	public abstract boolean adicionarMedicao(List<Medicao> medicao);
+/**
+ * metodo que irá alterar as medicoes apartit da data e codigomedida
+ * @param medicoes
+ * @return
+ */
+	public abstract boolean alterarMedicao(List<Medicao> medicoes);
+	
+	/**
+	 * metodo que ira aletar as ultimas medicoes de cada grupo muscular
+	 * @param m
+	 * @return
+	 */
+	public abstract boolean alterarUltimaMedicao(List<Medicao> m);
 }

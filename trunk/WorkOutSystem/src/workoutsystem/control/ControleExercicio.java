@@ -46,17 +46,16 @@ public class ControleExercicio {
 	}
 
 
-	public String excluirExercicio(String [] exercicios){
+	public String excluirExercicio(ArrayList<String> exercicios){
 		boolean resultado = true;
-		int i = 0;
 		IExercicioDao dao = new  ExercicioDao();
 		String mensagem = "Exercicio excluido!";
 
-		while (i != exercicios.length || resultado == false){
-			String nome = exercicios[i];
+		for (String e : exercicios){
+			String nome = e; 
 			Exercicio exercicio = dao.buscarExercicio(nome);
 			resultado = dao.excluirExercicio(exercicio.getCodigo());
-			i++;
+			
 		}
 		if (resultado == false){
 			mensagem = "Erro ao excluir os exercicios";

@@ -65,13 +65,24 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 
 
 	public void carregarStatus(){
+		Medicao mAltura = new Medicao();
+		Medicao mPeso = new Medicao();
+		Medicao mCintura = new Medicao();
+		Medicao mBracoE = new Medicao();
+		Medicao mPantuE = new Medicao();
+		Medicao mQuadril = new Medicao();
+		Medicao mPeito = new Medicao();
+		Medicao mCoxaD = new Medicao();
+		Medicao mBracoD = new Medicao();
+		Medicao mCoxaE = new Medicao();
+		Medicao mPantuD = new Medicao();
+		
 		ControlePerfil controlePerf = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
 		Perfil perfil = controlePerf.buscarPerfil();
 		String sexo="";
 		List<Medicao> medicoes = new ArrayList<Medicao>();
 		medicoes = controleMed.buscarMedicao(perfil.getCodigo());
-
 
 		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
 		if(perfil.getSexo()){
@@ -82,47 +93,59 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
 		txtFrequencia.setText(txtFrequencia.getText()+ "   " + controlePerf.quantidadeDias(perfil) );
 
+		
+		
+		
 		//Medidas
 		for(Medicao m : medicoes){
 			
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Altura", "a")){
-				txtAltura.setText(txtAltura.getText()+"   " + m.getValor());
+				mAltura.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Peso", "a")){
-				txtPeso.setText(txtPeso.getText()+"   " + m.getValor());	
+				mPeso.setValor(m.getValor());	
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Cintura", "a")){
-				txtCintura.setText(txtCintura.getText()+"   "+ m.getValor() );	
+				mCintura.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Quadril", "a")){
-				txtQuadril.setText(txtQuadril.getText()+"   "+ m.getValor() );
+				mQuadril.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Peito", "a")){
-				txtPeito.setText(txtPeito.getText()+"   "+ m.getValor() );
+				mPeito.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Braco", "d")){
-				txtBracoDir.setText(txtBracoDir.getText()+"   "+ m.getValor() );
+				mBracoD.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Braco", "e")){
-				txtBracoEsq.setText(txtBracoEsq.getText()+"   "+ m.getValor() );	
+				mBracoE.setValor(m.getValor());	
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Coxa", "d")){
-				txtCoxaDir.setText(txtCoxaDir.getText()+"   "+ m.getValor() );	
+				mCoxaD.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Coxa", "e")){
-				txtCoxaEsq.setText(txtCoxaEsq.getText()+"   "+ m.getValor() );
+				mCoxaE.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Panturrilha", "d")){
-				txtPantuDir.setText(txtPantuDir.getText()+"   " + m.getValor());
+				mPantuD.setValor(m.getValor());
 			}	
 			if(m.getCodigoMedida()== controleMed.buscarMedida("Panturrilha", "e")){
-				txtPantuEsq.setText(txtPantuEsq.getText()+"   " + m.getValor() );
+				mPantuE.setValor(m.getValor());
 			}
-
-
-
-
 		}
+		
+		txtAltura.setText(txtAltura.getText()+"   " + mAltura.getValor());
+		txtPeso.setText(txtPeso.getText()+"   " + mPeso.getValor());
+		txtCintura.setText(txtCintura.getText()+"   "+ mCintura.getValor());	
+		txtQuadril.setText(txtQuadril.getText()+"   "+ mQuadril.getValor());
+		txtPeito.setText(txtPeito.getText()+"   "+ mPeito.getValor());
+		txtBracoDir.setText(txtBracoDir.getText()+"   "+ mBracoD.getValor());
+		txtBracoEsq.setText(txtBracoEsq.getText()+"   "+ mBracoE.getValor());
+		txtCoxaDir.setText(txtCoxaDir.getText()+"   "+ mCoxaD.getValor());	
+		txtCoxaEsq.setText(txtCoxaEsq.getText()+"   "+ mCoxaE.getValor());
+		txtPantuDir.setText(txtPantuDir.getText()+"   " + mPantuD.getValor());
+		txtPantuEsq.setText(txtPantuEsq.getText()+"   " + mPantuE.getValor());
+
 	}
 
 }

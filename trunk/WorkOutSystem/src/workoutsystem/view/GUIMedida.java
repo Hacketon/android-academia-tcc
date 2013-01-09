@@ -50,19 +50,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private EditText editPantuDir;
 	private EditText editPantuEsq;
 
-
-	private TextView textAltura;
-	private TextView textPeso;
-	private TextView textCintura;
-	private TextView textQuadril; 
-	private TextView textBracoDir ;
-	private TextView textBracoEsq;
-	private TextView textPeito ;
-	private TextView textCoxaDir ;
-	private TextView textCoxaEsq ;
-	private TextView textPantuDir;
-	private TextView textPantuEsq ;
-
 	private Button btnSalvar;
 	private Button btnAlterar;
 	private Button btnCancelar;
@@ -73,6 +60,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	ControlePerfil controle = new ControlePerfil();
 	List<Medicao> lista = new ArrayList<Medicao>();
 	Perfil perfil = new Perfil();
+	int x = 0;
+	java.util.Date data = new java.util.Date(); 
+
 
 	public void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -142,11 +132,27 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		switch (v.getId()){
 		case R.id.btn_salvar:
-			criaMedida();
+
+			if(x==1){
+				criaMedida();
+				carregarCampos(lista);
+
+			}else if(x==2){
+
+				lista = controleMed.buscarMedicao(perfil.getCodigo());
+				List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
+				listaUltimosValores = ObterUltimosValores(lista);
+				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
+						Toast.LENGTH_LONG).show();
+
+			}
+
+
 			btnAlterar.setEnabled(true);
 			btnNovo.setEnabled(true);
 			btnSalvar.setEnabled(false);
 			btnCancelar.setEnabled(false);
+
 
 			break;
 
@@ -163,29 +169,29 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			break;
 
 		case R.id.btn_novo:
-
+			x = 1;
 			btnAlterar.setEnabled(false);
 			btnNovo.setEnabled(false);
 			btnSalvar.setEnabled(true);
 			btnCancelar.setEnabled(true);
+
+			desbloquearCampos();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			String s = sdf.format(data);  
+
+			Toast.makeText(this,"Medidas serão registradas na data: \n " + s, Toast.LENGTH_LONG).show();
+
 			break;
 
 		case R.id.btn_alterar:
-			lista = controleMed.buscarMedicao(perfil.getCodigo());
-			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
-			listaUltimosValores = ObterUltimosValores(lista);
+			x =2;
+			btnAlterar.setEnabled(false);
+			btnNovo.setEnabled(false);
+			btnSalvar.setEnabled(true);
+			btnCancelar.setEnabled(true);
+			//metodo para bloquear campos em branco 
 
-
-			Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
-					Toast.LENGTH_LONG).show();
-
-
-			//			btnAlterar.setEnabled(false);
-			//			btnNovo.setEnabled(false);
-			//			btnSalvar.setEnabled(true);
-			//			btnCancelar.setEnabled(true);
-
-
+			carregarCampos(lista);
 			break;
 		}
 	}
@@ -193,12 +199,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	public void criaMedida(){
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerf = new ControlePerfil();
-
 		List<Medicao> listaMedicao = new ArrayList<Medicao>();
-
-		java.util.Date data = new java.util.Date(); 
-
-
 		Perfil perfil = controlePerf.buscarPerfil();
 
 		if(perfil != null){
@@ -384,6 +385,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 	public void carregarCampos(List<Medicao> medicoes){
 		ControleMedida controle = new ControleMedida();
+		
 		for(Medicao m : medicoes){
 
 			//Altura
@@ -431,7 +433,56 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				editPantuEsq.setText(Double.toString(m.getValor()));
 			}
 
+
 		}
+		//bloquear campos nulos
+
+
+		if(editAltura.getText().toString().equalsIgnoreCase("")){
+			editAltura.setEnabled(false);
+
+		}
+		if(editPeso.getText().toString().equalsIgnoreCase("")){
+			editPeso.setEnabled(false);
+
+		}
+		if(editCintura.getText().toString().equalsIgnoreCase("")){
+			editCintura.setEnabled(false);
+
+		}
+		if(editQuadril.getText().toString().equalsIgnoreCase("")){
+			editQuadril.setEnabled(false);
+
+		}
+		if(editBracoDir.getText().toString().equalsIgnoreCase("")){
+			editBracoDir.setEnabled(false);
+
+		}
+		if(editBracoEsq.getText().toString().equalsIgnoreCase("")){
+			editBracoEsq.setEnabled(false);
+
+		}
+		if(editPeito.getText().toString().equalsIgnoreCase("")){
+			editPeito.setEnabled(false);
+
+		}
+		if(editCoxaDir.getText().toString().equalsIgnoreCase("")){
+			editCoxaDir.setEnabled(false);
+
+		}
+		if(editCoxaEsq.getText().toString().equalsIgnoreCase("")){
+			editCoxaEsq.setEnabled(false);
+
+		}
+		if(editPantuDir.getText().toString().equalsIgnoreCase("")){
+			editPantuDir.setEnabled(false);
+
+		}
+		if(editPantuEsq.getText().toString().equalsIgnoreCase("")){
+			editPantuEsq.setEnabled(false);
+
+		}
+
 	}
 
 	public void iniciarBotao(List<Medicao> lista){
@@ -468,10 +519,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		Medicao mCoxaE = new Medicao();
 		Medicao mPantuD = new Medicao();
 
-
-
 		for(Medicao m : medicoes){
-
 			//Altura
 			if(m.getCodigoMedida() == controle.buscarMedida("Altura", "a") ){
 				mAltura.setValor(Double.parseDouble(editAltura.getText().toString()));
@@ -578,5 +626,25 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		}
 
 		return listaAux;
+	}
+
+	public void bloquearCampoNull(){
+
+	}
+
+	public void desbloquearCampos(){
+
+		editAltura.setEnabled(true);
+		editPeso.setEnabled(true);
+		editCintura.setEnabled(true);
+		editQuadril.setEnabled(true);
+		editBracoDir.setEnabled(true);
+		editBracoEsq.setEnabled(true);
+		editPeito.setEnabled(true);
+		editCoxaDir.setEnabled(true);
+		editCoxaEsq.setEnabled(true);
+		editPantuDir.setEnabled(true);
+		editPantuEsq.setEnabled(true);
+
 	}
 }

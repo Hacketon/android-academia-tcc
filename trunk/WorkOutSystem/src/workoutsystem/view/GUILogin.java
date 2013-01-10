@@ -15,7 +15,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 
 	private EditText editLogin;
 	private EditText editPassword;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +38,31 @@ public class GUILogin extends Activity implements View.OnClickListener{
 			startActivity(new Intent("workoutsystem.view.NOVOUSUARIO"));
 			break;
 		case R.id.btn_login:
-					Usuario u = criarLogin();
-					if (controle.realizarLogin(u)){
-					startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
-					limparCampos();
-					try {
-						this.finalize();
-					} catch (Throwable e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					}else{
-						Toast.makeText(this, "Dados Invalidos!", Toast.LENGTH_LONG).show();
-					}
+			Usuario u = criarLogin();
+			if (controle.realizarLogin(u)){
+				startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
+				finish();
+
+			}else{
+				Toast.makeText(this, "Dados Invalidos!", Toast.LENGTH_LONG).show();
+			}
 			break;
 		}
 	}
-	
-	
+
+
 	public void limparCampos(){
 		editLogin.setText("");
 		editPassword.setText("");
 	}
 
 	public Usuario criarLogin(){
-		
-			Usuario usuario = new Usuario();
-			usuario.setNome(String.valueOf(editLogin.getText()));
-			usuario.setSenha(String.valueOf(editPassword.getText()));
-			return usuario;
+
+		Usuario usuario = new Usuario();
+		usuario.setNome(String.valueOf(editLogin.getText()));
+		usuario.setSenha(String.valueOf(editPassword.getText()));
+		return usuario;
 	}
 
-		
+
 }

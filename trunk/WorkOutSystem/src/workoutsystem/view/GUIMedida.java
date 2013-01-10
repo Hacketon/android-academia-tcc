@@ -197,195 +197,356 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	}
 
 	public void criaMedida(){
+
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerf = new ControlePerfil();
 		List<Medicao> listaMedicao = new ArrayList<Medicao>();
+		List<Medicao> listaAtualiza = new ArrayList<Medicao>();
+		lista = controleMed.buscarMedicao(perfil.getCodigo());
+		List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
+		listaUltimosValores = ObterUltimosValores(lista);
 		Perfil perfil = controlePerf.buscarPerfil();
+		Double valor = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dataFormat = sdf.format(data);  
+
 
 		if(perfil != null){
 
-			//Altura
-			if(!editAltura.getText().toString().equalsIgnoreCase("")){
+			// se os valores já foram digitados na mesma data somente irá atualizar o grupomuscular 
+			boolean mAltura = false;
+			boolean mPeso= false;
+			boolean mCintura= false;
+			boolean mQuadril= false;
+			boolean mBracoD= false;
+			boolean mBracoE= false;
+			boolean mPeito= false;
+			boolean mCoxaD= false;
+			boolean mCoxaE= false;
+			boolean mPantuD= false;
+			boolean mPantuE= false;
 
+			for(Medicao m : listaUltimosValores){
+				//Altura
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Altura", "a")){
+					valor = Double.parseDouble(editAltura.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						//arrumar data 
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mAltura = true;
+					}
+				}
+				//Peso
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Peso", "a")){
+					valor = Double.parseDouble(editPeso.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mPeso = true;
+					}
+				}				
 
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				//Cintura
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Cintura", "a")){
+					valor = Double.parseDouble(editCintura.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mCintura = true;
+					}
+				}
 
-				medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medida.setCodigo(controleMed.buscarMedida("Altura", "a"));
-				medicao.setCodigoMedida(medida.getCodigo());
+				//Quadril
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Quadril", "a")){
+					valor = Double.parseDouble(editQuadril.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mQuadril = true;
+					}
+				}				
 
-				listaMedicao.add(medicao);
+				//Braço Direito
+
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Braco", "d")){
+					valor = Double.parseDouble(editBracoDir.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mBracoD = true;
+					}
+				}
+
+				//Braço Esquerdo
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Braco", "e")){
+					valor = Double.parseDouble(editBracoEsq.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mBracoE = true;
+					}
+				}
+				//Peito
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Peito", "a")){
+					valor = Double.parseDouble(editPeito.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mPeito = true;
+					}
+				}
+				//Coxa Direito
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Coxa", "d")){
+					valor = Double.parseDouble(editCoxaDir.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mCoxaD = true;
+					}
+				}
+				//Coxa Esquerda
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Coxa", "e")){
+					valor = Double.parseDouble(editCoxaEsq.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mCoxaE = true;
+					}
+				}
+				//Panturrilha Direita
+
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Panturrilha", "d")){
+					valor = Double.parseDouble(editPantuDir.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mPantuD = true;
+					}
+				}
+				//Panturrilha Esuerda
+
+				if(m.getCodigoMedida() == controleMed.buscarMedida("Panturrilha", "e")){
+					valor = Double.parseDouble(editPantuEsq.getText().toString());
+					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+					if(dataFormat.equalsIgnoreCase(dataFormat2)){
+						m.setValor(valor);
+						listaAtualiza.add(m);
+						mPantuE = true;
+					}
+				}
 
 			}
+
+
+
+
+			// se o valor ainda não foi digita no dia ele criará uma nova medição para o grupo
+
+			//Altura
+			if(!editAltura.getText().toString().equalsIgnoreCase("")){
+				if(mAltura == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setValor(Double.parseDouble(editAltura.getText().toString()));
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medida.setCodigo(controleMed.buscarMedida("Altura", "a"));
+					medicao.setCodigoMedida(medida.getCodigo());
+
+					listaMedicao.add(medicao);
+				}
+			}
+
 
 			//Peso
 			if(!editPeso.getText().toString().equalsIgnoreCase("")){
+				if(mPeso == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editPeso.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Peso", "a"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
-
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editPeso.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Peso", "a"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
-
+					listaMedicao.add(medicao);
+				}
 			}
+
 
 			//Cintura
 			if(!editCintura.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mCintura == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editCintura.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Cintura", "a"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editCintura.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Cintura", "a"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
 
 			//Quadril
 			if(!editQuadril.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mQuadril == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editQuadril.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Quadril", "a"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editQuadril.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Quadril", "a"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
-
+					listaMedicao.add(medicao);
+				}
 			}
-
 			//Braço Direito
 			if(!editBracoDir.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mBracoD == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editBracoDir.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Braco", "d"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editBracoDir.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Braco", "d"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
 
 			//Braço Esquerdo
 			if(!editBracoEsq.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mBracoE == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Braco", "e"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Braco", "e"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
 
 			//Peito
 			if(!editPeito.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mPeito == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editPeito.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Peito", "a"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editPeito.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Peito", "a"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
+
 
 			//Coxa Direito
 			if(!editCoxaDir.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mCoxaD == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Coxa", "d"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Coxa", "d"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
-
 			//Coxa Esquerda
 
 			if(!editCoxaEsq.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mCoxaE == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Coxa", "e"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Coxa", "e"));
-				medicao.setCodigoMedida(medida.getCodigo());
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
-
 			//Panturrilha Direita
 
 			if(!editPantuDir.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mPantuD == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editPantuDir.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Panturrilha", "d"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editPantuDir.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Panturrilha", "d"));
-				medicao.setCodigoMedida(medida.getCodigo());
 
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
 
 			//Panturrilha Esuerda
 
 			if(!editPantuEsq.getText().toString().equalsIgnoreCase("")){
-				Medida medida = new Medida();
-				Medicao medicao = new Medicao();
+				if(mPantuE == false){
+					Medida medida = new Medida();
+					Medicao medicao = new Medicao();
+					medicao.setDataMedicao(data);
+					medicao.setCodigoPerfil(perfil.getCodigo());
+					medicao.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
+					medida.setCodigo(controleMed.buscarMedida("Panturrilha", "e"));
+					medicao.setCodigoMedida(medida.getCodigo());
 
-				medicao.setDataMedicao(data);
-				medicao.setCodigoPerfil(perfil.getCodigo());
-				medicao.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
-				medida.setCodigo(controleMed.buscarMedida("Panturrilha", "e"));
-				medicao.setCodigoMedida(medida.getCodigo());
 
-
-				listaMedicao.add(medicao);
+					listaMedicao.add(medicao);
+				}
 			}
 
-
-			Toast.makeText(this,controleMed.adicionarMedicao(listaMedicao),
-					Toast.LENGTH_LONG).show();
-
+			if(listaMedicao.size() != 0){
+				Toast.makeText(this,controleMed.adicionarMedicao(listaMedicao),
+						Toast.LENGTH_LONG).show();
+			}
+		
+			if(listaAtualiza.size() != 0){
+				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaAtualiza),
+						Toast.LENGTH_LONG).show();
+			}
 
 		}else{
+
 
 			Toast.makeText(this,"Primeiro crie seu Perfil !",
 					Toast.LENGTH_LONG).show();
 		}
+
 	}
+
 
 
 	public void carregarCampos(List<Medicao> medicoes){
 		ControleMedida controle = new ControleMedida();
-		
+
 		for(Medicao m : medicoes){
 
 			//Altura
@@ -524,58 +685,80 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			if(m.getCodigoMedida() == controle.buscarMedida("Altura", "a") ){
 				mAltura.setValor(Double.parseDouble(editAltura.getText().toString()));
 				mAltura.setCodigio(m.getCodigo());
+				mAltura.setDataMedicao(m.getDataMedicao());
+				mAltura.setCodigoMedida(m.getCodigoMedida());
 
 			}
 			//Peso
 			if(m.getCodigoMedida() == controle.buscarMedida("Peso", "a")){
 				mPeso.setValor(Double.parseDouble(editPeso.getText().toString()));
 				mPeso.setCodigio(m.getCodigo());
-
+				mPeso.setDataMedicao(m.getDataMedicao());
+				mPeso.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Cintura
 			if(m.getCodigoMedida() == controle.buscarMedida("Cintura", "a")){
 				mCintura.setValor(Double.parseDouble(editCintura.getText().toString()));
 				mCintura.setCodigio(m.getCodigo());
+				mCintura.setDataMedicao(m.getDataMedicao());
+				mCintura.setCodigoMedida(m.getCodigoMedida());
+
 			}
 			//Quadril
 			if(m.getCodigoMedida() == controle.buscarMedida("Quadril", "a")){
 				mQuadril.setValor(Double.parseDouble(editQuadril.getText().toString()));
 				mQuadril.setCodigio(m.getCodigo());
+				mQuadril.setDataMedicao(m.getDataMedicao());
+				mQuadril.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Braço Direito
 			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "d")){
 				mBracoD.setValor(Double.parseDouble(editBracoDir.getText().toString()));
 				mBracoD.setCodigio(m.getCodigo());
+				mBracoD.setDataMedicao(m.getDataMedicao());
+				mBracoD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Braço Esquerdo
 			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "e")){
 				mBracoE.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
 				mBracoE.setCodigio(m.getCodigo());
+				mBracoE.setDataMedicao(m.getDataMedicao());
+				mBracoE.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Peito
 			if(m.getCodigoMedida() == controle.buscarMedida("Peito", "a")){
 				mPeito.setValor(Double.parseDouble(editPeito.getText().toString()));
 				mPeito.setCodigio(m.getCodigo());
+				mPeito.setDataMedicao(m.getDataMedicao());
+				mPeito.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Coxa Direito
 			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "d")){
 				mCoxaD.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
 				mCoxaD.setCodigio(m.getCodigo());
+				mCoxaD.setDataMedicao(m.getDataMedicao());
+				mCoxaD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Coxa Esquerda
 			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "e")){
 				mCoxaE.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
 				mCoxaE.setCodigio(m.getCodigo());
+				mCoxaE.setDataMedicao(m.getDataMedicao());
+				mCoxaE.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Direita
 			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "d")){
 				mPantuD.setValor(Double.parseDouble(editPantuDir.getText().toString()));
 				mPantuD.setCodigio(m.getCodigo());
+				mPantuD.setDataMedicao(m.getDataMedicao());
+				mPantuD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Esuerda
 			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "e")){
 				mPantuE.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
 				mPantuE.setCodigio(m.getCodigo());
+				mPantuE.setDataMedicao(m.getDataMedicao());
+				mPantuE.setCodigoMedida(m.getCodigoMedida());
 			}
 
 		}

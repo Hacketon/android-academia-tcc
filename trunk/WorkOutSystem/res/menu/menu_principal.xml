@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/trocarusuario"
+        android:title="@string/botao_trocarusuario"/>
+    <item
+        android:id="@+id/trocarsenha"
+        android:title="@string/botao_trocarsenha"/>
+    <item
+        android:id="@+id/sair"
+        android:title="@string/botao_sair"/>
+
+</menu>

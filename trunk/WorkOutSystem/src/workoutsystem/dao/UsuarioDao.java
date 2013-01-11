@@ -119,5 +119,20 @@ public class UsuarioDao implements IUsuarioDao {
 		}
 		return u;
 	}
+
+	@Override
+	public void desconectarUsuario() {
+		try{
+			Connection con = Banco.conexao();
+			String sql = "update usuario set logado = 0 where logado = 1";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.executeUpdate();
+			prepared.close();
+			con.close();
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+	}
 	
 }

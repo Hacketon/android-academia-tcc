@@ -38,7 +38,7 @@
     <string name="label_esquerda">Esq.</string>
     <string name="botao_add">+</string>
     <string name="botao_salvar">Salvar</string>
-    <string name="botao_sair">Sair</string>
+    
 
     <!-- texto em Geral -->
     <string name="label_dadospessoais">Dados Pessoais</string>
@@ -200,5 +200,8 @@
 	<string name="botao_visualizarficha">Visualizar ficha</string>
 	<string name="botao_adicionarexercicio">Adicionar exercicio</string>
 	<string name="botao_removerexercicio">Remover exercicio</string>
+	<string name="botao_sair">Sair</string>
+	<string name="botao_trocarusuario">Trocar usuario</string>
+	<string name="botao_trocarsenha">Trocar senha</string>
 	
 </resources>

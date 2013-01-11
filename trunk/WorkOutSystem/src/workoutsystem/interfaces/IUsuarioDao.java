@@ -28,5 +28,7 @@ public interface IUsuarioDao {
 	 * @return usuario logado caso contrario null
 	 */
 	public abstract Usuario buscarUsuario();
+	
+	public abstract void desconectarUsuario();
 }
 	

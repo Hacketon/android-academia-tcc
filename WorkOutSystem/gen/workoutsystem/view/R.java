@@ -20,8 +20,8 @@ public final class R {
         public static final int icone_workout=0x7f020006;
     }
     public static final class id {
-        public static final int adicionar_exercicio=0x7f0800b8;
-        public static final int adicionar_ficha=0x7f0800b4;
+        public static final int adicionar_exercicio=0x7f0800bb;
+        public static final int adicionar_ficha=0x7f0800b7;
         public static final int btn_=0x7f080023;
         public static final int btn_add=0x7f080021;
         public static final int btn_adicionarficha=0x7f08003d;
@@ -113,7 +113,7 @@ public final class R {
         public static final int existente_treino=0x7f0800b3;
         public static final int ficha_treino_atual=0x7f080090;
         public static final int finalizar_edicao=0x7f0800b2;
-        public static final int finalizar_edicaos=0x7f0800bb;
+        public static final int finalizar_edicaos=0x7f0800be;
         public static final int hospedeiro=0x7f08001b;
         public static final int hostavatar=0x7f080006;
         public static final int hostfichatreino=0x7f080026;
@@ -126,12 +126,12 @@ public final class R {
         public static final int listapadrao=0x7f08000d;
         public static final int listatreinos=0x7f08003e;
         public static final int mensagem=0x7f08000a;
-        public static final int mudar_ficha=0x7f0800b6;
+        public static final int mudar_ficha=0x7f0800b9;
         public static final int nivel_usuario=0x7f080009;
         public static final int nome_ficha=0x7f080024;
         public static final int nome_usuario=0x7f080008;
         public static final int novo_treino=0x7f0800b0;
-        public static final int novo_treinos=0x7f0800ba;
+        public static final int novo_treinos=0x7f0800bd;
         public static final int progressBarMedida1=0x7f080018;
         public static final int progressBarMedida2=0x7f080019;
         public static final int progressBarMedida3=0x7f08001a;
@@ -140,9 +140,10 @@ public final class R {
         public static final int radio_group_sexo=0x7f080044;
         public static final int rb_feminino=0x7f080045;
         public static final int rb_masculino=0x7f080046;
-        public static final int remover_exercicio=0x7f0800b9;
-        public static final int remover_ficha=0x7f0800b5;
+        public static final int remover_exercicio=0x7f0800bc;
+        public static final int remover_ficha=0x7f0800b8;
         public static final int remover_treino=0x7f0800b1;
+        public static final int sair=0x7f0800b6;
         public static final int serie=0x7f080088;
         public static final int tabavatar=0x7f080007;
         public static final int tabcalendario=0x7f080091;
@@ -168,6 +169,8 @@ public final class R {
         public static final int text_frequencia=0x7f080014;
         public static final int treino=0x7f0800a6;
         public static final int treino_dia=0x7f08008f;
+        public static final int trocarsenha=0x7f0800b5;
+        public static final int trocarusuario=0x7f0800b4;
         public static final int tv_altura=0x7f080054;
         public static final int tv_alturausuario=0x7f080099;
         public static final int tv_braco=0x7f08005d;
@@ -207,7 +210,7 @@ public final class R {
         public static final int txt_nome_exercicio=0x7f080078;
         public static final int txt_sequenciapasso=0x7f08007a;
         public static final int txt_treino=0x7f080035;
-        public static final int visualizar_ficha=0x7f0800b7;
+        public static final int visualizar_ficha=0x7f0800ba;
     }
     public static final class layout {
         public static final int ajuda=0x7f030000;
@@ -244,8 +247,9 @@ public final class R {
     }
     public static final class menu {
         public static final int menu_manipular_ficha=0x7f070000;
-        public static final int menu_principal_ficha=0x7f070001;
-        public static final int menu_treino_ficha=0x7f070002;
+        public static final int menu_principal=0x7f070001;
+        public static final int menu_principal_ficha=0x7f070002;
+        public static final int menu_treino_ficha=0x7f070003;
     }
     public static final class raw {
         public static final int exclusao=0x7f040000;
@@ -256,142 +260,144 @@ public final class R {
         public static final int botao_add=0x7f05001e;
         /**  Fichaa 
          */
-        public static final int botao_adicionar=0x7f05005c;
-        public static final int botao_adicionarexercicio=0x7f050084;
-        public static final int botao_ajuda=0x7f050046;
-        public static final int botao_alterar=0x7f05002c;
-        public static final int botao_atualizar=0x7f050033;
-        public static final int botao_avatar=0x7f050039;
-        public static final int botao_braco=0x7f050076;
-        public static final int botao_cadastrar_se=0x7f05003d;
-        public static final int botao_cadastro=0x7f05002b;
-        public static final int botao_cancelar=0x7f05002d;
-        public static final int botao_como_fazer=0x7f05006e;
-        public static final int botao_coxa=0x7f050078;
-        public static final int botao_criar=0x7f05003b;
-        public static final int botao_definirobjetivo=0x7f050038;
-        public static final int botao_evolucao=0x7f050045;
-        public static final int botao_excluir=0x7f05002a;
+        public static final int botao_adicionar=0x7f05005b;
+        public static final int botao_adicionarexercicio=0x7f050083;
+        public static final int botao_ajuda=0x7f050045;
+        public static final int botao_alterar=0x7f05002b;
+        public static final int botao_atualizar=0x7f050032;
+        public static final int botao_avatar=0x7f050038;
+        public static final int botao_braco=0x7f050075;
+        public static final int botao_cadastrar_se=0x7f05003c;
+        public static final int botao_cadastro=0x7f05002a;
+        public static final int botao_cancelar=0x7f05002c;
+        public static final int botao_como_fazer=0x7f05006d;
+        public static final int botao_coxa=0x7f050077;
+        public static final int botao_criar=0x7f05003a;
+        public static final int botao_definirobjetivo=0x7f050037;
+        public static final int botao_evolucao=0x7f050044;
+        public static final int botao_excluir=0x7f050029;
         /**  texto botões perfil 
  texto de botoes da tela principal 
          */
-        public static final int botao_exercicio=0x7f050040;
-        public static final int botao_existente=0x7f05007f;
-        public static final int botao_fazer=0x7f05006c;
-        public static final int botao_feito=0x7f05006f;
-        public static final int botao_ficha=0x7f050047;
-        public static final int botao_finalizar=0x7f050080;
-        public static final int botao_grafico=0x7f05003a;
-        public static final int botao_login=0x7f050036;
-        public static final int botao_medidas=0x7f050034;
-        public static final int botao_mudarficha=0x7f05005f;
-        public static final int botao_novo=0x7f050043;
-        public static final int botao_novotreino=0x7f050081;
-        public static final int botao_novousuario=0x7f050037;
-        public static final int botao_objetivo=0x7f050044;
+        public static final int botao_exercicio=0x7f05003f;
+        public static final int botao_existente=0x7f05007e;
+        public static final int botao_fazer=0x7f05006b;
+        public static final int botao_feito=0x7f05006e;
+        public static final int botao_ficha=0x7f050046;
+        public static final int botao_finalizar=0x7f05007f;
+        public static final int botao_grafico=0x7f050039;
+        public static final int botao_login=0x7f050035;
+        public static final int botao_medidas=0x7f050033;
+        public static final int botao_mudarficha=0x7f05005e;
+        public static final int botao_novo=0x7f050042;
+        public static final int botao_novotreino=0x7f050080;
+        public static final int botao_novousuario=0x7f050036;
+        public static final int botao_objetivo=0x7f050043;
         /**  Exercicio Ficha 
          */
-        public static final int botao_ordenar=0x7f050062;
-        public static final int botao_panturrilha=0x7f050077;
-        public static final int botao_peito=0x7f050074;
-        public static final int botao_perfil=0x7f050042;
-        public static final int botao_quadril=0x7f050075;
-        public static final int botao_rem=0x7f05005e;
-        public static final int botao_remover=0x7f05005d;
-        public static final int botao_removerexercicio=0x7f050085;
-        public static final int botao_removertreino=0x7f050082;
-        public static final int botao_rotina=0x7f050041;
-        public static final int botao_sair=0x7f050020;
+        public static final int botao_ordenar=0x7f050061;
+        public static final int botao_panturrilha=0x7f050076;
+        public static final int botao_peito=0x7f050073;
+        public static final int botao_perfil=0x7f050041;
+        public static final int botao_quadril=0x7f050074;
+        public static final int botao_rem=0x7f05005d;
+        public static final int botao_remover=0x7f05005c;
+        public static final int botao_removerexercicio=0x7f050084;
+        public static final int botao_removertreino=0x7f050081;
+        public static final int botao_rotina=0x7f050040;
+        public static final int botao_sair=0x7f050085;
         public static final int botao_salvar=0x7f05001f;
-        public static final int botao_sobre=0x7f050048;
-        public static final int botao_status=0x7f050035;
+        public static final int botao_sobre=0x7f050047;
+        public static final int botao_status=0x7f050034;
+        public static final int botao_trocarsenha=0x7f050087;
+        public static final int botao_trocarusuario=0x7f050086;
         public static final int botao_visualizar=0x7f050013;
-        public static final int botao_visualizarficha=0x7f050083;
-        public static final int button_continuar=0x7f05005b;
-        public static final int button_realizar_treino=0x7f050051;
-        public static final int calendario_mes=0x7f05007d;
-        public static final int check_abdomen=0x7f050055;
-        public static final int check_aerobico=0x7f050059;
-        public static final int check_biceps=0x7f050054;
-        public static final int check_costas=0x7f050056;
-        public static final int check_domingo=0x7f050029;
-        public static final int check_ombro=0x7f050053;
+        public static final int botao_visualizarficha=0x7f050082;
+        public static final int button_continuar=0x7f05005a;
+        public static final int button_realizar_treino=0x7f050050;
+        public static final int calendario_mes=0x7f05007c;
+        public static final int check_abdomen=0x7f050054;
+        public static final int check_aerobico=0x7f050058;
+        public static final int check_biceps=0x7f050053;
+        public static final int check_costas=0x7f050055;
+        public static final int check_domingo=0x7f050028;
+        public static final int check_ombro=0x7f050052;
         /**  tela ficha grupo 
          */
-        public static final int check_peito=0x7f050052;
-        public static final int check_perna=0x7f050058;
-        public static final int check_quarta=0x7f050025;
-        public static final int check_quinta=0x7f050026;
-        public static final int check_sabado=0x7f050028;
-        public static final int check_segunda=0x7f050023;
-        public static final int check_sexta=0x7f050027;
-        public static final int check_terca=0x7f050024;
-        public static final int check_triceps=0x7f050057;
+        public static final int check_peito=0x7f050051;
+        public static final int check_perna=0x7f050057;
+        public static final int check_quarta=0x7f050024;
+        public static final int check_quinta=0x7f050025;
+        public static final int check_sabado=0x7f050027;
+        public static final int check_segunda=0x7f050022;
+        public static final int check_sexta=0x7f050026;
+        public static final int check_terca=0x7f050023;
+        public static final int check_triceps=0x7f050056;
         /**  texto medidas ! 
          */
         public static final int label_altura=0x7f050014;
-        public static final int label_anterior=0x7f050072;
+        public static final int label_anterior=0x7f050071;
         public static final int label_braco=0x7f050016;
-        public static final int label_carga=0x7f05006d;
+        public static final int label_carga=0x7f05006c;
         public static final int label_cintura=0x7f050018;
-        public static final int label_confirmarsenha=0x7f05004b;
+        public static final int label_confirmarsenha=0x7f05004a;
         public static final int label_coxa=0x7f05001b;
         /**  texto em Geral 
          */
-        public static final int label_dadospessoais=0x7f050021;
-        public static final int label_data1=0x7f05007b;
-        public static final int label_data2=0x7f05007c;
-        public static final int label_data3=0x7f05007e;
-        public static final int label_datanasc=0x7f05002f;
-        public static final int label_descricao=0x7f05003f;
+        public static final int label_dadospessoais=0x7f050020;
+        public static final int label_data1=0x7f05007a;
+        public static final int label_data2=0x7f05007b;
+        public static final int label_data3=0x7f05007d;
+        public static final int label_datanasc=0x7f05002e;
+        public static final int label_descricao=0x7f05003e;
         /**  Sobre 
          */
-        public static final int label_descricaoSobre=0x7f05007a;
-        public static final int label_descricao_passo=0x7f050064;
-        public static final int label_diasemana=0x7f05004c;
+        public static final int label_descricaoSobre=0x7f050079;
+        public static final int label_descricao_passo=0x7f050063;
+        public static final int label_diasemana=0x7f05004b;
         public static final int label_direita=0x7f05001c;
-        public static final int label_duracaodias=0x7f05004d;
+        public static final int label_duracaodias=0x7f05004c;
         public static final int label_esquerda=0x7f05001d;
-        public static final int label_exercicio=0x7f050066;
-        public static final int label_ficha_atual=0x7f050060;
-        public static final int label_frequencia=0x7f050022;
-        public static final int label_grupo_muscular=0x7f05004f;
-        public static final int label_grupo_muscular_trab=0x7f050050;
-        public static final int label_mensagem=0x7f050079;
+        public static final int label_exercicio=0x7f050065;
+        public static final int label_ficha_atual=0x7f05005f;
+        public static final int label_frequencia=0x7f050021;
+        public static final int label_grupo_muscular=0x7f05004e;
+        public static final int label_grupo_muscular_trab=0x7f05004f;
+        public static final int label_mensagem=0x7f050078;
         /**  Tela Avatar 
          */
-        public static final int label_nivel_usuario=0x7f050073;
-        public static final int label_nome=0x7f05003e;
-        public static final int label_nomeapelido=0x7f05002e;
-        public static final int label_nomeficha=0x7f050061;
-        public static final int label_numero_serie=0x7f050068;
-        public static final int label_ordem=0x7f05006b;
+        public static final int label_nivel_usuario=0x7f050072;
+        public static final int label_nome=0x7f05003d;
+        public static final int label_nomeapelido=0x7f05002d;
+        public static final int label_nomeficha=0x7f050060;
+        public static final int label_numero_serie=0x7f050067;
+        public static final int label_ordem=0x7f05006a;
         public static final int label_panturrilha=0x7f05001a;
         /**  Tela Passos 
          */
-        public static final int label_passos=0x7f050063;
+        public static final int label_passos=0x7f050062;
         public static final int label_peito=0x7f050019;
         public static final int label_peso=0x7f050015;
-        public static final int label_proximo=0x7f050071;
+        public static final int label_proximo=0x7f050070;
         public static final int label_quadril=0x7f050017;
-        public static final int label_repeticao=0x7f050069;
-        public static final int label_senha=0x7f05004a;
-        public static final int label_serie=0x7f050067;
-        public static final int label_sexo=0x7f050030;
-        public static final int label_treino=0x7f05005a;
+        public static final int label_repeticao=0x7f050068;
+        public static final int label_senha=0x7f050049;
+        public static final int label_serie=0x7f050066;
+        public static final int label_sexo=0x7f05002f;
+        public static final int label_treino=0x7f050059;
         /**  Ajudas 
  texto rotina 
          */
-        public static final int label_treino_dia=0x7f05004e;
-        public static final int label_uni_medida=0x7f05006a;
+        public static final int label_treino_dia=0x7f05004d;
+        public static final int label_uni_medida=0x7f050069;
         /**  texto de label 
          */
-        public static final int label_usuario=0x7f050049;
-        public static final int label_x=0x7f050070;
+        public static final int label_usuario=0x7f050048;
+        public static final int label_x=0x7f05006f;
         public static final int menu_settings=0x7f050001;
-        public static final int mostrar_caracter=0x7f05003c;
-        public static final int radio_feminino=0x7f050032;
-        public static final int radio_masculino=0x7f050031;
+        public static final int mostrar_caracter=0x7f05003b;
+        public static final int radio_feminino=0x7f050031;
+        public static final int radio_masculino=0x7f050030;
         public static final int title_activity_configuracoes=0x7f050011;
         public static final int title_activity_login=0x7f050003;
         public static final int title_activity_tela_ajuda=0x7f050010;
@@ -405,7 +411,7 @@ public final class R {
         public static final int title_activity_tela_objetivo=0x7f05000e;
         /**  Exercicio Realização 
          */
-        public static final int title_activity_tela_passo=0x7f050065;
+        public static final int title_activity_tela_passo=0x7f050064;
         public static final int title_activity_tela_perfil=0x7f050005;
         /**  titulos de telas e outros titulos 
          */

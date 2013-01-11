@@ -63,5 +63,9 @@ public class ControleUsuario {
 		IUsuarioDao daoUsuario = new UsuarioDao();
 		return daoUsuario.buscarUsuario();
 	}
+	public void desconectarUsuario() {
+		IUsuarioDao daoUsuario = new UsuarioDao();
+		daoUsuario.desconectarUsuario();
+	}
 
 }

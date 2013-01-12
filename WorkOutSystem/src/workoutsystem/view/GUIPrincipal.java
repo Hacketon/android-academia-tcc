@@ -32,18 +32,7 @@ public class GUIPrincipal extends Activity implements View.OnClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.principal);
-		dialogAlteracao = new Dialog(this);
-		dialogAlteracao.setContentView(R.layout.troca_senha_personalizada);
-		
-		btnAlterar = (Button) dialogAlteracao.findViewById(R.id.botao_alterar_senha);
-		btnCancelar= (Button) dialogAlteracao.findViewById(R.id.botao_cancel_alteracao);
-		txtUsuario = (TextView) dialogAlteracao.findViewById(R.id.txt_usuariocad);
-		edtSenhaAtual = (EditText) dialogAlteracao.findViewById(R.id.edt_senhaatual);
-		edtConfirmacaoSenha = (EditText) dialogAlteracao.findViewById(R.id.edt_confirmar_senha);
-		edtSenhaNova = (EditText) dialogAlteracao.findViewById(R.id.edt_nova_senha);
-		
-		btnAlterar.setOnClickListener(this);
-		btnCancelar.setOnClickListener(this);
+	
 		
 	}
 
@@ -111,13 +100,17 @@ public class GUIPrincipal extends Activity implements View.OnClickListener{
 			
 			if (controle.alterarSenha(u, senhaNova, confSenha, senhaAtual)){
 				mensagem = "Senha alterada com sucesso";
+				edtConfirmacaoSenha.setText("");
+				edtSenhaAtual.setText("");
+				edtSenhaNova.setText("");
 				dialogAlteracao.dismiss();
+				
 			}else{
 				mensagem = "Senha incorreta";
 			}
 		
 		}
-			Toast.makeText(this, mensagem, Toast.LENGTH_LONG);
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 		
 	}
 
@@ -178,9 +171,22 @@ public class GUIPrincipal extends Activity implements View.OnClickListener{
 	public void criarCaixaAlteracao(){
 		ControleUsuario controle = new ControleUsuario();
 		Usuario usuario = controle.buscarUsuario();
-				
+		dialogAlteracao = new Dialog(this);
+		dialogAlteracao.setContentView(R.layout.troca_senha_personalizada);
+		
+		btnAlterar = (Button) dialogAlteracao.findViewById(R.id.botao_alterar_senha);
+		btnCancelar= (Button) dialogAlteracao.findViewById(R.id.botao_cancel_alteracao);
+		txtUsuario = (TextView) dialogAlteracao.findViewById(R.id.txt_usuariocad);
+		edtSenhaAtual = (EditText) dialogAlteracao.findViewById(R.id.edt_senhaatual);
+		edtConfirmacaoSenha = (EditText) dialogAlteracao.findViewById(R.id.edt_confirmar_senha);
+		edtSenhaNova = (EditText) dialogAlteracao.findViewById(R.id.edt_nova_senha);
+		
+		btnAlterar.setOnClickListener(this);
+		btnCancelar.setOnClickListener(this);
+		
 		dialogAlteracao.setTitle("Troca de Senha");
 		txtUsuario.setText(usuario.getNome());
+		edtSenhaAtual.requestFocus();
 		dialogAlteracao.show();
 		
 		

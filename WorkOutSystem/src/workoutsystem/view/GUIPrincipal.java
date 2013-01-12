@@ -1,8 +1,11 @@
 package workoutsystem.view;
 
 import workoutsystem.control.ControleUsuario;
+import workoutsystem.model.Usuario;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,13 +13,38 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class GUIPrincipal extends Activity implements View.OnClickListener {
+public class GUIPrincipal extends Activity implements View.OnClickListener{
+	private TextView txtUsuario;
+	private Dialog dialogAlteracao;
+	private Button btnAlterar;
+	private Button btnCancelar;
+	private EditText edtSenhaNova;
+	private EditText edtSenhaAtual;
+	private EditText edtConfirmacaoSenha;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.principal);
+		dialogAlteracao = new Dialog(this);
+		dialogAlteracao.setContentView(R.layout.troca_senha_personalizada);
+		
+		btnAlterar = (Button) dialogAlteracao.findViewById(R.id.botao_alterar_senha);
+		btnCancelar= (Button) dialogAlteracao.findViewById(R.id.botao_cancel_alteracao);
+		txtUsuario = (TextView) dialogAlteracao.findViewById(R.id.txt_usuariocad);
+		edtSenhaAtual = (EditText) dialogAlteracao.findViewById(R.id.edt_senhaatual);
+		edtConfirmacaoSenha = (EditText) dialogAlteracao.findViewById(R.id.edt_confirmar_senha);
+		edtSenhaNova = (EditText) dialogAlteracao.findViewById(R.id.edt_nova_senha);
+		
+		btnAlterar.setOnClickListener(this);
+		btnCancelar.setOnClickListener(this);
+		
 	}
 
 
@@ -26,6 +54,7 @@ public class GUIPrincipal extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		ControleUsuario controle = new ControleUsuario();
 		switch (v.getId()){
 
 		case R.id.btn_perfil:
@@ -55,9 +84,58 @@ public class GUIPrincipal extends Activity implements View.OnClickListener {
 		case R.id.btn_sobre:
 			startActivity(new Intent("workoutsystem.view.SOBRE"));
 			break;
+		case R.id.botao_alterar_senha:
+			alterarSenha();
+			break;
+		case R.id.botao_cancel_alteracao:
+			dialogAlteracao.dismiss();
+			break;
 		}
 
 
+	}
+
+
+
+
+
+
+	private void alterarSenha() {
+		ControleUsuario controle = new ControleUsuario();
+		String mensagem = "Verifique os campos digitados";
+		if (verificarCampos()){
+			Usuario u = controle.buscarUsuario();
+			String senhaAtual = edtSenhaAtual.getText().toString();
+			String senhaNova = edtSenhaNova.getText().toString();
+			String confSenha = edtConfirmacaoSenha.getText().toString();
+			
+			if (controle.alterarSenha(u, senhaNova, confSenha, senhaAtual)){
+				mensagem = "Senha alterada com sucesso";
+				dialogAlteracao.dismiss();
+			}else{
+				mensagem = "Senha incorreta";
+			}
+		
+		}
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG);
+		
+	}
+
+
+
+
+
+
+	private boolean verificarCampos() {
+		String comparacao = "";
+		if (!edtConfirmacaoSenha.toString().equalsIgnoreCase(comparacao) 
+			&& !edtSenhaAtual.toString().equalsIgnoreCase(comparacao)
+			&& !edtSenhaNova.toString().equalsIgnoreCase(comparacao)){
+			return true;
+		}else{
+			return false;
+		}
+				
 	}
 
 
@@ -91,12 +169,22 @@ public class GUIPrincipal extends Activity implements View.OnClickListener {
 			startActivity(i);
 			break;
 		case R.id.trocarsenha:
-			
+			criarCaixaAlteracao();
 			break;
 		}
 		return true;
 	}
-
+	
+	public void criarCaixaAlteracao(){
+		ControleUsuario controle = new ControleUsuario();
+		Usuario usuario = controle.buscarUsuario();
+				
+		dialogAlteracao.setTitle("Troca de Senha");
+		txtUsuario.setText(usuario.getNome());
+		dialogAlteracao.show();
+		
+		
+	}
 
 
 

@@ -30,5 +30,7 @@ public interface IUsuarioDao {
 	public abstract Usuario buscarUsuario();
 	
 	public abstract void desconectarUsuario();
+	
+	public abstract boolean alterarSenha(Usuario u,String senha);
 }
 	

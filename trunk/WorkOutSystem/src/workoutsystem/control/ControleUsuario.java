@@ -59,6 +59,18 @@ public class ControleUsuario {
 		}		
 	}
 	
+	public boolean alterarSenha(Usuario u,String senhaNova,String confSenha,String senhaAtual){
+		boolean verificador = false;
+		IUsuarioDao daoUsuario = new UsuarioDao();
+		if (u.getSenha().equalsIgnoreCase(senhaAtual)){
+			if (senhaNova.equalsIgnoreCase(confSenha)){
+				verificador = daoUsuario.alterarSenha(u,senhaNova);
+			}
+		}
+		return verificador;
+		
+	}
+	
 	public Usuario buscarUsuario(){
 		IUsuarioDao daoUsuario = new UsuarioDao();
 		return daoUsuario.buscarUsuario();

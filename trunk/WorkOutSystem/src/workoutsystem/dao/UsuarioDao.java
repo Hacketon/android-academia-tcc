@@ -134,5 +134,27 @@ public class UsuarioDao implements IUsuarioDao {
 		}
 		
 	}
+
+	@Override
+	public boolean alterarSenha(Usuario u,String senha) {
+		boolean verificador = false;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "update usuario set senha = ? where codigo = ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setString(1, senha);
+			prepared.setInt(2, u.getCodigo());
+			if (prepared.executeUpdate() > 0) {
+				verificador = true;
+			}
+			prepared.close();
+			con.close();
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+		return verificador;
+	}
 	
 }

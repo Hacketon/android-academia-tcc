@@ -7,10 +7,9 @@
     
     
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    	style="@style/linearLayoutPadraoVertical"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        >
 
         <Spinner
             android:id="@+id/cbx_buscaexercicio"
@@ -23,6 +22,17 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1" />
+        
+    </LinearLayout>
+    <LinearLayout
+        style="@style/linearLayoutPadraoVertical">
+        
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:text="@string/botao_cancelar"/>
+        
     </LinearLayout>
 
 </LinearLayout>

@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -24,7 +26,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, 
-ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,DialogInterface.OnClickListener{
+ListView.OnItemClickListener {
 
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
@@ -33,22 +35,35 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 	private ListView listacriado;
 	private Spinner cbxExercicioPadrao;
 	private Spinner cbxExercicioCriado;
+	private Spinner cbxGrupo;
+	private EditText editNomeExercicio;
+	private EditText editDescricaoExercicio;
 	private boolean [] selecaoexc;
 	private String [] exercicios;
 	private ArrayAdapter<String> adapter;
-	
+	private Dialog dialog;
+	private Button btnSalvar;
+	private Button btnCancelar;
+	private ArrayList<String> listaGrupos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.exercicio);
-
+		dialog = new Dialog(this);
+		dialog.setContentView(R.layout.criarexercicio);
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
+		cbxGrupo= (Spinner) dialog.findViewById(R.id.cbx_grupo);
 		listapadrao = (ListView) findViewById(R.id.listapadrao);
 		listacriado = (ListView) findViewById(R.id.listacriado);
+		editDescricaoExercicio = (EditText) dialog.findViewById(R.id.edt_descricaoExercicio);
+		editNomeExercicio = (EditText) dialog.findViewById(R.id.edt_nomeExercicio);
+		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
+		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
 
+		btnCancelar.setOnClickListener(this);
+		btnSalvar.setOnClickListener(this);
 		cbxExercicioCriado.setOnItemSelectedListener(this);
 		cbxExercicioPadrao.setOnItemSelectedListener(this);
 		listacriado.setOnItemClickListener(this);
@@ -75,7 +90,7 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 	}
 
 	private void criarCombo(){
-		ArrayList<String> listaGrupos = new ArrayList<String>();
+		listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
 		ArrayList<GrupoMuscular> grupos = 
 			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
@@ -89,24 +104,60 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		cbxExercicioCriado.setAdapter(adapter);
 		cbxExercicioPadrao.setAdapter(adapter);
+		cbxGrupo.setAdapter(adapter);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case (R.id.btn_add):
-			startActivity(new Intent("workoutsystem.view.CRIAREXERCICIO"));
-			
+			criarCaixaDialog("Novo Exercicio");
+
 		break;
-		case (R.id.btn_exc):
-			if (exercicios != null && selecaoexc != null){
-				showDialog(0);
-			}
-		break;
-		}
 		
+		case (R.id.btn_criar):
+			Exercicio e = criarExercicio();
+			ControleExercicio ex = new ControleExercicio();
+			Toast.makeText(this,ex.manipularExercicio(e),
+			Toast.LENGTH_LONG).show();
+			ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
+			ex.listarExercicios(e.getGrupoMuscular().getNome(), e.getPersonalizado());
+			createListView(exercicios, listacriado);
+			dialog.dismiss();
+		break;
+		case (R.id.btn_voltar):
+			dialog.dismiss();
+		}
+
 
 	}
+
+	private void criarCaixaDialog(String titulo) {
+		dialog.setTitle(titulo);
+		editDescricaoExercicio.setText("");
+		editNomeExercicio.setText("");
+		dialog.show();
+
+	}
+	
+	private void carregarExercicio(Exercicio exercicio) {
+		int i = 0;
+		if (exercicio != null){
+			editNomeExercicio.setText(exercicio.getNomeExercicio());
+			editDescricaoExercicio.setText(exercicio.getDescricao());
+			for (String l : listaGrupos){
+				if (l.equalsIgnoreCase(exercicio.getGrupoMuscular().getNome())){
+					cbxGrupo.setSelection(i);
+					break;
+				}
+				i++;
+			}
+
+		}
+	}
+
+
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
@@ -116,8 +167,7 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 			listaExercicios = controle.listarExercicios
 			(parent.getItemAtPosition(pos).toString(),1);
 			createListView(listaExercicios,listacriado);
-			criarExclusao(listaExercicios);
-
+			
 		}else if (parent.getId()== R.id.cbx_grupopadrao){
 			listaExercicios = controle.listarExercicios
 			(parent.getItemAtPosition(pos).toString(),0);
@@ -126,18 +176,7 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		}
 	}
 
-	private void criarExclusao(List<Exercicio> listaExercicios) {
-		int i = 0 ;
-		exercicios = null;
-		selecaoexc = null;
-		exercicios = new String[listaExercicios.size()]; 
-		for (Exercicio e : listaExercicios){
-			exercicios[i] = e.getNomeExercicio();
-			i++;
-		}
-		selecaoexc = new boolean[exercicios.length];
-	}
-
+	
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
@@ -150,104 +189,49 @@ ListView.OnItemClickListener , DialogInterface.OnMultiChoiceClickListener,Dialog
 		for (Exercicio e : exercicios){
 			nomes.add(e.getNomeExercicio());
 		}
-		 adapter = new ArrayAdapter<String>
+		adapter = new ArrayAdapter<String>
 		(this,R.layout.itens_simple_lista,nomes);
 		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
 		lista.setCacheColorHint(Color.BLUE);
-		
+
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
 		Exercicio exercicio = 
-			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
-		Intent i = null ;
-		if (parent.getId() == R.id.listacriado){
-			i = new Intent(this, GUICriarExercicio.class);
-		}else if (parent.getId() == R.id.listapadrao){
-			i = new Intent(this,GUIPasso.class);
-		}
-		i.putExtra("exercicio",exercicio);
-		startActivity(i);
+		controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+		criarCaixaDialog("Alterar Exercicio",exercicio);
+	}
+
+	private void criarCaixaDialog(String titulo, Exercicio exercicio) {
+		dialog.setTitle(titulo);
+		carregarExercicio(exercicio);
+		dialog.show();
+
+
+	}
+
+	public Exercicio criarExercicio(){
+		Exercicio exercicio = new Exercicio();
+		GrupoMuscular grupo = new GrupoMuscular();
+		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
+		grupo.setNome(cbxGrupo.getSelectedItem().toString());
+		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
+		exercicio.setGrupoMuscular(grupo);
+		return exercicio;
+	}
+	public Exercicio criarExercicio(Exercicio exercicio){
+		GrupoMuscular grupo = new GrupoMuscular();
+		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
+		grupo.setNome(cbxGrupo.getSelectedItem().toString());
+		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
+		exercicio.setGrupoMuscular(grupo);
+		return exercicio;
+		
 		
 	}
 
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		// TODO Auto-generated method stub
-		return new AlertDialog.Builder(this)
-		.setTitle("Exercicios")
-		.setMultiChoiceItems(exercicios, selecaoexc, this)
-		.setPositiveButton("Deletar",this)
-		.setNeutralButton("Cancelar",this)
-		.create();
-		
-	}
 
-	@Override
-	public void onClick(DialogInterface dialog, int clicked) {
-		switch (clicked) {
-		case DialogInterface.BUTTON_POSITIVE:
-			Toast.makeText(this, deletarExercicios(),Toast.LENGTH_SHORT).show();
-			List<Exercicio> listarExercicios = new ControleExercicio().listarExercicios(cbxExercicioCriado.toString(), 1);
-			createListView(listarExercicios, listacriado);
-			
-		break;
-
-		}
-		
-	}
-
-	private String deletarExercicios() {
-		ControleExercicio controle = new ControleExercicio();
-		int i = 0 ;
-		int contador = 0;
-		ArrayList<String> deletados = new ArrayList<String>();
-		ArrayList<String> ndeletados = new ArrayList<String>();
-		
-		for (boolean b : selecaoexc){
-			if (b == true){
-				deletados.add(exercicios[i]);
-				contador++;
-			}else{
-				ndeletados.add(exercicios[i]);
-			}
-			i++;
-		}
-		i = 0;
-		contador = exercicios.length - contador;
-		exercicios = null;
-		selecaoexc = null;
-		if (contador != 0){
-			exercicios = new String[contador];
-			selecaoexc = new boolean[contador];
-			for (String o : ndeletados){
-				exercicios[i] = o;
-				i++;
-			}
-
-		}
-
-		return controle.excluirExercicio(deletados);
-	}
-
-	@Override
-	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-		// TODO Auto-generated method stub
-		selecaoexc[which]= isChecked;
-	}
-
-	@Override
-	protected void onPrepareDialog(int id, Dialog dialog) {
-		super.onPrepareDialog(id, dialog);
-			ArrayAdapter<String> list = new ArrayAdapter<String>
-			(this, android.R.layout.select_dialog_multichoice,exercicios);
-			AlertDialog alerta = (AlertDialog) dialog;
-			alerta.getListView().setAdapter(list);
-			list.notifyDataSetChanged();
-
-
-	}
 }

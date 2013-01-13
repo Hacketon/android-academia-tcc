@@ -36,7 +36,7 @@ implements View.OnClickListener{
 		criarCombo();
 		editNomeExercicio = (EditText) findViewById(R.id.edt_nomeExercicio);
 		editDescricaoExercicio = (EditText) findViewById(R.id.edt_descricaoExercicio);
-		carregarExercicio();
+		//carregarExercicio();
 
 	}
 
@@ -89,27 +89,7 @@ implements View.OnClickListener{
 	}
 
 
-	private void carregarExercicio() {
-		Exercicio exercicio = (Exercicio) 
-		getIntent().getSerializableExtra("exercicio");
-		int i = 0;
-		if (exercicio != null){
-			editNomeExercicio.setText(exercicio.getNomeExercicio());
-			editDescricaoExercicio.setText(exercicio.getDescricao());
-			for (String l : listaGrupos){
-				if (l.equalsIgnoreCase(exercicio.getGrupoMuscular().getNome())){
-					cbxGrupo.setSelection(i);
-					break;
-				}
-				i++;
-			}
-
-		}
-
-
-
-	}
-
+	
 
 
 }

@@ -75,32 +75,14 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1" />
 
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_add"
+                        style="@style/textopequenopreto"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:weightSum="100" >
-
-                        <Button
-                            android:id="@+id/btn_add"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="50"
-                            android:onClick="onClick"
-                            android:text="@string/botao_adicionar" />
-
-                        <Button
-                            android:id="@+id/btn_exc"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="50"
-                            android:onClick="onClick"
-                            android:text="@string/botao_excluir" />
-                    </LinearLayout>
+                        android:layout_gravity="bottom"
+                        android:onClick="onClick"
+                        android:text="@string/botao_adicionar" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

@@ -147,7 +147,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		adapter.atualizarDias();
 		adapter.notifyDataSetChanged();
 		mesView.setText(android.text.format.DateFormat.format("MMMM yyyy", mes));
-
 	
 	}
 	/**

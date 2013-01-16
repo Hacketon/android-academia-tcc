@@ -47,4 +47,10 @@ public interface IMedidaDao {
 	 * @return
 	 */
 	public abstract boolean alterarUltimaMedicao(List<Medicao> m);
+	/**
+	 * metodo que trará todas as medidas jogando em uma lista 
+	 * @return
+	 */
+	public abstract List<String> buscarMedidas();
 }
+

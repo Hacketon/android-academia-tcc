@@ -20,7 +20,7 @@
             android:weightSum="100" >
 
             <Button
-                android:id="@+id/btn_anteriorexercicio"
+                android:id="@+id/btn_anteriormedida"
                 style="@style/textopequenopreto"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

@@ -13,6 +13,7 @@ import java.util.List;
 
 import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
+import workoutsystem.model.Medida;
 
 import android.util.Log;
 
@@ -99,7 +100,30 @@ public class MedidaDao implements IMedidaDao{
 		}
 		return valor;
 	}
+	
+	public List<String> buscarMedidas(){
+		List<String> lista = new ArrayList<String>();
+		
+		try{
+			Connection con = Banco.conexao();
+			//criar campo descrição no banco para pegar o nome detalhado exemplo: Coxa Esquerda
+			String sql = "select nome from medida";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				Medida medida = new Medida();
+				medida.setNome(result.getString(1));
+				lista.add(medida.getNome());
+			}
 
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lista;
+	}
 
 	@Override
 	public List<Medicao> buscarMedicao(int codigo) {

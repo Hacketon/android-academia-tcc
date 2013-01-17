@@ -3,6 +3,7 @@ package workoutsystem.interfaces;
 import java.util.List;
 
 import workoutsystem.model.Medicao;
+import workoutsystem.model.Medida;
 
 public interface IMedidaDao {
 /**
@@ -51,6 +52,13 @@ public interface IMedidaDao {
 	 * metodo que trará todas as medidas jogando em uma lista 
 	 * @return
 	 */
-	public abstract List<String> buscarMedidas();
+	public abstract List<Medida> buscarMedidas();
+
+	/**
+	 * metodo que irá excluir todas medicoes do perfil
+	 * @param codigo
+	 * @return
+	 */
+	public abstract boolean excluirMedicoes(int codigo);
 }
 

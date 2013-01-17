@@ -85,4 +85,13 @@ public class ControleMedida {
 		
 		return mensagem;
 	}
+	public String excluirMedicoes(int codigo){
+		String mensagem = "Erro ao excluir Medicões! ";
+		IMedidaDao dao = new MedidaDao();
+		
+		if(dao.excluirMedicoes(codigo)== true){
+			mensagem = "Todas Medições foram excluídas! ";
+		}
+		return mensagem;
+	}
 }

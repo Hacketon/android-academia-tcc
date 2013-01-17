@@ -99,37 +99,37 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 		//Medidas
 		for(Medicao m : medicoes){
 			
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Altura", "a")){
+			if(m.getCodigoMedida()== 1){
 				mAltura.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Peso", "a")){
+			if(m.getCodigoMedida()== 2){
 				mPeso.setValor(m.getValor());	
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Cintura", "a")){
+			if(m.getCodigoMedida()== 3){
 				mCintura.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Quadril", "a")){
+			if(m.getCodigoMedida()== 4){
 				mQuadril.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Peito", "a")){
+			if(m.getCodigoMedida()== 5){
 				mPeito.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Braco", "d")){
+			if(m.getCodigoMedida()== 6){
 				mBracoD.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Braco", "e")){
+			if(m.getCodigoMedida()== 7){
 				mBracoE.setValor(m.getValor());	
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Coxa", "d")){
+			if(m.getCodigoMedida()== 8){
 				mCoxaD.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Coxa", "e")){
+			if(m.getCodigoMedida()== 9){
 				mCoxaE.setValor(m.getValor());
 			}
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Panturrilha", "d")){
+			if(m.getCodigoMedida()== 10){
 				mPantuD.setValor(m.getValor());
 			}	
-			if(m.getCodigoMedida()== controleMed.buscarMedida("Panturrilha", "e")){
+			if(m.getCodigoMedida()== 11){
 				mPantuE.setValor(m.getValor());
 			}
 		}

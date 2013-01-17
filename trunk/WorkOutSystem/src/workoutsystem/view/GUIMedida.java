@@ -735,7 +735,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		for(Medicao m : medicoes){
 			//Altura
-			if(m.getCodigoMedida() == controle.buscarMedida("Altura", "a") ){
+			if(m.getCodigoMedida() == 1 ){
 				mAltura.setValor(Double.parseDouble(editAltura.getText().toString()));
 				mAltura.setCodigio(m.getCodigo());
 				mAltura.setDataMedicao(m.getDataMedicao());
@@ -743,14 +743,14 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 			}
 			//Peso
-			if(m.getCodigoMedida() == controle.buscarMedida("Peso", "a")){
+			if(m.getCodigoMedida() == 2){
 				mPeso.setValor(Double.parseDouble(editPeso.getText().toString()));
 				mPeso.setCodigio(m.getCodigo());
 				mPeso.setDataMedicao(m.getDataMedicao());
 				mPeso.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Cintura
-			if(m.getCodigoMedida() == controle.buscarMedida("Cintura", "a")){
+			if(m.getCodigoMedida() == 3){
 				mCintura.setValor(Double.parseDouble(editCintura.getText().toString()));
 				mCintura.setCodigio(m.getCodigo());
 				mCintura.setDataMedicao(m.getDataMedicao());
@@ -758,56 +758,57 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 			}
 			//Quadril
-			if(m.getCodigoMedida() == controle.buscarMedida("Quadril", "a")){
+			if(m.getCodigoMedida() == 4){
 				mQuadril.setValor(Double.parseDouble(editQuadril.getText().toString()));
 				mQuadril.setCodigio(m.getCodigo());
 				mQuadril.setDataMedicao(m.getDataMedicao());
 				mQuadril.setCodigoMedida(m.getCodigoMedida());
 			}
+			//Peito
+			if(m.getCodigoMedida() == 5){
+				mPeito.setValor(Double.parseDouble(editPeito.getText().toString()));
+				mPeito.setCodigio(m.getCodigo());
+				mPeito.setDataMedicao(m.getDataMedicao());
+				mPeito.setCodigoMedida(m.getCodigoMedida());
+			}
 			//Braço Direito
-			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "d")){
+			if(m.getCodigoMedida() == 6){
 				mBracoD.setValor(Double.parseDouble(editBracoDir.getText().toString()));
 				mBracoD.setCodigio(m.getCodigo());
 				mBracoD.setDataMedicao(m.getDataMedicao());
 				mBracoD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Braço Esquerdo
-			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "e")){
+			if(m.getCodigoMedida() == 7){
 				mBracoE.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
 				mBracoE.setCodigio(m.getCodigo());
 				mBracoE.setDataMedicao(m.getDataMedicao());
 				mBracoE.setCodigoMedida(m.getCodigoMedida());
 			}
-			//Peito
-			if(m.getCodigoMedida() == controle.buscarMedida("Peito", "a")){
-				mPeito.setValor(Double.parseDouble(editPeito.getText().toString()));
-				mPeito.setCodigio(m.getCodigo());
-				mPeito.setDataMedicao(m.getDataMedicao());
-				mPeito.setCodigoMedida(m.getCodigoMedida());
-			}
+		
 			//Coxa Direito
-			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "d")){
+			if(m.getCodigoMedida() == 8){
 				mCoxaD.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
 				mCoxaD.setCodigio(m.getCodigo());
 				mCoxaD.setDataMedicao(m.getDataMedicao());
 				mCoxaD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Coxa Esquerda
-			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "e")){
+			if(m.getCodigoMedida() == 9){
 				mCoxaE.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
 				mCoxaE.setCodigio(m.getCodigo());
 				mCoxaE.setDataMedicao(m.getDataMedicao());
 				mCoxaE.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Direita
-			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "d")){
+			if(m.getCodigoMedida() == 10){
 				mPantuD.setValor(Double.parseDouble(editPantuDir.getText().toString()));
 				mPantuD.setCodigio(m.getCodigo());
 				mPantuD.setDataMedicao(m.getDataMedicao());
 				mPantuD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Esuerda
-			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "e")){
+			if(m.getCodigoMedida() == 11){
 				mPantuE.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
 				mPantuE.setCodigio(m.getCodigo());
 				mPantuE.setDataMedicao(m.getDataMedicao());

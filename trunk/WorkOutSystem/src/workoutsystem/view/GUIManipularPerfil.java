@@ -3,6 +3,7 @@ package workoutsystem.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.control.ControleUsuario;
 import workoutsystem.model.DiaSemana;
@@ -90,7 +91,9 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
 		ControleUsuario controleUsu = new ControleUsuario();
+		ControleMedida controleMed = new ControleMedida();
 		Usuario u = controleUsu.buscarUsuario();
+		
 		Perfil perfil = null;
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
@@ -113,6 +116,8 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 		case R.id.btn_excperfil:
 			limparCampos();
 			perfil = criaManipulaPerfil();
+			Toast.makeText(this, controleMed.excluirMedicoes(perfil.getCodigo()),
+					Toast.LENGTH_SHORT).show();
 			Toast.makeText(this, controle.excluirPerfil(u,perfil),
 					Toast.LENGTH_LONG).show();
 			break;

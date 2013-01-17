@@ -63,6 +63,7 @@
                     android:weightSum="100" >
 
                     <TextView
+                        android:id="@+id/txtData1"
                         style="@style/textopequeno"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -75,8 +76,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:max="40"
-                        android:progress="10" />
+                        android:max="100"
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,6 +86,7 @@
                     android:weightSum="100" >
 
                     <TextView
+                        android:id="@+id/txtData2"
                         style="@style/textopequeno"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -97,8 +99,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:max="40"
-                        android:progress="20" />
+                        android:max="100"
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -107,6 +109,7 @@
                     android:weightSum="100" >
 
                     <TextView
+                        android:id="@+id/txtData3"
                         style="@style/textopequeno"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -119,8 +122,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:max="40"
-                        android:progress="30" />
+                        android:max="100"
+                         />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

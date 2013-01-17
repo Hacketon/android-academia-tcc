@@ -101,20 +101,21 @@ public class MedidaDao implements IMedidaDao{
 		return valor;
 	}
 	
-	public List<String> buscarMedidas(){
-		List<String> lista = new ArrayList<String>();
+	public List<Medida> buscarMedidas(){
+		List<Medida> lista = new ArrayList<Medida>();
 		
 		try{
 			Connection con = Banco.conexao();
 			//criar campo descrição no banco para pegar o nome detalhado exemplo: Coxa Esquerda
-			String sql = "select nome from medida";
+			String sql = "select codigo, nome from medida";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
 			
 			while(result.next()){
 				Medida medida = new Medida();
-				medida.setNome(result.getString(1));
-				lista.add(medida.getNome());
+				medida.setCodigo(result.getInt(1));
+				medida.setNome(result.getString(2));
+				lista.add(medida);
 			}
 
 			prepare.close();
@@ -233,5 +234,30 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 
-	
+	public boolean excluirMedicoes(int codigo){
+		try{
+			boolean verificador = false;
+			Connection con = Banco.conexao();
+			String sql = "delete from medicao where codigoperfil = ?";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			int resultado = prepare.executeUpdate();
+
+			if (resultado == 0 ){
+				verificador = false;
+			}else{
+				verificador = true;
+			}
+			prepare.close();
+			con.close();
+
+			return verificador;
+
+		}catch (SQLException e) {
+			// TODO: handle exception
+			return false;
+		}
+
+		
+	}
 }

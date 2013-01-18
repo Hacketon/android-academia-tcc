@@ -146,6 +146,8 @@ public class GUIEvolucao extends Activity {
 			Medicao maior2 = null;
 			Medicao maior3 = null;
 
+		String unidade;
+		unidade = medida.getUnidade();
 			for(Medicao m2 : lista){
 
 				if(maior1 == null ){
@@ -157,24 +159,119 @@ public class GUIEvolucao extends Activity {
 				if(maior3 == null){
 					maior3 = m2;
 				}
-				if(m2.getDataMedicao().before(maior1.getDataMedicao())){
+				if(m2.getDataMedicao().after(maior1.getDataMedicao())){
 					maior1 = m2;
-				}else if(m2.getDataMedicao().before(maior2.getDataMedicao())){
+				}else if(m2.getDataMedicao().after(maior2.getDataMedicao())){
 					maior2 = m2;
-				}else if(m2.getDataMedicao().before(maior2.getDataMedicao())){
+				}else if(m2.getDataMedicao().after(maior2.getDataMedicao())){
 					maior3 = m2;
 				}
 
-				//criar lógica de porceitagem !!
-				
-				data1.setText(sdf.format(maior1.getDataMedicao()));
-				data2.setText(sdf.format(maior2.getDataMedicao()));
-				data3.setText(sdf.format(maior3.getDataMedicao()));
-				barra1.setProgress((int) maior1.getValor());
-				barra2.setProgress((int) maior2.getValor());
-				barra3.setProgress((int)maior3.getValor());
-
 			}
+				// lógica de exibição (em teste) 
+//				double media;
+				int valor1 = 0, valor2 = 0, valor3 = 0;
+//				media = (maior1.getValor() + maior2.getValor() + maior3.getValor()) / 3;
+				
+				//caso1
+				if(maior1.getValor()>maior2.getValor()&& maior1.getValor()>=maior3.getValor()){
+					if(maior1.getValor()== maior3.getValor()){
+						valor3=80;
+						valor1 = 80;
+						valor2= 50;
+					}else{
+						valor1 = 80;
+					
+					if(maior2.getValor() > maior3.getValor()){
+						valor2 = 50;
+						valor3 = 20;
+					}else if (maior2.getValor()< maior3.getValor()){
+						valor3 = 50;
+						valor2 = 20;
+					}
+					else if (maior2.getValor()== maior3.getValor()){
+						valor3 = 50;
+						valor2 = 50;
+					}
+					}
+					//caso2
+				}else if(maior2.getValor()>maior1.getValor()&& maior2.getValor()>=maior3.getValor()){
+					if(maior2.getValor()== maior3.getValor()){
+						valor3 = 80;
+						valor2 = 80;
+						valor1 = 50;
+					}else{
+						valor2 = 80;
+					
+					if(maior1.getValor() > maior3.getValor()){
+						valor1 = 50;
+						valor3 = 20;
+					}else if (maior1.getValor()< maior3.getValor()){
+						valor3 = 50;
+						valor1 = 20;
+					}else if (maior1.getValor()== maior3.getValor()){
+						valor3 = 50;
+						valor1 = 50;
+					}
+					}
+					//caso3
+				}else if(maior3.getValor()>maior1.getValor()&& maior3.getValor()>=maior2.getValor()){
+					if(maior2.getValor()== maior3.getValor()){
+						valor3 = 80;
+						valor2 = 80;
+						valor1 = 50;
+					}else{
+						valor3 = 80;
+					
+					
+					if(maior2.getValor() > maior1.getValor()){
+						valor2 = 50;
+						valor1 = 20;
+					}else if (maior2.getValor()< maior1.getValor()){
+						valor1 = 50;
+						valor2 = 20;
+					}else if(maior2.getValor()== maior1.getValor()){
+						valor1 = 50;
+						valor2 = 50;
+					}
+					}
+				}
+				//caso4
+				else if(maior3.getValor()==maior1.getValor()&& maior3.getValor()==maior2.getValor()){
+					valor3 = 50;
+					valor2 = 50;
+					valor1 = 50;
+				}
+				
+				
+				
+//				if(media > 0 && media <= 5 ){
+//					
+//				}else if(media > 0 && media <= 5 ){
+//					
+//				}else if(media > 5 && media <= 10){
+//					
+//				}else if(media > 10 && media <= 30){
+//					
+//				}else if(media > 30 && media <= 60){
+//					
+//				}else if(media > 60 && media <= 100){
+//					
+//				}else if(media > 100 && media <= 200){
+//					
+//				}else if(media > 200){
+//					
+//				}
+				
+				
+				data1.setText(sdf.format(maior1.getDataMedicao())+ " \n" + maior1.getValor()+ unidade);
+				data2.setText(sdf.format(maior2.getDataMedicao())+ " \n" + maior2.getValor()+ unidade);
+				data3.setText(sdf.format(maior3.getDataMedicao())+ " \n" + maior3.getValor()+ unidade);
+				barra1.setProgress(valor1);
+				barra2.setProgress(valor2);
+				barra3.setProgress(valor3);
+
+			
 
 		}
 	}

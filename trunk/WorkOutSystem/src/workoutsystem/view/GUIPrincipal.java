@@ -32,6 +32,8 @@ public class GUIPrincipal extends Activity implements View.OnClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.principal);
+	
+		
 	}
 
 

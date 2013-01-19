@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, 
@@ -45,13 +46,16 @@ ListView.OnItemClickListener {
 	private Button btnSalvar;
 	private Button btnCancelar;
 	private ArrayList<String> listaGrupos;
+	private TextView txtCodExercicio;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.exercicio);
+		
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.criarexercicio);
+		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
 		cbxGrupo= (Spinner) dialog.findViewById(R.id.cbx_grupo);
@@ -72,7 +76,6 @@ ListView.OnItemClickListener {
 		criarTabs();
 		criarCombo();
 	}
-
 	private void criarTabs(){
 		hospedeiro = (TabHost) findViewById(R.id.hospedeiro);
 		hospedeiro.setup();
@@ -88,7 +91,6 @@ ListView.OnItemClickListener {
 		hospedeiro.addTab(tabcriado);
 
 	}
-
 	private void criarCombo(){
 		listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
@@ -107,15 +109,12 @@ ListView.OnItemClickListener {
 		cbxGrupo.setAdapter(adapter);
 
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case (R.id.btn_add):
 			criarCaixaDialog("Novo Exercicio");
-
 		break;
-		
 		case (R.id.btn_criar):
 			Exercicio e = criarExercicio();
 			ControleExercicio ex = new ControleExercicio();
@@ -132,18 +131,10 @@ ListView.OnItemClickListener {
 
 
 	}
-
-	private void criarCaixaDialog(String titulo) {
-		dialog.setTitle(titulo);
-		editDescricaoExercicio.setText("");
-		editNomeExercicio.setText("");
-		dialog.show();
-
-	}
-	
 	private void carregarExercicio(Exercicio exercicio) {
 		int i = 0;
 		if (exercicio != null){
+			txtCodExercicio.setText(String.valueOf(exercicio.getCodigo()));
 			editNomeExercicio.setText(exercicio.getNomeExercicio());
 			editDescricaoExercicio.setText(exercicio.getDescricao());
 			for (String l : listaGrupos){
@@ -156,11 +147,7 @@ ListView.OnItemClickListener {
 
 		}
 	}
-
-
-
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 		ControleExercicio controle = new ControleExercicio();
 		List<Exercicio> listaExercicios = null;
 		if (parent.getId() == R.id.cbx_grupocriado){
@@ -175,15 +162,11 @@ ListView.OnItemClickListener {
 
 		}
 	}
-
-	
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
+		
 
 	}
-
-
 	private void createListView(List <Exercicio> exercicios,ListView lista) {
 		ArrayList<String> nomes = new ArrayList<String>();
 		for (Exercicio e : exercicios){
@@ -196,41 +179,32 @@ ListView.OnItemClickListener {
 		lista.setCacheColorHint(Color.BLUE);
 
 	}
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
 		Exercicio exercicio = 
 		controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
-		criarCaixaDialog("Alterar Exercicio",exercicio);
-	}
-
-	private void criarCaixaDialog(String titulo, Exercicio exercicio) {
-		dialog.setTitle(titulo);
+		criarCaixaDialog("Alterar Exercicio");
 		carregarExercicio(exercicio);
+		
+	}
+	private void criarCaixaDialog(String titulo) {
+		dialog.setTitle(titulo);
+		editDescricaoExercicio.setText("");
+		editNomeExercicio.setText("");
+		editNomeExercicio.requestFocus();
 		dialog.show();
 
-
 	}
-
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
+		exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
 		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
 		exercicio.setGrupoMuscular(grupo);
 		return exercicio;
-	}
-	public Exercicio criarExercicio(Exercicio exercicio){
-		GrupoMuscular grupo = new GrupoMuscular();
-		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
-		grupo.setNome(cbxGrupo.getSelectedItem().toString());
-		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
-		exercicio.setGrupoMuscular(grupo);
-		return exercicio;
-		
-		
 	}
 
 

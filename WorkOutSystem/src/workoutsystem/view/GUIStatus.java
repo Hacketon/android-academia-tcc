@@ -82,7 +82,7 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 		Perfil perfil = controlePerf.buscarPerfil();
 		String sexo="";
 		List<Medicao> medicoes = new ArrayList<Medicao>();
-		medicoes = controleMed.buscarMedicao(perfil.getCodigo());
+		medicoes = controleMed.verificarMedicao(perfil.getCodigo());
 
 		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
 		if(perfil.getSexo()){

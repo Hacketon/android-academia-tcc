@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -142,10 +143,9 @@ public class MedidaDao implements IMedidaDao{
 
 			while(result.next()){
 				Medicao medicao = new Medicao();
-				medicao.setCodigio(result.getInt(1));
+				medicao.setCodigo(result.getInt(1));
 				medicao.setValor(result.getDouble(2));
 				String data =  result.getString(3);
-				
 				medicao.setDataMedicao(sdf.parse(data));
 				medicao.setCodigoMedida(result.getInt(4));
 				medicao.setCodigoPerfil(result.getInt(5));
@@ -260,5 +260,63 @@ public class MedidaDao implements IMedidaDao{
 		}
 
 		
+	}
+
+	@Override
+	public boolean verificarMedicao(int codigo) {
+		boolean verificador = false;
+		try{
+			Connection con = Banco.conexao();
+			String sql = "select * from medicao where codigoperfil = ?";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setInt(1, codigo);
+			ResultSet result = prepared.executeQuery();
+			
+			if (result.next()){
+				verificador = true;
+			}
+						
+			prepared.close();
+			con.close();
+		}catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return verificador;
+	}
+
+	@Override
+	public List<Medicao> ultimasMedicoes(int codigoPerfil, int codigoMedicao) {
+		List<Medicao> medicoes = new ArrayList<Medicao>();
+		try{
+			int contador = 0;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Connection con = Banco.conexao();
+			String sql = " select codigo,valor,datamedicao from medicao "
+							+ " where codigoperfil = ? and codigomedida = ? "
+							+ "order by datamedicao desc ";
+			PreparedStatement prepared = con.prepareStatement(sql);
+			prepared.setInt(1, codigoPerfil);
+			prepared.setInt(1, codigoMedicao);
+			ResultSet result = prepared.executeQuery();
+			
+			while (result.next() && contador != 3){
+				Medicao m = new Medicao();
+				m.setCodigo(result.getInt(1));
+				m.setValor(result.getDouble(2));
+				m.setDataMedicao(sdf.parse(result.getString(3)));
+				
+				medicoes.add(m);
+				contador ++;
+			}
+			
+			prepared.close();
+			con.close();
+		}catch (SQLException e){
+			// TODO: handle exception
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return medicoes;
 	}
 }

@@ -60,12 +60,7 @@ public interface IExercicioDao {
 	 */
 	public abstract List<Passo> visualizarPassos(Exercicio e);
 	
-	/**
-	 * Metodo responsavel pela visualização dos exercicios
-	 * @param e
-	 * @return exercicio
-	 */
-	public abstract Exercicio visualizarExercicio(Exercicio e);
+	
 	
 	/**
 	 * Metodo que fará a busca do código de cada grupo muscular 

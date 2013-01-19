@@ -737,7 +737,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//Altura
 			if(m.getCodigoMedida() == 1 ){
 				mAltura.setValor(Double.parseDouble(editAltura.getText().toString()));
-				mAltura.setCodigio(m.getCodigo());
+				mAltura.setCodigo(m.getCodigo());
 				mAltura.setDataMedicao(m.getDataMedicao());
 				mAltura.setCodigoMedida(m.getCodigoMedida());
 
@@ -745,14 +745,14 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//Peso
 			if(m.getCodigoMedida() == 2){
 				mPeso.setValor(Double.parseDouble(editPeso.getText().toString()));
-				mPeso.setCodigio(m.getCodigo());
+				mPeso.setCodigo(m.getCodigo());
 				mPeso.setDataMedicao(m.getDataMedicao());
 				mPeso.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Cintura
 			if(m.getCodigoMedida() == 3){
 				mCintura.setValor(Double.parseDouble(editCintura.getText().toString()));
-				mCintura.setCodigio(m.getCodigo());
+				mCintura.setCodigo(m.getCodigo());
 				mCintura.setDataMedicao(m.getDataMedicao());
 				mCintura.setCodigoMedida(m.getCodigoMedida());
 
@@ -760,28 +760,28 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//Quadril
 			if(m.getCodigoMedida() == 4){
 				mQuadril.setValor(Double.parseDouble(editQuadril.getText().toString()));
-				mQuadril.setCodigio(m.getCodigo());
+				mQuadril.setCodigo(m.getCodigo());
 				mQuadril.setDataMedicao(m.getDataMedicao());
 				mQuadril.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Peito
 			if(m.getCodigoMedida() == 5){
 				mPeito.setValor(Double.parseDouble(editPeito.getText().toString()));
-				mPeito.setCodigio(m.getCodigo());
+				mPeito.setCodigo(m.getCodigo());
 				mPeito.setDataMedicao(m.getDataMedicao());
 				mPeito.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Braço Direito
 			if(m.getCodigoMedida() == 6){
 				mBracoD.setValor(Double.parseDouble(editBracoDir.getText().toString()));
-				mBracoD.setCodigio(m.getCodigo());
+				mBracoD.setCodigo(m.getCodigo());
 				mBracoD.setDataMedicao(m.getDataMedicao());
 				mBracoD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Braço Esquerdo
 			if(m.getCodigoMedida() == 7){
 				mBracoE.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
-				mBracoE.setCodigio(m.getCodigo());
+				mBracoE.setCodigo(m.getCodigo());
 				mBracoE.setDataMedicao(m.getDataMedicao());
 				mBracoE.setCodigoMedida(m.getCodigoMedida());
 			}
@@ -789,28 +789,28 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			//Coxa Direito
 			if(m.getCodigoMedida() == 8){
 				mCoxaD.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
-				mCoxaD.setCodigio(m.getCodigo());
+				mCoxaD.setCodigo(m.getCodigo());
 				mCoxaD.setDataMedicao(m.getDataMedicao());
 				mCoxaD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Coxa Esquerda
 			if(m.getCodigoMedida() == 9){
 				mCoxaE.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
-				mCoxaE.setCodigio(m.getCodigo());
+				mCoxaE.setCodigo(m.getCodigo());
 				mCoxaE.setDataMedicao(m.getDataMedicao());
 				mCoxaE.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Direita
 			if(m.getCodigoMedida() == 10){
 				mPantuD.setValor(Double.parseDouble(editPantuDir.getText().toString()));
-				mPantuD.setCodigio(m.getCodigo());
+				mPantuD.setCodigo(m.getCodigo());
 				mPantuD.setDataMedicao(m.getDataMedicao());
 				mPantuD.setCodigoMedida(m.getCodigoMedida());
 			}
 			//Panturrilha Esuerda
 			if(m.getCodigoMedida() == 11){
 				mPantuE.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
-				mPantuE.setCodigio(m.getCodigo());
+				mPantuE.setCodigo(m.getCodigo());
 				mPantuE.setDataMedicao(m.getDataMedicao());
 				mPantuE.setCodigoMedida(m.getCodigoMedida());
 			}

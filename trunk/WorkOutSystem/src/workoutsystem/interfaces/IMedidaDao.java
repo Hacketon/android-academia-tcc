@@ -60,5 +60,20 @@ public interface IMedidaDao {
 	 * @return
 	 */
 	public abstract boolean excluirMedicoes(int codigo);
+	/**
+	 * Metodo responsavel pela verificacao se um perfil possui 
+	 * medicoes cadastradas
+	 * @param codigo (do perfil)
+	 * @return true caso possui , caso contrario false
+	 */
+	public abstract boolean verificarMedicao(int codigo);
+	/**
+	 * Metodo responsavel pela busca das três ultimas medicoes de uma determinada medida 
+	 * e um determinado perfil 
+	 * @param codigoPerfil
+	 * @param codigoMedicao
+	 * @return List (medicoes)
+	 */
+	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedicao);
 }
 

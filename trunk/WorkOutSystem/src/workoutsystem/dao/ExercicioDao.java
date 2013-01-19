@@ -135,12 +135,7 @@ public class ExercicioDao implements IExercicioDao {
 
 	}
 
-	@Override
-	public Exercicio visualizarExercicio(Exercicio e) {
-		// TODO Auto-generated method stub
-		return null;
 
-	}
 
 	@Override
 	public int buscarGrupoMuscular(String nome) {

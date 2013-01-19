@@ -27,6 +27,18 @@ public class ControleMedida {
 		return mensagem;	
 	}
 	
+	public List<Medida> buscarMedidas(){
+		List<Medida> lista = new ArrayList<Medida>();
+		IMedidaDao daoMed = new MedidaDao();
+		
+		if(daoMed.buscarMedidas() != null){
+			lista = daoMed.buscarMedidas();
+		}else{
+			return null;
+		}
+		
+		return lista;
+	}
 	
 	public int buscarMedida(String nome, String lado){
 		int codigo = 0;
@@ -40,15 +52,10 @@ public class ControleMedida {
 	
 	
 	public List<Medicao> buscarMedicao(int codigo){
-		List<Medicao> lista = new ArrayList<Medicao>();
 		IMedidaDao dao = new MedidaDao();
-		
-		if(dao.buscarMedicao(codigo)!= null){
-			lista  = dao.buscarMedicao(codigo);
-			
-		}
-		
+		List<Medicao> lista = dao.buscarMedicao(codigo);
 		return lista;
+		
 	}
 	
 	
@@ -93,5 +100,15 @@ public class ControleMedida {
 			mensagem = "Todas Medições foram excluídas! ";
 		}
 		return mensagem;
+	}
+
+	public boolean verificarMedicao(int codigo) {
+		IMedidaDao dao = new  MedidaDao();
+		return dao.verificarMedicao(codigo);
+		
+	}
+	
+	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedicao){
+		return null;
 	}
 }

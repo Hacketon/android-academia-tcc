@@ -42,7 +42,7 @@ public class Medicao {
 		return codigoPerfil;
 	}
 
-	public void setCodigio(int codigo){
+	public void setCodigo(int codigo){
 		this.codigo = codigo;
 	}
 	public void setCodigoPerfil(int codigoPerfil) {

@@ -54,10 +54,9 @@ public class ControleMedida implements Comparator<Medicao> {
 	
 	public List<Medicao> buscarMedicao(int codigo){
 		IMedidaDao dao = new MedidaDao();
-		List<Medicao> lista = dao.buscarMedicao(codigo);
-		return lista;
-		
+		return  dao.buscarMedicao(codigo);
 	}
+	
 	
 	
 	public Double buscarValor(int codigo){
@@ -129,6 +128,11 @@ public class ControleMedida implements Comparator<Medicao> {
 		return retorno ;
 		
 		
+	}
+
+	public List<Medida> ultimaMedicao(int codigo) {
+		IMedidaDao dao = new MedidaDao();
+		return dao.ultimaMedicao(codigo);
 	}
 
 	

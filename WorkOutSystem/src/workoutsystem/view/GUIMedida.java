@@ -145,7 +145,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
-			listaUltimosValores = ObterUltimosValores(lista);
+			listaUltimosValores = ObterUltimosValores(listaUltimosValores);
 
 			if(x==1){
 				criaMedida(perfil, listaUltimosValores);

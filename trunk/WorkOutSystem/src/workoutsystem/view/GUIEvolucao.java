@@ -127,34 +127,50 @@ public class GUIEvolucao extends Activity {
 		ControleMedida controlemedida = new ControleMedida();
 		Perfil perfil = controleperfil.buscarPerfil();
 		String nome = medida.getNome();
+		String ndata= "Data";
+		String ndata1 = "Data";
+		String ndata2 = "Data";
+		int contador = 0 ;
+		
 		if (medida.getLado()!= null){
 			nome+= " " + medida.getLado();
 		}
 		txtmedidas.setText(nome);
 		listaMedicoes = controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()); 
 		
-
-		if(listaMedicoes.size()==0){
-			data1.setText(("Data1"));
-			data2.setText(("Data2"));
-			data3.setText(("Data3"));
+		
+		
+		
+		while (contador != listaMedicoes.size()){
+				Medicao m = listaMedicoes.get(contador);
+				String aux  =  sdf.format(m.getDataMedicao())+
+				" \n" + m.getValor()
+				+" "+ medida.getUnidade();
+				if (contador == 0){
+					ndata = "";
+					ndata = aux; 
+				}else if (contador == 1){
+					ndata1 = "";
+					ndata1 = aux;
+				}else if (contador == 2){
+					ndata2= "";
+					ndata2 = aux;
+				}
+				contador ++;
+		}
+		
+		
+			data1.setText(ndata);
+			data2.setText(ndata1);
+			data3.setText(ndata2);
+			// arrumar os progressos 
 			barra1.setProgress(0);
 			barra2.setProgress(0);
 			barra3.setProgress(0);
-
-		}else{
-			data1.setText(sdf.format(listaMedicoes.get(0).getDataMedicao())+
-					" \n" + listaMedicoes.get(0).getValor()
-					+" "+ medida.getUnidade());
-			data2.setText(sdf.format(listaMedicoes.get(1).getDataMedicao())
-					+ " \n" + listaMedicoes.get(1).getValor()
-					+" "+ medida.getUnidade());
-			data3.setText(sdf.format(listaMedicoes.get(2).getDataMedicao())
-					+ " \n" + listaMedicoes.get(2).getValor()
-					+" "+ medida.getUnidade());
-		}
-		
-	}
+			
+	
+	}	
+	
 }
 
 

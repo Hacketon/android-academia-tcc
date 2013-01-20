@@ -50,6 +50,7 @@ public class GUIEvolucao extends Activity  {
 		barra1 = (ProgressBar) findViewById(R.id.progressBarMedida1);
 		barra2 = (ProgressBar) findViewById(R.id.progressBarMedida2);
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
+		
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
 		listaMedicoes = new ArrayList<Medicao>();
@@ -137,7 +138,8 @@ public class GUIEvolucao extends Activity  {
 		}
 		
 		txtmedidas.setText(nome);
-		listaMedicoes = controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()); 
+		medida.setMedicao(controlemedida.ultimasMedicoes
+		(perfil.getCodigo(), medida.getCodigo())); 
 		
 		data1.setText(ndata);
 		data2.setText(ndata);
@@ -158,11 +160,11 @@ public class GUIEvolucao extends Activity  {
 		int menor = 20;
 		int contador = 0;
 		
-		Collections.sort(listaMedicoes,new ControleMedida());
-		Collections.reverse(listaMedicoes);
+		Collections.sort(medida.getMedicao(),new ControleMedida());
+		Collections.reverse(medida.getMedicao());
 		
-		while (contador != listaMedicoes.size()){
-			Medicao m = listaMedicoes.get(contador);
+		while (contador != medida.getMedicao().size()){
+			Medicao m = medida.getMedicao().get(contador);
 			String aux  =  sdf.format(m.getDataMedicao())+
 			" \n" + m.getValor()
 			+" "+ medida.getUnidade();

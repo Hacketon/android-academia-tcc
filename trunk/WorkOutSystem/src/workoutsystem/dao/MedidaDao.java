@@ -107,8 +107,7 @@ public class MedidaDao implements IMedidaDao{
 		
 		try{
 			Connection con = Banco.conexao();
-			//criar campo descrição no banco para pegar o nome detalhado exemplo: Coxa Esquerda
-			String sql = "select codigo, nome, unidade from medida";
+			String sql = "select codigo, nome, unidade , lado from medida";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
 			
@@ -117,8 +116,11 @@ public class MedidaDao implements IMedidaDao{
 				medida.setCodigo(result.getInt(1));
 				medida.setNome(result.getString(2));
 				medida.setUnidade(result.getString(3));
+				medida.setLado(result.getString(4));
+				medida.setMedicao(new ArrayList<Medicao>());
 				lista.add(medida);
 			}
+				
 
 			prepare.close();
 			con.close();

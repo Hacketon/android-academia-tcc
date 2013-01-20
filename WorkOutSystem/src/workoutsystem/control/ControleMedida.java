@@ -1,6 +1,7 @@
 package workoutsystem.control;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import workoutsystem.dao.MedidaDao;
@@ -8,7 +9,7 @@ import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 
-public class ControleMedida {
+public class ControleMedida implements Comparator<Medicao> {
 	
 	
 	//corrigir codigo
@@ -113,4 +114,31 @@ public class ControleMedida {
 		return dao.ultimasMedicoes(codigoPerfil, codigoMedida);
 		
 	}
+
+	@Override
+	public int compare(Medicao m1, Medicao m2) {
+		int retorno; 
+		if (m1.getValor() > m2.getValor()){
+			retorno =  1;
+		}else if (m1.getValor() == m2.getValor()){
+			retorno =  0;
+		}else {
+			retorno =  -1;
+		}
+		
+		return retorno ;
+		
+		
+	}
+
+	
+	
+//	double retorno = 0.0;
+//	if (m1.getValor() > m2.getValor()){
+//		retorno = m1.getValor();
+//	}else if (m1.getValor() == m1.getValor()){
+//		retorno = m1.getValor();
+//	}else{
+//		retorno = m2.getValor();
+//	}
 }

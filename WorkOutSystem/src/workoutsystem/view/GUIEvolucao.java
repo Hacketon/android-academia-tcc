@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import workoutsystem.control.ControleMedida;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-public class GUIEvolucao extends Activity {
+public class GUIEvolucao extends Activity  {
 
 	private TextView txtmedidas;
 	private TextView data1;
@@ -122,7 +123,6 @@ public class GUIEvolucao extends Activity {
 	}
 	
 	public void carregaMedida(Medida medida){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		ControlePerfil controleperfil = new ControlePerfil();
 		ControleMedida controlemedida = new ControleMedida();
 		Perfil perfil = controleperfil.buscarPerfil();
@@ -135,42 +135,51 @@ public class GUIEvolucao extends Activity {
 		if (medida.getLado()!= null){
 			nome+= " " + medida.getLado();
 		}
+		
 		txtmedidas.setText(nome);
 		listaMedicoes = controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()); 
 		
+		data1.setText(ndata);
+		data2.setText(ndata);
+		data3.setText(ndata);
+		barra1.setProgress(0);
+		barra2.setProgress(0);
+		barra3.setProgress(0);
 		
+		calcularProgresso(medida);
+	
+	}
+
+	private void calcularProgresso(Medida medida) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		int maior = 60;
+		int medio = 30;
+		int menor = 20;
+		int contador = 0;
+		
+		Collections.sort(listaMedicoes,new ControleMedida());
+		Collections.reverse(listaMedicoes);
 		
 		while (contador != listaMedicoes.size()){
-				Medicao m = listaMedicoes.get(contador);
-				String aux  =  sdf.format(m.getDataMedicao())+
-				" \n" + m.getValor()
-				+" "+ medida.getUnidade();
-				if (contador == 0){
-					ndata = "";
-					ndata = aux; 
-				}else if (contador == 1){
-					ndata1 = "";
-					ndata1 = aux;
-				}else if (contador == 2){
-					ndata2= "";
-					ndata2 = aux;
-				}
-				contador ++;
+			Medicao m = listaMedicoes.get(contador);
+			String aux  =  sdf.format(m.getDataMedicao())+
+			" \n" + m.getValor()
+			+" "+ medida.getUnidade();
+			if (contador == 0){
+				data1.setText(aux);
+				barra1.setProgress(maior);
+			}else if (contador == 1){
+				data2.setText(aux);
+				barra2.setProgress(medio);
+			}else if (contador == 2){
+				data3.setText(aux);
+				barra3.setProgress(menor);
+			}
+			contador ++;
 		}
-		
-		
-			data1.setText(ndata);
-			data2.setText(ndata1);
-			data3.setText(ndata2);
-			// arrumar os progressos 
-			barra1.setProgress(0);
-			barra2.setProgress(0);
-			barra3.setProgress(0);
-			
-	
-	}	
-	
+	}
+
 }
 
 

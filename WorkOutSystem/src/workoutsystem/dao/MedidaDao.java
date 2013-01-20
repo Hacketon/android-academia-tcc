@@ -285,18 +285,18 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 	@Override
-	public List<Medicao> ultimasMedicoes(int codigoPerfil, int codigoMedicao) {
+	public List<Medicao> ultimasMedicoes(int codigoPerfil, int codigoMedida) {
 		List<Medicao> medicoes = new ArrayList<Medicao>();
 		try{
 			int contador = 0;
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Connection con = Banco.conexao();
-			String sql = " select codigo,valor,datamedicao from medicao "
-							+ " where codigoperfil = ? and codigomedida = ? "
-							+ "order by datamedicao desc ";
+			String sql = "select codigo,valor,datamedicao from medicao " +
+						" where codigoperfil = ? and codigomedida = ? " +
+						" order by datamedicao desc ";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, codigoPerfil);
-			prepared.setInt(1, codigoMedicao);
+			prepared.setInt(2, codigoMedida);
 			ResultSet result = prepared.executeQuery();
 			
 			while (result.next() && contador != 3){
@@ -304,6 +304,8 @@ public class MedidaDao implements IMedidaDao{
 				m.setCodigo(result.getInt(1));
 				m.setValor(result.getDouble(2));
 				m.setDataMedicao(sdf.parse(result.getString(3)));
+				m.setCodigoPerfil(codigoPerfil);
+				m.setCodigoMedida(codigoMedida);
 				
 				medicoes.add(m);
 				contador ++;

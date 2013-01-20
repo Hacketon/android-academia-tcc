@@ -74,6 +74,6 @@ public interface IMedidaDao {
 	 * @param codigoMedicao
 	 * @return List (medicoes)
 	 */
-	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedicao);
+	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida);
 }
 

@@ -108,7 +108,9 @@ public class ControleMedida {
 		
 	}
 	
-	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedicao){
-		return null;
+	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida){
+		IMedidaDao dao = new  MedidaDao();
+		return dao.ultimasMedicoes(codigoPerfil, codigoMedida);
+		
 	}
 }

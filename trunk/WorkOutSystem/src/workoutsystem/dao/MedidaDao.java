@@ -101,16 +101,16 @@ public class MedidaDao implements IMedidaDao{
 		}
 		return valor;
 	}
-	
+
 	public List<Medida> buscarMedidas(){
 		List<Medida> lista = new ArrayList<Medida>();
-		
+
 		try{
 			Connection con = Banco.conexao();
 			String sql = "select codigo, nome, unidade , lado from medida";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
-			
+
 			while(result.next()){
 				Medida medida = new Medida();
 				medida.setCodigo(result.getInt(1));
@@ -120,7 +120,7 @@ public class MedidaDao implements IMedidaDao{
 				medida.setMedicao(new ArrayList<Medicao>());
 				lista.add(medida);
 			}
-				
+
 
 			prepare.close();
 			con.close();
@@ -130,39 +130,6 @@ public class MedidaDao implements IMedidaDao{
 		return lista;
 	}
 
-	@Override
-	public List<Medicao> buscarMedicao(int codigo) {
-		List<Medicao> lista = new ArrayList<Medicao>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		try{
-			Connection con = Banco.conexao();
-			String sql ="select codigo, valor, datamedicao, codigomedida, codigoperfil " +
-			"from medicao where codigoperfil = ?;";
-			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setInt(1, codigo);
-			ResultSet result = prepare.executeQuery();
-
-			while(result.next()){
-				Medicao medicao = new Medicao();
-				medicao.setCodigo(result.getInt(1));
-				medicao.setValor(result.getDouble(2));
-				String data =  result.getString(3);
-				medicao.setDataMedicao(sdf.parse(data));
-				medicao.setCodigoMedida(result.getInt(4));
-				medicao.setCodigoPerfil(result.getInt(5));
-				lista.add(medicao);
-			}
-
-			prepare.close();
-			con.close();
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		return lista;
-
-
-	}
 
 	public boolean alterarMedicao(List<Medicao> medicoes){
 
@@ -173,7 +140,7 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			for(Medicao m: medicoes){
 
 				prepare.setDouble(1,m.getValor());
@@ -200,7 +167,7 @@ public class MedidaDao implements IMedidaDao{
 
 
 	}
-	
+
 	public boolean alterarUltimaMedicao(List<Medicao> medicao){
 
 		boolean verificador = false;
@@ -210,20 +177,20 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			for(Medicao m : medicao){
-				
+
 				prepare.setDouble(1,m.getValor());
 				prepare.setInt(2, m.getCodigo());
-				
+
 				int atualizados = prepare.executeUpdate();
-				
-			
+
+
 				if (atualizados > 0){
 					verificador = true;
 				}else{
 					verificador = false;
 
-			}
-				
+				}
+
 			}
 			prepare.close();
 			con.close();
@@ -261,7 +228,7 @@ public class MedidaDao implements IMedidaDao{
 			return false;
 		}
 
-		
+
 	}
 
 	@Override
@@ -273,11 +240,11 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, codigo);
 			ResultSet result = prepared.executeQuery();
-			
+
 			if (result.next()){
 				verificador = true;
 			}
-						
+
 			prepared.close();
 			con.close();
 		}catch (SQLException e) {
@@ -294,13 +261,13 @@ public class MedidaDao implements IMedidaDao{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Connection con = Banco.conexao();
 			String sql = "select codigo,valor,datamedicao from medicao " +
-						" where codigoperfil = ? and codigomedida = ? " +
-						" order by datamedicao desc ";
+			" where codigoperfil = ? and codigomedida = ? " +
+			" order by datamedicao desc ";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, codigoPerfil);
 			prepared.setInt(2, codigoMedida);
 			ResultSet result = prepared.executeQuery();
-			
+
 			while (result.next() && contador != 3){
 				Medicao m = new Medicao();
 				m.setCodigo(result.getInt(1));
@@ -308,11 +275,11 @@ public class MedidaDao implements IMedidaDao{
 				m.setDataMedicao(sdf.parse(result.getString(3)));
 				m.setCodigoPerfil(codigoPerfil);
 				m.setCodigoMedida(codigoMedida);
-				
+
 				medicoes.add(m);
 				contador ++;
 			}
-			
+
 			prepared.close();
 			con.close();
 		}catch (SQLException e){
@@ -323,4 +290,96 @@ public class MedidaDao implements IMedidaDao{
 		}
 		return medicoes;
 	}
+
+	@Override
+	public List<Medicao> buscarMedicao(int codigo) {
+		List<Medicao> lista = new ArrayList<Medicao>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		try{
+			Connection con = Banco.conexao();
+			String sql ="select codigo, valor, datamedicao, codigomedida, codigoperfil " +
+			"from medicao where codigoperfil = ? order by datamedicao desc";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+
+			while (result.next()){
+				Medicao medicao = new Medicao();
+				medicao.setCodigo(result.getInt(1));
+				medicao.setValor(result.getDouble(2));
+				String data =  result.getString(3);
+				medicao.setDataMedicao(sdf.parse(data));
+				medicao.setCodigoMedida(result.getInt(4));
+				medicao.setCodigoPerfil(result.getInt(5));
+				lista.add(medicao);
+			}
+
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lista;
+
+
+	}
+
+	public List<Medida> ultimaMedicao(int codigo) {
+		List<Medida> lista = new ArrayList<Medida>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		int contador = 1;
+		boolean verificador = true;
+		String data = null;
+		try{
+			Connection con = Banco.conexao();
+			String sql =" select medida.codigo, medida.nome, medida.lado ," +
+			"  medicao.codigo, medicao.valor , " +
+			"  medicao.datamedicao  from medicao inner join medida " +
+			"  on medida.codigo = medicao.codigomedida " +
+			"  where codigoperfil = ? order by datamedicao desc";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
+
+			while(result.next()){
+				if (verificador == true){
+					data = result.getString(6);
+					verificador = false;
+				}
+
+				if (data.equalsIgnoreCase(result.getString(6))){
+					Medida medida = new Medida();
+
+					medida.setCodigo(result.getInt(1));
+					medida.setNome(result.getString(2));
+					medida.setLado(result.getString(3));
+					medida.setMedicao(new ArrayList<Medicao>());
+
+					Medicao medicao = new Medicao();
+
+					medicao.setCodigo(result.getInt(4));
+					medicao.setValor(result.getDouble(5));
+					medicao.setDataMedicao(sdf.parse(data));
+					medicao.setCodigoMedida(medida.getCodigo());
+					medicao.setCodigoPerfil(codigo);
+
+					medida.getMedicao().add(medicao);
+
+					lista.add(medida);
+
+				}else {
+					break;
+				}
+			}
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lista;
+
+
+	}
+
 }

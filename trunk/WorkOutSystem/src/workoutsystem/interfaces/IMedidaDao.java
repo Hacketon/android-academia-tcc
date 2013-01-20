@@ -74,6 +74,13 @@ public interface IMedidaDao {
 	 * @param codigoMedicao
 	 * @return List (medicoes)
 	 */
-	public List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida);
+	public abstract List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida);
+	/**
+	 * Metodo responsavel pela busca das ultima medicao medicoes de uma determinada medida 
+	 * e um determinado perfil 
+	 * @param codigo (Perfil)
+	 * @return List (medida)
+	 */
+	public abstract List<Medida> ultimaMedicao(int codigo) ;
 }
 

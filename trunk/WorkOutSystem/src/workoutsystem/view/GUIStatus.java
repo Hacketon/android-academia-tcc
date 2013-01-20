@@ -1,19 +1,22 @@
 package workoutsystem.view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Medicao;
+import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 
-public class GUIStatus extends Activity implements View.OnClickListener{
+public class GUIStatus extends Activity{
 
 	private TextView txtNome;
 	private TextView txtSexo;
@@ -29,13 +32,14 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 	private TextView txtCoxaEsq; 
 	private TextView txtPantuDir; 
 	private TextView txtPantuEsq;
-
+	private TextView txtMedida;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status);
+		txtMedida = (TextView) findViewById(R.id.texto_medida);
 		txtNome = (TextView) findViewById(R.id.tv_nome);
 		txtSexo = (TextView) findViewById(R.id.tv_sexousuario);
 		txtFrequencia = (TextView) findViewById(R.id.tv_frequenciausuario);
@@ -58,13 +62,34 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 
 	}
 
-	public void onClick (View evento){
+
+	public void carregarStatus(){
+
+		ControlePerfil controlePerf = new ControlePerfil();
+		ControleMedida controleMed = new ControleMedida();
+		Perfil perfil = controlePerf.buscarPerfil();
+		String sexo="";
+
+		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
+
+		if(perfil.getSexo()){
+			sexo = "Masculino";
+		}else{
+			sexo = "Feminino";
+		}
+		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
+		txtFrequencia.setText(txtFrequencia.getText()+ "   " + controlePerf.quantidadeDias(perfil) );
+
+		if (controleMed.verificarMedicao(perfil.getCodigo())){
+			carregarMedicoes(perfil.getCodigo());
+		}
+
 
 
 	}
 
 
-	public void carregarStatus(){
+	private void carregarMedicoes(int codigo) {
 		Medicao mAltura = new Medicao();
 		Medicao mPeso = new Medicao();
 		Medicao mCintura = new Medicao();
@@ -76,30 +101,18 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 		Medicao mBracoD = new Medicao();
 		Medicao mCoxaE = new Medicao();
 		Medicao mPantuD = new Medicao();
-		
-		ControlePerfil controlePerf = new ControlePerfil();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		ControleMedida controleMed = new ControleMedida();
-		Perfil perfil = controlePerf.buscarPerfil();
-		String sexo="";
-		List<Medicao> medicoes = new ArrayList<Medicao>();
-		medicoes = controleMed.buscarMedicao(perfil.getCodigo());
-
-		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
-		if(perfil.getSexo()){
-			sexo = "Masculino";
-		}else{
-			sexo = "Feminino";
-		}
-		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
-		txtFrequencia.setText(txtFrequencia.getText()+ "   " + controlePerf.quantidadeDias(perfil) );
+		
+		
+		List<Medida> lista = controleMed.ultimaMedicao(codigo);
+		String dataf = sdf.format(lista.get(0).getMedicao().get(0).getDataMedicao());
+		txtMedida.setText(txtMedida.getText()+ " " + dataf);
 
 		
-		
-		
-		//Medidas
-		for(Medicao m : medicoes){
-			
-			if(m.getCodigoMedida()== 1){
+		for(Medida med : lista){
+			Medicao m = med.getMedicao().get(0);
+			if(m.getCodigoMedida() == 1){
 				mAltura.setValor(m.getValor());
 			}
 			if(m.getCodigoMedida()== 2){
@@ -132,8 +145,9 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 			if(m.getCodigoMedida()== 11){
 				mPantuE.setValor(m.getValor());
 			}
+			
 		}
-		
+
 		txtAltura.setText(txtAltura.getText()+"   " + mAltura.getValor());
 		txtPeso.setText(txtPeso.getText()+"   " + mPeso.getValor());
 		txtCintura.setText(txtCintura.getText()+"   "+ mCintura.getValor());	
@@ -148,4 +162,12 @@ public class GUIStatus extends Activity implements View.OnClickListener{
 
 	}
 
+
+
+
 }
+
+
+
+
+

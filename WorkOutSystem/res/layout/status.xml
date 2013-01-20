@@ -75,7 +75,7 @@
                 android:weightSum="100" >
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/texto_medida"
                     style="@style/textogrande"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

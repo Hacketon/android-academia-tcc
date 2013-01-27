@@ -116,14 +116,7 @@ ListView.OnItemClickListener {
 			criarCaixaDialog("Novo Exercicio");
 		break;
 		case (R.id.btn_criar):
-			Exercicio e = criarExercicio();
-			ControleExercicio ex = new ControleExercicio();
-			Toast.makeText(this,ex.manipularExercicio(e),
-			Toast.LENGTH_LONG).show();
-			ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
-			ex.listarExercicios(e.getGrupoMuscular().getNome(), e.getPersonalizado());
-			createListView(exercicios, listacriado);
-			dialog.dismiss();
+			salvarExercicio();
 		break;
 		case (R.id.btn_voltar):
 			dialog.dismiss();
@@ -131,6 +124,27 @@ ListView.OnItemClickListener {
 
 
 	}
+	private void salvarExercicio() {
+		Exercicio e = criarExercicio();
+		int i=0;
+		
+		ControleExercicio ex = new ControleExercicio();
+		Toast.makeText(this,ex.manipularExercicio(e),
+		Toast.LENGTH_LONG).show();
+		ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
+		ex.listarExercicios(e.getGrupoMuscular().getNome(), e.getPersonalizado());
+		createListView(exercicios, listacriado);
+		for (String l : listaGrupos){
+			if (l.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
+				cbxExercicioCriado.setSelection(i);
+				break;
+			}
+			
+			i++;
+		}
+		dialog.dismiss();
+	}
+		
 	private void carregarExercicio(Exercicio exercicio) {
 		int i = 0;
 		if (exercicio != null){
@@ -182,16 +196,23 @@ ListView.OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
-		Exercicio exercicio = 
-		controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
-		criarCaixaDialog("Alterar Exercicio");
-		carregarExercicio(exercicio);
+		Exercicio exercicio = controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+		if (parent.getId() == listacriado.getId()){
+			criarCaixaDialog("Alterar Exercicio");
+			carregarExercicio(exercicio);
+			
+		}else{
+			Intent i = new Intent(this,GUIPasso.class);
+			i.putExtra("exercicio",exercicio);
+			startActivity(i);
+		}
 		
 	}
 	private void criarCaixaDialog(String titulo) {
 		dialog.setTitle(titulo);
 		editDescricaoExercicio.setText("");
 		editNomeExercicio.setText("");
+		txtCodExercicio.setText("");
 		editNomeExercicio.requestFocus();
 		dialog.show();
 
@@ -199,7 +220,9 @@ ListView.OnItemClickListener {
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
-		exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
+		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
+			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));	
+		}
 		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());

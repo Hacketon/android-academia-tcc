@@ -12,7 +12,7 @@ import android.os.Parcelable;
 public class Exercicio implements Serializable {
 	
 	private long codigo;
-	private String nomeExercicio;
+	private String nome;
 	private GrupoMuscular grupo;
 	private String descricao;
 	private int personalizado;
@@ -28,7 +28,7 @@ public class Exercicio implements Serializable {
 		
 		return String.format("codigo : %s \n , nome : %s \n " +
 				", descricao: %s \n , persolanizado: %s \n",
-				codigo  , nomeExercicio, descricao,personalizado);
+				codigo  , nome, descricao,personalizado);
 	
 	}
 	
@@ -36,7 +36,7 @@ public class Exercicio implements Serializable {
 		return codigo;
 	}
 	public String getNomeExercicio() {
-		return nomeExercicio;
+		return nome;
 	}
 	public GrupoMuscular getGrupoMuscular() {
 		return grupo;
@@ -53,7 +53,7 @@ public class Exercicio implements Serializable {
 		this.codigo = codigo;
 	}
 	public void setNomeExercicio(String nomeExercicio) {
-		this.nomeExercicio = nomeExercicio;
+		nome = nomeExercicio;
 	}
 	public void setGrupoMuscular(GrupoMuscular grupo) {
 		this.grupo = grupo;

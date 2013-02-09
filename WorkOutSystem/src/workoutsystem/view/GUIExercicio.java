@@ -7,13 +7,10 @@ import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,9 +47,9 @@ ListView.OnItemClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.exercicio);
-		
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.criarexercicio);
 		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
@@ -107,7 +104,6 @@ ListView.OnItemClickListener {
 		cbxExercicioCriado.setAdapter(adapter);
 		cbxExercicioPadrao.setAdapter(adapter);
 		cbxGrupo.setAdapter(adapter);
-
 	}
 	@Override
 	public void onClick(View v) {
@@ -116,48 +112,53 @@ ListView.OnItemClickListener {
 			criarCaixaDialog("Novo Exercicio");
 		break;
 		case (R.id.btn_criar):
-			salvarExercicio();
+
+			alterarExercicio();
+	
 		break;
 		case (R.id.btn_voltar):
 			dialog.dismiss();
 		}
 
-
 	}
-	private void salvarExercicio() {
+
+	private void alterarExercicio() {
 		Exercicio e = criarExercicio();
-		int i=0;
-		
 		ControleExercicio ex = new ControleExercicio();
 		Toast.makeText(this,ex.manipularExercicio(e),
 		Toast.LENGTH_LONG).show();
+		
 		ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
-		ex.listarExercicios(e.getGrupoMuscular().getNome(), e.getPersonalizado());
+		ex.listarExercicios(e.getGrupoMuscular().getNome(), 
+		e.getPersonalizado());
+		atualizarCombo(e,cbxExercicioCriado);
 		createListView(exercicios, listacriado);
-		for (String l : listaGrupos){
-			if (l.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
-				cbxExercicioCriado.setSelection(i);
-				break;
-			}
-			
-			i++;
-		}
+		
 		dialog.dismiss();
 	}
+	private void atualizarCombo(Exercicio e,Spinner combo) {
+		int i = 0;
+		for (String l : listaGrupos){
+			if (l.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
+				combo.setSelection(i);
+				break;
+			}
+			i++;
+		}
 		
+	}
+	
+
+	
+		
+
 	private void carregarExercicio(Exercicio exercicio) {
 		int i = 0;
 		if (exercicio != null){
 			txtCodExercicio.setText(String.valueOf(exercicio.getCodigo()));
 			editNomeExercicio.setText(exercicio.getNomeExercicio());
 			editDescricaoExercicio.setText(exercicio.getDescricao());
-			for (String l : listaGrupos){
-				if (l.equalsIgnoreCase(exercicio.getGrupoMuscular().getNome())){
-					cbxGrupo.setSelection(i);
-					break;
-				}
-				i++;
-			}
+			atualizarCombo(exercicio,cbxGrupo);
 
 		}
 	}
@@ -196,20 +197,24 @@ ListView.OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
-		Exercicio exercicio = controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
-		if (parent.getId() == listacriado.getId()){
+
+		Exercicio exercicio = 
+		controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+		if (R.id.listacriado == parent.getId()){
 			criarCaixaDialog("Alterar Exercicio");
 			carregarExercicio(exercicio);
-			
 		}else{
 			Intent i = new Intent(this,GUIPasso.class);
-			i.putExtra("exercicio",exercicio);
+			i.putExtra("exercicio", exercicio);
 			startActivity(i);
+			
 		}
+
 		
 	}
 	private void criarCaixaDialog(String titulo) {
 		dialog.setTitle(titulo);
+		txtCodExercicio.setText("");
 		editDescricaoExercicio.setText("");
 		editNomeExercicio.setText("");
 		txtCodExercicio.setText("");
@@ -220,13 +225,17 @@ ListView.OnItemClickListener {
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
+
 		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
-			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));	
+			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
 		}
+	
+
 		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
 		exercicio.setGrupoMuscular(grupo);
+		
 		return exercicio;
 	}
 

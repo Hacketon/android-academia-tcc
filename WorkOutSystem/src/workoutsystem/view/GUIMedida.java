@@ -20,6 +20,7 @@ import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
+import workoutsystem.utilitaria.EMedida;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.method.DateTimeKeyListener;
@@ -218,8 +219,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 
 		if(perfil != null){
-
-			// se os valores já foram digitados na mesma data somente irá atualizar o grupomuscular 
+ 
 			boolean mAltura = false;
 			boolean mPeso= false;
 			boolean mCintura= false;
@@ -238,9 +238,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 				String dataFormat2 = sdf.format(m.getDataMedicao());
 
-				//Altura
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Altura", "a")){
-				if(m.getCodigoMedida() == 1){
+				if(m.getCodigoMedida() == EMedida.ALTURA.getMedida()){
 					valor = Double.parseDouble(editAltura.getText().toString());
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 
@@ -249,11 +247,8 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 						mAltura = true;
 					}
 				}
-				//Peso
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Peso", "a")){
-				if(m.getCodigoMedida() == 2){
+				if(m.getCodigoMedida() == EMedida.PESO.getMedida()){
 					valor = Double.parseDouble(editPeso.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -261,11 +256,8 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}				
 
-				//Cintura
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Cintura", "a")){
-				if(m.getCodigoMedida() == 3){
+				if(m.getCodigoMedida() == EMedida.CINTURA.getMedida()){
 					valor = Double.parseDouble(editCintura.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -273,11 +265,8 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}
 
-				//Quadril
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Quadril", "a")){
-				if(m.getCodigoMedida() == 4){
+				if(m.getCodigoMedida() == EMedida.QUADRIL.getMedida()){
 					valor = Double.parseDouble(editQuadril.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -285,11 +274,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}				
 
-				//Peito
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Peito", "a")){
-				if(m.getCodigoMedida() == 5){
+				if(m.getCodigoMedida() == EMedida.PEITO.getMedida()){
 					valor = Double.parseDouble(editPeito.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -297,12 +284,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}
 
-				//Braço Direito
-
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Braco", "d")){
-				if(m.getCodigoMedida() == 6){
+				if(m.getCodigoMedida() == EMedida.BRACODIREITO.getMedida()){
 					valor = Double.parseDouble(editBracoDir.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -310,11 +294,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}
 
-				//Braço Esquerdo
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Braco", "e")){
-				if(m.getCodigoMedida() == 7){
+				if(m.getCodigoMedida() == EMedida.BRACOESQUERDO.getMedida()){
 					valor = Double.parseDouble(editBracoEsq.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -322,46 +304,36 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 					}
 				}
 
-				//Coxa Direito
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Coxa", "d")){
-				if(m.getCodigoMedida() == 8){
+				if(m.getCodigoMedida() == EMedida.COXADIREITA.getMedida()){
 					valor = Double.parseDouble(editCoxaDir.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
 						mCoxaD = true;
 					}
 				}
-				//Coxa Esquerda
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Coxa", "e")){
-				if(m.getCodigoMedida() == 9){
+				if(m.getCodigoMedida() == EMedida.COXAESQUERDA.getMedida()){
 					valor = Double.parseDouble(editCoxaEsq.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
 						mCoxaE = true;
 					}
 				}
-				//Panturrilha Direita
-
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Panturrilha", "d")){
-				if(m.getCodigoMedida() == 10){
+				if(m.getCodigoMedida() == EMedida.PANTURILHADIREITA.getMedida()){
 					valor = Double.parseDouble(editPantuDir.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
 						mPantuD = true;
 					}
 				}
-				//Panturrilha Esuerda
-
-				//				if(m.getCodigoMedida() == controleMed.buscarMedida("Panturrilha", "e")){
-				if(m.getCodigoMedida() == 11){
+				if(m.getCodigoMedida() == EMedida.PANTURILHAESQUERDA.getMedida()){
 					valor = Double.parseDouble(editPantuEsq.getText().toString());
-					//					String dataFormat2 = sdf.format(m.getDataMedicao()); 
+ 
 					if(dataFormat.equalsIgnoreCase(dataFormat2)){
 						m.setValor(valor);
 						listaAtualiza.add(m);
@@ -583,9 +555,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		//		ControleMedida controle = new ControleMedida();
 
 		for(Medicao m : medicoes){
-
-			//Altura
-			//			if(m.getCodigoMedida() == controle.buscarMedida("Altura", "a") ){
 			if(m.getCodigoMedida() == 1 ){
 				editAltura.setText(Double.toString(m.getValor()));
 			}

@@ -46,7 +46,7 @@ public interface IExercicioDao {
 	public abstract boolean alterarExercicio(long codigo, Exercicio e);
 	
 	/**
-	 * Metodo responsavel pela exclusão de exercicios 
+	 * Metodo responsavel pela desativação dos exercicios 
 	 * @param l
 	 * @return
 	 */

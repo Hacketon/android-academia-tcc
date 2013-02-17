@@ -15,12 +15,14 @@ public class Exercicio implements Serializable {
 	private String nome;
 	private GrupoMuscular grupo;
 	private String descricao;
+	private int ativo;
 	private int personalizado;
 	private List<Passo> listaPassos;
 	
 	public Exercicio(){
 		descricao = "";
 		personalizado = 1;
+		ativo = 1;
 	}
 	
 	
@@ -31,7 +33,13 @@ public class Exercicio implements Serializable {
 				codigo  , nome, descricao,personalizado);
 	
 	}
-	
+
+	public int getAtivo(){
+		return ativo;
+	}
+	public void setAtivo(int a){
+		ativo = a;
+	}
 	public long getCodigo() {
 		return codigo;
 	}

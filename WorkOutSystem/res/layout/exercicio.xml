@@ -50,6 +50,7 @@
                             android:id="@+id/listapadrao"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
+                            android:divider="@android:color/transparent"
                             android:layout_weight="1" />
                     </LinearLayout>
                 </LinearLayout>
@@ -73,9 +74,15 @@
                         android:id="@+id/listacriado"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:divider="@android:color/transparent"
                         android:layout_weight="1" />
 
+                    <LinearLayout 
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:weightSum="100">
+                        
                     <Button
+                        android:layout_weight="50"
                         android:id="@+id/btn_add"
                         style="@style/textopequenopreto"
                         android:layout_width="fill_parent"
@@ -83,6 +90,18 @@
                         android:layout_gravity="bottom"
                         android:onClick="onClick"
                         android:text="@string/botao_adicionar" />
+                    
+                    <Button
+                        android:layout_weight="50"
+                        android:id="@+id/btn_exc_exercicio"
+                        style="@style/textopequenopreto"
+                        android:layout_width="fill_parent" 
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:onClick="onClick"
+                        android:text="@string/botao_excluir"
+                        />
+                    </LinearLayout>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

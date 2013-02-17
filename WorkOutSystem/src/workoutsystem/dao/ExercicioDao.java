@@ -25,14 +25,16 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 
 			Connection con = Banco.conexao();
-			String sql = "insert into exercicio (nome, descricao, personalizado, codigogrupomuscular)" +
-			" values (?,?,?,?) ";
+			String sql = "insert into exercicio (nome, descricao, personalizado,ativo,codigogrupomuscular)" +
+			" values (?,?,?,?,?) ";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, e.getNomeExercicio().trim());
 			prepare.setString(2, e.getDescricao().trim());
 			prepare.setInt(3, e.getPersonalizado());
-			prepare.setInt(4, e.getGrupoMuscular().getCodigo());
+			prepare.setInt(4, e.getAtivo());
+			prepare.setInt(5, e.getGrupoMuscular().getCodigo());
+
 
 			if(prepare.executeUpdate()!=0){
 				verificador = true;
@@ -50,9 +52,6 @@ public class ExercicioDao implements IExercicioDao {
 		return verificador;
 
 	}
-
-
-
 
 
 	@Override
@@ -90,7 +89,7 @@ public class ExercicioDao implements IExercicioDao {
 		try{
 
 			Connection con = Banco.conexao(); 
-			String sql = "delete from exercicio where codigo = ?";
+			String sql = "update exercicio set ativo = 0 where codigo = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setLong(1, codigo);
 			int resultado = prepare.executeUpdate();
@@ -135,8 +134,6 @@ public class ExercicioDao implements IExercicioDao {
 
 	}
 
-
-
 	@Override
 	public int buscarGrupoMuscular(String nome) {
 		int codigo = 0;
@@ -161,10 +158,6 @@ public class ExercicioDao implements IExercicioDao {
 
 		return codigo;
 	}
-
-
-
-
 
 	public List<GrupoMuscular> listarGrupos() {
 		List<GrupoMuscular> lista = null;
@@ -191,7 +184,6 @@ public class ExercicioDao implements IExercicioDao {
 		return lista;
 
 	}
-
 
 
 	@Override
@@ -259,7 +251,8 @@ public class ExercicioDao implements IExercicioDao {
 			"exercicio.codigogrupomuscular,grupomuscular.nome " +
 			"from exercicio inner join grupomuscular " +
 			"on exercicio.codigogrupomuscular = grupomuscular.codigo "+
-			"where grupomuscular.nome like ? and exercicio.personalizado = ?";
+			"where grupomuscular.nome like ? and exercicio.personalizado = ? " +
+			"and exercicio.ativo = 1";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, grupo);
@@ -297,7 +290,7 @@ public class ExercicioDao implements IExercicioDao {
 		GrupoMuscular grupomuscular = new GrupoMuscular();
 		try{
 			Connection con = Banco.conexao();
-			String sql = "select (nome, descricao, codigogrupomuscular, personalizado) from exercicio where codigogrupomuscular = ?;";
+			String sql = "select nome, descricao, codigogrupomuscular, personalizado from exercicio where codigogrupomuscular = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);	
 			prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
 			ResultSet result  = prepare.executeQuery();

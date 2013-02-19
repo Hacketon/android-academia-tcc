@@ -56,10 +56,10 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="40"
-            
             android:onClick="onClick"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_ficha"/>
+            android:src="@drawable/ic_ficha" 
+            android:contentDescription="TODO"/>
 
         <ImageButton
             android:id="@+id/btn_evolucao"
@@ -68,7 +68,8 @@
             android:layout_weight="40"
             android:onClick="onClick"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_evolucao" />
+            android:src="@drawable/ic_evolucao"
+            android:contentDescription="TODO"/>
 
         <ImageButton
             android:id="@+id/btn_ajuda"
@@ -77,7 +78,7 @@
             android:layout_weight="40"
             android:onClick="onClick"
             android:background="@android:color/transparent"
-            android:src="@drawable/testeAjuda" />
+            android:src="@drawable/ic_ajuda" />
     </LinearLayout>
 
     <LinearLayout

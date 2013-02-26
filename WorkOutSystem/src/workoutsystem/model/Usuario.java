@@ -1,17 +1,17 @@
 package workoutsystem.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import net.sf.oval.constraint.NotNull;
+import net.sf.oval.guard.Guarded;
 
-
+@Guarded()
 public class Usuario {
 	private int codigo;
 	@NotNull(message = "Nome não pode ser vazio")
 	private String nome;
 	@NotNull(message = "Senha não pode ser vazia")
+	
 	private String senha;
+	
 	private int logado;
 	
 	public Usuario (){

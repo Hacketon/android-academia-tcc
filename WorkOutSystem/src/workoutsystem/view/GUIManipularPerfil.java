@@ -107,6 +107,7 @@ public class GUIManipularPerfil extends Activity implements View.OnClickListener
 							Toast.LENGTH_LONG).show();
 
 				}
+				finish();
 			}else{
 				Toast.makeText(this, "Digite os campos (Principais / Frequencia)",
 						Toast.LENGTH_LONG).show();

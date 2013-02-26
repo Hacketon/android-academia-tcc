@@ -2,12 +2,9 @@ package workoutsystem.model;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 public class Perfil {
 
 	private int codigo;
-	@NotNull
 	private String nome;
 	private boolean sexo;
 	private List<DiaSemana> frequencia;

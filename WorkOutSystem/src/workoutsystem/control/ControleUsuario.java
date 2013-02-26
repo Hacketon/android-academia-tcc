@@ -26,21 +26,23 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario usuario){
+		// validação 
 		Validator validator = new Validator();
-		List<ConstraintViolation> violations = null;
-		violations = validator.validate(usuario);
+		List<ConstraintViolation> violations = validator.validate(usuario);
 		
-		if (violations.size()>0){
-			Log.e("erro", "erro");
-		}
-		
-		IUsuarioDao daoUsuario = new UsuarioDao();
-		if (usuario != null){
-			return daoUsuario.realizarLogin(usuario);
+		if (violations.size()<=0){
+			IUsuarioDao daoUsuario = new UsuarioDao();
+			if (usuario != null){
+				return daoUsuario.realizarLogin(usuario);
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
 		
+		
+			
 	
 		
 	}

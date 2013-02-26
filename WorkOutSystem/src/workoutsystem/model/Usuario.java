@@ -1,15 +1,20 @@
 package workoutsystem.model;
 
+import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 
 @Guarded()
 public class Usuario {
 	private int codigo;
+	// annotations
+	
+	@NotEmpty()
 	@NotNull(message = "Nome não pode ser vazio")
 	private String nome;
-	@NotNull(message = "Senha não pode ser vazia")
 	
+	@NotNull(message = "Senha não pode ser vazia")
+	@NotEmpty()
 	private String senha;
 	
 	private int logado;

@@ -39,6 +39,7 @@ public class GUILogin extends Activity implements View.OnClickListener{
 			break;
 		case R.id.btn_login:
 			Usuario u = criarLogin();
+			// chamada
 			if (controle.realizarLogin(u)){
 				startActivity(new Intent("workoutsystem.view.PRINCIPAL"));
 				finish();
@@ -59,8 +60,8 @@ public class GUILogin extends Activity implements View.OnClickListener{
 	public Usuario criarLogin(){
 
 		Usuario usuario = new Usuario();
-		usuario.setNome(String.valueOf(editLogin.getText()));
-		usuario.setSenha(String.valueOf(editPassword.getText()));
+		usuario.setNome(String.valueOf(editLogin.getText().toString()));
+		usuario.setSenha(String.valueOf(editPassword.getText().toString()));
 		return usuario;
 	}
 

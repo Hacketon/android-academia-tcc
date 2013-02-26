@@ -1,10 +1,13 @@
 
 package workoutsystem.model;
 
+import net.sf.oval.constraint.NotNull;
+
 
 
 
 public class Avatar {
+	@NotNull(message = "Nome do avatar não pode ser null ou vazio")
 	private String nomeAvatar;
 	private int imagem;
 	private String mensagem;

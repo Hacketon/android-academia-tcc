@@ -1,17 +1,13 @@
 package workoutsystem.control;
 
-import java.util.Set;
+import java.util.List;
 
-import javax.validation.Configuration;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidationProviderResolver;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.spi.ValidationProvider;
+import android.util.Log;
 
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
+import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
 
-import workoutsystem.dao.Banco;
 import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;
@@ -30,11 +26,15 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario usuario){
+		Validator validator = new Validator();
+		List<ConstraintViolation> violations = null;
+		violations = validator.validate(usuario);
+		
+		if (violations.size()>0){
+			Log.e("erro", "erro");
+		}
 		
 		IUsuarioDao daoUsuario = new UsuarioDao();
-		//ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		//Validator validator = factory.getValidator();
-		//Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
 		if (usuario != null){
 			return daoUsuario.realizarLogin(usuario);
 		}else{

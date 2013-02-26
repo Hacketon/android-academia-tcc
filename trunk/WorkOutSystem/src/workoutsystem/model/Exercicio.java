@@ -3,8 +3,6 @@ package workoutsystem.model;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.validator.util.NewInstance;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 

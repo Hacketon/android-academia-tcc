@@ -103,9 +103,10 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			carregarCampos(lista);
 			iniciarBotao(lista);
 		}else{
-
+		
 			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
 					Toast.LENGTH_LONG).show();
+			finish();
 
 		}
 	}

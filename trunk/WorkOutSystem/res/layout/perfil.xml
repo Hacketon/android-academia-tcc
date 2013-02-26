@@ -14,21 +14,25 @@
         android:padding="20dp"
         android:weightSum="100" >
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_manipularperfil"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:onClick="onClick"
-            android:text="@string/botao_perfil" />
+            android:background="@android:color/transparent"
+            android:text="@string/botao_perfil"
+            android:src="@drawable/ic_perfilb" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_avatar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:onClick="onClick"
-            android:text="@string/botao_avatar" />
+            android:background="@android:color/transparent"
+            android:text="@string/botao_avatar" 
+            android:src="@drawable/ic_avatar"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,21 +42,24 @@
         android:padding="20dp"
         android:weightSum="100" >
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_medidas"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:onClick="onClick"
-            android:text="@string/botao_medidas" />
+            android:background="@android:color/transparent"
+            android:text="@string/botao_medidas"
+            android:src="@drawable/ic_medida" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_status"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:onClick="onClick"
-            android:text="@string/botao_status" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ferramentas"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -16,7 +16,7 @@ public class Usuario {
 	private String nome;
 
 	@NotEmpty(message = "Campo não pode ser vazio")
-	@Size(max = 12,message = "Maximo para o campo são 20 caracteres")
+	@Size(max = 12,message = "Maximo para o campo são 12 caracteres")
 	private String senha;
 	
 	private int logado;

@@ -1,25 +1,29 @@
 package workoutsystem.model;
 
+import net.sf.oval.constraint.Max;
+import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
-import net.sf.oval.guard.Guarded;
+import net.sf.oval.constraint.Size;
 
-@Guarded()
+
+
 public class Usuario {
 	private int codigo;
-	// annotations
 	
-	@NotEmpty()
-	@NotNull(message = "Nome não pode ser vazio")
+	@NotEmpty(message = "Campo não pode ser vazio")
+	@Size(max= 20,message = "Maximo para o campo são 20 caracteres")
 	private String nome;
-	
-	@NotNull(message = "Senha não pode ser vazia")
-	@NotEmpty()
+
+	@NotEmpty(message = "Campo não pode ser vazio")
+	@Size(max = 12)
 	private String senha;
 	
 	private int logado;
 	
 	public Usuario (){
+		nome = "";
+		senha = "";
 		logado = 0;
 	}
 	public String getNome() {

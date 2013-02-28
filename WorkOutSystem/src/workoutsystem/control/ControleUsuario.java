@@ -2,11 +2,13 @@ package workoutsystem.control;
 
 import java.util.List;
 
-import android.util.Log;
-
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
-import net.sf.oval.configuration.annotation.AnnotationsConfigurer;
+
+
+import android.util.Log;
+
+
 
 import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IUsuarioDao;
@@ -26,10 +28,9 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario usuario){
-		// validação 
+		// validação
 		Validator validator = new Validator();
 		List<ConstraintViolation> violations = validator.validate(usuario);
-		
 		if (violations.size()<=0){
 			IUsuarioDao daoUsuario = new UsuarioDao();
 			if (usuario != null){
@@ -47,18 +48,20 @@ public class ControleUsuario {
 		
 	}
 
-	public boolean cadastrarUsuario(Usuario u,String confSenha){
+	public boolean cadastrarUsuario(Usuario usuario,String confSenha){
+		Validator validator = new Validator();
+		List<ConstraintViolation> violations = validator.validate(usuario);
 		IUsuarioDao daoUsuario = new UsuarioDao();
-		if (u.getSenha().equalsIgnoreCase(confSenha)){
-			if (daoUsuario.buscarUsuario(u) == null){
-				return daoUsuario.cadastrarUsuario(u);
-			}else{
-				return false;
+		boolean retorno = false;
+		if (violations.size()<=0){
+			if (usuario.getSenha().equalsIgnoreCase(confSenha)){
+				if (daoUsuario.buscarUsuario(usuario) == null){
+					retorno =  daoUsuario.cadastrarUsuario(usuario);
+				}
 			}
-
-		}else{
-			return false;
-		}		
+		}
+		return retorno;
+		
 	}
 	
 	public boolean alterarSenha(Usuario u,String senhaNova,String confSenha,String senhaAtual){

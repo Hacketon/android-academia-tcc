@@ -35,7 +35,7 @@ public class GUIEvolucao extends Activity  {
 	private List<Medida> listaMedidas;
 	private List<Medicao> listaMedicoes;
 	private int indice;
-	
+
 
 
 
@@ -50,7 +50,7 @@ public class GUIEvolucao extends Activity  {
 		barra1 = (ProgressBar) findViewById(R.id.progressBarMedida1);
 		barra2 = (ProgressBar) findViewById(R.id.progressBarMedida2);
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
-		
+
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
 		listaMedicoes = new ArrayList<Medicao>();
@@ -61,7 +61,7 @@ public class GUIEvolucao extends Activity  {
 	private void inicializarEvolucao() {
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerfil = new ControlePerfil();
-				
+
 		listaMedidas = controleMed.buscarMedidas();
 		Perfil perfil = controlePerfil.buscarPerfil();
 		if(perfil == null ){
@@ -69,10 +69,10 @@ public class GUIEvolucao extends Activity  {
 					Toast.LENGTH_SHORT).show();
 
 		}else{
-			
+
 			if(!controleMed.verificarMedicao(perfil.getCodigo())){
 				Toast.makeText(this,"Seu perfil não possui Medições !",
-					Toast.LENGTH_LONG).show();
+						Toast.LENGTH_LONG).show();
 			}
 			exibirAnterior();
 		}
@@ -122,7 +122,7 @@ public class GUIEvolucao extends Activity  {
 			carregaMedida(medida);
 		}
 	}
-	
+
 	public void carregaMedida(Medida medida){
 		ControlePerfil controleperfil = new ControlePerfil();
 		ControleMedida controlemedida = new ControleMedida();
@@ -132,56 +132,80 @@ public class GUIEvolucao extends Activity  {
 		String ndata1 = "Data";
 		String ndata2 = "Data";
 		int contador = 0 ;
-		
+
 		if (medida.getLado()!= null){
 			nome+= " " + medida.getLado();
 		}
-		
+
 		txtmedidas.setText(nome);
 		medida.setMedicao(controlemedida.ultimasMedicoes
-		(perfil.getCodigo(), medida.getCodigo())); 
-		
+				(perfil.getCodigo(), medida.getCodigo())); 
+
 		data1.setText(ndata);
 		data2.setText(ndata);
 		data3.setText(ndata);
 		barra1.setProgress(0);
 		barra2.setProgress(0);
 		barra3.setProgress(0);
-		
+
 		calcularProgresso(medida);
-	
+
 	}
 
 	private void calcularProgresso(Medida medida) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
-		int maior = 60;
-		int medio = 30;
-		int menor = 20;
-		int contador = 0;
-		
-		Collections.sort(medida.getMedicao(),new ControleMedida());
-		Collections.reverse(medida.getMedicao());
-		
-		while (contador != medida.getMedicao().size()){
-			Medicao m = medida.getMedicao().get(contador);
-			String aux  =  sdf.format(m.getDataMedicao())+
-			" \n" + m.getValor()
-			+" "+ medida.getUnidade();
-			if (contador == 0){
-				data1.setText(aux);
-				barra1.setProgress(maior);
-			}else if (contador == 1){
-				data2.setText(aux);
-				barra2.setProgress(medio);
-			}else if (contador == 2){
-				data3.setText(aux);
-				barra3.setProgress(menor);
-			}
-			contador ++;
-		}
-	}
 
-}
+		int maior = 90;
+		int medio = 50;
+		int menor = 30;
+		int contador = 0;
+		int naux = 2;
+
+		Collections.sort(medida.getMedicao(),new ControleMedida());
+		
+
+		while (naux <= medida.getMedicao().size()){
+			if (naux == 2){
+				if (medida.getMedicao().get(contador).getValor()== medida.getMedicao().get(contador+1).getValor()){
+					maior = medio;
+			} else if (naux== 3){
+				if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
+					menor = medio;
+				}
+				if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
+						medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
+
+						menor = medio;
+						maior = medio;
+					}
+					
+				}
+			}
+			naux++;
+			
+		}
+		Collections.reverse(medida.getMedicao());
+
+
+				while (contador != medida.getMedicao().size()){
+					Medicao m = medida.getMedicao().get(contador);
+					String aux  =  sdf.format(m.getDataMedicao())+
+					" \n" + m.getValor()
+					+" "+ medida.getUnidade();
+					if (contador == 0){
+						data1.setText(aux);
+						barra1.setProgress(maior);
+					}else if (contador == 1){
+						data2.setText(aux);
+						barra2.setProgress(medio);
+					}else if (contador == 2){
+						data3.setText(aux);
+						barra3.setProgress(menor);
+					}
+					contador ++;
+				}
+			}
+
+		}
 
 

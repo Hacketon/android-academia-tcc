@@ -1,5 +1,6 @@
 package workoutsystem.model;
 
+import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.Max;
 import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.NotEmpty;
@@ -12,11 +13,11 @@ public class Usuario {
 	private int codigo;
 	
 	@NotEmpty(message = "Campo não pode ser vazio")
-	@Size(max= 20,message = "Maximo para o campo são 20 caracteres")
+	@Length(max=20,message = "Maximo para o campo são 20 caracteres")
 	private String nome;
 
 	@NotEmpty(message = "Campo não pode ser vazio")
-	@Size(max = 12,message = "Maximo para o campo são 12 caracteres")
+	@Length(max=12,message = "Maximo para o campo são 20 caracteres")
 	private String senha;
 	
 	private int logado;

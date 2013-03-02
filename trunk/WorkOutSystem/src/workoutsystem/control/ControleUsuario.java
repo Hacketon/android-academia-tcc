@@ -6,10 +6,6 @@ import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 
 
-import android.util.Log;
-
-
-
 import workoutsystem.dao.UsuarioDao;
 import workoutsystem.interfaces.IUsuarioDao;
 import workoutsystem.model.Usuario;

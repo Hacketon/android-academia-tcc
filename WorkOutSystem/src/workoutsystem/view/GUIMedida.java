@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.InflaterInputStream;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
@@ -22,8 +23,13 @@ import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 import workoutsystem.utilitaria.EMedida;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.AlteredCharSequence;
 import android.text.method.DateTimeKeyListener;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,14 +61,16 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private Button btnAlterar;
 	private Button btnCancelar;
 	private Button btnNovo;
+	
 
+	
 
 	ControlePerfil controle = new ControlePerfil();
 	Perfil perfil =  controle.buscarPerfil();
 
 	ControleMedida controleMed = new ControleMedida();
 	
-//	List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
+	List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 
 
 	
@@ -79,11 +87,13 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		setContentView(R.layout.medidas);
 		criarTab();
 
-		btnSalvar = (Button) findViewById(R.id.btn_salvar);
-		btnAlterar = (Button) findViewById(R.id.btn_alterar);
-		btnCancelar = (Button) findViewById(R.id.btn_cancelar);
-		btnNovo = (Button) findViewById(R.id.btn_novo);
-
+//		btnSalvar = (Button) findViewById(R.id.btn_salvar);
+//		btnAlterar = (Button) findViewById(R.id.btn_alterar);
+//		btnCancelar = (Button) findViewById(R.id.btn_cancelar);
+//		btnNovo = (Button) findViewById(R.id.btn_novo);
+		
+				
+		
 		editAltura = (EditText) findViewById(R.id.ed_altura);
 		editPeso = (EditText) findViewById(R.id.ed_peso);
 		editCintura = (EditText) findViewById(R.id.ed_cintura);
@@ -96,12 +106,11 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		editPantuDir = (EditText) findViewById(R.id.ed_panturrilhadireita);
 		editPantuEsq = (EditText) findViewById(R.id.ed_panturilhaesquerda);
 
-
-
+		
 		if(perfil != null){
 			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 			carregarCampos(lista);
-			iniciarBotao(lista);
+			bloquearTodosCampos();
 		}else{
 		
 			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
@@ -135,81 +144,86 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		tabmedidas.addTab(specinferior);
 
 	}
+	
 	@Override
 	public void onClick(View v) {
 
-		perfil = controle.buscarPerfil();
-
-		if(perfil != null){
+//		perfil = controle.buscarPerfil();
+//
+//		if(perfil != null){
 			
-		switch (v.getId()){
-		case R.id.btn_salvar:
+//		switch (v.getId()){
+//		case R.id.btn_salvar:
 
-			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
-			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
-			listaUltimosValores = ObterUltimosValores(listaUltimosValores);
+//			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
+//			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
+//			listaUltimosValores = ObterUltimosValores(listaUltimosValores);
+//
+//			if(x==1){
+//				criaMedida(perfil, listaUltimosValores);
+//				carregarCampos(lista);
+//			}else if(x==2){
+//				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
+//						Toast.LENGTH_LONG).show();
+//			}
 
-			if(x==1){
-				criaMedida(perfil, listaUltimosValores);
-				carregarCampos(lista);
-			}else if(x==2){
-				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
-						Toast.LENGTH_LONG).show();
-			}
-
-			btnAlterar.setEnabled(true);
-			btnNovo.setEnabled(true);
-			btnSalvar.setEnabled(false);
-			btnCancelar.setEnabled(false);
-
-
-			break;
-
-		case R.id.btn_cancelar:
-			btnAlterar.setEnabled(true);
-			btnNovo.setEnabled(true);
-			btnSalvar.setEnabled(false);
-			btnCancelar.setEnabled(false);
+//			btnAlterar.setEnabled(true);
+//			btnNovo.setEnabled(true);
+//			btnSalvar.setEnabled(false);
+//			btnCancelar.setEnabled(false);
+//
+//
+//			break;
+//
+//		case R.id.btn_cancelar:
+//			btnAlterar.setEnabled(true);
+//			btnNovo.setEnabled(true);
+//			btnSalvar.setEnabled(false);
+//			btnCancelar.setEnabled(false);
 
 
-			lista = controleMed.buscarMedicao(perfil.getCodigo());
-			carregarCampos(lista);
+//			lista = controleMed.buscarMedicao(perfil.getCodigo());
+//			carregarCampos(lista);
 
-			break;
+//			break;
+//
+//		case R.id.btn_novo:
+//
+//			//x = 1;
+//			btnAlterar.setEnabled(false);
+//			btnNovo.setEnabled(false);
+//			btnSalvar.setEnabled(true);
+//			btnCancelar.setEnabled(true);
 
-		case R.id.btn_novo:
-			x = 1;
-			btnAlterar.setEnabled(false);
-			btnNovo.setEnabled(false);
-			btnSalvar.setEnabled(true);
-			btnCancelar.setEnabled(true);
+//			desbloquearCampos();
+//
+//			SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+//			String dataExibe = sdf2.format(data);  
+//
+//			Toast.makeText(this,"Medidas serão registradas na data: \n " + dataExibe, Toast.LENGTH_SHORT).show();
 
-			desbloquearCampos();
+//			break;
+//
+//		case R.id.btn_alterar:
+			//x =2;
+//			btnAlterar.setEnabled(false);
+//			btnNovo.setEnabled(false);
+//			btnSalvar.setEnabled(true);
+//			btnCancelar.setEnabled(true);
+		//	metodo para bloquear campos em branco 
 
-			SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-			String dataExibe = sdf2.format(data);  
-
-			Toast.makeText(this,"Medidas serão registradas na data: \n " + dataExibe, Toast.LENGTH_SHORT).show();
-
-			break;
-
-		case R.id.btn_alterar:
-			x =2;
-			btnAlterar.setEnabled(false);
-			btnNovo.setEnabled(false);
-			btnSalvar.setEnabled(true);
-			btnCancelar.setEnabled(true);
-			//metodo para bloquear campos em branco 
-
-			//			carregarCampos(lista);
-			break;
-		}
-		}else{
-
-			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
-					Toast.LENGTH_LONG).show();
-
-		}
+//			lista = controleMed.buscarMedicao(perfil.getCodigo());
+//			carregarCampos(lista);
+//			break;
+//		}
+			
+			
+//		}else{
+//
+//			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
+//					Toast.LENGTH_LONG).show();
+//
+//		}
 	}
 
 	public void criaMedida(Perfil perfil , List<Medicao> listaUltimosValores){
@@ -620,73 +634,13 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 		}
 		//bloquear campos nulos
+		bloquearCampoNull();
 
 
-		if(editAltura.getText().toString().equalsIgnoreCase("")){
-			editAltura.setEnabled(false);
-
-		}
-		if(editPeso.getText().toString().equalsIgnoreCase("")){
-			editPeso.setEnabled(false);
-
-		}
-		if(editCintura.getText().toString().equalsIgnoreCase("")){
-			editCintura.setEnabled(false);
-
-		}
-		if(editQuadril.getText().toString().equalsIgnoreCase("")){
-			editQuadril.setEnabled(false);
-
-		}
-		if(editBracoDir.getText().toString().equalsIgnoreCase("")){
-			editBracoDir.setEnabled(false);
-
-		}
-		if(editBracoEsq.getText().toString().equalsIgnoreCase("")){
-			editBracoEsq.setEnabled(false);
-
-		}
-		if(editPeito.getText().toString().equalsIgnoreCase("")){
-			editPeito.setEnabled(false);
-
-		}
-		if(editCoxaDir.getText().toString().equalsIgnoreCase("")){
-			editCoxaDir.setEnabled(false);
-
-		}
-		if(editCoxaEsq.getText().toString().equalsIgnoreCase("")){
-			editCoxaEsq.setEnabled(false);
-
-		}
-		if(editPantuDir.getText().toString().equalsIgnoreCase("")){
-			editPantuDir.setEnabled(false);
-
-		}
-		if(editPantuEsq.getText().toString().equalsIgnoreCase("")){
-			editPantuEsq.setEnabled(false);
-
-		}
-
+		
 	}
 
-	public void iniciarBotao(List<Medicao> lista){
 
-		if( lista.size() == 0 ){
-
-			btnAlterar.setEnabled(false);
-			btnNovo.setEnabled(true);
-			btnSalvar.setEnabled(false);
-			btnCancelar.setEnabled(false);
-		}else{
-			btnAlterar.setEnabled(true);
-			btnNovo.setEnabled(true);
-			btnSalvar.setEnabled(false);
-			btnCancelar.setEnabled(false);
-
-		}
-
-
-	}
 
 	public List<Medicao> ObterUltimosValores(List<Medicao> medicoes){
 		List<Medicao> listaAux = new ArrayList<Medicao>();
@@ -836,6 +790,77 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	}
 
 	public void bloquearCampoNull(){
+		if(editAltura.getText().toString().equalsIgnoreCase("")){
+			editAltura.setEnabled(false);
+
+		}else{
+			editAltura.setEnabled(true);
+		}
+		if(editPeso.getText().toString().equalsIgnoreCase("")){
+			editPeso.setEnabled(false);
+
+		}else{
+			editPeso.setEnabled(true);
+		}
+		if(editCintura.getText().toString().equalsIgnoreCase("")){
+			editCintura.setEnabled(false);
+
+		}else{
+			editCintura.setEnabled(true);
+		}
+		if(editQuadril.getText().toString().equalsIgnoreCase("")){
+			editQuadril.setEnabled(false);
+
+		}else{
+			editQuadril.setEnabled(true);
+		}
+		if(editBracoDir.getText().toString().equalsIgnoreCase("")){
+			editBracoDir.setEnabled(false);
+
+		}else{
+			editBracoDir.setEnabled(true);
+		}
+		if(editBracoEsq.getText().toString().equalsIgnoreCase("")){
+			editBracoEsq.setEnabled(false);
+
+		}else{
+			editBracoEsq.setEnabled(false);
+
+		}
+		if(editPeito.getText().toString().equalsIgnoreCase("")){
+			editPeito.setEnabled(false);
+
+		}else{
+			editPeito.setEnabled(true);
+
+		}
+		if(editCoxaDir.getText().toString().equalsIgnoreCase("")){
+			editCoxaDir.setEnabled(false);
+
+		}else{
+			editCoxaDir.setEnabled(true);
+		}
+		if(editCoxaEsq.getText().toString().equalsIgnoreCase("")){
+			editCoxaEsq.setEnabled(false);
+
+		}else{
+			editCoxaEsq.setEnabled(true);
+
+		}
+		if(editPantuDir.getText().toString().equalsIgnoreCase("")){
+			editPantuDir.setEnabled(false);
+
+		}else{
+			editPantuDir.setEnabled(true);
+
+		}
+		if(editPantuEsq.getText().toString().equalsIgnoreCase("")){
+			editPantuEsq.setEnabled(false);
+
+		}else{
+			editPantuEsq.setEnabled(true);
+
+		}
 
 	}
 
@@ -854,4 +879,81 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		editPantuEsq.setEnabled(true);
 
 	}
+	public void bloquearTodosCampos(){
+		editAltura.setEnabled(false);
+		editPeso.setEnabled(false);
+		editCintura.setEnabled(false);
+		editQuadril.setEnabled(false);
+		editBracoDir.setEnabled(false);
+		editBracoEsq.setEnabled(false);
+		editPeito.setEnabled(false);
+		editCoxaDir.setEnabled(false);
+		editCoxaEsq.setEnabled(false);
+		editPantuDir.setEnabled(false);
+		editPantuEsq.setEnabled(false);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflate = getMenuInflater();
+		inflate.inflate(R.menu.menu_medidas, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch(item.getItemId()) {
+		case R.id.novo_medida:
+			x = 1;
+			
+			desbloquearCampos();
+
+			SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+			String dataExibe = sdf2.format(data);  
+
+			Toast.makeText(this,"Medidas serão registradas na data: \n " + dataExibe, Toast.LENGTH_SHORT).show();
+
+			
+			break;
+		case R.id.alterar_medida:
+			
+			x =2;
+			//metodo para bloquear campos em branco 
+			//carregarCampos(lista);
+			bloquearCampoNull();
+			
+			break;
+		case R.id.cancelar_medida:
+
+			bloquearTodosCampos();
+			break;
+		case R.id.salvar_medida:
+
+			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
+			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
+		//	listaUltimosValores = ObterUltimosValores(listaUltimosValores);
+			listaUltimosValores = ObterUltimosValores(lista);
+
+			if(x==1){
+				criaMedida(perfil, listaUltimosValores);
+				carregarCampos(lista);
+				
+			}else if(x==2){
+				
+				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
+						Toast.LENGTH_LONG).show();
+			}
+
+			bloquearTodosCampos();
+			break;
+		}
+		return true;
+	}
+
+
+	
+	
 }

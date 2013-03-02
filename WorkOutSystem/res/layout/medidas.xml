@@ -385,52 +385,6 @@
         </LinearLayout>
     </TabHost>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="200" >
 
-        <Button
-            android:id="@+id/btn_novo"
-            style="@style/textopequenopreto"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:onClick="onClick"
-            android:text="@string/botao_novo" />
-        
-        
-
-        <Button
-            android:id="@+id/btn_alterar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:onClick="onClick"
-            style="@style/textopequenopreto"
-            android:text="@string/botao_alterar" />
-        
-        <Button
-            android:id="@+id/btn_salvar"
-            style="@style/textopequenopreto"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:layout_weight="50"
-            android:text="@string/botao_salvar" />
-
-        <Button
-            android:id="@+id/btn_cancelar"
-            style="@style/textopequenopreto"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:layout_weight="50"
-            android:text="@string/botao_cancelar" />
-
-    </LinearLayout>
 
 </LinearLayout>

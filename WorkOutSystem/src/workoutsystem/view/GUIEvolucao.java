@@ -155,57 +155,56 @@ public class GUIEvolucao extends Activity  {
 	private void calcularProgresso(Medida medida) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		int maior = 90;
+		int maior = 70;
 		int medio = 50;
 		int menor = 30;
 		int contador = 0;
 		int naux = 2;
 
 		Collections.sort(medida.getMedicao(),new ControleMedida());
-		
+
 
 		while (naux <= medida.getMedicao().size()){
 			if (naux == 2){
 				if (medida.getMedicao().get(contador).getValor()== medida.getMedicao().get(contador+1).getValor()){
-					maior = medio;
-			} else if (naux== 3){
-				if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
-					menor = medio;
-				}
-				if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
-						medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
-
+					medio = maior;
+					} 
+				}else if (naux== 3){
+					if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
+						medio = menor;
+					}
+					if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
+							medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
 						menor = medio;
 						maior = medio;
 					}
-					
-				}
+
 			}
 			naux++;
-			
+
 		}
 		Collections.reverse(medida.getMedicao());
 
 
-				while (contador != medida.getMedicao().size()){
-					Medicao m = medida.getMedicao().get(contador);
-					String aux  =  sdf.format(m.getDataMedicao())+
-					" \n" + m.getValor()
-					+" "+ medida.getUnidade();
-					if (contador == 0){
-						data1.setText(aux);
-						barra1.setProgress(maior);
-					}else if (contador == 1){
-						data2.setText(aux);
-						barra2.setProgress(medio);
-					}else if (contador == 2){
-						data3.setText(aux);
-						barra3.setProgress(menor);
-					}
-					contador ++;
-				}
+		while (contador != medida.getMedicao().size()){
+			Medicao m = medida.getMedicao().get(contador);
+			String aux  =  sdf.format(m.getDataMedicao())+
+			" \n" + m.getValor()
+			+" "+ medida.getUnidade();
+			if (contador == 0){
+				data1.setText(aux);
+				barra1.setProgress(maior);
+			}else if (contador == 1){
+				data2.setText(aux);
+				barra2.setProgress(medio);
+			}else if (contador == 2){
+				data3.setText(aux);
+				barra3.setProgress(menor);
 			}
-
+			contador ++;
 		}
+	}
+
+}
 
 

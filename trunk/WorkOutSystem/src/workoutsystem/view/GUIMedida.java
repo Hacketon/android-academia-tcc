@@ -67,9 +67,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 
 	ControlePerfil controle = new ControlePerfil();
 	Perfil perfil =  controle.buscarPerfil();
-
 	ControleMedida controleMed = new ControleMedida();
-	
 	List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 
 
@@ -86,13 +84,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.medidas);
 		criarTab();
-
-//		btnSalvar = (Button) findViewById(R.id.btn_salvar);
-//		btnAlterar = (Button) findViewById(R.id.btn_alterar);
-//		btnCancelar = (Button) findViewById(R.id.btn_cancelar);
-//		btnNovo = (Button) findViewById(R.id.btn_novo);
-		
-				
 		
 		editAltura = (EditText) findViewById(R.id.ed_altura);
 		editPeso = (EditText) findViewById(R.id.ed_peso);
@@ -109,6 +100,8 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		
 		if(perfil != null){
 			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
+			//List<Medicao> listaUltimosValores = ObterUltimosValores(lista);
+
 			carregarCampos(lista);
 			bloquearTodosCampos();
 		}else{
@@ -148,82 +141,8 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	@Override
 	public void onClick(View v) {
 
-//		perfil = controle.buscarPerfil();
-//
-//		if(perfil != null){
-			
-//		switch (v.getId()){
-//		case R.id.btn_salvar:
-
-//			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
-//			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
-//			listaUltimosValores = ObterUltimosValores(listaUltimosValores);
-//
-//			if(x==1){
-//				criaMedida(perfil, listaUltimosValores);
-//				carregarCampos(lista);
-//			}else if(x==2){
-//				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
-//						Toast.LENGTH_LONG).show();
-//			}
-
-//			btnAlterar.setEnabled(true);
-//			btnNovo.setEnabled(true);
-//			btnSalvar.setEnabled(false);
-//			btnCancelar.setEnabled(false);
-//
-//
-//			break;
-//
-//		case R.id.btn_cancelar:
-//			btnAlterar.setEnabled(true);
-//			btnNovo.setEnabled(true);
-//			btnSalvar.setEnabled(false);
-//			btnCancelar.setEnabled(false);
 
 
-//			lista = controleMed.buscarMedicao(perfil.getCodigo());
-//			carregarCampos(lista);
-
-//			break;
-//
-//		case R.id.btn_novo:
-//
-//			//x = 1;
-//			btnAlterar.setEnabled(false);
-//			btnNovo.setEnabled(false);
-//			btnSalvar.setEnabled(true);
-//			btnCancelar.setEnabled(true);
-
-//			desbloquearCampos();
-//
-//			SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-//			String dataExibe = sdf2.format(data);  
-//
-//			Toast.makeText(this,"Medidas serão registradas na data: \n " + dataExibe, Toast.LENGTH_SHORT).show();
-
-//			break;
-//
-//		case R.id.btn_alterar:
-			//x =2;
-//			btnAlterar.setEnabled(false);
-//			btnNovo.setEnabled(false);
-//			btnSalvar.setEnabled(true);
-//			btnCancelar.setEnabled(true);
-		//	metodo para bloquear campos em branco 
-
-//			lista = controleMed.buscarMedicao(perfil.getCodigo());
-//			carregarCampos(lista);
-//			break;
-//		}
-			
-			
-//		}else{
-//
-//			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
-//					Toast.LENGTH_LONG).show();
-//
-//		}
 	}
 
 	public void criaMedida(Perfil perfil , List<Medicao> listaUltimosValores){
@@ -565,70 +484,121 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	}
 
 
+	
 
 	public void carregarCampos(List<Medicao> medicoes){
 		//		ControleMedida controle = new ControleMedida();
 
+		boolean bAltura = false;
+		boolean bPeso= false;
+		boolean bCintura= false;
+		boolean bQuadril= false;
+		boolean bBracoD= false;
+		boolean bBracoE= false;
+		boolean bPeito= false;
+		boolean bCoxaD= false;
+		boolean bCoxaE= false;
+		boolean bPantuD= false;
+		boolean bPantuE= false;
+
+		
 		for(Medicao m : medicoes){
+			
+			//Altura
+			if(bAltura == false){
 			if(m.getCodigoMedida() == 1 ){
 				editAltura.setText(Double.toString(m.getValor()));
+				bAltura = true;
+			}
 			}
 			//Peso
+			if(bPeso== false){
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Peso", "a")){
 			if(m.getCodigoMedida() == 2 ){
 				editPeso.setText(Double.toString(m.getValor()));
+				bPeso = true;
+			}
 			}
 			//Cintura
+			if(bCintura == false){
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Cintura", "a")){
 			if(m.getCodigoMedida() == 3 ){
 
 				editCintura.setText(Double.toString(m.getValor()));
+				bCintura = true;
+				}
 			}
 			//Quadril
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Quadril", "a")){
+			if(bQuadril == false){
 			if(m.getCodigoMedida() == 4 ){
 
 				editQuadril.setText(Double.toString(m.getValor()));
+				bQuadril = true;
 			}
+			}
+			
 
 			//Peito
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Peito", "a")){
 
+			if(bPeito==false){
 			if(m.getCodigoMedida() == 5){
 				editPeito.setText(Double.toString(m.getValor()));
+				bPeito= true;
+			}
 			}
 
 			//Braço Direito
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "d")){
+			if(bBracoD == false){
 			if(m.getCodigoMedida() == 6){
 
 				editBracoDir.setText(Double.toString(m.getValor()));
+				bBracoD = true;
+				}
 			}
 			//Braço Esquerdo
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Braco", "e")){
+			if(bBracoE == false){
 			if(m.getCodigoMedida() == 7){
 				editBracoEsq.setText(Double.toString(m.getValor()));
-			}
+				bBracoE = true;
+			}}
 
 			//Coxa Direito
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "d")){
+			if(bCoxaD == false){
 			if(m.getCodigoMedida() == 8){
 				editCoxaDir.setText(Double.toString(m.getValor()));
-			}
+				bCoxaD = true;
+			}}
+			
+			
 			//Coxa Esquerda
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Coxa", "e")){
+			if(bCoxaE == false){
 			if(m.getCodigoMedida() == 9){
 				editCoxaEsq.setText(Double.toString(m.getValor()));
-			}
+				bCoxaE = true;
+			}}
+			
+			
 			//Panturrilha Direita
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "d")){
+			if(bPantuD == false){
 			if(m.getCodigoMedida() == 10){
 				editPantuDir.setText(Double.toString(m.getValor()));
-			}
+				bPantuD = true;
+			}}
+			
 			//			//Panturrilha Esuerda
 			//			if(m.getCodigoMedida() == controle.buscarMedida("Panturrilha", "e")){
+			if(bPantuE == false){
 			if(m.getCodigoMedida() == 11){
 				editPantuEsq.setText(Double.toString(m.getValor()));
+				bPantuE = true;
+			}
 			}
 
 
@@ -645,6 +615,23 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	public List<Medicao> ObterUltimosValores(List<Medicao> medicoes){
 		List<Medicao> listaAux = new ArrayList<Medicao>();
 		ControleMedida controle = new ControleMedida();
+		
+		//Teste para pegar ultimos valores
+		// como os ultimos valores são so primeiros da lista , se ele já foi setado ,
+		//recebe true e não set mais
+		boolean bAltura = false;
+		boolean bPeso= false;
+		boolean bCintura= false;
+		boolean bQuadril= false;
+		boolean bBracoD= false;
+		boolean bBracoE= false;
+		boolean bPeito= false;
+		boolean bCoxaD= false;
+		boolean bCoxaE= false;
+		boolean bPantuD= false;
+		boolean bPantuE= false;
+
+		
 		Medicao mAltura = new Medicao();
 		Medicao mPeso = new Medicao();
 		Medicao mCintura = new Medicao();
@@ -657,87 +644,153 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		Medicao mCoxaE = new Medicao();
 		Medicao mPantuD = new Medicao();
 
+		
+		
+		
+		
+		
+		
+		
 		for(Medicao m : medicoes){
 			//Altura
+			
+			if(bAltura == false){
+				
 			if(m.getCodigoMedida() == 1 ){
 				mAltura.setValor(Double.parseDouble(editAltura.getText().toString()));
 				mAltura.setCodigo(m.getCodigo());
 				mAltura.setDataMedicao(m.getDataMedicao());
 				mAltura.setCodigoMedida(m.getCodigoMedida());
-
+				
+				//teste para pegar só o ultimo valor
+				bAltura = true;
+			}
 			}
 			//Peso
+			if(bPeso == false){
+			
+			
 			if(m.getCodigoMedida() == 2){
 				mPeso.setValor(Double.parseDouble(editPeso.getText().toString()));
 				mPeso.setCodigo(m.getCodigo());
 				mPeso.setDataMedicao(m.getDataMedicao());
 				mPeso.setCodigoMedida(m.getCodigoMedida());
+			//teste
+				bPeso = true;
+				
+			}
 			}
 			//Cintura
+			
+			if(bCintura == false){
 			if(m.getCodigoMedida() == 3){
 				mCintura.setValor(Double.parseDouble(editCintura.getText().toString()));
 				mCintura.setCodigo(m.getCodigo());
 				mCintura.setDataMedicao(m.getDataMedicao());
 				mCintura.setCodigoMedida(m.getCodigoMedida());
-
+				//teste
+				bCintura = true;
 			}
+			}
+			
+			
 			//Quadril
+			if(bQuadril == false){
 			if(m.getCodigoMedida() == 4){
 				mQuadril.setValor(Double.parseDouble(editQuadril.getText().toString()));
 				mQuadril.setCodigo(m.getCodigo());
 				mQuadril.setDataMedicao(m.getDataMedicao());
 				mQuadril.setCodigoMedida(m.getCodigoMedida());
+			
+				bQuadril = true;
 			}
+			}
+			
+			
 			//Peito
+			if(bPeito == false){
 			if(m.getCodigoMedida() == 5){
 				mPeito.setValor(Double.parseDouble(editPeito.getText().toString()));
 				mPeito.setCodigo(m.getCodigo());
 				mPeito.setDataMedicao(m.getDataMedicao());
 				mPeito.setCodigoMedida(m.getCodigoMedida());
+			
+				//teste
+				bPeito = true;
+			}
 			}
 			//Braço Direito
+			
+			if(bBracoD == false){
 			if(m.getCodigoMedida() == 6){
 				mBracoD.setValor(Double.parseDouble(editBracoDir.getText().toString()));
 				mBracoD.setCodigo(m.getCodigo());
 				mBracoD.setDataMedicao(m.getDataMedicao());
 				mBracoD.setCodigoMedida(m.getCodigoMedida());
-			}
+			
+				//teste
+				bBracoD = true;
+			}}
 			//Braço Esquerdo
+			
+			if(bBracoE ==false){
 			if(m.getCodigoMedida() == 7){
 				mBracoE.setValor(Double.parseDouble(editBracoEsq.getText().toString()));
 				mBracoE.setCodigo(m.getCodigo());
 				mBracoE.setDataMedicao(m.getDataMedicao());
 				mBracoE.setCodigoMedida(m.getCodigoMedida());
+			
+				//teste
+				bBracoE= true;
 			}
-		
+			}
+			
 			//Coxa Direito
+			if(bCoxaD==false){
 			if(m.getCodigoMedida() == 8){
 				mCoxaD.setValor(Double.parseDouble(editCoxaDir.getText().toString()));
 				mCoxaD.setCodigo(m.getCodigo());
 				mCoxaD.setDataMedicao(m.getDataMedicao());
 				mCoxaD.setCodigoMedida(m.getCodigoMedida());
+				//teste
+				bCoxaD = true;
+			}
 			}
 			//Coxa Esquerda
+			
+			if(bCoxaE == false){
 			if(m.getCodigoMedida() == 9){
 				mCoxaE.setValor(Double.parseDouble(editCoxaEsq.getText().toString()));
 				mCoxaE.setCodigo(m.getCodigo());
 				mCoxaE.setDataMedicao(m.getDataMedicao());
 				mCoxaE.setCodigoMedida(m.getCodigoMedida());
-			}
+			
+			//teste
+				bCoxaE = true;
+			}}
+			
 			//Panturrilha Direita
+			if(bPantuD == false){
 			if(m.getCodigoMedida() == 10){
 				mPantuD.setValor(Double.parseDouble(editPantuDir.getText().toString()));
 				mPantuD.setCodigo(m.getCodigo());
 				mPantuD.setDataMedicao(m.getDataMedicao());
 				mPantuD.setCodigoMedida(m.getCodigoMedida());
-			}
+			
+				//teste
+				bPantuD = true;
+			}}
+			
 			//Panturrilha Esuerda
+			if(bPantuE == false){
 			if(m.getCodigoMedida() == 11){
 				mPantuE.setValor(Double.parseDouble(editPantuEsq.getText().toString()));
 				mPantuE.setCodigo(m.getCodigo());
 				mPantuE.setDataMedicao(m.getDataMedicao());
 				mPantuE.setCodigoMedida(m.getCodigoMedida());
-			}
+				//teste
+				bPantuE = true;
+			}}
 
 		}
 
@@ -904,8 +957,13 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
+		
+		
 
+		
+		
 		switch(item.getItemId()) {
+		
 		case R.id.novo_medida:
 			x = 1;
 			
@@ -932,14 +990,14 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 			break;
 		case R.id.salvar_medida:
 
-			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
-			List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
+		List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
+		List<Medicao> listaUltimosValores = new ArrayList<Medicao>();
 		//	listaUltimosValores = ObterUltimosValores(listaUltimosValores);
 			listaUltimosValores = ObterUltimosValores(lista);
 
 			if(x==1){
 				criaMedida(perfil, listaUltimosValores);
-				carregarCampos(lista);
+				carregarCampos(listaUltimosValores);
 				
 			}else if(x==2){
 				

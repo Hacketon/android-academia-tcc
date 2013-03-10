@@ -19,8 +19,8 @@ public class ControleExercicio {
 
 	//alterar os metodos no diagrama de classes 
 
-	public String manipularExercicio(Exercicio exercicio){
-		String mensagem = "Operação com erro";
+	public String manipularExercicio(Exercicio exercicio) throws SQLException{
+		String mensagem = "Não foi possivel realizar a operação";
 		IExercicioDao dao = new ExercicioDao();
 
 		if (exercicio!= null){
@@ -32,6 +32,8 @@ public class ControleExercicio {
 					if(dao.adicionarExercicio(exercicio)){
 						mensagem = "Exercicio criado com sucesso !";
 					}
+				}else if (dao.reativarExercicio(exercicio.getNomeExercicio(),0)){
+						mensagem = "Exercicio reativado com sucesso !";
 				}
 			}else{
 				if (!dao.buscarExercicio(exercicio.getNomeExercicio(),exercicio.getCodigo())){
@@ -46,7 +48,7 @@ public class ControleExercicio {
 	}
 
 
-	public String excluirExercicio(ArrayList<String> exercicios){
+	public boolean excluirExercicio(ArrayList<String> exercicios) throws SQLException{
 		boolean resultado = true;
 		IExercicioDao dao = new  ExercicioDao();
 		String mensagem = "Exercicio excluido!";
@@ -57,11 +59,9 @@ public class ControleExercicio {
 			resultado = dao.excluirExercicio(exercicio.getCodigo());
 			
 		}
-		if (resultado == false){
-			mensagem = "Erro ao excluir os exercicios";
-		}
+		
 
-		return mensagem;
+		return resultado;
 	}
 
 	public List<Passo> visualizarPassos(Exercicio exercicio){
@@ -100,9 +100,10 @@ public class ControleExercicio {
 		return new ExercicioDao().listarGrupos();
 	}
 
-	public List<Exercicio> listarExercicios(String grupo, int personalizado) {
+	public List<Exercicio> listarExercicios(String grupo, int personalizado) throws SQLException {
 		IExercicioDao exercicioDao = new ExercicioDao();
-		return exercicioDao.listarExercicios(grupo, personalizado);
+		int ngrupo = exercicioDao.buscarGrupoMuscular(grupo);
+		return exercicioDao.listarExercicios(ngrupo, personalizado);
 
 	}
 }

@@ -1,13 +1,13 @@
 
 package workoutsystem.model;
 
-import net.sf.oval.constraint.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 
 
 public class Avatar {
-	@NotNull(message = "Nome do avatar não pode ser null ou vazio")
+	@NotEmpty
 	private String nomeAvatar;
 	private int imagem;
 	private String mensagem;

@@ -24,10 +24,8 @@ public class ControleUsuario {
 	 */
 
 	public boolean realizarLogin(Usuario usuario){
-		// validação
-		Validator validator = new Validator();
-		List<ConstraintViolation> violations = validator.validate(usuario);
-		if (violations.size()<=0){
+		boolean validacao = new Validadora<Usuario>(usuario).validarObjeto();
+		if (validacao){
 			IUsuarioDao daoUsuario = new UsuarioDao();
 			if (usuario != null){
 				return daoUsuario.realizarLogin(usuario);
@@ -45,11 +43,10 @@ public class ControleUsuario {
 	}
 
 	public boolean cadastrarUsuario(Usuario usuario,String confSenha){
-		Validator validator = new Validator();
-		List<ConstraintViolation> violations = validator.validate(usuario);
+		boolean validacao = new Validadora<Usuario>(usuario).validarObjeto();
 		IUsuarioDao daoUsuario = new UsuarioDao();
 		boolean retorno = false;
-		if (violations.size()<=0){
+		if (validacao){
 			if (usuario.getSenha().equalsIgnoreCase(confSenha)){
 				if (daoUsuario.buscarUsuario(usuario) == null){
 					retorno =  daoUsuario.cadastrarUsuario(usuario);

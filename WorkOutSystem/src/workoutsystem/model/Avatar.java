@@ -1,7 +1,9 @@
 
 package workoutsystem.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import net.sf.oval.constraint.NotEmpty;
+
+
 
 
 

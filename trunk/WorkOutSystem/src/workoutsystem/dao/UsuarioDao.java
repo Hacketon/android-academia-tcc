@@ -14,7 +14,7 @@ public class UsuarioDao implements IUsuarioDao {
 	@Override
 	public Usuario buscarUsuario(Usuario u) {
 		try {
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo,nome,senha from usuario where nome like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, u.getNome().trim());
@@ -38,7 +38,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public boolean cadastrarUsuario(Usuario u) {
 		try{
 			boolean verificador;
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "insert into usuario (nome,senha,logado) values (?,?,?)";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1,u.getNome().trim());
@@ -63,7 +63,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public boolean realizarLogin(Usuario u) {
 		try{
 			boolean verificador;
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo, nome,senha from usuario" +
 					" where nome like ? and senha like ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public Usuario buscarUsuario() {
 		Usuario u = null;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo,nome,senha,logado from usuario " +
 					"where logado = 1" ;
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -123,7 +123,7 @@ public class UsuarioDao implements IUsuarioDao {
 	@Override
 	public void desconectarUsuario() {
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "update usuario set logado = 0 where logado = 1";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.executeUpdate();
@@ -139,7 +139,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public boolean alterarSenha(Usuario u,String senha) {
 		boolean verificador = false;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "update usuario set senha = ? where codigo = ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setString(1, senha);

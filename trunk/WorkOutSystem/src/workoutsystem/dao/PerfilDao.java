@@ -17,7 +17,7 @@ public class PerfilDao implements IPerfilDao{
 	public Perfil buscarPerfil(Usuario u) {
 		Perfil perfil = null;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo, nome ,sexo from perfil where codigousuario = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, u.getCodigo());
@@ -48,7 +48,7 @@ public class PerfilDao implements IPerfilDao{
 
 		try{
 			boolean verificador = false;
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql ="insert into perfil (nome, sexo, codigousuario) values (?,?,?);";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, perfil.getNome());
@@ -80,7 +80,7 @@ public class PerfilDao implements IPerfilDao{
 	public boolean excluirPerfil(int codigoUsuario) {
 		try{
 			boolean verificador = false;
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "delete from perfil where codigousuario = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigoUsuario);
@@ -107,7 +107,7 @@ public class PerfilDao implements IPerfilDao{
 	public boolean atualizarPerfil(Perfil perfil,Usuario usuario) {
 		boolean verificador = true;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "update Perfil set nome = ?,sexo = ?" +
 			"where codigousuario =?";
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -137,7 +137,7 @@ public class PerfilDao implements IPerfilDao{
 		PreparedStatement prepare = null;
 		String sql = "";
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			sql = "delete from frequenciaperfil where codigoperfil = ?";
 			prepare = con.prepareStatement(sql);
 			prepare.setInt(1, perfil.getCodigo());
@@ -166,7 +166,7 @@ public class PerfilDao implements IPerfilDao{
 		PreparedStatement prepare = null;
 		String sql = "";
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			sql = "delete from frequenciaperfil where codigoperfil = ?";
 			prepare = con.prepareStatement(sql);
 			prepare.setInt(1, perfil.getCodigo());
@@ -190,7 +190,7 @@ public class PerfilDao implements IPerfilDao{
 
 
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigodia,codigoperfil from frequenciaPerfil where codigoperfil = ?";
 			PreparedStatement prepared = con.prepareStatement(sql );
 			prepared.setInt(1, perfil.getCodigo());
@@ -216,7 +216,7 @@ public class PerfilDao implements IPerfilDao{
 	public int codigoPerfil(Usuario u) {
 		int codigo = 0;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "	select codigo from perfil where codigousuario  = ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, u.getCodigo());
@@ -238,7 +238,7 @@ public class PerfilDao implements IPerfilDao{
 	public int quantidadeDias(Perfil perfil) {
 		int quantidade = 0;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = " select count (*) codigodia from frequenciaPerfil where codigoperfil = ?;";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, perfil.getCodigo());

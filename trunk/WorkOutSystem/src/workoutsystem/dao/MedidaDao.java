@@ -24,7 +24,7 @@ public class MedidaDao implements IMedidaDao{
 	public int buscarMedida(String nome, String lado) {
 		int codigo =0;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo from medida where nome = ? and lado= ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, nome);
@@ -48,7 +48,7 @@ public class MedidaDao implements IMedidaDao{
 	public boolean adicionarMedicao(List<Medicao> medicoes) {
 		boolean verificador = false;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql ="insert into medicao (valor,  codigomedida,codigoperfil,datamedicao) values (?,?,?,?);";
 			PreparedStatement prepare = con.prepareStatement(sql);
 
@@ -84,7 +84,7 @@ public class MedidaDao implements IMedidaDao{
 	public Double buscarValorMedicao(int codigo) {
 		Double valor = null;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql ="select (valor) from medicao where codigomedida = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
@@ -106,7 +106,7 @@ public class MedidaDao implements IMedidaDao{
 		List<Medida> lista = new ArrayList<Medida>();
 
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo, nome, unidade , lado from medida";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
@@ -135,7 +135,7 @@ public class MedidaDao implements IMedidaDao{
 
 		boolean verificador = false;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql =" update medicao set valor = ? where codigomedida = ? and datamedicao = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 
@@ -172,7 +172,7 @@ public class MedidaDao implements IMedidaDao{
 
 		boolean verificador = false;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql =" update medicao set valor = ? where codigo = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 
@@ -207,7 +207,7 @@ public class MedidaDao implements IMedidaDao{
 	public boolean excluirMedicoes(int codigo){
 		try{
 			boolean verificador = false;
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "delete from medicao where codigoperfil = ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
@@ -235,7 +235,7 @@ public class MedidaDao implements IMedidaDao{
 	public boolean verificarMedicao(int codigo) {
 		boolean verificador = false;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select * from medicao where codigoperfil = ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setInt(1, codigo);
@@ -259,7 +259,7 @@ public class MedidaDao implements IMedidaDao{
 		try{
 			int contador = 0;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo,valor,datamedicao from medicao " +
 			" where codigoperfil = ? and codigomedida = ? " +
 			" order by datamedicao desc ";
@@ -297,7 +297,7 @@ public class MedidaDao implements IMedidaDao{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql ="select codigo, valor, datamedicao, codigomedida, codigoperfil " +
 			"from medicao where codigoperfil = ? order by datamedicao desc";
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -332,7 +332,7 @@ public class MedidaDao implements IMedidaDao{
 		boolean verificador = true;
 		String data = null;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql =" select medida.codigo, medida.nome, medida.lado ," +
 			"  medicao.codigo, medicao.valor , " +
 			"  medicao.datamedicao  from medicao inner join medida " +

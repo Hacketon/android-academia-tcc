@@ -63,12 +63,10 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private Button btnNovo;
 	
 
+	private ControlePerfil controle = new ControlePerfil();
+	private Perfil perfil =  controle.buscarPerfil();
+	private ControleMedida controleMed = new ControleMedida();
 	
-
-	ControlePerfil controle = new ControlePerfil();
-	Perfil perfil =  controle.buscarPerfil();
-	ControleMedida controleMed = new ControleMedida();
-	List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 
 
 	
@@ -84,7 +82,10 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.medidas);
 		criarTab();
-		
+
+		controle = new ControlePerfil();
+		perfil =  controle.buscarPerfil();
+		controleMed = new ControleMedida();
 		editAltura = (EditText) findViewById(R.id.ed_altura);
 		editPeso = (EditText) findViewById(R.id.ed_peso);
 		editCintura = (EditText) findViewById(R.id.ed_cintura);

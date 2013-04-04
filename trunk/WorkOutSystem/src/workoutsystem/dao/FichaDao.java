@@ -16,7 +16,7 @@ public class FichaDao implements IDiaSemana{
     public List<DiaSemana> listarDias() {
 		List<DiaSemana> listaDias = null;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql = "select codigo,diasemana from diasemana";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			listaDias = new ArrayList<DiaSemana>();
@@ -40,7 +40,7 @@ public class FichaDao implements IDiaSemana{
 	public int buscarCodigoDia(String Nome){
 		int codigo = 0;
 		try{
-			Connection con = Banco.conexao();
+			Connection con = ResourceManager.conexao();
 			String sql =" select codigo from diaSemana where diaSemana like ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setString(1, Nome);

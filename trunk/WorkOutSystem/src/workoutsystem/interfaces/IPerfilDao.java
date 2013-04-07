@@ -13,14 +13,14 @@ public interface IPerfilDao {
 	 * @param u
 	 * @return
 	 */
-	public abstract Perfil buscarPerfil(Usuario u);
+	public abstract Perfil buscarPerfil();
 	
 	/**
 	 * metodo responsavel pela criação de um perfil
 	 * @param perfil
 	 * @return
 	 */
-	public abstract boolean criarPerfil(Perfil perfil,Usuario usuario);
+	public abstract boolean criarPerfil(Perfil perfil);
 	
 	
 	/**
@@ -28,12 +28,12 @@ public interface IPerfilDao {
 	 * @param perfil
 	 * @return
 	 */
-	public abstract boolean excluirPerfil(int codigoUsuario);
+	public abstract boolean excluirPerfil();
 	/**
 	 * Metodo responsavel pela atualização do perfil do usuario
 	 * @return true = possivel atualizar caso contrario false;
 	 */
-	public abstract boolean atualizarPerfil(Perfil perfil,Usuario usuario);
+	public abstract boolean atualizarPerfil(Perfil perfil);
 	/**
 	 * Metodo responsavel pela atualização da frequencia perfil do usuario
 	 * @param perfil
@@ -63,4 +63,6 @@ public interface IPerfilDao {
 	 * Metodos que buscará a quantida de dias selecionados
 	 */
 	public abstract int quantidadeDias(Perfil perfil);
+
+	
 }

@@ -1,32 +1,16 @@
 package workoutsystem.view;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.zip.InflaterInputStream;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
-import workoutsystem.control.ControleUsuario;
-import workoutsystem.dao.MedidaDao;
-import workoutsystem.dao.PerfilDao;
-import workoutsystem.dao.UsuarioDao;
-import workoutsystem.interfaces.IMedidaDao;
-import workoutsystem.interfaces.IPerfilDao;
-import workoutsystem.interfaces.IUsuarioDao;
-import workoutsystem.model.DiaSemana;
 import workoutsystem.model.Medicao;
-import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
-import workoutsystem.model.Usuario;
 import workoutsystem.utilitaria.EMedida;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.AlteredCharSequence;
-import android.text.method.DateTimeKeyListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,9 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class GUIMedida extends Activity implements View.OnClickListener{
 

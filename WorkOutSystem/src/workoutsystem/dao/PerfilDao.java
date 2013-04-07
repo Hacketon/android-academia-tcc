@@ -14,13 +14,12 @@ import workoutsystem.model.Usuario;
 
 public class PerfilDao implements IPerfilDao{
 
-	public Perfil buscarPerfil(Usuario u) {
+	public Perfil buscarPerfil() {
 		Perfil perfil = null;
 		try{
 			Connection con = ResourceManager.conexao();
-			String sql = "select codigo, nome ,sexo from perfil where codigousuario = ?";
+			String sql = "select codigo, nome ,sexo from perfil";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setInt(1, u.getCodigo());
 			ResultSet result = prepare.executeQuery();
 
 			if (result.next()){
@@ -28,12 +27,10 @@ public class PerfilDao implements IPerfilDao{
 				perfil.setCodigo(result.getInt(1));
 				perfil.setNome(result.getString(2));
 				perfil.setSexo(result.getBoolean(3));
-
 			}
 
 			prepare.close();
 			con.close();
-
 
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -43,17 +40,17 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 
-	@Override
-	public boolean criarPerfil(Perfil perfil,Usuario usuario) {
+	
+	public boolean criarPerfil(Perfil perfil) {
 
 		try{
 			boolean verificador = false;
 			Connection con = ResourceManager.conexao();
-			String sql ="insert into perfil (nome, sexo, codigousuario) values (?,?,?);";
+			String sql ="insert into perfil (nome, sexo) values (?,?);";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
-			prepare.setInt(3, usuario.getCodigo());
+			
 
 			int resultado = prepare.executeUpdate();
 
@@ -77,13 +74,12 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 	@Override
-	public boolean excluirPerfil(int codigoUsuario) {
+	public boolean excluirPerfil() {
 		try{
 			boolean verificador = false;
 			Connection con = ResourceManager.conexao();
-			String sql = "delete from perfil where codigousuario = ?";
+			String sql = "delete from perfil";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			prepare.setInt(1, codigoUsuario);
 			int resultado = prepare.executeUpdate();
 
 			if (resultado == 0 ){
@@ -104,17 +100,16 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 	@Override
-	public boolean atualizarPerfil(Perfil perfil,Usuario usuario) {
+	public boolean atualizarPerfil(Perfil perfil) {
 		boolean verificador = true;
 		try{
 			Connection con = ResourceManager.conexao();
-			String sql = "update Perfil set nome = ?,sexo = ?" +
-			"where codigousuario =?";
+			String sql = "update Perfil set nome = ?,sexo = ?";
+			
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			prepare.setString(1, perfil.getNome());
 			prepare.setBoolean(2, perfil.getSexo());
-			prepare.setInt(3, usuario.getCodigo());
 			int atualizados =prepare.executeUpdate();
 			if (atualizados >0){
 				verificador = true;
@@ -253,4 +248,8 @@ public class PerfilDao implements IPerfilDao{
 		}
 		return quantidade;
 	}
+
+
+
+	
 }

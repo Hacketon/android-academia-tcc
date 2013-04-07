@@ -18,6 +18,7 @@
             android:layout_height="wrap_content" />
         <TextView
         	android:layout_weight="50"
+        	android:id="@+id/textSplash"
         	style="@style/textopequeno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

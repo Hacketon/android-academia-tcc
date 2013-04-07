@@ -26,18 +26,12 @@ import android.util.Log;
 
 public class ResourceManager extends Application{
 	
-	private static Context c;
+	private static String fileName;
 	
-	public void onCreate(){
-		super.onCreate();
-		ResourceManager.c = getApplicationContext();
-	}
-
 	public static  Connection conexao() {
 		Connection con = null;
 		try{
 			ResourceManager resourceManager = new ResourceManager();
-			String fileName = "/data/data/workoutsystem.view/files/academiabanco.db";
 			String urldriver = "org.sqldroid.SQLDroidDriver";
 			String url = "jdbc:sqldroid:"+ fileName;
 			Driver driver = (Driver) Class.forName(urldriver).newInstance();
@@ -49,6 +43,9 @@ public class ResourceManager extends Application{
 	}
 
 	
+	public void setFileName(String nomeBanco){
+		fileName = nomeBanco;
+	}
 
 	
 	

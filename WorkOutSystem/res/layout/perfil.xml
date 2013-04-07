@@ -3,63 +3,263 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
-    android:gravity="center"
+    android:gravity="top"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="5dp" >
+
+    <TabHost
+        android:id="@+id/tabperfil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                
+
+                    <LinearLayout
+                        android:id="@+id/tabpessoal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                         
+                            android:weightSum="100" >
+
+                            <TextView
+                                android:id="@+id/tv_nome"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/label_nomeapelido"
+                                style="@style/textopequeno"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            
+                            android:weightSum="100" >
+
+                            <EditText
+                                android:id="@+id/etNome"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50" 
+                                android:inputType="text"
+                                android:maxLines="1"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            
+                            android:weightSum="100" >
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                         
+                            android:weightSum="100" >
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                          
+                            android:weightSum="100" >
+
+                            <TextView
+                                android:id="@+id/tv_sexo"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/label_sexo"
+                                style="@style/textopequeno"/>
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/radio_group_sexo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                           
+                            android:weightSum="100" >
+
+                            <RadioButton
+                                android:id="@+id/rb_feminino"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/radio_feminino"
+                                style="@style/textopequeno"/>
+
+                            <RadioButton
+                                android:id="@+id/rb_masculino"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/radio_masculino"
+                                style="@style/textopequeno"/>
+                        </RadioGroup>
+                    </LinearLayout>
+               
+
+                <LinearLayout
+                    android:id="@+id/tabfrequencia"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        
+                        android:weightSum="120" >
+
+                        <TextView
+                            android:id="@+id/tv_frequencia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_frequencia"
+                            style="@style/textopequeno"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        
+                        android:weightSum="120" >
+
+                        <CheckBox
+                            android:id="@+id/check_segunda"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_segunda"
+                            style="@style/textopequeno"/>
+
+                        <CheckBox
+                            android:id="@+id/check_terca"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_terca"
+                            style="@style/textopequeno"/>
+
+                        <CheckBox
+                            android:id="@+id/check_quarta"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_quarta"
+                            style="@style/textopequeno"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        
+                        android:weightSum="120" >
+
+                        <CheckBox
+                            android:id="@+id/check_quinta"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_quinta"
+                            style="@style/textopequeno"/>
+
+                        <CheckBox
+                            android:id="@+id/check_sexta"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_sexta"
+                            style="@style/textopequeno"/>
+
+                        <CheckBox
+                            android:id="@+id/check_sabado"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_sabado"
+                            style="@style/textopequeno"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        
+                        android:weightSum="120" >
+
+                        <CheckBox
+                            android:id="@+id/check_domingo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:text="@string/check_domingo"
+                            style="@style/textopequeno"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:orientation="horizontal"
-        android:padding="20dp"
-        android:weightSum="100" >
+        
+        android:weightSum="90" >
 
-        <ImageButton
-            android:id="@+id/btn_manipularperfil"
+        <Button
+            android:id="@+id/btn_cadperfil"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="45"
             android:onClick="onClick"
-            android:background="@android:color/transparent"
-            android:text="@string/botao_perfil"
-            android:src="@drawable/ic_perfilb" />
+            style="@style/textopequenopreto"
+            android:text="@string/botao_salvar" />
 
-        <ImageButton
-            android:id="@+id/btn_avatar"
+        <Button
+            android:id="@+id/btn_excperfil"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="45"
             android:onClick="onClick"
-            android:background="@android:color/transparent"
-            android:text="@string/botao_avatar" 
-            android:src="@drawable/ic_avatar"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        android:weightSum="100" >
-
-        <ImageButton
-            android:id="@+id/btn_medidas"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:onClick="onClick"
-            android:background="@android:color/transparent"
-            android:text="@string/botao_medidas"
-            android:src="@drawable/ic_medida" />
-
-        <ImageButton
-            android:id="@+id/btn_status"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:onClick="onClick"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_ferramentas"/>
+            style="@style/textopequenopreto"
+            android:text="@string/botao_excluir" />
     </LinearLayout>
 
 </LinearLayout>

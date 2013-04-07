@@ -88,6 +88,25 @@
         android:orientation="horizontal"
 	    android:weightSum="120" >
 
+         <ImageButton
+            android:id="@+id/btn_medidas"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:text="@string/botao_medidas"
+            android:src="@drawable/ic_medida" />
+
+        <ImageButton
+            android:id="@+id/btn_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ferramentas"/>
+        
         <ImageButton
             android:id="@+id/btn_sobre"
             android:layout_width="fill_parent"
@@ -96,23 +115,6 @@
             android:onClick="onClick"
             android:layout_weight="40"
             android:src="@drawable/ic_sobre" />
-        <ImageButton
-            
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_weight="40"
-            android:onClick="onClick"
-            />
-        
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_weight="40"
-            android:onClick="onClick"
-            />
-
     </LinearLayout>
 
 </LinearLayout>

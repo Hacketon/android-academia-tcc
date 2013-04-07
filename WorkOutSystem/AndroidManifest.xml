@@ -6,16 +6,11 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="16" />
-    
-    
-    
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
     <uses-permission android:name="android.permission.READ_OWNER_DATA" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    
-    
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:configChanges="orientation"
@@ -30,13 +25,15 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_tela_principal" >
             <intent-filter>
-           <!--       <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!--
+                      <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
                 -->
-                <action android:name="workoutsystem.view.PRINCIPAL"/>
-                
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="workoutsystem.view.PRINCIPAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -104,15 +101,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GUIManipularPerfil"
-            android:label="@string/title_activity_tela_perfil" >
-            <intent-filter>
-                <action android:name="workoutsystem.view.MANIPULARPERFIL" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".GUIStatus"
             android:label="@string/title_activity_tela_status" >
             <intent-filter>
@@ -135,6 +123,7 @@
             android:label="@string/title_activity_tela_medida" >
             <intent-filter>
                 <action android:name="workoutsystem.view.MEDIDAS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -174,14 +163,14 @@
         <!-- Activity Login -->
 
         <activity
-            android:name=".GUILogin"
+            android:name=".GUISplash"
             android:label="@string/title_project" >
             <intent-filter>
 
                 <!--
                 <action android:name="workoutsystem.view.LOGIN" />
                 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT" />
                 -->
                 <action android:name="android.intent.action.MAIN" />
 

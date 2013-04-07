@@ -194,7 +194,7 @@
     <string name="label_data3">Data 3</string>
     
     
-    
+    <string name="splash_carregando"> Carregando</string>
     <string name="botao_existente">Treino existente</string>
     <string name="botao_finalizar">Finalizar edição</string>
     <string name="botao_novotreino">Novo treino</string>

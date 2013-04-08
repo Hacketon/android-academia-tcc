@@ -941,11 +941,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
-		
-		
-
-		
-		
+	
 		switch(item.getItemId()) {
 		
 		case R.id.novo_medida:

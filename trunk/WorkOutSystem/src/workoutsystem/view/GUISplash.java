@@ -41,14 +41,13 @@ public class GUISplash extends Activity implements Runnable {
 
 	@Override
 	public void run() {
-		
 		int time = 0;
 		ResourceManager res = new ResourceManager();
 		String nomeBanco = "academiabanco.db";
 		String texto = txtSplash.getText().toString() + " : ";
 		
 		if (verificarBanco(nomeBanco)){
-			texto +=  "verificando base de dados";
+			texto +=  "verificando base de dados ";
 		 }else{
 			criarBanco(nomeBanco);
 			sleepTime = sleepTime * 2;
@@ -57,7 +56,7 @@ public class GUISplash extends Activity implements Runnable {
 		txtSplash.setText(texto);
 		res.setFileName(getDatabaseName(nomeBanco));
 		try {
-			while(time <100){
+			while(time <70){
 				t.sleep(sleepTime*33);
 				barraSplash.setProgress(time++);
 			}
@@ -91,9 +90,7 @@ public class GUISplash extends Activity implements Runnable {
 		boolean verificar; 
 		try {
 				// busca o arquivo na pasta res/raw/academia banco.db e abre ele em input
-				String local = "res/raw/academiabanco.db";
-				InputStream arquivoEntrada = getClass().getClassLoader().getResourceAsStream(local);
-				
+				InputStream arquivoEntrada = getResources().openRawResource(R.raw.academiabanco);
 				// cria o arquivo interno no celular 
 				FileOutputStream arquivoDispositivo = openFileOutput(nomeBanco, Context.MODE_APPEND);
 				byte[] buffer = new byte[1024];

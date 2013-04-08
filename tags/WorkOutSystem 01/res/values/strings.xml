@@ -1,0 +1,209 @@
+<resources>
+
+    <string name="app_name">Work Out System</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- titulos de telas e outros titulos -->
+
+    <string name="title_activity_tela_principal">Principal</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_project">Work Out System</string>
+    <string name="title_activity_tela_perfil">Perfil</string>
+    <string name="title_activity_tela_sobre">Sobre</string>
+    <string name="title_activity_tela_exercicio">Exercicios</string>
+    <string name="title_activity_tela_rotina">Rotinas</string>
+    <string name="title_activity_tela_ficha">Ficha</string>
+    <string name="title_activity_tela_avatar">Avatar</string>
+    <string name="title_activity_tela_medida">Medidas</string>
+    <string name="title_activity_tela_novousuario">Novo Usuario</string>
+    <string name="title_activity_tela_grafico">Graficos</string>
+    <string name="title_activity_tela_objetivo">Objetivos</string>
+    <string name="title_activity_tela_evolucao">Evolução</string>
+    <string name="title_activity_tela_ajuda">Ajuda</string>
+    <string name="title_activity_configuracoes">Configurações</string>
+    <string name="title_activity_tela_status">Status</string>
+    <string name="botao_visualizar">Visualizar </string>
+
+    <!-- texto medidas ! -->
+
+    <string name="label_altura">Altura</string>
+    <string name="label_peso">Peso</string>
+    <string name="label_braco">Braço</string>
+    <string name="label_quadril">Quadril</string>
+    <string name="label_cintura">Cintura</string>
+    <string name="label_peito">Peito</string>
+    <string name="label_panturrilha">Panturilha</string>
+    <string name="label_coxa">Coxa</string>
+    <string name="label_direita">Dir.</string>
+    <string name="label_esquerda">Esq.</string>
+    <string name="botao_add">+</string>
+    <string name="botao_salvar">Salvar</string>
+    
+
+    <!-- texto em Geral -->
+    <string name="label_dadospessoais">Dados Pessoais</string>
+    <string name="label_frequencia">Frequencia</string>
+    <string name="check_segunda">Seg</string>
+    <string name="check_terca">Ter</string>
+    <string name="check_quarta">Qua</string>
+    <string name="check_quinta">Qui</string>
+    <string name="check_sexta">Sex</string>
+    <string name="check_sabado">Sab</string>
+    <string name="check_domingo">Dom</string>
+    <string name="botao_excluir">Excluir</string>
+    <string name="botao_cadastro">Cadastrar</string>
+    <string name="botao_alterar">Alterar</string>
+    <string name="botao_cancelar">Cancelar</string>
+    <string name="label_nomeapelido">Nome/Apelido</string>
+    <string name="label_datanasc">Data de Nascimento</string>
+    <string name="label_sexo">Sexo</string>
+    <string name="radio_masculino">Masculino</string>
+    <string name="radio_feminino">Feminino</string>
+    <string name="botao_atualizar">Atualizar</string>
+    <string name="botao_medidas">Medidas</string>
+    <string name="botao_status">Status</string>
+    <string name="botao_login"> Entrar</string>
+    <string name="botao_novousuario">Novo Usuario</string>
+    <string name="botao_definirobjetivo">Definir Objetivo</string>
+    <string name="botao_avatar">Avatar</string>
+    <string name="botao_grafico">Grafico</string>
+    <string name="botao_criar">Criar</string>
+    <string name="mostrar_caracter">Mostrar Senha</string>
+    <string name="botao_cadastrar_se">Cadastrar-se</string>
+    <string name="label_nome">Nome :</string>
+    <string name="label_descricao">Descricao :</string>
+
+    <!-- texto botões perfil -->
+    <!-- texto de botoes da tela principal -->
+
+    <string name="botao_exercicio">Exercicio</string>
+    <string name="botao_rotina"> Rotina</string>
+    <string name="botao_perfil">Perfil </string>
+    <string name="botao_novo">Novo </string>
+    <string name="botao_objetivo">Objetivo</string>
+    <string name="botao_evolucao">Evolução</string>
+    <string name="botao_ajuda"> Ajuda</string>
+    <string name="botao_ficha">Ficha</string>
+    <string name="botao_sobre"> Sobre</string>
+
+    <!-- texto de label -->
+
+    <string name="label_usuario">Usuario </string>
+    <string name="label_senha">Senha </string>
+    <string name="label_senhaatual">Senha Atual</string>
+    <string name="label_novasenha">Nova senha</string>
+    <string name="label_confirmarsenha">Confirmar senha </string>
+    <string name="label_diasemana">Dias da semana </string>
+    <string name="label_duracaodias">Duração(Dias) </string>
+    <!-- Ajudas -->
+
+
+    <!-- texto rotina -->
+    <string name="label_treino_dia">Treino Dia</string>
+    <string name="label_grupo_muscular">Grupo</string>
+    <string name="label_grupo_muscular_trab">Peito e Costas</string>
+    <string name="button_realizar_treino">Realizar</string>
+
+    <!-- tela ficha grupo -->
+    <string name="check_peito">Peito</string>
+    <string name="check_ombro">Ombro</string>
+    <string name="check_biceps"> Biceps</string>
+    <string name="check_abdomen">Abdomen</string>
+    <string name="check_costas">Costas</string>
+    <string name="check_triceps">Triceps</string>
+    <string name="check_perna">Perna</string>
+    <string name="check_aerobico">Aerobico</string>
+    <string name="label_treino">Treino</string>
+    <string name="button_continuar">Continuar</string>
+    
+    <!-- Fichaa -->
+    <string name="botao_adicionar">Adicionar</string>
+    <string name="botao_remover">Remover</string>
+    <string name="botao_rem">-</string>
+    <string name="botao_mudarficha">Mudar ficha atual</string>
+    <string name="label_ficha_atual"> Ficha atual </string>
+    <string name="label_nomeficha"> Nome ficha </string>
+    <!-- Exercicio Ficha -->
+    <string name="botao_ordenar"> Ordenar </string>
+    
+    <!-- Tela Passos -->
+    
+    <string name="label_passos"> Passo  </string>
+    <string name="label_descricao_passo"> Realização do exercicio, bla bla bla bla 
+        bla bla bla bal bal blan lbanba dbvjsd djbvdshdb</string>
+
+    <!-- Exercicio Realização -->
+
+	<string name="title_activity_tela_passo"> Passos </string>
+    <string name="label_exercicio"> Nome Exercicio </string>
+    <string name="label_serie"> Série </string>
+    <string name="label_numero_serie"> 0/0 </string>
+    <string name="label_repeticao"> Repetição </string>
+    <string name="label_uni_medida">Uni/Med</string>
+    <string name="label_ordem"> Ordem </string>
+    <string name="botao_fazer"> Fazer </string>
+    <string name="label_carga"> Carga </string>
+    <string name="botao_como_fazer"> Como Fazer </string>
+    <string name="botao_feito"> Feito </string>
+    <string name="label_x"> X </string>
+    <string name="label_proximo"> > </string>
+    <string name="label_anterior"> &lt; </string>
+
+    <!-- Tela Avatar -->
+
+    <string name="label_nivel_usuario"> Nivel: </string>
+    <string name="botao_peito"> Peito </string>
+    <string name="botao_quadril"> Quadril </string>
+    <string name="botao_braco"> Braço </string>
+    <string name="botao_panturrilha"> Panturilha </string>
+    <string name="botao_coxa"> Coxa </string>
+    <string name="label_mensagem"> Mensagem do dia</string>
+
+    <!-- Sobre -->
+
+    <string name="label_descricaoSobre">        Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	Versão:1.0\n \n
+     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+     	nas atividades de musculação, limitando-se 
+     	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
+     	     	
+     	     	
+     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	Versão:1.0\n \n
+     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+     	nas atividades de musculação, limitando-se 
+     	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
+     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	Versão:1.0\n \n
+     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+     	nas atividades de musculação, limitando-se 
+     	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
+     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	Versão:1.0\n \n
+     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+     	nas atividades de musculação, limitando-se 
+     	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
+     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	Versão:1.0\n \n
+     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+     	nas atividades de musculação, limitando-se 
+     	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n</string>
+    <string name="label_data1">Data 1</string>
+    <string name="label_data2">Data 2</string>
+    <string name="calendario_mes"> Mês </string>
+    <string name="label_data3">Data 3</string>
+    
+    
+    <string name="splash_carregando"> Carregando</string>
+    <string name="botao_existente">Treino existente</string>
+    <string name="botao_finalizar">Finalizar edição</string>
+    <string name="botao_novotreino">Novo treino</string>
+    <string name="botao_removertreino">Remover treino</string>
+	<string name="botao_visualizarficha">Visualizar ficha</string>
+	<string name="botao_adicionarexercicio">Adicionar exercicio</string>
+	<string name="botao_removerexercicio">Remover exercicio</string>
+	<string name="botao_sair">Sair</string>
+	<string name="botao_trocarusuario">Trocar usuario</string>
+	<string name="botao_trocarsenha">Trocar senha</string>
+	
+</resources>

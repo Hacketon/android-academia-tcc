@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="@drawable/background_splash"
     android:gravity="bottom"
     android:orientation="horizontal"
     android:padding="10dp" >
@@ -20,7 +20,7 @@
         	android:layout_weight="50"
         	android:id="@+id/textSplash"
         	style="@style/textopequeno"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/splash_carregando" />
         

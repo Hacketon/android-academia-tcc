@@ -86,6 +86,7 @@ public class GUISplash extends Activity implements Runnable {
 	 * @param context 
 	 * @return true = sucesso , false = fracasso
 	 */
+	
 	public boolean criarBanco(String nomeBanco){
 		boolean verificar; 
 		try {

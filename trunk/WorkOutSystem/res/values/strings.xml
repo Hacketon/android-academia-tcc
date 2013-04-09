@@ -161,12 +161,15 @@
 
     <!-- Sobre -->
 
-    <string name="label_descricaoSobre">        Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+    <string name="label_descricaoSobre">
+        Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n
+        		Gabriel Mattano  
+        		\n \n
      	Versão:1.0\n \n
      	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
      	nas atividades de musculação, limitando-se 
      	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
-     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n \n
+     	
      	</string>
     <string name="label_data1">Data 1</string>
     <string name="label_data2">Data 2</string>

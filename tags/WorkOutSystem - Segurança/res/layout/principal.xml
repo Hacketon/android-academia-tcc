@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:baselineAligned="true"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <ImageButton
+            android:id="@+id/btn_perfil"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_perfil"/>
+
+        <ImageButton
+            android:id="@+id/btn_exercicio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_exercicio"/>
+
+        <ImageButton
+            android:id="@+id/btn_rotina"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_rotina" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <ImageButton
+            android:id="@+id/btn_ficha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ficha" 
+            />
+
+        <ImageButton
+            android:id="@+id/btn_evolucao"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_evolucao"/>
+
+        <ImageButton
+            android:id="@+id/btn_ajuda"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ajuda" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:padding="5dp"
+        android:orientation="horizontal"
+	    android:weightSum="120" >
+
+         <ImageButton
+            android:id="@+id/btn_medidas"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:text="@string/botao_medidas"
+            android:src="@drawable/ic_medida" />
+
+        <ImageButton
+            android:id="@+id/btn_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ferramentas"/>
+        
+        <ImageButton
+            android:id="@+id/btn_sobre"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:onClick="onClick"
+            android:layout_weight="40"
+            android:src="@drawable/ic_sobre" />
+    </LinearLayout>
+
+</LinearLayout>

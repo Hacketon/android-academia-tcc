@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    >
+
+
+
+    <LinearLayout
+        style="@style/linearLayoutPadraoVertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100" >
+
+        <LinearLayout
+            style="@style/linearLayoutPadraoHorizontal"
+            android:layout_weight="5"
+            android:weightSum="100" >
+
+            <Button
+                android:id="@+id/btn_anteriormedida"
+                style="@style/textopequenopreto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:onClick="onClick"
+                android:text="@string/label_anterior" />
+
+            <TextView
+                android:id="@+id/txt_medidas"
+                style="@style/textopequeno"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:text="@string/title_activity_tela_medida" />
+
+            <Button
+                android:id="@+id/btn_proximamedida"
+                style="@style/textopequenopreto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:onClick="onClick"
+                android:text="@string/label_proximo" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/linearLayoutPadraoVertical"
+            android:layout_weight="95"
+            android:padding="15dp" >
+
+            <LinearLayout
+                style="@style/linearLayoutPadraoVertical"
+                android:layout_weight="50"
+                android:weightSum="300" >
+
+                <LinearLayout
+                    style="@style/linearLayoutPadraoHorizontal"
+                    android:layout_weight="100"
+                    android:weightSum="100" >
+
+                    <TextView
+                        android:id="@+id/txtData1"
+                        style="@style/textopequeno"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/label_data1" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarMedida1"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:max="100"
+                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linearLayoutPadraoHorizontal"
+                    android:layout_weight="100"
+                    android:weightSum="100" >
+
+                    <TextView
+                        android:id="@+id/txtData2"
+                        style="@style/textopequeno"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/label_data2" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarMedida2"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:max="100"
+                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linearLayoutPadraoHorizontal"
+                    android:layout_weight="100"
+                    android:weightSum="100" >
+
+                    <TextView
+                        android:id="@+id/txtData3"
+                        style="@style/textopequeno"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/label_data3" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarMedida3"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:max="100"
+                         />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+   
+</LinearLayout>

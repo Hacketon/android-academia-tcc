@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical">
+    
+    
+    <LinearLayout
+    	style="@style/linearLayoutPadraoVertical"
+        android:layout_weight="1"
+        >
+
+        <Spinner
+            android:id="@+id/cbx_buscaexercicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/label_grupo_muscular" />
+
+        <ListView
+            android:id="@+id/listapadrao"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
+        
+    </LinearLayout>
+    <LinearLayout
+        style="@style/linearLayoutPadraoVertical">
+        
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:text="@string/botao_cancelar"/>
+        
+    </LinearLayout>
+
+</LinearLayout>

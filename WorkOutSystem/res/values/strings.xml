@@ -20,7 +20,7 @@
     <string name="title_activity_tela_objetivo">Objetivos</string>
     <string name="title_activity_tela_evolucao">Evolução</string>
     <string name="title_activity_tela_ajuda">Ajuda</string>
-    <string name="title_activity_configuracoes">Configurações</string>
+    <string name="title_activity_configuracoes"></string>
     <string name="title_activity_tela_status">Status</string>
     <string name="botao_visualizar">Visualizar </string>
 
@@ -60,7 +60,7 @@
     <string name="radio_masculino">Masculino</string>
     <string name="radio_feminino">Feminino</string>
     <string name="botao_atualizar">Atualizar</string>
-    <string name="botao_medidas">Medidas</string>
+    <string name="botao_medidas">Medida</string>
     <string name="botao_status">Status</string>
     <string name="botao_login"> Entrar</string>
     <string name="botao_novousuario">Novo Usuario</string>
@@ -85,6 +85,7 @@
     <string name="botao_ajuda"> Ajuda</string>
     <string name="botao_ficha">Ficha</string>
     <string name="botao_sobre"> Sobre</string>
+    <string name="botao_configuracao">Conf.</string>
 
     <!-- texto de label -->
 

@@ -15,7 +15,7 @@
     <application
         android:configChanges="orientation"
         android:debuggable="true"
-        android:icon="@drawable/icone_workout"
+        android:icon="@drawable/ic_workoutsystem"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 

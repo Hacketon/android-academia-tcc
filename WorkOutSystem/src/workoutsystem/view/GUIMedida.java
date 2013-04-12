@@ -85,7 +85,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		if(perfil != null){
 			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
 			//List<Medicao> listaUltimosValores = ObterUltimosValores(lista);
-
 			carregarCampos(lista);
 			bloquearTodosCampos();
 		}else{

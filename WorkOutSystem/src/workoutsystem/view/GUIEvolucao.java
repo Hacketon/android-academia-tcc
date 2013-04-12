@@ -17,6 +17,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -34,6 +36,8 @@ public class GUIEvolucao extends Activity  {
 	private ProgressBar barra3;
 	private List<Medida> listaMedidas;
 	private List<Medicao> listaMedicoes;
+	private ImageButton btnProximo;
+	private ImageButton btnAnterior;
 	private int indice;
 
 
@@ -50,7 +54,9 @@ public class GUIEvolucao extends Activity  {
 		barra1 = (ProgressBar) findViewById(R.id.progressBarMedida1);
 		barra2 = (ProgressBar) findViewById(R.id.progressBarMedida2);
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
-
+		btnAnterior = (ImageButton) findViewById(R.id.btn_proximamedida);
+		btnProximo = (ImageButton) findViewById(R.id.btn_anteriormedida);
+		
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
 		listaMedicoes = new ArrayList<Medicao>();
@@ -61,22 +67,24 @@ public class GUIEvolucao extends Activity  {
 	private void inicializarEvolucao() {
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerfil = new ControlePerfil();
-
+	
 		listaMedidas = controleMed.buscarMedidas();
 		Perfil perfil = controlePerfil.buscarPerfil();
 		if(perfil == null ){
-			Toast.makeText(this,"Primeiro crie o seu perfil !",
+			Toast.makeText(this,"Primeiro crie o seu perfil e adicione medições!",
 					Toast.LENGTH_SHORT).show();
-
-		}else{
-
-			if(!controleMed.verificarMedicao(perfil.getCodigo())){
-				Toast.makeText(this,"Seu perfil não possui Medições !",
+			finish();
+		}else if(!controleMed.verificarMedicao(perfil.getCodigo())){
+				Toast.makeText(this,"Seu perfil não possui medições!",
 						Toast.LENGTH_LONG).show();
-			}
+				finish();
+					
+		}else{
 			exibirAnterior();
 		}
 	}
+
+	
 
 	public void onClick(View e) {
 		switch (e.getId()) {

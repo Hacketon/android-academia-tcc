@@ -30,11 +30,6 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		grid.setOnItemClickListener(this);
 	}
 
-
-
-
-
-
 	private List<Integer> listarTexto() {
 		List<Integer> lista = new ArrayList<Integer>();
 		
@@ -51,11 +46,6 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		return lista;
 	}
 
-
-
-
-
-
 	private List<Integer> listarImagem() {
 		
 		List<Integer> lista = new ArrayList<Integer>();
@@ -71,12 +61,6 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		
 		return lista;
 	}
-
-
-
-
-
-
 
 
 

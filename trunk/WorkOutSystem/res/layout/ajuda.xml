@@ -3,10 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
-    android:orientation="vertical" 
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical" >
 
-    
+    <GridView
+        android:id="@+id/grid_ajuda"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    </GridView>
+
+</LinearLayout><!--
     <LinearLayout 
         style="@style/linearLayoutPadraoVertical">
     <LinearLayout
@@ -83,5 +94,5 @@
             android:visibility="invisible" />
     </LinearLayout>
 
-    </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+-->

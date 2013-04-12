@@ -32,7 +32,7 @@ public class GUISplash extends Activity implements Runnable {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
 									, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.splash);
-		sleepTime = 2;
+		sleepTime = 1;
 		barraSplash =(ProgressBar) findViewById(R.id.progressSplash);
 		txtSplash = (TextView ) findViewById(R.id.textSplash);
 		t = new Thread(this);
@@ -44,17 +44,14 @@ public class GUISplash extends Activity implements Runnable {
 		int time = 0;
 		ResourceManager res = new ResourceManager();
 		String nomeBanco = "academiabanco.db";
-		String texto = txtSplash.getText().toString() + " : ";
-		
-		if (verificarBanco(nomeBanco)){
-			texto +=  "verificando base de dados ";
-		 }else{
+				
+		if (!verificarBanco(nomeBanco)){
 			criarBanco(nomeBanco);
 			sleepTime = sleepTime * 2;
-			texto += "criar base de dados";
 		}
-		txtSplash.setText(texto);
+		
 		res.setFileName(getDatabaseName(nomeBanco));
+		
 		try {
 			while(time <70){
 				t.sleep(sleepTime*33);

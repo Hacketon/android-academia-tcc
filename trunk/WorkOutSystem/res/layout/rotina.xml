@@ -73,14 +73,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:text="@string/label_treino_dia" />
-                        
+
                         <TextView
                             android:id="@+id/treino_dia"
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:layout_weight="50" />
+                            android:layout_weight="50"
+                            android:gravity="left" />
                     </LinearLayout>
                     <!-- Layout Grupo Muscular -->
 
@@ -138,14 +138,14 @@
                         android:gravity="center"
                         android:weightSum="100" >
 
-                        <Button
+                        <ImageButton
                             android:id="@+id/btn_anteriormes"
-                            style="@style/textopequenopreto"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="40"
+                            android:background="@android:color/transparent"
                             android:onClick="onClick"
-                            android:text="@string/label_anterior" />
+                            android:src="@drawable/ic_setaesquerda" />
 
                         <TextView
                             android:id="@+id/txt_mes"
@@ -156,14 +156,14 @@
                             android:gravity="center"
                             android:text="@string/calendario_mes" />
 
-                        <Button
+                        <ImageButton
                             android:id="@+id/btn_proximomes"
-                            style="@style/textopequenopreto"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="40"
+                            android:background="@android:color/transparent"
                             android:onClick="onClick"
-                            android:text="@string/label_proximo" />
+                            android:src="@drawable/ic_setadireita" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -182,7 +182,6 @@
                             android:numColumns="7"
                             android:stretchMode="columnWidth"
                             android:verticalSpacing="5dp" >
-                            
                         </GridView>
                     </LinearLayout>
                 </LinearLayout>

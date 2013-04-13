@@ -85,7 +85,7 @@
     <string name="botao_ajuda"> Ajuda</string>
     <string name="botao_ficha">Ficha</string>
     <string name="botao_sobre"> Sobre</string>
-    <string name="botao_configuracao">Conf.</string>
+    <string name="botao_configuracao">Config.</string>
 
     <!-- texto de label -->
 
@@ -158,18 +158,21 @@
     <string name="botao_braco"> Braço </string>
     <string name="botao_panturrilha"> Panturilha </string>
     <string name="botao_coxa"> Coxa </string>
-    <string name="label_mensagem"> Mensagem do dia</string>
+    
 
     <!-- Sobre -->
 
     <string name="label_descricaoSobre">
-        Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n
-        		Gabriel Mattano  
-        		\n \n
-     	Versão:1.0\n \n
+       	
      	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
      	nas atividades de musculação, limitando-se 
      	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
+     	
+     	Versão:1.0\n \n
+     	
+     	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n
+        		Gabriel Mattano Pezzo  
+        		\n \n
      	
      	</string>
     <string name="label_data1">Data 1</string>

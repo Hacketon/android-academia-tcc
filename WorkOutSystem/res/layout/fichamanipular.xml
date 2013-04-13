@@ -56,14 +56,25 @@
                     <EditText
                         android:id="@+id/edt_duracaodias"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" 
+                        android:layout_height="wrap_content"
                         android:maxLines="1"/>
+                    
+                    <TextView
+                        style="@style/textopequeno"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/botao_objetivo"/>
+                    <Spinner
+                        android:id="@+id/cbx_fichaobjetivo" 
+						android:layout_width="fill_parent"	                        
+						android:layout_height="wrap_content"
+						android:prompt="@string/botao_objetivo"/>
 
                     <TextView
                         style="@style/textopequeno"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_activity_tela_objetivo" />
+                        android:text="@string/label_descricao" />
 
                     <EditText
                         android:id="@+id/edt_objetivoFicha"

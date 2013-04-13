@@ -70,7 +70,7 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		String comando = (String) textView.getText();
 		String tela = "";
 		
-		if (comando.equalsIgnoreCase("conf.")){
+		if (comando.equalsIgnoreCase("config.")){
 			tela = "workoutsystem.view.STATUS";
 		}else if (comando.equalsIgnoreCase("ajuda")) {
 			tela = "workoutsystem.view.AJUDA";

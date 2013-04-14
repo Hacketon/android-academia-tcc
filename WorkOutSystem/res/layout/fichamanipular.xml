@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
     android:orientation="vertical" >
-
+	
+    <ScrollView
+        style="@style/linearLayoutPadraoVertical"
+        >
     <TabHost
         android:id="@+id/hostfichatreino"
         android:layout_width="match_parent"
@@ -105,5 +108,5 @@
             </FrameLayout>
         </LinearLayout>
     </TabHost>
-
+</ScrollView>
 </LinearLayout>

@@ -6,78 +6,86 @@
     android:orientation="vertical"
     android:padding="5dp" >
 
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/textopequeno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_nome" />
+    <ScrollView
+        style="@style/linearLayoutPadraoVertical"
+        >
 
-    <EditText
-        android:id="@+id/edt_nomeExercicio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1" />
+        <LinearLayout style="@style/linearLayoutPadraoVertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/textopequeno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_grupo_muscular" />
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/textopequeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_nome" />
 
-    <Spinner
-        android:id="@+id/cbx_grupo"
-        style="@style/AppTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edt_nomeExercicio"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
 
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/textopequeno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_descricao" />
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/textopequeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_grupo_muscular" />
 
-    <EditText
-        android:id="@+id/edt_descricaoExercicio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:inputType="textMultiLine"
-        android:maxLength="100" />
-    <TextView
-        android:id="@+id/codigo_exercicio"
-        style="@style/textopequeno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:text="@string/label_descricao" />
+            <Spinner
+                android:id="@+id/cbx_grupo"
+                style="@style/AppTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    
-    <LinearLayout
-        style="@style/linearLayoutPadraoHorizontal"
-        android:weightSum="100" >
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/textopequeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_descricao" />
 
-        <Button
-            android:id="@+id/btn_criar"
-            style="@style/textopequenopreto"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="50"
-            android:onClick="onClick"
-            android:text="@string/botao_salvar" />
+            <EditText
+                android:id="@+id/edt_descricaoExercicio"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textMultiLine"
+                android:maxLength="100" />
 
-        <Button
-            android:id="@+id/btn_voltar"
-            android:layout_weight="50"
-            style="@style/textopequenopreto"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="onClick"
-            android:text="@string/botao_cancelar" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/codigo_exercicio"
+                style="@style/textopequeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_descricao"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                style="@style/linearLayoutPadraoHorizontal"
+                android:weightSum="100" >
+
+                <Button
+                    android:id="@+id/btn_criar"
+                    style="@style/textopequenopreto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="50"
+                    android:onClick="onClick"
+                    android:text="@string/botao_salvar" />
+
+                <Button
+                    android:id="@+id/btn_voltar"
+                    style="@style/textopequenopreto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="50"
+                    android:onClick="onClick"
+                    android:text="@string/botao_cancelar" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

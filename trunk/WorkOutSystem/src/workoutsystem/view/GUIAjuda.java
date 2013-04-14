@@ -46,7 +46,7 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		lista.add(R.string.botao_ficha);
 		lista.add(R.string.botao_evolucao);
 		lista.add(R.string.botao_medidas);
-		lista.add(R.string.botao_configuracao);
+		lista.add(R.string.botao_status);
 
 
 		return lista;
@@ -63,7 +63,7 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		lista.add(R.drawable.ic_ficha);
 		lista.add(R.drawable.ic_evolucao);
 		lista.add(R.drawable.ic_medida);
-		lista.add(R.drawable.ic_configuracao);
+		lista.add(R.drawable.ic_status);
 
 
 		return lista;

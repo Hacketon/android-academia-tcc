@@ -39,8 +39,8 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		lista.add(R.string.botao_ficha);
 		lista.add(R.string.botao_evolucao);
 		lista.add(R.string.botao_medidas);
+		lista.add(R.string.botao_status);
 		lista.add(R.string.botao_ajuda);
-		lista.add(R.string.botao_configuracao);
 		lista.add(R.string.botao_sobre);
 		
 		return lista;
@@ -55,8 +55,8 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		lista.add(R.drawable.ic_ficha);
 		lista.add(R.drawable.ic_evolucao);
 		lista.add(R.drawable.ic_medida);
+		lista.add(R.drawable.ic_status);
 		lista.add(R.drawable.ic_ajuda);
-		lista.add(R.drawable.ic_configuracao);
 		lista.add(R.drawable.ic_sobre);
 		
 		return lista;
@@ -70,7 +70,7 @@ public class GUIPrincipal extends Activity implements AdapterView.OnItemClickLis
 		String comando = (String) textView.getText();
 		String tela = "";
 		
-		if (comando.equalsIgnoreCase("config.")){
+		if (comando.equalsIgnoreCase("status")){
 			tela = "workoutsystem.view.STATUS";
 		}else if (comando.equalsIgnoreCase("ajuda")) {
 			tela = "workoutsystem.view.AJUDA";

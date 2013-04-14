@@ -2,9 +2,7 @@ package workoutsystem.view;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import workoutsystem.control.ControleMedida;
@@ -12,18 +10,13 @@ import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TabHost;
-import android.widget.Toast;
-import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GUIEvolucao extends Activity  {
 
@@ -56,7 +49,7 @@ public class GUIEvolucao extends Activity  {
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
 		btnAnterior = (ImageButton) findViewById(R.id.btn_proximamedida);
 		btnProximo = (ImageButton) findViewById(R.id.btn_anteriormedida);
-		
+
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
 		listaMedicoes = new ArrayList<Medicao>();
@@ -67,7 +60,7 @@ public class GUIEvolucao extends Activity  {
 	private void inicializarEvolucao() {
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerfil = new ControlePerfil();
-	
+
 		listaMedidas = controleMed.buscarMedidas();
 		Perfil perfil = controlePerfil.buscarPerfil();
 		if(perfil == null ){
@@ -75,16 +68,16 @@ public class GUIEvolucao extends Activity  {
 					Toast.LENGTH_SHORT).show();
 			finish();
 		}else if(!controleMed.verificarMedicao(perfil.getCodigo())){
-				Toast.makeText(this,"Seu perfil não possui medições!",
-						Toast.LENGTH_LONG).show();
-				finish();
-					
+			Toast.makeText(this,"Seu perfil não possui medições!",
+					Toast.LENGTH_LONG).show();
+			finish();
+
 		}else{
 			exibirAnterior();
 		}
 	}
 
-	
+
 
 	public void onClick(View e) {
 		switch (e.getId()) {
@@ -176,16 +169,16 @@ public class GUIEvolucao extends Activity  {
 			if (naux == 2){
 				if (medida.getMedicao().get(contador).getValor()== medida.getMedicao().get(contador+1).getValor()){
 					medio = maior;
-					} 
-				}else if (naux== 3){
-					if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
-						medio = menor;
-					}
-					if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
-							medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
-						menor = medio;
-						maior = medio;
-					}
+				} 
+			}else if (naux== 3){
+				if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
+					medio = menor;
+				}
+				if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
+						medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
+					menor = medio;
+					maior = medio;
+				}
 
 			}
 			naux++;
@@ -214,5 +207,6 @@ public class GUIEvolucao extends Activity  {
 	}
 
 }
+
 
 

@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import workoutsystem.control.ControleFicha;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 import workoutsystem.utilitaria.AdaptadorCalendario;
 import android.app.Activity;
 import android.content.Intent;
@@ -82,8 +82,8 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 //	public void criarCombo(){
 //		List<String> dias = new ArrayList<String>();
-//		List<DiaSemana> listaDias = new ControleFicha().listarDias();
-//		for (DiaSemana d : listaDias){
+//		List<Frequencia> listaDias = new ControleFicha().listarDias();
+//		for (Frequencia d : listaDias){
 //			dias.add(d.getDiaSemana());
 //		}
 //		ArrayAdapter<String> adapter = new 

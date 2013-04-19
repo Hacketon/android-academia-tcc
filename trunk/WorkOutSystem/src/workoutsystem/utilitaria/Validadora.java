@@ -1,4 +1,4 @@
-package workoutsystem.control;
+package workoutsystem.utilitaria;
 
 import java.util.List;
 import java.util.Set;

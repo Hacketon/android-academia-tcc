@@ -1,6 +1,6 @@
 package workoutsystem.model;
 
-public class DiaSemana {
+public class Frequencia {
 	
 	private int codigo;
 	private String diaSemana;

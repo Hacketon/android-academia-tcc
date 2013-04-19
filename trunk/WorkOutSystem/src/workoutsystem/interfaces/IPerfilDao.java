@@ -2,7 +2,7 @@ package workoutsystem.interfaces;
 
 import java.util.List;
 
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 
@@ -45,7 +45,7 @@ public interface IPerfilDao {
 	 * @param perfil
 	 * @return Lista de Dias da Semana
 	 */
-	public abstract List<DiaSemana> buscarFrequencia(Perfil perfil);
+	public abstract List<Frequencia> buscarFrequencia(Perfil perfil);
 		
 	/**
 	 * Metodo responsavel pela exclusão das frequencias

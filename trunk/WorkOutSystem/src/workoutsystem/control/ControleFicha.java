@@ -3,11 +3,11 @@ package workoutsystem.control;
 import java.util.List;
 
 import workoutsystem.dao.FichaDao;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 
 public class ControleFicha {
 
-	public List<DiaSemana> listarDias() {
+	public List<Frequencia> listarDias() {
 		return new FichaDao().listarDias();
 	}
 

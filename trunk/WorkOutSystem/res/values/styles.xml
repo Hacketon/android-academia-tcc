@@ -52,7 +52,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
-    <!-- teste progress Bar -->
+    <!-- workoutsystem.teste progress Bar -->
     
     <style name="Bar">
         <item name="android:progress">100</item>

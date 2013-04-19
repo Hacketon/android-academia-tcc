@@ -7,7 +7,7 @@ import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.PerfilDao;
 import workoutsystem.interfaces.IDiaSemana;
 import workoutsystem.interfaces.IPerfilDao;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 
@@ -73,8 +73,8 @@ public class ControlePerfil {
 
 
 
-	public List<DiaSemana> buscarFrequencia(Perfil perfil){
-		List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
+	public List<Frequencia> buscarFrequencia(Perfil perfil){
+		List<Frequencia> dias = new ArrayList<Frequencia>(); 
 		IPerfilDao dao = new PerfilDao();
 
 		if(dao.buscarFrequencia(perfil)!= null){

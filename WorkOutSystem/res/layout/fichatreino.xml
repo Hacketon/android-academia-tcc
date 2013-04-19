@@ -5,41 +5,92 @@
     android:background="@drawable/background_padrao"
     android:orientation="vertical" >
 
-    <!-- Ficha treinos -->
-
-    <LinearLayout
-        android:id="@+id/tabfichastreino"
+    <TabHost
+        android:id="@+id/host_treino"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp" >
+        android:layout_height="match_parent" >
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="@string/label_treino" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/ed_sequencia"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"/>
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:text="@string/title_activity_tela_exercicio" />
-        <ListView
-            android:id="@+id/listaexercicios"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:divider="@android:color/white" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-    </LinearLayout>
+                <!-- Tab treino -->
+
+                <LinearLayout
+                    android:id="@+id/tab_treino"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout style="@style/linearLayoutPadraoVertical" >
+
+                        <TextView
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_treino" />
+
+                        <EditText
+                            android:id="@+id/edt_nomeTreinoo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                        <Spinner
+                            android:id="@+id/cbx_buscaexercicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/label_grupo_muscular" />
+
+                        <ListView
+                            android:id="@+id/list_busca"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:divider="@android:color/transparent" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Tab exercicio/treino -->
+                <LinearLayout
+                    android:id="@+id/tab_exercicio_treino"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <ListView
+                        android:id="@+id/list_exercicio"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:divider="@android:color/transparent" />
+                </LinearLayout>
+
+                <!--  -->
+                <LinearLayout
+                    android:id="@+id/tab_especificacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <ListView
+                        android:id="@+id/list_especificacao"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:divider="@android:color/transparent" />
+                    
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 </LinearLayout>

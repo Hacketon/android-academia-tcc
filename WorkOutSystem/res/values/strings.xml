@@ -23,6 +23,7 @@
     <string name="title_activity_configuracoes"></string>
     <string name="title_activity_tela_status">Status</string>
     <string name="botao_visualizar">Visualizar </string>
+    <string name="label_unidade">Unidade </string>
 
     <!-- texto medidas ! -->
 
@@ -93,7 +94,7 @@
     <string name="label_senha">Senha </string>
     <string name="label_senhaatual">Senha Atual</string>
     <string name="label_novasenha">Nova senha</string>
-    <string name="label_confirmarsenha">Confirmar senha </string>
+    <string name="botao_confirmar">Confirmar</string>
     <string name="label_diasemana">Dias da semana </string>
     <string name="label_duracaodias">Duração(Dias) </string>
     <!-- Ajudas -->

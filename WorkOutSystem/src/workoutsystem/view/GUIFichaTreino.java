@@ -11,23 +11,42 @@ import android.widget.TabHost.TabSpec;
 
 public class GUIFichaTreino extends Activity{
 
-
+	private TabHost host;
+	private TabSpec tabEspecificacao;
+	private TabSpec  tabExercicio;
+	private TabSpec tabTreino;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fichatreino);
+		createTabs();
+	}
+
+	private void createTabs() {
+		host = (TabHost) findViewById(R.id.host_treino);
+		host.setup();
+		
+		tabTreino = host.newTabSpec("tab_treino");
+		tabTreino.setContent(R.id.tab_treino);
+		tabTreino.setIndicator("Treino");
+		host.addTab(tabTreino);
+		
+		
+		tabExercicio = host.newTabSpec("tab_exercicio_treino");
+		tabExercicio.setContent(R.id.tab_exercicio_treino);
+		tabExercicio.setIndicator("Exercicios");
+		host.addTab(tabExercicio);
+		
+		tabEspecificacao = host.newTabSpec("tab_especificacao");
+		tabEspecificacao.setContent(R.id.tab_especificacao);
+		tabEspecificacao.setIndicator("Especificação");
+		host.addTab(tabEspecificacao);
+		
+		
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_treino_ficha, menu);
-		return true;
-	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		

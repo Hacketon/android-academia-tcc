@@ -3,6 +3,9 @@ package workoutsystem.model;
 import java.io.Serializable;
 import java.util.List;
 
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,8 +13,11 @@ import android.os.Parcelable;
 public class Exercicio implements Serializable {
 	
 	private long codigo;
+	@NotEmpty(message="Nome obrigatorio")
+	@Length(max=20,message="Nome deve ser menor que ou igual a 20 caracteres")
 	private String nome;
 	private GrupoMuscular grupo;
+	@Length(max=20,message="Descricao deve ser menor que ou igual a 20 caracteres")
 	private String descricao;
 	private int ativo;
 	private int personalizado;

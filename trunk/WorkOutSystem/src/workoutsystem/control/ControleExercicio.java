@@ -22,25 +22,30 @@ public class ControleExercicio {
 	public String manipularExercicio(Exercicio exercicio) throws SQLException{
 		String mensagem = "Não foi possivel realizar a operação";
 		IExercicioDao dao = new ExercicioDao();
-
+		Validadora<Exercicio> v = new Validadora<Exercicio>(exercicio);
 		if (exercicio!= null){
-			GrupoMuscular grupo = exercicio.getGrupoMuscular();
-			grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
+			if(v.validarObjeto()){
+				GrupoMuscular grupo = exercicio.getGrupoMuscular();
+				grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
 
-			if (!dao.buscarExercicio(exercicio.getCodigo())){
-				if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
-					if(dao.adicionarExercicio(exercicio)){
-						mensagem = "Exercicio criado com sucesso !";
-					}
-				}else if (dao.reativarExercicio(exercicio.getNomeExercicio(),0)){
+				if (!dao.buscarExercicio(exercicio.getCodigo())){
+					if (dao.buscarExercicio(exercicio.getNomeExercicio()) == null){
+						if(dao.adicionarExercicio(exercicio)){
+							mensagem = "Exercicio criado com sucesso !";
+						}
+					}else if (dao.reativarExercicio(exercicio.getNomeExercicio(),0)){
 						mensagem = "Exercicio reativado com sucesso !";
-				}
-			}else{
-				if (!dao.buscarExercicio(exercicio.getNomeExercicio(),exercicio.getCodigo())){
-					if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
-						mensagem = "Exercicio atualizado com sucesso";
+					}
+				}else{
+					if (!dao.buscarExercicio(exercicio.getNomeExercicio(),exercicio.getCodigo())){
+						if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
+							mensagem = "Exercicio atualizado com sucesso";
+						}
 					}
 				}
+
+			}else{
+				mensagem = v.getMessage();
 			}
 		}
 
@@ -57,9 +62,9 @@ public class ControleExercicio {
 			String nome = e; 
 			Exercicio exercicio = dao.buscarExercicio(nome);
 			resultado = dao.excluirExercicio(exercicio.getCodigo());
-			
+
 		}
-		
+
 
 		return resultado;
 	}

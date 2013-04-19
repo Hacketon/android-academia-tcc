@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <TextView
+        style="@style/textopequeno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_activity_tela_ficha" />
+
+    <EditText
+        android:id="@+id/edt_ficha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:maxLines="1"/>
+
+    <TextView
+        style="@style/textopequeno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_duracaodias" />
+
+    <EditText
+        android:id="@+id/edt_duracaodias"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:maxLines="1"/>
+
+    <TextView
+        style="@style/textopequeno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_activity_tela_objetivo" />
+
+    <EditText
+        android:id="@+id/edt_objetivo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="textMultiLine" 
+        android:maxLength="100"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2" >
+
+        <Button
+            android:id="@+id/btn_criar_ficha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="0"
+            style="@style/textopequenopreto"
+            android:text="@string/botao_criar" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,7 +5,7 @@ import java.util.List;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 import android.app.Activity;
 import android.os.Bundle;
@@ -159,52 +159,52 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	}
 	public Perfil carregarFrequencia(Perfil perfil){
 		ControlePerfil controlePerf = new ControlePerfil();
-		List<DiaSemana> listaDias = new ArrayList<DiaSemana>();
+		List<Frequencia> listaDias = new ArrayList<Frequencia>();
 
 		if(frequenciaDomingo.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Domingo");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaSegunda.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Segunda");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaTerca.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Terça");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaQuarta.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Quarta");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaQuinta.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Quinta");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaSexta.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Sexta");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
 
 		}
 		if(frequenciaSabado.isChecked()== true ){
-			DiaSemana dia = new DiaSemana();
+			Frequencia dia = new Frequencia();
 			dia.setDiaSemana("Sabado");
 			dia.setCodigo(controlePerf.codigoFrequencia(dia.getDiaSemana()));
 			listaDias.add(dia);
@@ -255,10 +255,10 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 		if (perfil != null){
 			perfil.setFrequencia(controlePerfil.buscarFrequencia(perfil));
 
-			DiaSemana diaPadrao = new DiaSemana();
+			Frequencia diaPadrao = new Frequencia();
 
 
-			for(DiaSemana d: perfil.getFrequencia()){
+			for(Frequencia d: perfil.getFrequencia()){
 
 				diaPadrao.setDiaSemana("Domingo");
 				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));

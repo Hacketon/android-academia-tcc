@@ -7,7 +7,7 @@ public class Perfil {
 	private int codigo;
 	private String nome;
 	private boolean sexo;
-	private List<DiaSemana> frequencia;
+	private List<Frequencia> frequencia;
 	
 	public int getCodigo() {
 		return codigo;
@@ -27,10 +27,10 @@ public class Perfil {
 	public void setSexo(boolean sexo) {
 		this.sexo = sexo;
 	}
-	public void setFrequencia(List<DiaSemana> frequencia) {
+	public void setFrequencia(List<Frequencia> frequencia) {
 		this.frequencia = frequencia;
 	}
-	public List<DiaSemana> getFrequencia() {
+	public List<Frequencia> getFrequencia() {
 		return frequencia;
 	}
 	

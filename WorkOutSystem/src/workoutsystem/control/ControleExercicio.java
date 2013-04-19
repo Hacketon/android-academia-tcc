@@ -14,6 +14,7 @@ import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;
 import workoutsystem.model.Treino;
+import workoutsystem.utilitaria.Validadora;
 
 public class ControleExercicio {
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.interfaces.IPerfilDao;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 import workoutsystem.model.Usuario;
 
@@ -139,7 +139,7 @@ public class PerfilDao implements IPerfilDao{
 			prepare.executeUpdate();
 
 
-			for (DiaSemana d: perfil.getFrequencia()){
+			for (Frequencia d: perfil.getFrequencia()){
 
 				sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
 				prepare = con.prepareStatement(sql);
@@ -180,8 +180,8 @@ public class PerfilDao implements IPerfilDao{
 
 
 	@Override
-	public List<DiaSemana> buscarFrequencia(Perfil perfil) {
-		List<DiaSemana> dias = new ArrayList<DiaSemana>(); 
+	public List<Frequencia> buscarFrequencia(Perfil perfil) {
+		List<Frequencia> dias = new ArrayList<Frequencia>(); 
 
 
 		try{
@@ -191,7 +191,7 @@ public class PerfilDao implements IPerfilDao{
 			prepared.setInt(1, perfil.getCodigo());
 			ResultSet result = prepared.executeQuery();
 			while (result.next()){
-				DiaSemana dia = new DiaSemana();
+				Frequencia dia = new Frequencia();
 				dia.setCodigo(result.getInt(1));
 				perfil.setCodigo(result.getInt(2));
 				dias.add(dia);

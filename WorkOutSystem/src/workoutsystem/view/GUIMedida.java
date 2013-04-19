@@ -645,7 +645,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mAltura.setDataMedicao(m.getDataMedicao());
 				mAltura.setCodigoMedida(m.getCodigoMedida());
 				
-				//teste para pegar só o ultimo valor
+				//workoutsystem.teste para pegar só o ultimo valor
 				bAltura = true;
 			}
 			}
@@ -658,7 +658,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mPeso.setCodigo(m.getCodigo());
 				mPeso.setDataMedicao(m.getDataMedicao());
 				mPeso.setCodigoMedida(m.getCodigoMedida());
-			//teste
+			//workoutsystem.teste
 				bPeso = true;
 				
 			}
@@ -671,7 +671,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mCintura.setCodigo(m.getCodigo());
 				mCintura.setDataMedicao(m.getDataMedicao());
 				mCintura.setCodigoMedida(m.getCodigoMedida());
-				//teste
+				//workoutsystem.teste
 				bCintura = true;
 			}
 			}
@@ -698,7 +698,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mPeito.setDataMedicao(m.getDataMedicao());
 				mPeito.setCodigoMedida(m.getCodigoMedida());
 			
-				//teste
+				//workoutsystem.teste
 				bPeito = true;
 			}
 			}
@@ -711,7 +711,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mBracoD.setDataMedicao(m.getDataMedicao());
 				mBracoD.setCodigoMedida(m.getCodigoMedida());
 			
-				//teste
+				//workoutsystem.teste
 				bBracoD = true;
 			}}
 			//Braço Esquerdo
@@ -723,7 +723,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mBracoE.setDataMedicao(m.getDataMedicao());
 				mBracoE.setCodigoMedida(m.getCodigoMedida());
 			
-				//teste
+				//workoutsystem.teste
 				bBracoE= true;
 			}
 			}
@@ -735,7 +735,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mCoxaD.setCodigo(m.getCodigo());
 				mCoxaD.setDataMedicao(m.getDataMedicao());
 				mCoxaD.setCodigoMedida(m.getCodigoMedida());
-				//teste
+				//workoutsystem.teste
 				bCoxaD = true;
 			}
 			}
@@ -748,7 +748,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mCoxaE.setDataMedicao(m.getDataMedicao());
 				mCoxaE.setCodigoMedida(m.getCodigoMedida());
 			
-			//teste
+			//workoutsystem.teste
 				bCoxaE = true;
 			}}
 			
@@ -760,7 +760,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mPantuD.setDataMedicao(m.getDataMedicao());
 				mPantuD.setCodigoMedida(m.getCodigoMedida());
 			
-				//teste
+				//workoutsystem.teste
 				bPantuD = true;
 			}}
 			
@@ -771,7 +771,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 				mPantuE.setCodigo(m.getCodigo());
 				mPantuE.setDataMedicao(m.getDataMedicao());
 				mPantuE.setCodigoMedida(m.getCodigoMedida());
-				//teste
+				//workoutsystem.teste
 				bPantuE = true;
 			}}
 

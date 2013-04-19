@@ -8,21 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.interfaces.IDiaSemana;
-import workoutsystem.model.DiaSemana;
+import workoutsystem.model.Frequencia;
 
 public class FichaDao implements IDiaSemana{
 
 	@Override
-    public List<DiaSemana> listarDias() {
-		List<DiaSemana> listaDias = null;
+    public List<Frequencia> listarDias() {
+		List<Frequencia> listaDias = null;
 		try{
 			Connection con = ResourceManager.conexao();
 			String sql = "select codigo,diasemana from diasemana";
 			PreparedStatement prepare = con.prepareStatement(sql);
-			listaDias = new ArrayList<DiaSemana>();
+			listaDias = new ArrayList<Frequencia>();
 			ResultSet result = prepare.executeQuery();
 			while (result.next()){
-				DiaSemana dia = new DiaSemana();
+				Frequencia dia = new Frequencia();
 				dia.setCodigo(result.getInt(1));
 				dia.setDiaSemana(result.getString(2));
 				listaDias.add(dia);

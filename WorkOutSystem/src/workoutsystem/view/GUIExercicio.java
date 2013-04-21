@@ -155,7 +155,7 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 
 		ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
 		controle.listarExercicios(e.getGrupoMuscular().getNome(), 
-				e.getPersonalizado());
+				e.getPadrao());
 		atualizarCombo(e,cbxExercicioCriado);
 		createListView(exercicios, listacriado);
 		dialog.dismiss();

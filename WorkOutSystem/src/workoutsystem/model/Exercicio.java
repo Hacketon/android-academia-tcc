@@ -20,12 +20,12 @@ public class Exercicio implements Serializable {
 	@Length(max=20,message="Descricao deve ser menor que ou igual a 20 caracteres")
 	private String descricao;
 	private int ativo;
-	private int personalizado;
+	private int padrao;
 	private List<Passo> listaPassos;
 	
 	public Exercicio(){
 		descricao = "";
-		personalizado = 1;
+		padrao = 1;
 		ativo = 1;
 	}
 	
@@ -34,7 +34,7 @@ public class Exercicio implements Serializable {
 		
 		return String.format("codigo : %s \n , nome : %s \n " +
 				", descricao: %s \n , persolanizado: %s \n",
-				codigo  , nome, descricao,personalizado);
+				codigo  , nome, descricao,padrao);
 	
 	}
 
@@ -58,8 +58,8 @@ public class Exercicio implements Serializable {
 	}
 	
 		
-	public int getPersonalizado() {
-		return personalizado;
+	public int getPadrao() {
+		return padrao;
 	}
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
@@ -73,8 +73,8 @@ public class Exercicio implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public void setPersonalizado(int personalizado) {
-		this.personalizado = personalizado;
+	public void setPadrao(int padrao) {
+		this.padrao = padrao;
 	}
 
 	public void setListaPassos(List<Passo> listaPassos) {

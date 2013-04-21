@@ -30,7 +30,8 @@
             android:id="@+id/edt_series"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="30" />
+            android:layout_weight="30" 
+            android:inputType="number"/>
 
         <TextView
             style="@style/textopequeno"

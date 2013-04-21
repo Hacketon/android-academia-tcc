@@ -34,13 +34,15 @@ public class GUIFicha extends Activity {
 		switch (item.getItemId()) {
 		case R.id.adicionar_ficha:
 			startActivity(new Intent("workoutsystem.view.FICHAMANIPULAR"));
-			break;
+		break;
 
 		case R.id.remover_ficha:
 
-			break;
+		break;
+		
 		case R.id.mudar_ficha:
-			break;
+			
+		break;
 		}
 		
 		return false;

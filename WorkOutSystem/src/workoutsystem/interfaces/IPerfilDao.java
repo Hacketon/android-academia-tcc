@@ -4,7 +4,6 @@ import java.util.List;
 
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
-import workoutsystem.model.Usuario;
 
 public interface IPerfilDao {
 	/**
@@ -53,12 +52,7 @@ public interface IPerfilDao {
 	 * @return
 	 */
 	public abstract boolean excluirFrequencia(Perfil perfil);
-	/**
-	 * Metodo que buscara o codigo do perfil apartir do usuario
-	 * @param u
-	 * @return
-	 */
-	public abstract int codigoPerfil(Usuario u);
+	
 	/**
 	 * Metodos que buscará a quantida de dias selecionados
 	 */

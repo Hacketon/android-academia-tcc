@@ -10,7 +10,11 @@
         style="@style/linearLayoutPadraoVertical"
         >
 
-        <LinearLayout style="@style/linearLayoutPadraoVertical" >
+        <LinearLayout 
+            style="@style/linearLayoutPadraoVertical"
+            android:layout_gravity="left"
+            android:gravity="left" 
+            >
 
             <TextView
                 android:id="@+id/textView1"
@@ -63,14 +67,16 @@
 
             <LinearLayout
                 style="@style/linearLayoutPadraoHorizontal"
-                android:weightSum="100" >
+                android:weightSum="100"
+                android:layout_gravity="left"
+                android:gravity="left" >
 
                 <Button
                     android:id="@+id/btn_criar"
                     style="@style/textopequenopreto"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    
                     android:layout_weight="50"
                     android:onClick="onClick"
                     android:text="@string/botao_salvar" />

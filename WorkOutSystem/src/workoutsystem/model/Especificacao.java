@@ -45,5 +45,8 @@ public class Especificacao {
 	public int getCodigoTreino() {
 		return codigoTreino;
 	}
+	public int getQuantidade() {
+		return quantidade;
+	}
 
 }

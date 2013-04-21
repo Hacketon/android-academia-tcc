@@ -10,6 +10,7 @@ import java.util.List;
 import workoutsystem.interfaces.IDiaSemana;
 import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.model.Especificacao;
+import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Treino;
@@ -119,20 +120,20 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			int codigoExercicio,int codigoFicha) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		
+
 		String sql = "select [exercicio_codigo],[treino_codigo],[especificacao_ordem]," +
 		" [especificacao_repeticao],[especificacao_carga], " +
 		" [especificacao_unidade] from [especificacao_exercicio_treino] " +
 		" where [exercicio_codigo] = ? and [treino_codigo] = 1 and [ficha_codigo] = 1 " +
 		" order by [especificacao_ordem] asc";
-		
+
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++, codigoTreino);
 		prepare.setInt(aux++, codigoExercicio);
 		prepare.setInt(aux++, codigoFicha);
 		ResultSet result = prepare.executeQuery();
 		List<Especificacao> list = new ArrayList<Especificacao>();
-		
+
 		while (result.next()){
 			aux = 1;
 			Especificacao esp = new Especificacao();
@@ -142,11 +143,91 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			esp.setQuantidade(result.getInt(aux++));
 			esp.setCarga(result.getInt(aux++));
 			esp.setUnidade(result.getString(aux++));
-			
-			
+
+
 			list.add(esp);
 		}
 		return list;
 	}
+
+	@Override
+	public boolean inserirTreino(Treino treino) throws SQLException {
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into treino (nome,ordem,codigoFicha) values (?,?,?)";
+		boolean verificar = false;
+		
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setString(aux++,treino.getNomeTreino());
+		prepare.setInt(aux++,treino.getOrdem());
+		prepare.setInt(aux++, treino.getCodigoFicha());
+		
+		resultado = prepare.executeUpdate();
+
+		if (resultado > 0){
+			verificar = true;
+		}
+
+		return verificar;
+	}
+
+	@Override
+	public boolean inserirFicha(Ficha ficha) throws SQLException {
+		int aux = 1;
+		int resultado = 0;
+		boolean verificar = false;
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into ficha(nome,duracaoDias,objetivo, " +
+		" realizacoes,ficha_atual,padrao)"+ 
+		"values (?,?,?,?,?,?)";
+
+		PreparedStatement prepare = con.prepareStatement(sql);
+
+		prepare.setString(aux++, ficha.getNomeFicha());
+		prepare.setInt(aux++, ficha.getDuracaoDias());
+		prepare.setString(aux++, ficha.getObjetivo());
+		prepare.setInt(aux++, ficha.getRealizacoes());
+		prepare.setInt(aux++, ficha.getAtual());
+		prepare.setInt(aux++, ficha.getPadrao());
+		resultado= prepare.executeUpdate();
+
+		if (resultado > 0){
+			verificar = true;
+		}
+
+		return  verificar;
+	}
+
+	@Override
+	public boolean inserirEspecificacao(Especificacao especificacao) throws SQLException{
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		boolean verificar = false;
+		String sql = "insert into especificacao " +
+		"  (codigoexercicio,codigotreino,ordem," +
+		"	repeticao,unidade,carga)"+ 
+		"values (?,?,?,?,?,?);";
+		
+		PreparedStatement prepare = con.prepareStatement(sql);
+		
+		prepare.setInt(aux++, especificacao.getCodigoExercicio());
+		prepare.setInt(aux++, especificacao.getCodigoTreino());
+		prepare.setInt(aux++, especificacao.getOrdem());
+		prepare.setInt(aux++, especificacao.getQuantidade());
+		prepare.setString(aux++, especificacao.getUnidade());
+		prepare.setDouble(aux++, especificacao.getCarga());
+		
+		resultado = prepare.executeUpdate();
+		
+		if (resultado > 0){
+			verificar = true;
+		}
+		return verificar;
+	}
+
+
+
 
 }

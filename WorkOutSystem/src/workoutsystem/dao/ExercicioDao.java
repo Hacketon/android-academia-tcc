@@ -400,15 +400,61 @@ public class ExercicioDao implements IExercicioDao {
 			e.setDescricao(result.getString(aux++));
 			e.setPadrao(result.getInt(aux++));
 			e.setAtivo(result.getInt(aux++));
-			
+
 			g.setCodigo(result.getInt(aux++));
 			g.setNome(result.getString(aux++));
 			e.setGrupoMuscular(g);
-			
+
 			list.add(e);
 		}
 		return list;
 	}
+
+
+	@Override
+	public List<Exercicio> listarExercicioTreino(int codigoGrupo,
+			int codigoAtivo) throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		
+		String sql = " select exercicio_codigo,exercicio_nome,exercicio_descricao, " +
+		" exercicio_padrao,exercicio_ativo,grupo_codigo,grupo_nome " + 
+		" from [exercicios_fora_treino] " +
+		" where especificacao_treino is null " +
+		" and especificacao_exercicio is null " +
+		" and exercicio_grupo = ? and exercicio_ativo = ? ";
+		
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, codigoGrupo);
+		prepare.setInt(aux++, codigoAtivo);
+		
+		ResultSet result = prepare.executeQuery();
+		List<Exercicio> lista = new ArrayList<Exercicio>();
+		while (result.next()) {
+			aux = 1;
+			Exercicio e = new Exercicio();
+			GrupoMuscular g = new GrupoMuscular();
+			e.setCodigo(result.getLong(aux++));
+			e.setNomeExercicio(result.getString(aux++));
+			e.setDescricao(result.getString(aux++));
+			e.setPadrao(result.getInt(aux++));
+			e.setAtivo(result.getInt(aux++));
+			
+			g.setCodigo(result.getInt(aux++));
+			g.setNome(result.getString(aux++));
+			
+			e.setGrupoMuscular(g);
+			
+			lista.add(e);
+			
+		}
+		
+		
+		return lista;
+	}
+
+
+	
 
 
 }

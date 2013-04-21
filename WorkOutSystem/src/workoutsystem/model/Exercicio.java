@@ -21,6 +21,7 @@ public class Exercicio implements Serializable {
 	private String descricao;
 	private int ativo;
 	private int padrao;
+	private List<Especificacao> listaEspecificacao;
 	private List<Passo> listaPassos;
 	
 	public Exercicio(){
@@ -83,5 +84,15 @@ public class Exercicio implements Serializable {
 
 	public List<Passo> getListaPassos() {
 		return listaPassos;
+	}
+
+
+	public void setListaEspecificacao(List<Especificacao> listaEspecificacao) {
+		this.listaEspecificacao = listaEspecificacao;
+	}
+
+
+	public List<Especificacao> getListaEspecificacao() {
+		return listaEspecificacao;
 	}
 }

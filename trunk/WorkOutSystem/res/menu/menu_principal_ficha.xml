@@ -11,9 +11,5 @@
     <item
         android:id="@+id/mudar_ficha"
         android:title="@string/botao_mudarficha"/>
-    <item
-        android:id="@+id/visualizar_ficha"
-        android:title="@string/botao_visualizarficha"/>
-        />
-
+   
 </menu>

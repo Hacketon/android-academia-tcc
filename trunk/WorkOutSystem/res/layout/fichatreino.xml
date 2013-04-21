@@ -33,7 +33,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <LinearLayout style="@style/linearLayoutPadraoVertical" >
+                    <LinearLayout style="@style/linearLayoutPadraoVertical" 
+                        android:padding="5dp">
 
                         <TextView
                             style="@style/textopequeno"
@@ -44,7 +45,8 @@
                         <EditText
                             android:id="@+id/edt_nomeTreinoo"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content" 
+                            android:maxLines="1"/>
 
                         <Spinner
                             android:id="@+id/cbx_buscaexercicio"

@@ -4,109 +4,109 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
     android:orientation="vertical" >
-	
-    <ScrollView
-        style="@style/linearLayoutPadraoVertical"
-        >
-    <TabHost
-        android:id="@+id/hostfichatreino"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <LinearLayout
+    <ScrollView style="@style/linearLayoutPadraoVertical" >
+
+        <TabHost
+            android:id="@+id/hostfichatreino"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="match_parent" >
 
-            <TabWidget
-                android:id="@android:id/tabs"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <!-- Fichas -->
-
-                <LinearLayout
-                    android:id="@+id/tabfichas"
+                <TabWidget
+                    android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:layout_height="wrap_content" >
+                </TabWidget>
 
-                    <TextView
-                        style="@style/textopequeno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_activity_tela_ficha" />
-
-                    <EditText
-                        android:id="@+id/edt_nomeFicha"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1" />
-
-                    <TextView
-                        style="@style/textopequeno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_duracaodias" />
-
-                    <EditText
-                        android:id="@+id/edt_duracaodias"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"/>
-                    
-                    <TextView
-                        style="@style/textopequeno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/botao_objetivo"/>
-                    <Spinner
-                        android:id="@+id/cbx_fichaobjetivo" 
-						android:layout_width="fill_parent"	                        
-						android:layout_height="wrap_content"
-						android:prompt="@string/botao_objetivo"/>
-
-                    <TextView
-                        style="@style/textopequeno"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_descricao" />
-
-                    <EditText
-                        android:id="@+id/edt_objetivoFicha"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="textMultiLine" 
-                        android:maxLength="100"/>
-
-             
-                </LinearLayout>
-
-                <!-- Treinos -->
-
-                <LinearLayout
-                    android:id="@+id/tabfichatreinos"
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
+                    android:layout_height="match_parent" >
 
-                    <ListView
-                        android:id="@+id/listafichastreino"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1" />
+                    <!-- Fichas -->
 
+                    <LinearLayout
+                        android:id="@+id/tabfichas"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp" >
+
+                        <TextView
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_activity_tela_ficha" />
+
+                        <EditText
+                            android:id="@+id/edt_nomeFicha"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" />
+
+                        <TextView
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_duracaodias" />
+
+                        <EditText
+                            android:id="@+id/edt_duracaodias"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" 
+                            android:inputType="number"/>
+
+                        <TextView
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/botao_objetivo" />
+
+                        <Spinner
+                            android:layout_weight="0"
+                            android:id="@+id/cbx_fichaobjetivo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/botao_objetivo" />
+
+                        <TextView
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_descricao" />
+
+                        <EditText
+                            android:id="@+id/edt_objetivoFicha"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="textMultiLine"
+                            android:maxLength="100" />
                     </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
-</ScrollView>
+
+                    <!-- Treinos -->
+
+                    <LinearLayout
+                        android:id="@+id/tabfichatreinos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <ListView
+                            android:id="@+id/listafichastreino"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+    </ScrollView>
+
 </LinearLayout>

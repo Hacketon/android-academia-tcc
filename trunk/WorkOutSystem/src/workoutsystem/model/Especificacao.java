@@ -1,13 +1,16 @@
 package workoutsystem.model;
 
 public class Especificacao {
-	private int carga;
+	
+	private int codigoTreino;
+	private int  codigoExercicio;
+	private double carga;
 	private String unidade;
 	private int ordem;
 	private int quantidade;
-	
 	// unidade pode ser repetições ou tempo
-	public int getCarga() {
+	
+	public double getCarga() {
 		return carga;
 	}
 	public String getUnidade() {
@@ -16,10 +19,8 @@ public class Especificacao {
 	public int getOrdem() {
 		return ordem;
 	}
-	public int getQuantidade() {
-		return quantidade;
-	}
-	public void setCarga(int carga) {
+	
+	public void setCarga(double carga) {
 		this.carga = carga;
 	}
 	public void setUnidade(String unidade) {
@@ -30,6 +31,19 @@ public class Especificacao {
 	}
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public void setCodigoExercicio(int codigoExercicio) {
+		this.codigoExercicio = codigoExercicio;
+	}
+	public int getCodigoExercicio() {
+		return codigoExercicio;
+	}
+	public void setCodigoTreino(int codigoTreino) {
+		this.codigoTreino = codigoTreino;
+	}
+	public int getCodigoTreino() {
+		return codigoTreino;
 	}
 
 }

@@ -23,14 +23,14 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean adicionarExercicio(Exercicio e) throws SQLException {
 		boolean verificador;
 
-		Connection con = ResourceManager.conexao();
-		String sql = "insert into exercicio (nome, descricao, personalizado,ativo,codigogrupomuscular)" +
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into exercicio (nome, descricao, padrao,ativo,codigogrupomuscular)" +
 		" values (?,?,?,?,?) ";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setString(1, e.getNomeExercicio().trim());
 		prepare.setString(2, e.getDescricao().trim());
-		prepare.setInt(3, e.getPersonalizado());
+		prepare.setInt(3, e.getPadrao());
 		prepare.setInt(4, e.getAtivo());
 		prepare.setInt(5, e.getGrupoMuscular().getCodigo());
 
@@ -54,7 +54,7 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean alterarExercicio(long codigo, Exercicio e) throws SQLException {
 		boolean verificador = false;
 
-		Connection con = ResourceManager.conexao();
+		Connection con = ResourceManager.getConexao();
 		String sql = "update exercicio set " +
 		"  nome = ? , descricao = ? , codigogrupomuscular = ? " +
 		" where codigo = ?";
@@ -79,7 +79,7 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean excluirExercicio(long codigo) throws SQLException {
 		boolean verificador = false;
 
-		Connection con = ResourceManager.conexao(); 
+		Connection con = ResourceManager.getConexao(); 
 		String sql = "update exercicio set ativo = 0 where codigo = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(1, codigo);
@@ -100,7 +100,7 @@ public class ExercicioDao implements IExercicioDao {
 	public List<Passo> visualizarPassos(Exercicio exercicio) throws SQLException {
 		List<Passo> passos = null;
 
-		Connection con = ResourceManager.conexao();
+		Connection con = ResourceManager.getConexao();
 		String sql = "select passo.sequencia,passo.explicacao" +
 		" from passo inner join exercicio " +
 		" on passo.codigoexercicio = exercicio.codigo" +
@@ -126,7 +126,7 @@ public class ExercicioDao implements IExercicioDao {
 	public int buscarGrupoMuscular(String nome) throws SQLException {
 		int codigo = 0;
 
-		Connection con = ResourceManager.conexao();
+		Connection con = ResourceManager.getConexao();
 		String sql = "select grupomuscular.codigo from grupomuscular where " +
 		" grupomuscular.nome like ? ";
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class ExercicioDao implements IExercicioDao {
 	public List<GrupoMuscular> listarGrupos() {
 		List<GrupoMuscular> lista = null;
 		try{
-			Connection con = ResourceManager.conexao();
+			Connection con = ResourceManager.getConexao();
 			String sql = "select codigo,nome from grupomuscular";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
@@ -175,7 +175,7 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean buscarExercicio(String nome,long codigo){
 		boolean verificador = false;
 		try{
-			Connection con = ResourceManager.conexao();
+			Connection con = ResourceManager.getConexao();
 			String sql = "select * from exercicio where nome like ? and codigo != ?";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setString(1,nome);
@@ -198,8 +198,8 @@ public class ExercicioDao implements IExercicioDao {
 	public Exercicio buscarExercicio(String nome) {
 		Exercicio exercicio = null;
 		try{
-			Connection con = ResourceManager.conexao();
-			String sql = "select codigo,nome,descricao,personalizado,codigogrupomuscular" +
+			Connection con = ResourceManager.getConexao();
+			String sql = "select codigo,nome,descricao,padrao,codigogrupomuscular" +
 			" from exercicio where nome like ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setString(1, nome);
@@ -209,7 +209,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setCodigo(result.getInt(1));
 				exercicio.setNomeExercicio(result.getString(2));
 				exercicio.setDescricao(result.getString(3));
-				exercicio.setPersonalizado(result.getInt(4));
+				exercicio.setPadrao(result.getInt(4));
 				GrupoMuscular grupo = new GrupoMuscular();
 				grupo.setCodigo(result.getInt(5));
 				grupo.setNome(buscarGrupoMuscular(grupo.getCodigo()));
@@ -230,13 +230,13 @@ public class ExercicioDao implements IExercicioDao {
 	public List<Exercicio> listarExercicios(int grupo,int personalizado) {
 		List<Exercicio> lista = null;
 		try{
-			Connection con = ResourceManager.conexao();
+			Connection con = ResourceManager.getConexao();
 			String sql = "select exercicio.codigo,exercicio.nome, " +
-			"exercicio.descricao,exercicio.personalizado, " +
+			"exercicio.descricao,exercicio.padrao, " +
 			"exercicio.codigogrupomuscular,grupomuscular.nome " +
 			"from exercicio inner join grupomuscular " +
 			"on exercicio.codigogrupomuscular = grupomuscular.codigo "+
-			"where grupomuscular.codigo like ? and exercicio.personalizado = ? " +
+			"where grupomuscular.codigo like ? and exercicio.padrao = ? " +
 			"and exercicio.ativo = 1";
 
 			PreparedStatement prepare = con.prepareStatement(sql);
@@ -249,7 +249,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setCodigo(resultSet.getInt(1));
 				exercicio.setNomeExercicio(resultSet.getString(2));
 				exercicio.setDescricao(resultSet.getString(3));
-				exercicio.setPersonalizado(resultSet.getInt(4));
+				exercicio.setPadrao(resultSet.getInt(4));
 				GrupoMuscular grupoMuscular= new GrupoMuscular();
 				grupoMuscular.setCodigo(resultSet.getInt(5));
 				grupoMuscular.setNome(resultSet.getString(6));
@@ -274,9 +274,9 @@ public class ExercicioDao implements IExercicioDao {
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupomuscular = new GrupoMuscular();
 		try{
-			Connection con = ResourceManager.conexao();
-			String sql = "select nome, descricao, codigogrupomuscular, personalizado from exercicio " +
-					" where codigogrupomuscular = ?;";
+			Connection con = ResourceManager.getConexao();
+			String sql = "select nome, descricao, codigogrupomuscular, padrao from exercicio " +
+			" where codigogrupomuscular = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);	
 			prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
 			ResultSet result  = prepare.executeQuery();
@@ -290,7 +290,7 @@ public class ExercicioDao implements IExercicioDao {
 				grupomuscular.setCodigo(result.getInt(3));
 				exercicio.setGrupoMuscular(grupomuscular);
 				//
-				exercicio.setPersonalizado(result.getInt(4));
+				exercicio.setPadrao(result.getInt(4));
 			}
 
 			prepare.close();
@@ -308,7 +308,7 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean buscarExercicio (long codigo) {
 		boolean verificador = false;
 		try{
-			Connection con = ResourceManager.conexao();
+			Connection con = ResourceManager.getConexao();
 			String sql = "select * from exercicio where codigo = ?";
 			PreparedStatement prepared = con.prepareStatement(sql);
 			prepared.setLong(1, codigo);
@@ -333,7 +333,7 @@ public class ExercicioDao implements IExercicioDao {
 	public String buscarGrupoMuscular(int codigo) throws SQLException {
 		String nome= "";
 
-		Connection con = ResourceManager.conexao();
+		Connection con = ResourceManager.getConexao();
 		String sql = "select grupomuscular.nome from grupomuscular where " +
 		" grupomuscular.codigo like ? ";
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -356,22 +356,58 @@ public class ExercicioDao implements IExercicioDao {
 	public boolean reativarExercicio(String nomeExercicio, int i) throws SQLException {
 		boolean retorno = false;;
 		String sql = "update exercicio set ativo = 1 where nome like ? " +
-					" and ativo = ?";
-		Connection con = ResourceManager.conexao();
+		" and ativo = ?";
+		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepared = con.prepareStatement(sql);
 		int codigo = 1 ; 
 		prepared.setString(codigo++, nomeExercicio);
 		prepared.setInt(codigo++,i);
-		
+
 		codigo = prepared.executeUpdate();
 		if (codigo > 0){
 			retorno = true;
 		}
-		
+
 		prepared.close();
 		con.close();
 		return retorno;
-		
+
+	}
+
+
+	@Override
+	public List<Exercicio> listarExercicio(int codigoFicha, int codigoTreino)
+	throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = 
+			" select exercicio_codigo,[exercicio_nome], [exercicio_descricao]," +
+			" [exercicio_padrao],[exercicio_ativo],[grupo_codigo],[grupo_nome]" +
+			" from [exercicios_treino_ficha] " +
+			" where [ficha_codigo] = ? and [treino_codigo] = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, codigoFicha);
+		prepare.setInt(aux++, codigoTreino);
+		ResultSet result = prepare.executeQuery();
+		List<Exercicio> list = new ArrayList<Exercicio>();
+
+		while (result.next()){
+			Exercicio e = new Exercicio();
+			GrupoMuscular g = new GrupoMuscular();
+			aux = 1;
+			e.setCodigo(result.getLong(aux++));
+			e.setNomeExercicio(result.getString(aux++));
+			e.setDescricao(result.getString(aux++));
+			e.setPadrao(result.getInt(aux++));
+			e.setAtivo(result.getInt(aux++));
+			
+			g.setCodigo(result.getInt(aux++));
+			g.setNome(result.getString(aux++));
+			e.setGrupoMuscular(g);
+			
+			list.add(e);
+		}
+		return list;
 	}
 
 

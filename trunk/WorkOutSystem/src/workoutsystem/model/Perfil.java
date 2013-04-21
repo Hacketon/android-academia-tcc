@@ -2,9 +2,14 @@ package workoutsystem.model;
 
 import java.util.List;
 
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+
 public class Perfil {
 
 	private int codigo;
+	@NotEmpty(message = "O campo nome é obrigatorio")
+	@Length(max=20,message = "Quantidade maxima de caracteres é 20 ")
 	private String nome;
 	private boolean sexo;
 	private List<Frequencia> frequencia;

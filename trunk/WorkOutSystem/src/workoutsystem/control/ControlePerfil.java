@@ -9,7 +9,6 @@ import workoutsystem.interfaces.IDiaSemana;
 import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
-import workoutsystem.model.Usuario;
 
 public class ControlePerfil {
 

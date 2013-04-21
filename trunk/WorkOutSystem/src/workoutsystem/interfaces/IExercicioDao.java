@@ -102,4 +102,11 @@ public interface IExercicioDao {
 	 * @throws SQLException 
 	 */
 	public abstract boolean reativarExercicio(String nomeExercicio, int i) throws SQLException;
+	/**
+	 * Metodo responsavel por listar exercicios que estão relacionados há um treino de uma ficha;
+	 * @param codigoFicha
+	 * @param codigoTreino
+	 * @return
+	 */
+	public abstract List<Exercicio> listarExercicio(int codigoFicha,int codigoTreino) throws SQLException;
 }

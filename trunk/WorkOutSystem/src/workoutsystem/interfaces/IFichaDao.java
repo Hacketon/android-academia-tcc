@@ -34,4 +34,29 @@ public interface IFichaDao {
 	public List<Especificacao> listarEspecificacao(int codigoTreino,int codigoExercicio,
 			int codigoFicha)
 	throws SQLException;
+	
+	
+	/**
+	 * Metodo responsavel por inserir um treino e relacionar com uma ficha
+	 * @param treino
+	 * @return
+	 */
+	public abstract boolean inserirTreino(Treino treino) throws SQLException;
+	/**
+	 * Metodo responsavel pela criação de uma ficha
+	 * @param ficha
+	 * @return
+	 */
+	public abstract boolean inserirFicha(Ficha ficha) throws SQLException;
+	/**
+	 * Metodo responsavel por adicionar a especificacao um exercicio em uma ficha
+	 * @param especificacao
+	 * @return
+	 */
+	public abstract boolean inserirEspecificacao(Especificacao especificacao) throws SQLException;
+	
+
+
+	
+	
 }

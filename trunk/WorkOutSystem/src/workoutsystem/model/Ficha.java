@@ -25,6 +25,7 @@ public class Ficha {
 	public Ficha(){
 		padrao = 1;
 		atual = 0;
+		realizacoes = 0;
 		
 	}
 	

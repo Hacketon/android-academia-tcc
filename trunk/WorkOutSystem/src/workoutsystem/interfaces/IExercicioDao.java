@@ -20,15 +20,15 @@ public interface IExercicioDao {
 	 * @return true = exercicio existente com este nome e codigo diferente caso contrario false
 	 */
 	public abstract boolean buscarExercicio(String nome,long codigo);
-	
+
 	/**
 	 * Metodo responsavel pela busca de exercicios
 	 * @param e busca pelo codigo do exercicio
 	 * @return
 	 */
 	public abstract boolean buscarExercicio(long codigo);
-	
-	
+
+
 	/**
 	 * Metodo responsavel pela criação de um novo exercicio
 	 * @param e
@@ -37,7 +37,7 @@ public interface IExercicioDao {
 	 */
 
 	public abstract boolean adicionarExercicio(Exercicio e) throws SQLException;
-	
+
 	/**
 	 * Metodo responsavel pela alteração de exercicio por codigo
 	 * @param codigo
@@ -45,18 +45,18 @@ public interface IExercicioDao {
 	 * @return
 	 * @throws SQLException 
 	 */
-	
+
 	public abstract boolean alterarExercicio(long codigo, Exercicio e) throws SQLException;
-	
+
 	/**
 	 * Metodo responsavel pela desativação dos exercicios 
 	 * @param l
 	 * @return
 	 * @throws SQLException 
 	 */
-	
+
 	public abstract boolean excluirExercicio(long l) throws SQLException;
-	
+
 	/**
 	 * Metodo responsavel pela visualização dos Passos de cada exercicio
 	 * @param e
@@ -64,9 +64,9 @@ public interface IExercicioDao {
 	 * @throws SQLException 
 	 */
 	public abstract List<Passo> visualizarPassos(Exercicio e) throws SQLException;
-	
-	
-	
+
+
+
 	/**
 	 * Metodo que fará a busca do código de cada grupo muscular 
 	 * @return numero do grupo muscular
@@ -74,7 +74,7 @@ public interface IExercicioDao {
 	 */
 	public abstract int buscarGrupoMuscular(String nome) throws SQLException;
 	public abstract String buscarGrupoMuscular(int codigo) throws SQLException;
-		/**
+	/**
 	 * Uma lista de exercicio através do nome do exercicio
 	 * @param nome = nome do exercicio
 	 * @return objeto do tipo exercicio
@@ -109,4 +109,16 @@ public interface IExercicioDao {
 	 * @return
 	 */
 	public abstract List<Exercicio> listarExercicio(int codigoFicha,int codigoTreino) throws SQLException;
+	/**
+	 * Metodo responsavel pela busca dos exercicios 
+	 * que não estão relacionados a nenhum treino 
+	 * @param codigoGrupo = grupo muscular
+	 * @param codigoAtivo = ativo ou não 
+	 * @return Lista de Exercicio
+	 * @throws SQLException
+	 */
+	public abstract List<Exercicio> listarExercicioTreino (int codigoGrupo,int codigoAtivo) throws SQLException;
+
+
+
 }

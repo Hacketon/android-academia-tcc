@@ -13,7 +13,6 @@ public class Treino {
 	@NotEmpty(message = "O treino deve ter um nome")
 	@Length(message = "Escolha um nome com até 10 caracteres")
 	private String nomeTreino;
-	private String grupoMusculares;
 	private List <Exercicio> exercicios;
 	private int ordem;
 	private int codigoFicha;
@@ -26,9 +25,7 @@ public class Treino {
 	public String getNomeTreino() {
 		return nomeTreino;
 	}
-	public String getGrupoMusculares() {
-		return grupoMusculares;
-	}
+	
 //	public Date getDataRealizacao() {
 //		return dataRealizacao;
 //	}
@@ -38,9 +35,8 @@ public class Treino {
 	public void setNomeTreino(String nomeTreino) {
 		this.nomeTreino = nomeTreino;
 	}
-	public void setGrupoMusculares(String grupoMusculares) {
-		this.grupoMusculares = grupoMusculares;
-	}
+
+
 //	public void setDataRealizacao(Date dataRealizacao) {
 //		this.dataRealizacao = dataRealizacao;
 //	}

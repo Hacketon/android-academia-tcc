@@ -41,6 +41,21 @@ public class ControleMedida implements Comparator<Medicao> {
 		return lista;
 	}
 	
+	public List<Medicao> buscarListaMedicaoes(int codigo){
+		List<Medicao> lista = new ArrayList<Medicao>();
+		IMedidaDao daoMed = new MedidaDao();
+		
+		if(daoMed.buscarMedidas() != null){
+			lista = daoMed.buscarListaMedicao(codigo);
+		}else{
+			return null;
+		}
+		
+		return lista;
+	}
+	
+	
+	
 	public int buscarMedida(String nome, String lado){
 		int codigo = 0;
 		IMedidaDao dao = new MedidaDao();

@@ -101,7 +101,40 @@ public class MedidaDao implements IMedidaDao{
 		}
 		return valor;
 	}
+	
+	
+	@Override
+	public List<Medicao> buscarListaMedicao(int codigo) {
+		List<Medicao> lista = new ArrayList<Medicao>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			Connection con = ResourceManager.getConexao();
+			String sql ="select * from medicao where codigomedida = ?;";
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, codigo);
+			ResultSet result = prepare.executeQuery();
 
+			while (result.next()){
+				Medicao medicao = new Medicao();
+				medicao.setCodigo(result.getInt(1));
+				medicao.setValor(result.getDouble(2));
+				String data =  result.getString(3);
+				medicao.setDataMedicao(sdf.parse(data));
+				medicao.setCodigoMedida(result.getInt(4));
+				medicao.setCodigoPerfil(result.getInt(5));
+				lista.add(medicao);
+			}
+
+			prepare.close();
+			con.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return lista;
+	}
+
+	
 	public List<Medida> buscarMedidas(){
 		List<Medida> lista = new ArrayList<Medida>();
 
@@ -131,6 +164,10 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 
+	
+	
+	
+	
 	public boolean alterarMedicao(List<Medicao> medicoes){
 
 		boolean verificador = false;
@@ -381,5 +418,5 @@ public class MedidaDao implements IMedidaDao{
 
 
 	}
-
+	
 }

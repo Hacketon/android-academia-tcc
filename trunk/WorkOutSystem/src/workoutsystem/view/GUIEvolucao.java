@@ -7,14 +7,20 @@ import java.util.List;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
+import workoutsystem.model.Exercicio;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +35,14 @@ public class GUIEvolucao extends Activity  {
 	private ProgressBar barra3;
 	private List<Medida> listaMedidas;
 	private List<Medicao> listaMedicoes;
-	private ImageButton btnProximo;
-	private ImageButton btnAnterior;
 	private int indice;
+	private ListView listahistorico;
+	
+	private TabHost hostEvolucao;
+	private TabSpec tabEvolucao;
+	private TabSpec tabHistorico;
+	
+	private ArrayAdapter<String> adapter;
 
 
 
@@ -47,14 +58,13 @@ public class GUIEvolucao extends Activity  {
 		barra1 = (ProgressBar) findViewById(R.id.progressBarMedida1);
 		barra2 = (ProgressBar) findViewById(R.id.progressBarMedida2);
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
-		btnAnterior = (ImageButton) findViewById(R.id.btn_proximamedida);
-		btnProximo = (ImageButton) findViewById(R.id.btn_anteriormedida);
-
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
 		listaMedicoes = new ArrayList<Medicao>();
 		listaMedicoes = new ArrayList<Medicao>();
+		listahistorico = (ListView) findViewById(R.id.listahistorico);
 		inicializarEvolucao();
+		criarTabs();
 	}
 
 	private void inicializarEvolucao() {
@@ -77,7 +87,23 @@ public class GUIEvolucao extends Activity  {
 		}
 	}
 
-
+	public void criarTabs(){
+		
+		hostEvolucao = (TabHost) findViewById(R.id.hostevolucao);
+		hostEvolucao.setup();
+		
+		tabEvolucao = hostEvolucao.newTabSpec("tabEvolucao");
+		tabEvolucao.setContent(R.id.tabEvolucao);
+		tabEvolucao.setIndicator("Evolução");
+		hostEvolucao.addTab(tabEvolucao);
+		
+		tabHistorico = hostEvolucao.newTabSpec("tabHistorico");
+		tabHistorico.setContent(R.id.tabHistorico);
+		tabHistorico.setIndicator("Historico");
+		hostEvolucao.addTab(tabHistorico);
+		
+		
+	}
 
 	public void onClick(View e) {
 		switch (e.getId()) {
@@ -150,9 +176,19 @@ public class GUIEvolucao extends Activity  {
 		barra3.setProgress(0);
 
 		calcularProgresso(medida);
+		
+		
+		// criando ListView
+		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo());
+		
+		createListView(listaMedicoes, listahistorico);
+		
 
 	}
 
+	
+	
+	
 	private void calcularProgresso(Medida medida) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -206,6 +242,28 @@ public class GUIEvolucao extends Activity  {
 		}
 	}
 
+
+	private void createListView(List <Medicao> medicoes,ListView lista) {
+		
+		ArrayList<String> listaMedicoes = new ArrayList<String>();
+		
+
+		for (Medicao m : medicoes){
+
+			listaMedicoes.add(String.valueOf(m.getValor()));
+
+		}
+
+		adapter = new ArrayAdapter<String>
+		(this,R.layout.itens_simple_lista,listaMedicoes);
+		
+		adapter.notifyDataSetChanged();
+		lista.setAdapter(adapter);
+		lista.setCacheColorHint(Color.BLUE);
+		
+	}
+	
+	
 }
 
 

@@ -230,6 +230,8 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 		criarExclusao(exercicios);
 
 	}
+	
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
@@ -246,8 +248,8 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 
 		}
 
-
 	}
+
 	private void criarCaixaDialog(String titulo) {
 		dialog.setTitle(titulo);
 		txtCodExercicio.setText("");
@@ -258,6 +260,7 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 		dialog.show();
 
 	}
+	
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
@@ -275,6 +278,7 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 		return exercicio;
 	}
 
+	
 	private void criarExclusao(List<Exercicio> listaExercicios) {
 		int i = 0 ;
 		exercicios = null;

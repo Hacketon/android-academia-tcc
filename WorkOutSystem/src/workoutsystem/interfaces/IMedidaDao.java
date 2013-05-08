@@ -82,5 +82,14 @@ public interface IMedidaDao {
 	 * @return List (medida)
 	 */
 	public abstract List<Medida> ultimaMedicao(int codigo) ;
+
+/**
+ * 
+ * Metodo para buscar lista de medicao pelo codigo da medida
+ * @param codigo
+ * @return
+ */
+
+	public abstract List<Medicao> buscarListaMedicao(int codigo);
 }
 

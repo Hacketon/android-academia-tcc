@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="20dp" 
+    >
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -21,17 +22,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp"
-                android:weightSum="100" >
+                android:weightSum="100" 
+
+                >
 
                 <TextView
                     android:id="@+id/textView1"
-                    style="@style/textogrande"
+					android:textStyle="italic"
+                    android:textSize="30dp"
+                    android:textColor="#ffffff"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:gravity="center"  
                     android:text="@string/label_dadospessoais" />
+                   
+                
+                      
             </LinearLayout>
 
+              <LinearLayout
+        			android:layout_width="fill_parent"
+        			android:layout_height="wrap_content"
+       				android:orientation="horizontal"
+  					android:background="#4682B4"
+        			android:weightSum="100" >
+        
+                            <TextView
+                                android:id="@+id/linhaDesign"
+                                android:layout_width="fill_parent"
+                                android:layout_height="3dp"
+                                android:gravity="center"
+							/>
+        
+        	</LinearLayout>
+        
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -72,16 +97,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp"
-                android:weightSum="100" >
+                android:weightSum="100" 
+				>
 
                 <TextView
                     android:id="@+id/texto_medida"
-                    style="@style/textogrande"
+                    android:textStyle="italic"
+                    android:textSize="30dp"
+           			android:gravity="center" 
+           			android:textColor="#ffffff"       
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="@string/botao_medidas" />
             </LinearLayout>
+                          <LinearLayout
+        			android:layout_width="fill_parent"
+        			android:layout_height="wrap_content"
+       				android:orientation="horizontal"
+					android:background="#4682B4"
+        			android:weightSum="100" >
+        
+                            <TextView
+                                android:id="@+id/linhaDesign"
+                                android:layout_width="fill_parent"
+                                android:layout_height="3dp"
+                                android:gravity="center"
+							/>
+        
+        	</LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"

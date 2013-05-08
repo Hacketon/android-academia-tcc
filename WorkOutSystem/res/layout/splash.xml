@@ -5,8 +5,8 @@
     android:background="@drawable/background_splash"
     android:gravity="bottom"
     android:orientation="horizontal"
-    android:padding="10dp" >
-
+    android:padding="10dp">
+    
     <LinearLayout
         style="@style/linearLayoutPadraoVertical"
         android:weightSum="100" >
@@ -26,4 +26,4 @@
         
  </LinearLayout>
 
-</LinearLayout>
+ </LinearLayout>

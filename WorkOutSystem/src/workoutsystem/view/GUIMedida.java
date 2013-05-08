@@ -80,6 +80,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		editCoxaEsq = (EditText) findViewById(R.id.ed_coxaesquerda);
 		editPantuDir = (EditText) findViewById(R.id.ed_panturrilhadireita);
 		editPantuEsq = (EditText) findViewById(R.id.ed_panturilhaesquerda);
+		
 
 		
 		if(perfil != null){

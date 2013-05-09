@@ -1,12 +1,13 @@
 package workoutsystem.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.NotEmpty;
 
-public class Ficha {
+public class Ficha implements Serializable {
 	
 	private long codigoFicha;
 	@NotEmpty(message = "Nome da ficha é obrigatorio")
@@ -19,7 +20,6 @@ public class Ficha {
 	private String objetivo;
 	private List<Treino> treinos;
 	private int padrao;
-	private int codigoPerfil;
 	private int atual;
 	
 	public Ficha(){
@@ -76,14 +76,6 @@ public class Ficha {
 
 	public void setPadrao(int padrao) {
 		this.padrao = padrao;
-	}
-
-	public void setCodigoPerfil(int codigoPerfil) {
-		this.codigoPerfil = codigoPerfil;
-	}
-
-	public int getCodigoPerfil() {
-		return codigoPerfil;
 	}
 
 	public void setAtual(int atual) {

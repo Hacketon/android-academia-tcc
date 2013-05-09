@@ -26,8 +26,14 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GUIExercicio extends Activity implements View.OnClickListener,AdapterView.OnItemSelectedListener, 
-ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogInterface.OnClickListener{
+public class GUIExercicio
+extends Activity 
+implements
+View.OnClickListener,
+AdapterView.OnItemSelectedListener, 
+ListView.OnItemClickListener,
+DialogInterface.OnMultiChoiceClickListener,
+DialogInterface.OnClickListener{
 
 	private TabHost hospedeiro;
 	private TabSpec tabpadrao;
@@ -160,6 +166,8 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 		createListView(exercicios, listacriado);
 		dialog.dismiss();
 	}
+	
+	
 	private void atualizarCombo(Exercicio e,Spinner combo) {
 		int i = 0;
 		for (String l : listaGrupos){
@@ -195,7 +203,6 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 				listaExercicios = controle.listarExercicios
 				(grupo,1);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			createListView(listaExercicios,listacriado);
@@ -205,7 +212,6 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 				listaExercicios = controle.listarExercicios
 				(grupo,0);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			createListView(listaExercicios,listapadrao);
@@ -217,6 +223,7 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 
 
 	}
+	
 	private void createListView(List <Exercicio> exercicios,ListView lista) {
 		ArrayList<String> nomes = new ArrayList<String>();
 		for (Exercicio e : exercicios){
@@ -230,12 +237,15 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 		criarExclusao(exercicios);
 
 	}
+<<<<<<< .mine
+	
+=======
 	
 	
+>>>>>>> .r260
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
-
 		Exercicio exercicio = 
 			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
 		if (R.id.listacriado == parent.getId()){
@@ -329,7 +339,6 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 				listarExercicios = new 
 						ControleExercicio().listarExercicios(grupo, 1);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			createListView(listarExercicios, listacriado);
@@ -379,7 +388,6 @@ ListView.OnItemClickListener,DialogInterface.OnMultiChoiceClickListener,DialogIn
 
 
 	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-		// TODO Auto-generated method stub
 		selecaoexc[which]= isChecked;
 	}
 

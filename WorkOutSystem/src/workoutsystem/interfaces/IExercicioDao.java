@@ -117,7 +117,15 @@ public interface IExercicioDao {
 	 * @return Lista de Exercicio
 	 * @throws SQLException
 	 */
-	public abstract List<Exercicio> listarExercicioTreino (int codigoGrupo,int codigoAtivo) throws SQLException;
+	public abstract List<Exercicio> buscarExercicioTreino (int codigoGrupo,int codigoAtivo) throws SQLException;
+	/**
+	 *  Metodo responsavel por buscar todos
+	 *  os exercicios que estão ligados a um treino 
+	 * @param l
+	 * @return list
+	 * @throws SQLException
+	 */
+	public abstract List<Exercicio> listarExercicioTreino(long l) throws SQLException;
 
 
 

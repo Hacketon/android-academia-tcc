@@ -1,6 +1,8 @@
 package workoutsystem.model;
 
-public class Especificacao {
+import java.io.Serializable;
+
+public class Especificacao implements Serializable {
 	
 	private int codigoTreino;
 	private int  codigoExercicio;

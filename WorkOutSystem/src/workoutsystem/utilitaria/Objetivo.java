@@ -17,5 +17,9 @@ public enum Objetivo {
 	}
 	private String objetivo;
 	
+	public String getObjetivo(){
+		return objetivo;
+	}
+	
 
 }

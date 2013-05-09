@@ -23,19 +23,21 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.passo);
-		
+
 		textNome = (TextView) findViewById(R.id.txt_nome_exercicio);
 		textSequencia = (TextView) findViewById(R.id.txt_sequenciapasso);
 		textDescricao = (TextView) findViewById(R.id.txt_descricao_passo);
-		
+
 		indice = 0 ;
-		Exercicio exercicio = (Exercicio) getIntent().getExtras().getSerializable("exercicio");
+		Exercicio exercicio = (Exercicio) getIntent().getExtras()
+		.getSerializable("exercicio");
+		
 		passo = exercicio.getListaPassos();
 		textNome.setText(exercicio.getNomeExercicio());
 		anteriorPasso();
 	}
 
-	
+
 
 	@Override
 	public void onClick(View view) {
@@ -43,11 +45,11 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		switch (view.getId()) {
 		case R.id.btn_anteriorpasso:
 			anteriorPasso();
-		break;
+			break;
 
 		case R.id.btn_proximopasso:
 			proximoPasso();
-		break;
+			break;
 		}
 
 
@@ -62,11 +64,11 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 				o = passo.get(passo.size()-1);
 			}
 		}
-		
+
 		if (o != null){
 			carregarPasso(o);
 		}
-				
+
 	}
 
 	private void anteriorPasso() {
@@ -82,7 +84,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		if (o != null){
 			carregarPasso(o);
 		}
-				
+
 	}
 
 
@@ -90,7 +92,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 	private void carregarPasso(Passo o) {
 		textDescricao.setText(o.getExplicacao());
 		textSequencia.setText("Passo "+o.getSequencia());
-		
+
 	}
 
 

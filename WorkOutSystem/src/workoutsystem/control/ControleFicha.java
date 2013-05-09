@@ -1,9 +1,12 @@
 package workoutsystem.control;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.FichaDao;
+import workoutsystem.interfaces.IExercicioDao;
 import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
@@ -24,9 +27,27 @@ public class ControleFicha {
 	}
 	
 	public List<Ficha> buscarFicha() throws SQLException{
-		
-		return null;
+		IFichaDao dao = new FichaDao();
+		IExercicioDao daoExercicio = new ExercicioDao();
+		List<Ficha> lista = dao.listarFichas();
+		for(Ficha f : lista){
+			f.setTreinos(dao.listarTreinos(f.getCodigoFicha()));
+			for(Treino t : f.getTreinos()){
+				t.setExercicios
+						(daoExercicio.listarExercicioTreino(t.getCodigoTreino()));
+				for(Exercicio e : t.getExercicios()){
+						e.setListaEspecificacao(dao.listarEspecificacao(
+								t.getCodigoTreino(),
+								e.getCodigo(),
+								t.getCodigoFicha()));
+				}
+			}
+			
+		}
+		return lista;
 	}
+	
+	
 	
 	private boolean inserirFicha(Ficha ficha) throws SQLException{
 		IFichaDao dao = new FichaDao();
@@ -41,6 +62,40 @@ public class ControleFicha {
 			}
 		}
 		return true;
+	}
+
+	public boolean excluirFicha(List<String> deletados) throws SQLException {
+		boolean resultado = true;
+		IFichaDao dao = new FichaDao();
+		String mensagem = "Exercicio excluido!";
+
+		for (String texto : deletados){
+			String nome = texto; 
+			Ficha ficha = dao.buscarFicha(nome);
+			for(Treino t : ficha.getTreinos()){
+				for (Exercicio e : t.getExercicios()){
+					e.getListaEspecificacao();
+				}
+
+				
+			}
+			resultado = dao.excluirFicha(ficha.getCodigoFicha());
+
+		}
+
+		return resultado;
+		
+	}
+
+	public Ficha buscarFichaNome(String nome) throws Exception {
+		IFichaDao dao = new  FichaDao();
+		Ficha ficha = dao.buscarFicha(nome.trim());
+		if(ficha == null){
+			String erro = "Não foi possivel achar a ficha";
+			throw new Exception(erro);
+		}
+		return ficha;
+		
 	}
 
 }

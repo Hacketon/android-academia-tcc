@@ -70,24 +70,13 @@
 
                         <Spinner
                             android:layout_weight="0"
-                            android:id="@+id/cbx_fichaobjetivo"
+                            android:id="@+id/cbx_fichaObjetivo"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:prompt="@string/botao_objetivo" />
 
-                        <TextView
-                            style="@style/textopequeno"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_descricao" />
-
-                        <EditText
-                            android:id="@+id/edt_objetivoFicha"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:inputType="textMultiLine"
-                            android:maxLength="100" />
+                        
+                    
                     </LinearLayout>
 
                     <!-- Treinos -->

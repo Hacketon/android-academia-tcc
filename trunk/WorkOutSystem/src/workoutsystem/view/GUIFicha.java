@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
-import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;

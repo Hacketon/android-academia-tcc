@@ -7,6 +7,8 @@ import java.util.List;
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
+import workoutsystem.view.GUIPasso;
+import workoutsystem.view.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -237,12 +239,7 @@ DialogInterface.OnClickListener{
 		criarExclusao(exercicios);
 
 	}
-<<<<<<< .mine
-	
-=======
-	
-	
->>>>>>> .r260
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();

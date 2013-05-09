@@ -20,18 +20,18 @@ public interface IFichaDao {
 	public List<Ficha> listarFichas() throws SQLException;
 	/**
 	 * Metodo responsavel por listar treinos a partir de uma ficha
-	 * @param codigoFicha
+	 * @param codigo
 	 * @return lista de treinos
 	 * @throws SQLException
 	 */
-	public List<Treino> listarTreinos(int codigoFicha) throws SQLException;
+	public List<Treino> listarTreinos(long codigo) throws SQLException;
 	/**
 	 * Metodo responsavel por listar as especificacoes de um exercicio 
 	 * a partir de um treino
 	 * @return lista de especificacao
 	 * @throws SQLException
 	 */
-	public List<Especificacao> listarEspecificacao(int codigoTreino,int codigoExercicio,
+	public List<Especificacao> listarEspecificacao(long l,long m,
 			int codigoFicha)
 	throws SQLException;
 	
@@ -55,8 +55,20 @@ public interface IFichaDao {
 	 */
 	public abstract boolean inserirEspecificacao(Especificacao especificacao) throws SQLException;
 	
-
-
+	/**
+	 * Metodo responsavel pela busca de uma ficha através de 
+	 * um nome
+	 * @param nome 
+	 * @return Ficha
+	 */
+	public Ficha buscarFicha(String nome) throws SQLException;
+	/**
+	 * Metodo responsavel pela exclusão de uma ficha 
+	 * @param codigoFicha
+	 * @return
+	 */
+	public boolean excluirFicha(long codigoFicha);
+	
 	
 	
 }

@@ -1,5 +1,6 @@
 package workoutsystem.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import net.sf.oval.constraint.Future;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 
-public class Treino {
+public class Treino implements Serializable{
 	
 	private long codigoTreino;
 	@NotEmpty(message = "O treino deve ter um nome")

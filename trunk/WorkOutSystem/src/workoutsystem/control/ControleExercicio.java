@@ -53,8 +53,8 @@ public class ControleExercicio {
 		return mensagem;
 	}
 
-
-	public boolean excluirExercicio(ArrayList<String> exercicios) throws SQLException{
+	//caso de erro voltar para ArrayList<String>
+	public boolean excluirExercicio(List<String> exercicios) throws SQLException{
 		boolean resultado = true;
 		IExercicioDao dao = new  ExercicioDao();
 		String mensagem = "Exercicio excluido!";

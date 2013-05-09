@@ -3,9 +3,8 @@ package workoutsystem.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Ficha;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Objetivo;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,7 +26,6 @@ public class GUIFichaManipular extends Activity {
 	private EditText editNomeFicha;
 	private EditText editDuracaoFicha;
 	private EditText editObjetivoFicha;
-	private EditText editDescricaoFicha;
 	private Spinner cbxObjetivo;
 	private List<String> listaObjetivo; 
 	
@@ -78,7 +75,7 @@ public class GUIFichaManipular extends Activity {
 	}
 
 	private void preencherFicha(Ficha f ){
-		if (f != null){
+		if (f.getCodigoFicha() != 0){
 			editNomeFicha.setText(f.getNomeFicha());
 			editDuracaoFicha.setText(String.valueOf(f.getDuracaoDias()));
 			int pos = 0 ;
@@ -119,7 +116,8 @@ public class GUIFichaManipular extends Activity {
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
 		case R.id.novo_treino:
-			startActivity(new Intent("workoutsystem.view.FICHATREINO"));
+			Treino t = new Treino();
+			iniciarTreino(t);
 			break;
 		case R.id.remover_treino:
 
@@ -133,6 +131,10 @@ public class GUIFichaManipular extends Activity {
 
 	}
 
-
+	private void iniciarTreino(Treino t){
+		Intent i = new Intent(this,GUIFichaTreino.class);
+		i.putExtra("treino", t);
+		startActivity(i);
+	}
 
 }

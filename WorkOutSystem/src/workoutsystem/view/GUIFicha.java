@@ -44,7 +44,6 @@ DialogInterface.OnClickListener{
 		try {
 			createListView();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -112,7 +111,8 @@ DialogInterface.OnClickListener{
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
 		case R.id.adicionar_ficha:
-			startActivity(new Intent("workoutsystem.view.FICHAMANIPULAR"));
+			Ficha f = new Ficha();
+			iniciarFichaManipular(f);
 		break;
 
 		case R.id.remover_ficha:
@@ -131,6 +131,13 @@ DialogInterface.OnClickListener{
 
 	
 	
+	private void iniciarFichaManipular(Ficha f) {
+		Intent i = new Intent(this,GUIFichaManipular.class);
+		i.putExtra("ficha", f);
+		startActivity(i);
+		
+	}
+
 	private boolean deletarFichas() throws SQLException {
 		ControleFicha controle = new ControleFicha();
 		int i = 0 ;
@@ -182,9 +189,7 @@ DialogInterface.OnClickListener{
 				
 			}
 			
-			Intent i = new Intent(this,GUIFichaManipular.class);
-			i.putExtra("ficha", ficha);
-			startActivity(i);
+			iniciarFichaManipular(ficha);
 			 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dslv="http://schemas.android.com/apk/res/workoutsystem.view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
@@ -59,8 +61,8 @@
                             android:id="@+id/edt_duracaodias"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1" 
-                            android:inputType="number"/>
+                            android:inputType="number"
+                            android:maxLines="1" />
 
                         <TextView
                             style="@style/textopequeno"
@@ -69,14 +71,11 @@
                             android:text="@string/botao_objetivo" />
 
                         <Spinner
-                            android:layout_weight="0"
                             android:id="@+id/cbx_fichaObjetivo"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="0"
                             android:prompt="@string/botao_objetivo" />
-
-                        
-                    
                     </LinearLayout>
 
                     <!-- Treinos -->
@@ -87,11 +86,24 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical" >
 
-                        <ListView
-                            android:id="@+id/listafichastreino"
+                        <com.mobeta.android.dslv.DragSortListView
+                            android:id="@android:id/list"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:layout_weight="1" />
+                            android:layout_margin="3dp"
+                            android:choiceMode="multipleChoice"
+                            android:dividerHeight="1dp"
+                            android:padding="3dp"
+                            dslv:click_remove_id="@id/click_remove"
+                            dslv:collapsed_height="1dp"
+                            dslv:drag_enabled="true"
+                            dslv:drag_handle_id="@id/drag_handle"
+                            dslv:drag_scroll_start="0.33"
+                            dslv:drag_start_mode="onDown"
+                            dslv:float_alpha="0.6"
+                            dslv:remove_enabled="true"
+                            dslv:remove_mode="clickRemove"
+                            dslv:slide_shuffle_speed="0.3" />
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>

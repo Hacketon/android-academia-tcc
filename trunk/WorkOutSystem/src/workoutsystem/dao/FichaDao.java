@@ -84,6 +84,10 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setRealizacoes(result.getInt("realizacoes"));
 			list.add(f);
 		}
+		
+
+		prepared.close();
+		con.close();
 
 		return list;
 	}
@@ -109,6 +113,10 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 			list.add(t);
 		}
+		
+
+		prepare.close();
+		con.close();
 		return list;
 	}
 
@@ -144,6 +152,11 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 			list.add(esp);
 		}
+		
+
+		prepare.close();
+		con.close();
+		
 		return list;
 	}
 
@@ -166,6 +179,9 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			verificar = true;
 		}
 
+		prepare.close();
+		con.close();
+		
 		return verificar;
 	}
 
@@ -193,6 +209,10 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			verificar = true;
 		}
 
+
+		prepare.close();
+		con.close();
+		
 		return  verificar;
 	}
 
@@ -221,6 +241,9 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		if (resultado > 0){
 			verificar = true;
 		}
+
+		prepare.close();
+		con.close();
 		return verificar;
 	}
 

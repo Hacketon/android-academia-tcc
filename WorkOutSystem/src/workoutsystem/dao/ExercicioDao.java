@@ -188,8 +188,9 @@ public class ExercicioDao implements IExercicioDao {
 			prepare.close();
 			con.close();
 		}catch (SQLException e) {
-
+			
 		}
+
 
 		return verificador;
 	}
@@ -405,8 +406,12 @@ public class ExercicioDao implements IExercicioDao {
 			g.setNome(result.getString(aux++));
 			e.setGrupoMuscular(g);
 
+			
 			list.add(e);
 		}
+
+		prepare.close();
+		con.close();
 		return list;
 	}
 
@@ -449,7 +454,9 @@ public class ExercicioDao implements IExercicioDao {
 			
 		}
 		
-		
+
+		prepare.close();
+		con.close();
 		return lista;
 	}
 
@@ -485,6 +492,9 @@ public class ExercicioDao implements IExercicioDao {
 				
 				list.add(e);
 			}
+
+			prepare.close();
+			con.close();
 		return list;
 	}
 

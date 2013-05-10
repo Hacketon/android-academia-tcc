@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Text;
+
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Medicao;
@@ -33,6 +35,7 @@ public class GUIStatus extends Activity{
 	private TextView txtPantuDir; 
 	private TextView txtPantuEsq;
 	private TextView txtMedida;
+	private TextView txtDataMedida;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class GUIStatus extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status);
 		txtMedida = (TextView) findViewById(R.id.texto_medida);
+		txtDataMedida = (TextView) findViewById(R.id.texto_data_medida);
 		txtNome = (TextView) findViewById(R.id.tv_nome);
 		txtSexo = (TextView) findViewById(R.id.tv_sexousuario);
 		txtFrequencia = (TextView) findViewById(R.id.tv_frequenciausuario);
@@ -107,8 +111,8 @@ public class GUIStatus extends Activity{
 		
 		List<Medida> lista = controleMed.ultimaMedicao(codigo);
 		String dataf = sdf.format(lista.get(0).getMedicao().get(0).getDataMedicao());
-		txtMedida.setText(txtMedida.getText()+ " " + dataf);
-
+		//txtMedida.setText(txtMedida.getText()+ " " + dataf);
+		txtDataMedida.setText(dataf);
 		
 		for(Medida med : lista){
 			Medicao m = med.getMedicao().get(0);

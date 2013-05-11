@@ -99,7 +99,13 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 					Toast.makeText(this, controle.atualizarPerfil(perfil),
 							Toast.LENGTH_LONG).show();
 				}else{
-					Toast.makeText(this, controle.cadastrarPerfil(perfil),
+					String mensagem;
+					try {
+						mensagem = controle.cadastrarPerfil(perfil);
+					} catch (Exception e) {
+						mensagem = e.getMessage();
+					}
+					Toast.makeText(this, mensagem,
 							Toast.LENGTH_LONG).show();
 
 				}

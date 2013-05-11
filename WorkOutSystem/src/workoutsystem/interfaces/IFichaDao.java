@@ -67,8 +67,22 @@ public interface IFichaDao {
 	 * @param codigoFicha
 	 * @return
 	 */
-	public boolean excluirFicha(long codigoFicha);
-	
-	
+	public boolean excluirFicha(long codigoFicha) throws SQLException;
+	/**
+	 * Metodo responsavel pela exclusão de um treino separadamente
+	 * @param codigoTreino
+	 * @param codigoFicha
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean excluirTreino(long codigoTreino, int codigoFicha) throws SQLException;
+	/**
+	 * Metodo responsavel pela exclusão da especificacao de um treino 
+	 * @param codigoTreino
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean excluirEspecificacao(long codigoTreino) throws SQLException;
+	public boolean setPerfil(int codigoPerfil) throws SQLException;
 	
 }

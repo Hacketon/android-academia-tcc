@@ -259,6 +259,45 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		return false;
 	}
 
+	@Override
+	public boolean excluirTreino(long codigoTreino, int codigoFicha)
+			throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from treino where codigo = ? and codigoFicha = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		prepare.setInt(aux++, codigoFicha);
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>0);
+	}
+
+	@Override
+	public boolean excluirEspecificacao(long codigoTreino) throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from especificacao where codigoTreino = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>0);
+	}
+
+	@Override
+	public boolean setPerfil(int codigoPerfil) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		String sql = "update ficha set codigoperfil = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		int aux = 1;
+		prepare.setInt(aux ++, codigoPerfil);
+		prepare.executeUpdate();
+		return true;
+	}
+
 	
 
 

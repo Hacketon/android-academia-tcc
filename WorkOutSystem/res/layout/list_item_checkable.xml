@@ -3,30 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/item_height"
+    android:weightSum="100"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@id/drag_handle"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="@dimen/item_height"
-        android:layout_weight="0"
+        android:layout_weight="40"
         android:background="@drawable/drag" />
-
-    <CheckedTextView
+    
+    
+    <CheckedTextView 
         android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height"
-        android:layout_weight="1"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        style="@style/textopequeno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:layout_gravity="center"
+        android:gravity="center"
+		/>
 
     <ImageView
         android:id="@id/click_remove"
-        android:layout_width="@dimen/item_height"
+        android:layout_width="fill_parent"
         android:layout_height="@dimen/item_height"
-        android:layout_weight="0"
+        android:layout_weight="40"
         android:background="@drawable/delete_x" />
 
 </workoutsystem.utilitaria.CheckableLinearLayout>

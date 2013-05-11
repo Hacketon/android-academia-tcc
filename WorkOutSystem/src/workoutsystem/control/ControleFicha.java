@@ -98,4 +98,23 @@ public class ControleFicha {
 		
 	}
 
+	public String removerTreino(long codigoTreino, int codigoFicha) throws Exception  {
+		IFichaDao dao = new FichaDao();
+		String mensagem = "";
+		dao.excluirEspecificacao(codigoTreino);
+		if(dao.excluirTreino(codigoTreino,codigoFicha)){
+			mensagem = "Treino excluido com sucesso";
+		}else{
+			throw new Exception("Não foi possivel excluir o treino");
+		}
+		
+		return mensagem;
+			
+	}
+
+	public void setPerfil(int codigoPerfil) throws SQLException {
+		IFichaDao dao = new FichaDao();
+		boolean resultado = dao.setPerfil(codigoPerfil);
+	}
+
 }

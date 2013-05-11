@@ -1,5 +1,6 @@
 package workoutsystem.interfaces;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import workoutsystem.model.Frequencia;
@@ -57,6 +58,8 @@ public interface IPerfilDao {
 	 * Metodos que buscará a quantida de dias selecionados
 	 */
 	public abstract int quantidadeDias(Perfil perfil);
+
+	public abstract int buscarUltimoPerfil() throws SQLException;
 
 	
 }

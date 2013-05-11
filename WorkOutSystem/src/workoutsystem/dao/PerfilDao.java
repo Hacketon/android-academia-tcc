@@ -230,5 +230,22 @@ public class PerfilDao implements IPerfilDao{
 
 
 
+	@Override
+	public int buscarUltimoPerfil() throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int retorno = 0;
+		String sql = "select max(codigo) as " +
+				" perfil_max_codigo from perfil ";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
+		if(result.next()){
+			retorno = result.getInt("perfil_max_codigo");
+		}
+				
+		return retorno;
+	}
+
+
+
 	
 }

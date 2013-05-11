@@ -13,17 +13,20 @@ import workoutsystem.model.Perfil;
 public class ControlePerfil {
 
 
-	public String cadastrarPerfil(Perfil perfil){
+	public String cadastrarPerfil(Perfil perfil) throws Exception{
 		String mensagem = "Erro ao cadastrar Perfil";
 		IPerfilDao dao = new PerfilDao();
-		if(buscarPerfil() == null){
+		ControleFicha controle = new ControleFicha();
+		Perfil p = buscarPerfil();
+		if(p == null){
 			if(dao.criarPerfil(perfil)){
 				if(dao.frequenciaPerfil(perfil)){
-					mensagem ="Criado com sucesso"; 
-
+					mensagem ="Criado com sucesso";
+					controle.setPerfil(dao.buscarUltimoPerfil());
 				}
-
 			}
+		}else{
+			throw new Exception(mensagem);
 		}
 
 
@@ -35,9 +38,7 @@ public class ControlePerfil {
 		IPerfilDao dao = new PerfilDao();
 		if(buscarPerfil() != null){
 			if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfil(perfil)){
-
 				mensagem ="Atualizado com sucesso"; 
-
 			}
 		}
 
@@ -46,7 +47,6 @@ public class ControlePerfil {
 
 	public Perfil buscarPerfil(){
 		IPerfilDao dao = new PerfilDao();
-		
 		Perfil perfil = dao.buscarPerfil();
 		return perfil;
 

@@ -104,15 +104,16 @@ public class MedidaDao implements IMedidaDao{
 	
 	
 	@Override
-	public List<Medicao> buscarListaMedicao(int codigo) {
+	public List<Medicao> buscarListaMedicao(int codigo,int codigoPerfil) {
 		List<Medicao> lista = new ArrayList<Medicao>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try{
 			Connection con = ResourceManager.getConexao();
-			String sql ="select * from medicao where codigomedida = ?;";
+			String sql ="select * from medicao where codigomedida = ? and codigoperfil = ? order by datamedicao desc;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
+			prepare.setInt(2,codigoPerfil);
 			ResultSet result = prepare.executeQuery();
 
 			while (result.next()){
@@ -305,7 +306,7 @@ public class MedidaDao implements IMedidaDao{
 			prepared.setInt(2, codigoMedida);
 			ResultSet result = prepared.executeQuery();
 
-			while (result.next() && contador != 3){
+			while (result.next() && contador != 4){
 				Medicao m = new Medicao();
 				m.setCodigo(result.getInt(1));
 				m.setValor(result.getDouble(2));
@@ -418,5 +419,7 @@ public class MedidaDao implements IMedidaDao{
 
 
 	}
+
+	
 	
 }

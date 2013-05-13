@@ -11,6 +11,8 @@ import workoutsystem.model.Exercicio;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
+import workoutsystem.utilitaria.AdaptadorHistorico;
+import workoutsystem.utilitaria.ItemListaHistorico;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,9 +44,19 @@ public class GUIEvolucao extends Activity  {
 	private TabSpec tabEvolucao;
 	private TabSpec tabHistorico;
 	
-	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<AdaptadorHistorico> adapter;
+	private AdaptadorHistorico adapterListView;
+	private List<ItemListaHistorico> itens;
+	
+	
+//	private ListView listView; - ok
+//    private AdapterListView adapterListView; - 
+//    private ArrayList<ItemListView> itens;
+ 
 
 
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
 	@Override
@@ -179,9 +191,9 @@ public class GUIEvolucao extends Activity  {
 		
 		
 		// criando ListView
-		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo());
+		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
 		
-		createListView(listaMedicoes, listahistorico);
+		createListView(listaMedicoes, listahistorico, medida);
 		
 
 	}
@@ -240,26 +252,44 @@ public class GUIEvolucao extends Activity  {
 			}
 			contador ++;
 		}
+		
+		
 	}
 
+	
+	
+	
 
-	private void createListView(List <Medicao> medicoes,ListView lista) {
-		
-		ArrayList<String> listaMedicoes = new ArrayList<String>();
+	private void createListView(List <Medicao> medicoes, ListView lista, Medida medida) {
 		
 
+		
+		
+		ArrayList<Medicao> listaMedicoes = new ArrayList<Medicao>();
+		
+		itens = new ArrayList<ItemListaHistorico>();
+		
+
+		
 		for (Medicao m : medicoes){
 
-			listaMedicoes.add(String.valueOf(m.getValor()));
+	
+			
+			String data = sdf.format(m.getDataMedicao());
+			String valor = String.valueOf(m.getValor()+ " "+medida.getUnidade());
+			
+			ItemListaHistorico item = new ItemListaHistorico(valor, data);
+			
+			itens.add(item);
+			
 
 		}
-
-		adapter = new ArrayAdapter<String>
-		(this,R.layout.itens_simple_lista,listaMedicoes);
 		
-		adapter.notifyDataSetChanged();
-		lista.setAdapter(adapter);
-		lista.setCacheColorHint(Color.BLUE);
+		adapterListView = new AdaptadorHistorico(this, itens);
+		lista.setAdapter(adapterListView);
+		
+		
+		lista.setCacheColorHint(Color.TRANSPARENT);
 		
 	}
 	

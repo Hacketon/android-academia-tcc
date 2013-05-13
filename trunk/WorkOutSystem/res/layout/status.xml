@@ -14,6 +14,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
             android:weightSum="100" >
 
             <LinearLayout
@@ -32,7 +33,7 @@
                     android:text="@string/label_dadospessoais"
                     android:textColor="#ffffff"
                     android:textSize="30dp"
-                    android:textStyle="italic" />
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <LinearLayout
@@ -53,7 +54,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 android:weightSum="150" >
 
                 <TextView
@@ -100,19 +102,9 @@
                     android:text="@string/botao_medidas"
                     android:textColor="#ffffff"
                     android:textSize="30dp"
-                    android:textStyle="italic" />
+                    android:textStyle="normal" />
 
-                <TextView
-                    android:id="@+id/texto_data_medida"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="data"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp"
-                    android:textStyle="italic" />
-            </LinearLayout>
+                            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -129,12 +121,24 @@
             </LinearLayout>
 
             <TextView
+                    android:id="@+id/texto_data_medida"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="data"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp"
+                    android:textStyle="italic" />
+            
+            
+            <TextView
                 android:id="@+id/texto_principal_medida"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:padding="5dp"
-                android:text="Princiais"
+                android:paddingTop="10dp"
+                android:text="Principais"
                 android:textColor="#ffffff"
                 android:textSize="15dp"
                 android:textStyle="italic" />
@@ -149,8 +153,8 @@
 
                 <TextView
                     android:id="@+id/linhaDesignPrin"
-                    android:layout_width="3dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="1dp"
+                    android:layout_height="2dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -196,26 +200,12 @@
                     android:padding="5dp"
                     android:text="@string/label_quadril" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#B0C4DE"
-                    android:gravity="left"
-                    android:orientation="vertical"
-                    android:weightSum="100" >
-
-                    <TextView
-                        android:id="@+id/linhaDesignSup"
-                        android:layout_width="3dp"
-                        android:layout_height="1dp" />
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/texto_superior_medida"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:padding="5dp"
+                    android:paddingTop="20dp"
                     android:text="Superiores"
                     android:textColor="#ffffff"
                     android:textSize="15dp"
@@ -231,8 +221,8 @@
 
                     <TextView
                         android:id="@+id/linhaDesignSup"
-                        android:layout_width="3dp"
-                        android:layout_height="1dp" />
+                        android:layout_width="1dp"
+                        android:layout_height="2dp" />
                 </LinearLayout>
 
                 <TextView
@@ -288,26 +278,12 @@
                     android:text="@string/label_esquerda" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#B0C4DE"
-                android:gravity="left"
-                android:orientation="vertical"
-                android:weightSum="100" >
-
-                <TextView
-                    android:id="@+id/linhaDesignInfe"
-                    android:layout_width="3dp"
-                    android:layout_height="1dp" />
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/texto_inferior_medida"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:padding="5dp"
+                android:paddingTop="20dp"
                 android:text="Inferiores"
                 android:textColor="#ffffff"
                 android:textSize="15dp"
@@ -323,8 +299,8 @@
 
                 <TextView
                     android:id="@+id/linhaDesignInf"
-                    android:layout_width="3dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="1dp"
+                    android:layout_height="2dp" />
             </LinearLayout>
 
             <LinearLayout

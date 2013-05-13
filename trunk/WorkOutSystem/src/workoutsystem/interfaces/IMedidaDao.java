@@ -90,6 +90,10 @@ public interface IMedidaDao {
  * @return
  */
 
-	public abstract List<Medicao> buscarListaMedicao(int codigo);
+	public abstract List<Medicao> buscarListaMedicao(int codigo,int codigoPerfi);
+
+
+
+
 }
 

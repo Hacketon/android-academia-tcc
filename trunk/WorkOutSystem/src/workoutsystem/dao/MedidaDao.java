@@ -306,7 +306,7 @@ public class MedidaDao implements IMedidaDao{
 			prepared.setInt(2, codigoMedida);
 			ResultSet result = prepared.executeQuery();
 
-			while (result.next() && contador != 4){
+			while (result.next() && contador != 3){
 				Medicao m = new Medicao();
 				m.setCodigo(result.getInt(1));
 				m.setValor(result.getDouble(2));

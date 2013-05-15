@@ -210,20 +210,24 @@ public class GUIEvolucao extends Activity  {
 		int contador = 0;
 		int naux = 2;
 
-		Collections.sort(medida.getMedicao(),new ControleMedida());
+		//Collections.sort(medida.getMedicao(),new ControleMedida());
 
 
 		while (naux <= medida.getMedicao().size()){
 			if (naux == 2){
-				if (medida.getMedicao().get(contador).getValor()== medida.getMedicao().get(contador+1).getValor()){
+				if (medida.getMedicao().get(contador).getValor()== 
+					medida.getMedicao().get(contador+1).getValor()){
 					medio = maior;
 				} 
 			}else if (naux== 3){
-				if (medida.getMedicao().get(contador+1).getValor() == medida.getMedicao().get(contador+2).getValor()){
+				if (medida.getMedicao().get(contador+1).getValor() == 
+					medida.getMedicao().get(contador+2).getValor()){
 					medio = menor;
 				}
-				if (medida.getMedicao().get(contador).getValor() == medida.getMedicao().get(contador +1).getValor() &&
-						medida.getMedicao().get(contador+1).getValor()== medida.getMedicao().get(contador+2).getValor()){
+				if (medida.getMedicao().get(contador).getValor() == 
+					medida.getMedicao().get(contador +1).getValor() &&
+						medida.getMedicao().get(contador+1).getValor()== 
+							medida.getMedicao().get(contador+2).getValor()){
 					menor = medio;
 					maior = medio;
 				}
@@ -232,7 +236,7 @@ public class GUIEvolucao extends Activity  {
 			naux++;
 
 		}
-		Collections.reverse(medida.getMedicao());
+		//Collections.reverse(medida.getMedicao());
 
 
 		while (contador != medida.getMedicao().size()){
@@ -276,9 +280,11 @@ public class GUIEvolucao extends Activity  {
 	
 			
 			String data = sdf.format(m.getDataMedicao());
-			String valor = String.valueOf(m.getValor()+ " "+medida.getUnidade());
+			//String valor = String.valueOf(m.getValor()+ " "+medida.getUnidade());
+			String valor = String.valueOf(m.getValor());
+			String unidade = medida.getUnidade();
 			
-			ItemListaHistorico item = new ItemListaHistorico(valor, data);
+			ItemListaHistorico item = new ItemListaHistorico(valor, data, unidade);
 			
 			itens.add(item);
 			

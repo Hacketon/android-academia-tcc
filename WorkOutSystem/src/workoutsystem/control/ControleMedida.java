@@ -1,4 +1,5 @@
-package workoutsystem.control;
+package 
+workoutsystem.control;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -144,6 +145,8 @@ public class ControleMedida implements Comparator<Medicao> {
 		
 		
 	}
+	
+	
 
 	public List<Medida> ultimaMedicao(int codigo) {
 		IMedidaDao dao = new MedidaDao();

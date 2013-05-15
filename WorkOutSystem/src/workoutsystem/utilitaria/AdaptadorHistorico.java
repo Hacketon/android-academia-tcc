@@ -76,7 +76,7 @@ public class AdaptadorHistorico  extends BaseAdapter {
 
 
 		}else if(aux == valor){
-			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_seta_lado);
+			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_trace);
 
 		}
 

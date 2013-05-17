@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/item_height"
         android:layout_weight="40"
-        android:background="@drawable/drag" />
+        android:background="@drawable/button_drag" />
     
     
     <CheckedTextView 
@@ -29,6 +29,6 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/item_height"
         android:layout_weight="40"
-        android:background="@drawable/delete_x" />
+        android:background="@drawable/button_delete" />
 
 </workoutsystem.utilitaria.CheckableLinearLayout>

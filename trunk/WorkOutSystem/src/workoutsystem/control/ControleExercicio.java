@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.ResourceManager;
 import workoutsystem.dao.ExercicioDao;
-import workoutsystem.interfaces.IExercicioDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;

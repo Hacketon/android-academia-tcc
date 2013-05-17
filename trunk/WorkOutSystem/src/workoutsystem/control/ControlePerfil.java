@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.dao.FichaDao;
+import workoutsystem.dao.IDiaSemana;
+import workoutsystem.dao.IPerfilDao;
 import workoutsystem.dao.PerfilDao;
-import workoutsystem.interfaces.IDiaSemana;
-import workoutsystem.interfaces.IPerfilDao;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 

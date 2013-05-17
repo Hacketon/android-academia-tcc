@@ -12,16 +12,20 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.DragSortListView.DropListener;
@@ -31,7 +35,9 @@ public class GUIFichaManipular extends ListActivity
 implements 
 RemoveListener,
 DropListener,
-DialogInterface.OnClickListener{
+ListView.OnItemClickListener,
+DialogInterface.OnClickListener,
+ListView.OnItemLongClickListener{
 
 	private TabHost hostfichatreino;
 	private TabSpec spectreino;
@@ -50,7 +56,6 @@ DialogInterface.OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fichamanipular);
 		criarTab();
@@ -58,9 +63,17 @@ DialogInterface.OnClickListener{
 		editDuracaoFicha = (EditText) findViewById(R.id.edt_duracaodias);
 		cbxObjetivo = (Spinner) findViewById(R.id.cbx_fichaObjetivo);
 		criarCombo();
-		ficha = (Ficha) getIntent().getExtras().getSerializable("ficha");
+		long i  = (Long) getIntent().getExtras().getSerializable("ficha");
+		ControleFicha controle = new ControleFicha();
+		try {
+			ficha = controle.buscarFichaCodigo(i);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		listTreinos = getListView(); 
 		preencherFicha(ficha);
+		listTreinos.setOnItemClickListener(this);
 
 	}
 
@@ -142,6 +155,7 @@ DialogInterface.OnClickListener{
 		listTreinos.setAdapter(adapterTreino);
 		listTreinos.setRemoveListener(this);
 		listTreinos.setDropListener(this);
+		listTreinos.setCacheColorHint(Color.TRANSPARENT);
 	}
 
 	private Ficha criarFicha(){
@@ -154,6 +168,11 @@ DialogInterface.OnClickListener{
 		return ficha;
 	}
 
+	private Treino criarTreino(){
+		Treino treino = new Treino();
+		String item = "";
+		return treino;
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -198,24 +217,75 @@ DialogInterface.OnClickListener{
 			adapterTreino.remove(item);
 			adapterTreino.insert(item, to);
 			list.moveCheckState(from, to);
+			reordenarLista();
 		}
 
 	}
+
+	private void reordenarLista() {
+		ControleFicha controle = new ControleFicha();
+		int cont; 
+		int ordem = 1 ;
+		int posicao = 0;
+		String nome = ""  ;
+		List<Treino> treinos = new ArrayList<Treino>();
+
+		for (cont = 0 ; cont < adapterTreino.getCount(); cont++){
+
+			nome = adapterTreino.getItem(cont);
+			posicao = 0;
+			
+			for (Treino treino  : listaTreinos){
+				
+				if (nome.trim().
+						equalsIgnoreCase
+						(treino.getNomeTreino().trim())){
+					treino.setOrdem(ordem);
+					treinos.add(treino);
+					listaTreinos.remove(posicao);
+				}
+				posicao = posicao + 1;
+			}
+			ordem++;
+		}
+
+		listaTreinos = treinos;
+		ficha.setTreinos(listaTreinos);
+		try {
+			controle.reordenarTreino(ficha.getTreinos());
+		} catch (Exception e) {
+			Toast.makeText(this,
+					e.getMessage(),
+					Toast.LENGTH_SHORT).show();
+			
+		}
+		
+
+	}
+
 
 	@Override
 	public void remove(int which) {
 		item = adapterTreino.getItem(which);
 		qual = which;
-		remover(item);
+		String texto = "Você realmente deseja deletar ";
+		String negativa = "Não";
+		String positiva = "Sim";
+		String pontuacao = "?";
+		String titulo = "Confirmação";
+		caixaDialogo(item,titulo,texto,negativa,positiva,pontuacao);
 	}
 
 
-	private void remover(String item) {
-		String texto = "Você realmente deseja deletar ";
-		String titulo = "Confirmação ";
-		String negativa = "Não";
-		String positiva = "Sim";
-		texto = texto + item + " ?";
+	private void caixaDialogo(
+			String item,
+			String titulo,
+			String texto,
+			String negativa,
+			String positiva,
+			String pontuacao) {
+		
+		texto = texto + item + pontuacao;
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setMessage(texto);
@@ -264,5 +334,34 @@ DialogInterface.OnClickListener{
 		}
 		return mensagem;
 	}
+
+
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+		String item = (String) parent.getItemAtPosition(pos);
+		Treino treino = null;
+		for (Treino t : ficha.getTreinos()){
+			if (item.equalsIgnoreCase(t.getNomeTreino())){
+				treino = t;
+				break;
+			}
+		}
+		Intent i = new Intent(this,GUIFichaTreino.class);
+		i.putExtra("treino",treino);
+		startActivity(i);
+			
+	}
+
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+			long id) {
+		
+		return false;
+	}
+
+
+	
 
 }

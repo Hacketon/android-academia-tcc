@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.interfaces.IDiaSemana;
-import workoutsystem.interfaces.IFichaDao;
 import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
@@ -67,8 +65,8 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	public List<Ficha> listarFichas() throws SQLException{
 		Connection con = ResourceManager.getConexao();
 		String sql = "select codigo,nome,duracaoDias, " +
-				" objetivo,realizacoes, " +
-				" ficha_atual,padrao from ficha";
+		" objetivo,realizacoes, " +
+		" ficha_atual,padrao from ficha";
 		PreparedStatement prepared = con.prepareStatement(sql);
 		ResultSet result = prepared.executeQuery();
 		List<Ficha> list = new ArrayList<Ficha>();
@@ -84,7 +82,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setRealizacoes(result.getInt("realizacoes"));
 			list.add(f);
 		}
-		
+
 
 		prepared.close();
 		con.close();
@@ -113,7 +111,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 			list.add(t);
 		}
-		
+
 
 		prepare.close();
 		con.close();
@@ -140,7 +138,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		List<Especificacao> list = new ArrayList<Especificacao>();
 
 		while (result.next()){
-			
+
 			Especificacao esp = new Especificacao();
 			esp.setCodigoExercicio(result.getInt("exercicio_codigo"));
 			esp.setCodigoTreino(result.getInt("treino_codigo"));
@@ -152,11 +150,11 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 			list.add(esp);
 		}
-		
+
 
 		prepare.close();
 		con.close();
-		
+
 		return list;
 	}
 
@@ -167,12 +165,12 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		Connection con = ResourceManager.getConexao();
 		String sql = "insert into treino (nome,ordem,codigoFicha) values (?,?,?)";
 		boolean verificar = false;
-		
+
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setString(aux++,treino.getNomeTreino());
 		prepare.setInt(aux++,treino.getOrdem());
 		prepare.setInt(aux++, treino.getCodigoFicha());
-		
+
 		resultado = prepare.executeUpdate();
 
 		if (resultado > 0){
@@ -181,7 +179,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 		prepare.close();
 		con.close();
-		
+
 		return verificar;
 	}
 
@@ -212,7 +210,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 		prepare.close();
 		con.close();
-		
+
 		return  verificar;
 	}
 
@@ -226,18 +224,18 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		"  (codigoexercicio,codigotreino,ordem," +
 		"	repeticao,unidade,carga)"+ 
 		"values (?,?,?,?,?,?);";
-		
+
 		PreparedStatement prepare = con.prepareStatement(sql);
-		
+
 		prepare.setInt(aux++, especificacao.getCodigoExercicio());
 		prepare.setInt(aux++, especificacao.getCodigoTreino());
 		prepare.setInt(aux++, especificacao.getOrdem());
 		prepare.setInt(aux++, especificacao.getQuantidade());
 		prepare.setString(aux++, especificacao.getUnidade());
 		prepare.setDouble(aux++, especificacao.getCarga());
-		
+
 		resultado = prepare.executeUpdate();
-		
+
 		if (resultado > 0){
 			verificar = true;
 		}
@@ -261,7 +259,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 	@Override
 	public boolean excluirTreino(long codigoTreino, int codigoFicha)
-			throws SQLException {
+	throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		String sql = "delete from treino where codigo = ? and codigoFicha = ?";
@@ -298,8 +296,57 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		return true;
 	}
 
-	
+	@Override
+	public boolean reordenarTreino(int ordem, long codigoTreino) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String sql = "update treino set ordem = ? where codigo = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, ordem);
+		prepare.setLong(aux++, codigoTreino);
+		prepare.executeUpdate();
+		return true;
+	}
 
+	@Override
+	public Ficha buscarFichaAtual(int codigoPerfil) throws SQLException {
+		String sql = "";
+		return null;
+	}
+
+	@Override
+	public boolean alterarFichaAtual(int codigoFicha) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Ficha buscarFichaCodigo(long i) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String sql = "select codigo,nome,duracaoDias, " +
+		" objetivo,realizacoes, " +
+		" ficha_atual,padrao from ficha where codigo = ?";
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setLong(aux++, i);
+		ResultSet result = prepared.executeQuery();
+
+		Ficha f = null;
+		if(result.next()){
+			f = new Ficha();
+			f.setCodigoFicha(result.getInt("codigo"));
+			f.setDuracaoDias(result.getInt("duracaoDias"));
+			f.setAtual(result.getInt("ficha_atual"));
+			f.setNomeFicha(result.getString("nome"));
+			f.setObjetivo(result.getString("objetivo"));
+			f.setPadrao(result.getInt("padrao"));
+			f.setRealizacoes(result.getInt("realizacoes"));
+		}
+			
+		return f;
+	}
+	
+	
 
 
 

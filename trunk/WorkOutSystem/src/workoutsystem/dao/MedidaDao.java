@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 

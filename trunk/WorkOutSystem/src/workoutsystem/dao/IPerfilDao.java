@@ -1,4 +1,4 @@
-package workoutsystem.interfaces;
+package workoutsystem.dao;
 
 import java.sql.SQLException;
 import java.util.List;

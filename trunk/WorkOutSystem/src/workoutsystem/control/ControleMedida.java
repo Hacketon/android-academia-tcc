@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import workoutsystem.dao.IMedidaDao;
 import workoutsystem.dao.MedidaDao;
-import workoutsystem.interfaces.IMedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 
@@ -140,27 +140,14 @@ public class ControleMedida implements Comparator<Medicao> {
 		}else {
 			retorno =  -1;
 		}
-		
 		return retorno ;
 		
-		
 	}
-	
 	
 
 	public List<Medida> ultimaMedicao(int codigo) {
 		IMedidaDao dao = new MedidaDao();
 		return dao.ultimaMedicao(codigo);
 	}
-
 	
-	
-//	double retorno = 0.0;
-//	if (m1.getValor() > m2.getValor()){
-//		retorno = m1.getValor();
-//	}else if (m1.getValor() == m1.getValor()){
-//		retorno = m1.getValor();
-//	}else{
-//		retorno = m2.getValor();
-//	}
 }

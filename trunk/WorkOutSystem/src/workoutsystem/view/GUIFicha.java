@@ -133,7 +133,7 @@ DialogInterface.OnClickListener{
 	
 	private void iniciarFichaManipular(Ficha f) {
 		Intent i = new Intent(this,GUIFichaManipular.class);
-		i.putExtra("ficha", f);
+		i.putExtra("ficha", f.getCodigoFicha());
 		startActivity(i);
 		
 	}

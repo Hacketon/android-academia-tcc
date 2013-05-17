@@ -6,6 +6,8 @@ import java.util.List;
 import workoutsystem.utilitaria.AdaptadorIcones;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +16,7 @@ import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-public class GUIAjuda extends Activity implements AdapterView.OnItemClickListener{
+public class GUIAjuda extends Activity implements AdapterView.OnItemClickListener, DialogInterface.OnClickListener{
 
 	private GridView gridAjuda;
 
@@ -30,7 +32,7 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		List<Integer> texto = listarTexto(); 
 		AdaptadorIcones ad = new AdaptadorIcones(this, imagem, texto);
 		gridAjuda = (GridView) findViewById(R.id.grid_ajuda);
-		
+
 		gridAjuda.setAdapter(ad);
 		gridAjuda.setOnItemClickListener(this);
 
@@ -76,23 +78,19 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		TextView textView = (TextView) view.findViewById(R.id.texto_icone);
 		String comando = (String) textView.getText();
 		String tela = "";
-		
-		if (comando.equalsIgnoreCase("conf.")){
-		
-		}else if(comando.equalsIgnoreCase("exercicio")){
-		
+
+		if(comando.equalsIgnoreCase("exercicio")){
+			alert("Exercicio", "Teste ");
 		}else if(comando.equalsIgnoreCase("rotina")){
-		
+			alert("Rotina", "Teste ");
 		}else if(comando.equalsIgnoreCase("ficha")){
-		
-		}else if(comando.equalsIgnoreCase("sobre")){
-		
+			alert("Ficha", "Teste ");
 		}else if(comando.equalsIgnoreCase("evolução")){
-		 
+			alert("Evolução", "Teste ");
 		}else if(comando.equalsIgnoreCase("perfil")){
-		
+			alert("Perfil", "Teste ");
 		}else if(comando.equalsIgnoreCase("medida")){
-		
+			alert("Medida", "Teste ");
 		}
 		//Intent i = new Intent(tela);
 		//startActivity(i);
@@ -101,4 +99,28 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 	}
 
 
+	public void alert(String titulo,String mensagem){
+		AlertDialog.Builder a = new AlertDialog.Builder(this);
+		a.setTitle(titulo);
+		a.setMessage(mensagem);
+		a.setPositiveButton("OK", this);
+		a.show();
+	}
+
+
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		switch (which) {
+
+		case DialogInterface.BUTTON_POSITIVE:
+			dialog.dismiss();
+			break;
+
+		default:
+			break;
+		}
+
+
+	}
 }

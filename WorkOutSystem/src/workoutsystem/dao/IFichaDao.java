@@ -1,4 +1,4 @@
-package workoutsystem.interfaces;
+package workoutsystem.dao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -84,5 +84,35 @@ public interface IFichaDao {
 	 */
 	public boolean excluirEspecificacao(long codigoTreino) throws SQLException;
 	public boolean setPerfil(int codigoPerfil) throws SQLException;
+	/**
+	 * Metodo responsavel pela reordenação dos treinos de uma ficha
+	 * @param ordem
+	 * @param codigoTreino
+	 * @return 
+	 * @throws SQLException 
+	 */
+	public boolean reordenarTreino(int ordem, long codigoTreino) throws SQLException;
+	
+	/**
+	 * Metodo responsavel pela busca da ficha atual do perfil cadastrado
+	 * @param codigoPerfil
+	 * @return Ficha atual do usuario ou nulo , senão tiver ficha.
+	 * @throws SQLException
+	 */
+	public Ficha buscarFichaAtual(int codigoPerfil) throws SQLException;
+	/**
+	 * Metodo responsavel pela alteração da ficha atual do perfil cadastrado
+	 * @return true , alterado com sucesso , false quando não for possivel alterar
+	 * @throws SQLException
+	 */
+	public boolean alterarFichaAtual(int codigoFicha) throws SQLException;
+	/**
+	 * Metodo responsavel pela busca de uma ficha através do seu codigo .
+	 * @param i
+	 * @return Ficha
+	 * @throws SQLException
+	 */
+	public Ficha buscarFichaCodigo(long i) throws SQLException;
+	
 	
 }

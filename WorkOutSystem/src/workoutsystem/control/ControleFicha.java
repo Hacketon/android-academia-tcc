@@ -6,8 +6,8 @@ import java.util.List;
 
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.FichaDao;
-import workoutsystem.interfaces.IExercicioDao;
-import workoutsystem.interfaces.IFichaDao;
+import workoutsystem.dao.IExercicioDao;
+import workoutsystem.dao.IFichaDao;
 import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
@@ -19,13 +19,13 @@ public class ControleFicha {
 	public List<Frequencia> listarDias() {
 		return new FichaDao().listarDias();
 	}
-	
+
 	public boolean manipularFicha(Ficha ficha) throws SQLException{
 		inserirFicha(ficha);
 		return false;
-		
+
 	}
-	
+
 	public List<Ficha> buscarFicha() throws SQLException{
 		IFichaDao dao = new FichaDao();
 		IExercicioDao daoExercicio = new ExercicioDao();
@@ -34,21 +34,21 @@ public class ControleFicha {
 			f.setTreinos(dao.listarTreinos(f.getCodigoFicha()));
 			for(Treino t : f.getTreinos()){
 				t.setExercicios
-						(daoExercicio.listarExercicioTreino(t.getCodigoTreino()));
+				(daoExercicio.listarExercicioTreino(t.getCodigoTreino()));
 				for(Exercicio e : t.getExercicios()){
-						e.setListaEspecificacao(dao.listarEspecificacao(
-								t.getCodigoTreino(),
-								e.getCodigo(),
-								t.getCodigoFicha()));
+					e.setListaEspecificacao(dao.listarEspecificacao(
+							t.getCodigoTreino(),
+							e.getCodigo(),
+							t.getCodigoFicha()));
 				}
 			}
-			
+
 		}
 		return lista;
 	}
-	
-	
-	
+
+
+
 	private boolean inserirFicha(Ficha ficha) throws SQLException{
 		IFichaDao dao = new FichaDao();
 		dao.inserirFicha(ficha);
@@ -58,7 +58,7 @@ public class ControleFicha {
 				for(Especificacao especificacao : exercicio.getListaEspecificacao()){
 					dao.inserirEspecificacao(especificacao);
 				}
-				
+
 			}
 		}
 		return true;
@@ -77,14 +77,14 @@ public class ControleFicha {
 					e.getListaEspecificacao();
 				}
 
-				
+
 			}
 			resultado = dao.excluirFicha(ficha.getCodigoFicha());
 
 		}
 
 		return resultado;
-		
+
 	}
 
 	public Ficha buscarFichaNome(String nome) throws Exception {
@@ -95,7 +95,7 @@ public class ControleFicha {
 			throw new Exception(erro);
 		}
 		return ficha;
-		
+
 	}
 
 	public String removerTreino(long codigoTreino, int codigoFicha) throws Exception  {
@@ -107,14 +107,62 @@ public class ControleFicha {
 		}else{
 			throw new Exception("Não foi possivel excluir o treino");
 		}
-		
+
 		return mensagem;
-			
+
 	}
 
 	public void setPerfil(int codigoPerfil) throws SQLException {
 		IFichaDao dao = new FichaDao();
 		boolean resultado = dao.setPerfil(codigoPerfil);
+	}
+
+	public boolean reordenarTreino(List<Treino> treinos) throws Exception {
+		IFichaDao dao = new FichaDao();
+		boolean verificacao = true;
+		try{
+			for(Treino t : treinos){
+				verificacao = 
+					dao.reordenarTreino
+					(t.getOrdem(),t.getCodigoTreino());
+				if(!verificacao){
+					break;
+				}
+			}
+
+		}catch (Exception e) {
+			throw new Exception("Erro ao reordenar os exercicios");
+		}
+
+		return verificacao;
+
+
+	}
+
+	public Ficha buscarFichaCodigo(long i) throws Exception{
+		Ficha f = null;
+		IFichaDao dao = new FichaDao();
+		IExercicioDao daoExercicio = new ExercicioDao();
+		f = dao.buscarFichaCodigo(i);
+		if(f != null){
+			f.setTreinos(dao.listarTreinos(f.getCodigoFicha()));
+			for(Treino t : f.getTreinos()){
+				t.setExercicios
+				(daoExercicio.listarExercicioTreino(t.getCodigoTreino()));
+				for(Exercicio e : t.getExercicios()){
+					e.setListaEspecificacao(dao.listarEspecificacao(
+							t.getCodigoTreino(),
+							e.getCodigo(),
+							t.getCodigoFicha()));
+				}
+			}
+
+		}else{
+			throw new Exception("Erro ao encontrar a ficha");
+		}
+
+		return f;
+
 	}
 
 }

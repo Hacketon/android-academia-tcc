@@ -200,9 +200,6 @@ public class GUIEvolucao extends Activity  {
 
 	}
 
-
-
-
 	private void calcularProgresso(Medida medida) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		int maior = 70;

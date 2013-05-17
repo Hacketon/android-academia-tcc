@@ -235,7 +235,7 @@ DialogInterface.OnClickListener{
 		(this,R.layout.itens_simple_lista,nomes);
 		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
-		lista.setCacheColorHint(Color.BLUE);
+		lista.setCacheColorHint(Color.TRANSPARENT);
 		criarExclusao(exercicios);
 
 	}

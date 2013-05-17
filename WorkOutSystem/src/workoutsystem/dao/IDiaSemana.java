@@ -1,4 +1,4 @@
-package workoutsystem.interfaces;
+package workoutsystem.dao;
 import java.util.List;
 import workoutsystem.model.Frequencia;
 

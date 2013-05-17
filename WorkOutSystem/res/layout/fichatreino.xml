@@ -33,8 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <LinearLayout style="@style/linearLayoutPadraoVertical" 
-                        android:padding="5dp">
+                    <LinearLayout style="@style/linearLayoutPadraoVertical">
 
                         <TextView
                             style="@style/textopequeno"
@@ -43,7 +42,7 @@
                             android:text="@string/label_treino" />
 
                         <EditText
-                            android:id="@+id/edt_nomeTreinoo"
+                            android:id="@+id/edt_nomeTreino"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content" 
                             android:maxLines="1"/>
@@ -57,6 +56,7 @@
                         <ListView
                             android:id="@+id/list_busca"
                             android:layout_width="fill_parent"
+                            android:choiceMode="multipleChoice"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
                             android:divider="@android:color/transparent" />
@@ -77,7 +77,7 @@
                         android:divider="@android:color/transparent" />
                 </LinearLayout>
 
-                <!--  -->
+                <!-- Tab especificacao -->
                 <LinearLayout
                     android:id="@+id/tab_especificacao"
                     android:layout_width="match_parent"

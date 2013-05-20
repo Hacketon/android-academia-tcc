@@ -64,6 +64,9 @@ DialogInterface.OnClickListener{
 		setContentView(R.layout.exercicio);
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.criarexercicio);
+		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
+		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
+		
 		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
@@ -72,9 +75,8 @@ DialogInterface.OnClickListener{
 		listacriado = (ListView) findViewById(R.id.listacriado);
 		editDescricaoExercicio = (EditText) dialog.findViewById(R.id.edt_descricaoExercicio);
 		editNomeExercicio = (EditText) dialog.findViewById(R.id.edt_nomeExercicio);
-		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
-		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
 
+		
 		btnCancelar.setOnClickListener(this);
 		btnSalvar.setOnClickListener(this);
 		cbxExercicioCriado.setOnItemSelectedListener(this);
@@ -326,7 +328,7 @@ DialogInterface.OnClickListener{
 				if (deletarExercicios()){
 					mensagem = "Operação realizada com sucesso";
 					}else{
-					mensagem = "Operação contendo erros";
+					mensagem = "Exercicios relacionados a fichas não foram excluidos";
 				}
 			} catch (SQLException e) {
 				mensagem = "Erro no banco de dados";

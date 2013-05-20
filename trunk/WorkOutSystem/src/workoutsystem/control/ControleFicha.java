@@ -13,6 +13,7 @@ import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Treino;
+import workoutsystem.utilitaria.Validadora;
 
 public class ControleFicha {
 
@@ -98,7 +99,7 @@ public class ControleFicha {
 
 	}
 
-	public String removerTreino(long codigoTreino, int codigoFicha) throws Exception  {
+	public String removerTreino(long codigoTreino, long codigoFicha) throws Exception  {
 		IFichaDao dao = new FichaDao();
 		String mensagem = "";
 		dao.excluirEspecificacao(codigoTreino);
@@ -163,6 +164,48 @@ public class ControleFicha {
 
 		return f;
 
+	}
+	
+	
+	public String manipularTreino(String nomeTreino,long codigoFicha, long codigoTreino) throws Exception {
+		Treino t = new Treino();
+		t.setNomeTreino(nomeTreino.trim());
+		t.setCodigoFicha(codigoFicha);
+		t.setCodigoTreino(codigoTreino);
+		Validadora<Treino> validadora = new Validadora<Treino>(t);
+		String mensagem = validadora.getMessage();
+		IFichaDao dao = new FichaDao();
+		int resultado = 0;
+		
+		if(mensagem.equalsIgnoreCase("")){
+			if(dao.buscarTreino(t.getNomeTreino(),t.getCodigoFicha())){
+				mensagem = "Erro treino já existente nesta ficha";
+				throw new Exception(mensagem);
+			}else{
+				if(dao.alterarNomeTreino(t.getNomeTreino(),
+						t.getCodigoFicha(),
+						t.getCodigoTreino())){
+					mensagem = "Nome alterado com sucesso"; 
+				}else{
+					resultado = dao.buscarQuantidadeTreino(t.getCodigoFicha());
+					resultado = resultado + 1;
+					t.setOrdem(resultado);
+					if(dao.inserirTreino(t)){
+						mensagem = "Treino criado com sucesso";
+					}else{
+						mensagem = "Não foi possivel criar o treino";
+						throw new Exception(mensagem);
+					}
+				}
+			}
+		}else{
+			throw new Exception(mensagem);
+		}
+		
+		
+		return mensagem;
+		
+		
 	}
 
 }

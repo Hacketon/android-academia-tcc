@@ -120,7 +120,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 	@Override
 	public List<Especificacao> listarEspecificacao(long codigoTreino,
-			long codigoExercicio,int codigoFicha) throws SQLException {
+			long codigoExercicio,long codigoFicha) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 
@@ -133,7 +133,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoExercicio);
 		prepare.setLong(aux++, codigoTreino);
-		prepare.setInt(aux++, codigoFicha);
+		prepare.setLong(aux++, codigoFicha);
 		ResultSet result = prepare.executeQuery();
 		List<Especificacao> list = new ArrayList<Especificacao>();
 
@@ -169,7 +169,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setString(aux++,treino.getNomeTreino());
 		prepare.setInt(aux++,treino.getOrdem());
-		prepare.setInt(aux++, treino.getCodigoFicha());
+		prepare.setLong(aux++, treino.getCodigoFicha());
 
 		resultado = prepare.executeUpdate();
 
@@ -258,14 +258,14 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	}
 
 	@Override
-	public boolean excluirTreino(long codigoTreino, int codigoFicha)
+	public boolean excluirTreino(long codigoTreino, long codigoFicha)
 	throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		String sql = "delete from treino where codigo = ? and codigoFicha = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
-		prepare.setInt(aux++, codigoFicha);
+		prepare.setLong(aux++, codigoFicha);
 		int valor = prepare.executeUpdate();
 		con.close();
 		prepare.close();
@@ -304,8 +304,10 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++, ordem);
 		prepare.setLong(aux++, codigoTreino);
-		prepare.executeUpdate();
-		return true;
+		int resultado = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return resultado>0;
 	}
 
 	@Override
@@ -342,11 +344,78 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setPadrao(result.getInt("padrao"));
 			f.setRealizacoes(result.getInt("realizacoes"));
 		}
-			
+		prepared.close();
+		con.close();
 		return f;
 	}
-	
-	
+
+	@Override
+	public boolean verificarExercicio(long codigoExercicio) throws SQLException {
+		String sql = "select * from especificacao where codigoexercicio = ?";
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		boolean retorno = false;
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setLong(aux++, codigoExercicio);
+		ResultSet result = prepared.executeQuery();
+		if(result.next()){
+			retorno = true;
+		}
+		prepared.close();
+		con.close();
+		return retorno;
+	}
+
+
+	@Override
+	public boolean buscarTreino(String nomeTreino, long codigoFicha) throws SQLException {
+		String sql = "select codigo , nome ,ordem ,codigoFicha " +
+		"from treino where " +
+		"codigoFicha = ? and nome = ?";
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setLong(aux++, codigoFicha);
+		prepared.setString(aux++, nomeTreino);
+		ResultSet result = prepared.executeQuery();
+		boolean retorno = result.next();
+		prepared.close();
+		con.close();
+		return retorno;
+	}
+
+	@Override
+	public boolean alterarNomeTreino(String nomeTreino, long codigoFicha,long codigoTreino) throws SQLException {
+		String sql = "update treino set nome = ? where codigoFicha = ? and codigo = ?";
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setString(aux++, nomeTreino);
+		prepare.setLong(aux++, codigoFicha);
+		prepare.setLong(aux++, codigoTreino);
+		int retorno = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return retorno > 0 ;
+	}
+
+	@Override
+	public int buscarQuantidadeTreino(long codigoFicha) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String sql = "select count (*) as numero_treino " +
+		"from treino where codigoFicha = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++,codigoFicha);
+		ResultSet result = prepare.executeQuery();
+		int resultado = 0;
+		if(result.next()){
+			resultado = result.getInt("numero_treino");
+		}
+		return resultado;
+	}
+
+
 
 
 

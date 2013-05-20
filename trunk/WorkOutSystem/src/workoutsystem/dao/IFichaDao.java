@@ -32,7 +32,7 @@ public interface IFichaDao {
 	 * @throws SQLException
 	 */
 	public List<Especificacao> listarEspecificacao(long l,long m,
-			int codigoFicha)
+			long n)
 	throws SQLException;
 	
 	
@@ -75,7 +75,7 @@ public interface IFichaDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean excluirTreino(long codigoTreino, int codigoFicha) throws SQLException;
+	public boolean excluirTreino(long codigoTreino, long codigoFicha) throws SQLException;
 	/**
 	 * Metodo responsavel pela exclusão da especificacao de um treino 
 	 * @param codigoTreino
@@ -113,6 +113,32 @@ public interface IFichaDao {
 	 * @throws SQLException
 	 */
 	public Ficha buscarFichaCodigo(long i) throws SQLException;
+	public boolean verificarExercicio(long codigoExercicio) throws SQLException;
+	/**
+	 * Metodo responsavel pela busca de um treino em um determinada ficha
+	 * @param nomeTreino
+	 * @param codigoFicha
+	 * @return true = se o treino existe caso contrario false
+	 * @throws SQLException 
+	 */
+	public boolean buscarTreino(String nomeTreino, long codigoFicha) throws SQLException;
+	
+	/**
+	 * Metodo responsavel pela alteração do nome dos treinos
+	 * @param nomeTreino
+	 * @param codigoFicha
+	 * @param codigoTreino 
+	 * @return
+	 */
+	public boolean alterarNomeTreino(String nomeTreino, long codigoFicha, long codigoTreino) throws SQLException;
+	/**
+	 * Metodo responsavel pela busca da quantidade de treinos em uma determinada ficha
+	 * @param codigoFicha
+	 * @return
+	 */
+	public int buscarQuantidadeTreino(long codigoFicha) throws SQLException;
+	
+	
 	
 	
 }

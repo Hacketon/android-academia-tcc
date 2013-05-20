@@ -24,7 +24,6 @@ import android.widget.ListView;
 public class GUIFicha extends Activity implements 
 DialogInterface.OnMultiChoiceClickListener,
 ListView.OnItemClickListener,
-
 DialogInterface.OnClickListener{
 
 	private ListView listaFicha;
@@ -41,6 +40,7 @@ DialogInterface.OnClickListener{
 		
 		listaFicha = (ListView) findViewById(R.id.listafichas);
 		listaFicha.setOnItemClickListener(this);
+		
 		try {
 			createListView();
 		} catch (SQLException e) {

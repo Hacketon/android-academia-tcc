@@ -9,22 +9,26 @@ import workoutsystem.model.Ficha;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Objetivo;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortListView;
@@ -35,30 +39,41 @@ public class GUIFichaManipular extends ListActivity
 implements 
 RemoveListener,
 DropListener,
+View.OnClickListener,
 ListView.OnItemClickListener,
 DialogInterface.OnClickListener,
 ListView.OnItemLongClickListener{
 
 	private TabHost hostfichatreino;
 	private TabSpec spectreino;
+	private Dialog dialog;
 	private TabSpec specficha;
 	private EditText editNomeFicha;
+	private EditText editNomeTreino;
 	private EditText editDuracaoFicha;
 	private EditText editObjetivoFicha;
 	private Spinner cbxObjetivo;
 	private List<String> listaObjetivo; 
 	private ArrayAdapter<String> adapterTreino;
 	private DragSortListView listTreinos;
-	private List<Treino> listaTreinos;
 	private String item;
 	private int qual;
 	private Ficha ficha;
+	private Button btnCancelar;
+	private Button btnSalvar;
+	private TextView txtCodigoTreino;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fichamanipular);
 		criarTab();
+		dialog = new Dialog(this);
+		dialog.setContentView(R.layout.nome_treino);
+		editNomeTreino = (EditText) dialog.findViewById(R.id.txt_NomeTreino);
+		txtCodigoTreino = (TextView) dialog.findViewById(R.id.txt_codigoTreino);
+		btnCancelar = (Button) dialog.findViewById(R.id.btn_cancelarNome);
+		btnSalvar = (Button) dialog.findViewById(R.id.btn_confirmarNome);
 		editNomeFicha = (EditText) findViewById(R.id.edt_nomeFicha);
 		editDuracaoFicha = (EditText) findViewById(R.id.edt_duracaodias);
 		cbxObjetivo = (Spinner) findViewById(R.id.cbx_fichaObjetivo);
@@ -68,12 +83,15 @@ ListView.OnItemLongClickListener{
 		try {
 			ficha = controle.buscarFichaCodigo(i);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
+		btnCancelar.setOnClickListener(this);
+		btnSalvar.setOnClickListener(this);
 		listTreinos = getListView(); 
 		preencherFicha(ficha);
 		listTreinos.setOnItemClickListener(this);
+		listTreinos.setOnItemLongClickListener(this);
 
 	}
 
@@ -121,8 +139,8 @@ ListView.OnItemLongClickListener{
 			editNomeFicha.setText(f.getNomeFicha());
 			editDuracaoFicha.setText(String.valueOf(f.getDuracaoDias()));
 			int pos = 0 ;
-			listaTreinos = f.getTreinos();
-			createListView(listaTreinos);
+
+			createListView(f.getTreinos());
 			for (String s : listaObjetivo){
 				if (s.trim().equalsIgnoreCase(f.getObjetivo().trim())){
 					cbxObjetivo.setSelection(pos);
@@ -132,8 +150,8 @@ ListView.OnItemLongClickListener{
 			}
 
 		}else{
-			listaTreinos = new ArrayList<Treino>();	
-			createListView(listaTreinos);
+
+			createListView(new ArrayList<Treino>());
 		}
 
 	}
@@ -188,26 +206,27 @@ ListView.OnItemLongClickListener{
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
 		case R.id.novo_treino:
-			Treino t = new Treino();
-			iniciarTreino(t);
+			criarCaixa("", "Novo Treino");
 			break;
-		case R.id.remover_treino:
 
-			break;
-		case R.id.existente_treino:
-			break;
 		case R.id.finalizar_edicao:
 			break;
+
+			/*
+			 * 		case R.id.remover_treino:
+					break;
+					case R.id.existente_treino:
+					break;
+			 * 
+			 * 	
+			 */
+
 		}
 		return true;
 
 	}
 
-	private void iniciarTreino(Treino t){
-		Intent i = new Intent(this,GUIFichaTreino.class);
-		i.putExtra("treino", t);
-		startActivity(i);
-	}
+	
 
 	@Override
 	public void drop(int from, int to) {
@@ -234,32 +253,32 @@ ListView.OnItemLongClickListener{
 
 			nome = adapterTreino.getItem(cont);
 			posicao = 0;
-			
-			for (Treino treino  : listaTreinos){
-				
+
+			for (Treino treino  : ficha.getTreinos()){
+
 				if (nome.trim().
 						equalsIgnoreCase
 						(treino.getNomeTreino().trim())){
 					treino.setOrdem(ordem);
 					treinos.add(treino);
-					listaTreinos.remove(posicao);
+					ficha.getTreinos().remove(posicao);
 				}
 				posicao = posicao + 1;
 			}
 			ordem++;
 		}
 
-		listaTreinos = treinos;
-		ficha.setTreinos(listaTreinos);
+
+		ficha.setTreinos(treinos);
 		try {
 			controle.reordenarTreino(ficha.getTreinos());
 		} catch (Exception e) {
 			Toast.makeText(this,
 					e.getMessage(),
 					Toast.LENGTH_SHORT).show();
-			
+
 		}
-		
+
 
 	}
 
@@ -273,18 +292,18 @@ ListView.OnItemLongClickListener{
 		String positiva = "Sim";
 		String pontuacao = "?";
 		String titulo = "Confirmação";
-		caixaDialogo(item,titulo,texto,negativa,positiva,pontuacao);
+		criarCaixa(item,titulo,texto,negativa,positiva,pontuacao);
 	}
 
 
-	private void caixaDialogo(
+	private void criarCaixa(
 			String item,
 			String titulo,
 			String texto,
 			String negativa,
 			String positiva,
 			String pontuacao) {
-		
+
 		texto = texto + item + pontuacao;
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -327,7 +346,7 @@ ListView.OnItemLongClickListener{
 			if(t.getNomeTreino().
 					equalsIgnoreCase(item)){
 				long codigoTreino = t.getCodigoTreino();
-				int codigoFicha = t.getCodigoFicha();
+				long codigoFicha = t.getCodigoFicha();
 				mensagem = controle.removerTreino(codigoTreino,codigoFicha);
 				break;
 			}
@@ -339,6 +358,12 @@ ListView.OnItemLongClickListener{
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+		iniciarFichaTreino(parent, pos);
+
+	}
+
+
+	private void iniciarFichaTreino(AdapterView<?> parent, int pos) {
 		String item = (String) parent.getItemAtPosition(pos);
 		Treino treino = null;
 		for (Treino t : ficha.getTreinos()){
@@ -350,18 +375,64 @@ ListView.OnItemLongClickListener{
 		Intent i = new Intent(this,GUIFichaTreino.class);
 		i.putExtra("treino",treino);
 		startActivity(i);
-			
+	}
+
+
+	private void criarCaixa(String nomeTreino,String titulo) {
+		dialog.setTitle(titulo);
+		editNomeTreino.setText(nomeTreino);
+		for(Treino t : ficha.getTreinos()){
+			if(t.getNomeTreino().equalsIgnoreCase(nomeTreino)){
+				txtCodigoTreino.setText(String.valueOf(t.getCodigoTreino()));
+				break;
+			}
+		}
+		if(txtCodigoTreino.getText().toString().equalsIgnoreCase("")){
+			txtCodigoTreino.setText("0");
+		}
+		dialog.show();
 	}
 
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
 			long id) {
-		
+		String item = (String) parent.getItemAtPosition(pos);
+		criarCaixa(item,"Renomear Treino");
 		return false;
 	}
 
 
-	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_confirmarNome:
+			String mensagem = "";
+			ControleFicha controle = new ControleFicha();
+			try {
+				mensagem = controle.manipularTreino
+						 (editNomeTreino.getText().toString(),
+							ficha.getCodigoFicha(),
+							Long.parseLong(txtCodigoTreino.getText().toString()));
+				ficha = controle.buscarFichaCodigo(ficha.getCodigoFicha());
+				createListView(ficha.getTreinos());
+				dialog.dismiss();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+				
+			}
+			dialog.dismiss();
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+			break;
+
+		case R.id.btn_cancelarNome:
+			dialog.dismiss();
+			break;
+		}
+		
+	}
+
+
+
 
 }

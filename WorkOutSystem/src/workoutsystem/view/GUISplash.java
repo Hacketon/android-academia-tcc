@@ -32,7 +32,7 @@ public class GUISplash extends Activity implements Runnable {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
 									, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.splash);
-		sleepTime = 0;
+		sleepTime = 1;
 		barraSplash =(ProgressBar) findViewById(R.id.progressSplash);
 		txtSplash = (TextView ) findViewById(R.id.textSplash);
 		t = new Thread(this);

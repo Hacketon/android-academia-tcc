@@ -31,43 +31,38 @@
                 <LinearLayout
                     android:id="@+id/tab_treino"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
 
-                    <LinearLayout style="@style/linearLayoutPadraoVertical">
+                    <Spinner
+                        android:id="@+id/cbx_buscaexercicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:prompt="@string/label_grupo_muscular" />
 
-                        <TextView
-                            style="@style/textopequeno"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_treino" />
+                    <ListView
+                        android:id="@+id/list_busca"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:choiceMode="multipleChoice"
+                        android:divider="@android:color/transparent" />
 
-                        <EditText
-                            android:id="@+id/edt_nomeTreino"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" 
-                            android:maxLines="1"/>
-
-                        <Spinner
-                            android:id="@+id/cbx_buscaexercicio"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:prompt="@string/label_grupo_muscular" />
-
-                        <ListView
-                            android:id="@+id/list_busca"
-                            android:layout_width="fill_parent"
-                            android:choiceMode="multipleChoice"
-                            android:layout_height="fill_parent"
-                            android:layout_weight="1"
-                            android:divider="@android:color/transparent" />
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_adicionar_selecionados"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="@string/botao_adicionar" />
                 </LinearLayout>
 
                 <!-- Tab exercicio/treino -->
+
                 <LinearLayout
                     android:id="@+id/tab_exercicio_treino"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent" 
+                    android:orientation="vertical">
 
                     <ListView
                         android:id="@+id/list_exercicio"
@@ -75,9 +70,17 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:divider="@android:color/transparent" />
+
+                    <Button
+                        android:id="@+id/btn_remover_selecionados"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="@string/botao_remover" />
                 </LinearLayout>
 
                 <!-- Tab especificacao -->
+
                 <LinearLayout
                     android:id="@+id/tab_especificacao"
                     android:layout_width="match_parent"
@@ -89,7 +92,6 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:divider="@android:color/transparent" />
-                    
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

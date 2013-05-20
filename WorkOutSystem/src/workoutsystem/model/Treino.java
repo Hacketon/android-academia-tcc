@@ -12,11 +12,11 @@ public class Treino implements Serializable{
 	
 	private long codigoTreino;
 	@NotEmpty(message = "O treino deve ter um nome")
-	@Length(message = "Escolha um nome com até 10 caracteres")
+	@Length(max = 10 ,message = "Escolha um nome com até 10 caracteres")
 	private String nomeTreino;
 	private List <Exercicio> exercicios;
 	private int ordem;
-	private int codigoFicha;
+	private long codigoFicha;
 //	@Future(message = "Não é permitida datas antigas")
 //	private Date dataRealizacao;
 	
@@ -53,10 +53,10 @@ public class Treino implements Serializable{
 	public int getOrdem() {
 		return ordem;
 	}
-	public void setCodigoFicha(int codigoFicha) {
+	public void setCodigoFicha(long codigoFicha) {
 		this.codigoFicha = codigoFicha;
 	}
-	public int getCodigoFicha() {
+	public long getCodigoFicha() {
 		return codigoFicha;
 	}
 	

@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IExercicioDao;
+import workoutsystem.dao.IFichaDao;
 import workoutsystem.dao.ResourceManager;
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.model.Exercicio;
@@ -57,28 +59,24 @@ public class ControleExercicio {
 	public boolean excluirExercicio(List<String> exercicios) throws SQLException{
 		boolean resultado = true;
 		IExercicioDao dao = new  ExercicioDao();
-		String mensagem = "Exercicio excluido!";
-
+		IFichaDao daoFicha = new FichaDao();
+			
+		
 		for (String e : exercicios){
 			String nome = e; 
 			Exercicio exercicio = dao.buscarExercicio(nome);
-			resultado = dao.excluirExercicio(exercicio.getCodigo());
+			if(!daoFicha.verificarExercicio(exercicio.getCodigo())){
+				dao.excluirExercicio(exercicio.getCodigo());	
+			}else{
+				resultado = false;
+			}
+			
 
 		}
-
-
 		return resultado;
 	}
 
-	public List<Passo> visualizarPassos(Exercicio exercicio){
-		return null;
-
-	}
-
-	public List buscarExercicio (Treino treino){
-		return null;
-	}
-
+	
 	public String buscarExercicio(GrupoMuscular gMuscular){
 		String mensagem = "Erro ao buscar Exercicio";
 		IExercicioDao dao = new ExercicioDao();
@@ -98,10 +96,8 @@ public class ControleExercicio {
 	}
 
 
-	public Exercicio visualizarExercicio(String nomeExercicio){
-		return null;
-	}
-
+	
+	
 	public List<GrupoMuscular> listarGrupos(){
 		return new ExercicioDao().listarGrupos();
 	}

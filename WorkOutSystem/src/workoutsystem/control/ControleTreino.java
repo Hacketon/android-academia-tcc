@@ -3,25 +3,29 @@ package workoutsystem.control;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.app.ListActivity;
+
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.IFichaDao;
+import workoutsystem.dao.ITreinoDao;
+import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
 
 public class ControleTreino {
-	
+
 	public boolean reordenarTreino(List<Treino> treinos) throws Exception {
-		IFichaDao dao = new FichaDao();
+		ITreinoDao dao = new TreinoDao();
 		boolean verificacao = true;
 		try{
 			for(Treino t : treinos){
 				verificacao = 
 					dao.reordenarTreino
-					(t.getOrdem(),t.getCodigoTreino());
+					(t.getOrdem(),t.getCodigo());
 				if(!verificacao){
 					break;
 				}
@@ -36,16 +40,16 @@ public class ControleTreino {
 
 	}
 
-	
+
 	public String manipularTreino
 	(String nomeTreino,long codigoFicha, long codigoTreino) throws Exception {
 		Treino t = new Treino();
 		t.setNome(nomeTreino.trim());
 		t.setCodigoFicha(codigoFicha);
-		t.setCodigoTreino(codigoTreino);
+		t.setCodigo(codigoTreino);
 		Validadora<Treino> validadora = new Validadora<Treino>(t);
 		String mensagem = validadora.getMessage();
-		IFichaDao dao = new FichaDao();
+		ITreinoDao dao = new TreinoDao();
 		int resultado = 0;
 
 		if(mensagem.equalsIgnoreCase("")){
@@ -55,7 +59,7 @@ public class ControleTreino {
 			}else{
 				if(dao.alterarNomeTreino(t.getNome(),
 						t.getCodigoFicha(),
-						t.getCodigoTreino())){
+						t.getCodigo())){
 					mensagem = "Nome alterado com sucesso"; 
 				}else{
 					resultado = dao.buscarQuantidadeTreino(t.getCodigoFicha());
@@ -76,12 +80,12 @@ public class ControleTreino {
 		return mensagem;
 
 	}
-	
-	
+
+
 	public boolean reordenarEspecificacoes
 	(List<Integer> ordemAntiga, List<Especificacao> especificacao) 
 	throws Exception {
-		IFichaDao dao = new FichaDao();
+		ITreinoDao dao = new TreinoDao();
 		boolean verificacao = true;
 		try{
 			for(Integer ordem : ordemAntiga){
@@ -103,7 +107,7 @@ public class ControleTreino {
 
 
 	}
-	
+
 	public List<Especificacao> listarEspecificacoes(long codigoTreino) 
 	throws SQLException{
 		IExercicioDao dao = new ExercicioDao();
@@ -112,7 +116,7 @@ public class ControleTreino {
 	}
 
 
-	
+
 	public void removerEspecificacao(long codigoTreino,
 			List<Exercicio> listaRemocao) throws Exception {
 		String erro = "Não há exercicios para ser removidos";
@@ -122,16 +126,17 @@ public class ControleTreino {
 		}else{
 			for(Exercicio e : listaRemocao){
 				dao.excluirEspecificacao
-					(codigoTreino,e.getCodigo());
+				(codigoTreino,e.getCodigo());
 			}
 		}
-		
+
 	}
-	
-	
+
+
 	public String removerTreino(long codigoTreino, long codigoFicha) throws Exception  {
-		IFichaDao dao = new FichaDao();
+		ITreinoDao dao = new TreinoDao();
 		String mensagem = "";
+
 		dao.excluirEspecificacao(codigoTreino);
 		if(dao.excluirTreino(codigoTreino,codigoFicha)){
 			mensagem = "Treino excluido com sucesso";
@@ -141,5 +146,25 @@ public class ControleTreino {
 
 		return mensagem;
 
+	}
+
+	public String adicionarEspecificacao(List<Especificacao> lista) throws Exception{
+		ITreinoDao dao = new TreinoDao();
+		boolean resultado = false;
+		int quantidade = 0;
+		String mensagem = "Series adicionadas com sucesso";
+		for(Especificacao esp : lista){
+			quantidade= dao.buscarQuantidadeEspecificacao(esp.getCodigoTreino());
+			quantidade = quantidade + 1;
+			esp.setOrdem(quantidade);
+			resultado = dao.inserirEspecificacao(esp);
+			if(!resultado){
+				
+				mensagem = "Erro ao adicionar series";
+				throw new Exception(mensagem);
+			}
+		}
+
+		return  mensagem;
 	}
 }

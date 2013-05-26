@@ -33,7 +33,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		.getSerializable("exercicio");
 		
 		passo = exercicio.getListaPassos();
-		textNome.setText(exercicio.getNomeExercicio());
+		textNome.setText(exercicio.getNome());
 		anteriorPasso();
 	}
 

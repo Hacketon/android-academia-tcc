@@ -21,7 +21,6 @@ public class Exercicio implements Serializable {
 	private String descricao;
 	private int ativo;
 	private int padrao;
-	private List<Especificacao> listaEspecificacao;
 	private List<Passo> listaPassos;
 	
 	public Exercicio(){
@@ -48,7 +47,7 @@ public class Exercicio implements Serializable {
 	public long getCodigo() {
 		return codigo;
 	}
-	public String getNomeExercicio() {
+	public String getNome() {
 		return nome;
 	}
 	public GrupoMuscular getGrupoMuscular() {
@@ -65,7 +64,7 @@ public class Exercicio implements Serializable {
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
-	public void setNomeExercicio(String nomeExercicio) {
+	public void setNome(String nomeExercicio) {
 		nome = nomeExercicio;
 	}
 	public void setGrupoMuscular(GrupoMuscular grupo) {
@@ -86,8 +85,8 @@ public class Exercicio implements Serializable {
 		return listaPassos;
 	}
 
-
-	public void setListaEspecificacao(List<Especificacao> listaEspecificacao) {
+/*
+ * public void setListaEspecificacao(List<Especificacao> listaEspecificacao) {
 		this.listaEspecificacao = listaEspecificacao;
 	}
 
@@ -95,4 +94,6 @@ public class Exercicio implements Serializable {
 	public List<Especificacao> getListaEspecificacao() {
 		return listaEspecificacao;
 	}
+ */
+	
 }

@@ -68,15 +68,16 @@ DialogInterface.OnClickListener{
 		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
 		
 		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
-		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
-		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
 		cbxGrupo= (Spinner) dialog.findViewById(R.id.cbx_grupo);
-		listapadrao = (ListView) findViewById(R.id.listapadrao);
-		listacriado = (ListView) findViewById(R.id.listacriado);
 		editDescricaoExercicio = (EditText) dialog.findViewById(R.id.edt_descricaoExercicio);
 		editNomeExercicio = (EditText) dialog.findViewById(R.id.edt_nomeExercicio);
 
+
+		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
+		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
 		
+		listapadrao = (ListView) findViewById(R.id.listapadrao);
+		listacriado = (ListView) findViewById(R.id.listacriado);
 		btnCancelar.setOnClickListener(this);
 		btnSalvar.setOnClickListener(this);
 		cbxExercicioCriado.setOnItemSelectedListener(this);
@@ -129,7 +130,7 @@ DialogInterface.OnClickListener{
 		case (R.id.btn_criar):
 
 			try {
-				alterarExercicio();
+				salvarExercicio();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -151,7 +152,7 @@ DialogInterface.OnClickListener{
 
 	}
 
-	private void alterarExercicio() throws SQLException {
+	private void salvarExercicio() throws SQLException {
 		Exercicio e = criarExercicio();
 		ControleExercicio controle = new ControleExercicio();
 		String mensagem;
@@ -184,15 +185,11 @@ DialogInterface.OnClickListener{
 
 	}
 
-
-
-
-
 	private void carregarExercicio(Exercicio exercicio) {
 		int i = 0;
 		if (exercicio != null){
 			txtCodExercicio.setText(String.valueOf(exercicio.getCodigo()));
-			editNomeExercicio.setText(exercicio.getNomeExercicio());
+			editNomeExercicio.setText(exercicio.getNome());
 			editDescricaoExercicio.setText(exercicio.getDescricao());
 			atualizarCombo(exercicio,cbxGrupo);
 
@@ -231,7 +228,7 @@ DialogInterface.OnClickListener{
 	private void createListView(List <Exercicio> exercicios,ListView lista) {
 		ArrayList<String> nomes = new ArrayList<String>();
 		for (Exercicio e : exercicios){
-			nomes.add(e.getNomeExercicio());
+			nomes.add(e.getNome());
 		}
 		adapter = new ArrayAdapter<String>
 		(this,R.layout.itens_simple_lista,nomes);
@@ -279,7 +276,7 @@ DialogInterface.OnClickListener{
 		}
 
 
-		exercicio.setNomeExercicio(editNomeExercicio.getText().toString());
+		exercicio.setNome(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
 		exercicio.setGrupoMuscular(grupo);
@@ -300,7 +297,7 @@ DialogInterface.OnClickListener{
 		}
 		 
 		for (Exercicio e : listaExercicios){
-			exercicios[i] = e.getNomeExercicio();
+			exercicios[i] = e.getNome();
 			i++;
 		}
 		

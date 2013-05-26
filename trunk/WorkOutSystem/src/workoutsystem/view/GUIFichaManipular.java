@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleFicha;
+import workoutsystem.control.ControleTreino;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Objetivo;
@@ -89,7 +90,9 @@ ListView.OnItemLongClickListener{
 		btnCancelar.setOnClickListener(this);
 		btnSalvar.setOnClickListener(this);
 		listTreinos = getListView(); 
+		
 		preencherFicha(ficha);
+		
 		listTreinos.setOnItemClickListener(this);
 		listTreinos.setOnItemLongClickListener(this);
 
@@ -161,7 +164,7 @@ ListView.OnItemLongClickListener{
 		List<String> nomeTreinos = new ArrayList<String>();
 
 		for (Treino t : treinos){
-			nomeTreinos.add(t.getNomeTreino());
+			nomeTreinos.add(t.getNome());
 		}
 
 		adapterTreino = new ArrayAdapter<String>(this,
@@ -242,7 +245,7 @@ ListView.OnItemLongClickListener{
 	}
 
 	private void reordenarLista() {
-		ControleFicha controle = new ControleFicha();
+		ControleTreino controle = new ControleTreino();
 		int cont; 
 		int ordem = 1 ;
 		int posicao = 0;
@@ -258,10 +261,10 @@ ListView.OnItemLongClickListener{
 
 				if (nome.trim().
 						equalsIgnoreCase
-						(treino.getNomeTreino().trim())){
+						(treino.getNome().trim())){
 					treino.setOrdem(ordem);
 					treinos.add(treino);
-					ficha.getTreinos().remove(posicao);
+					
 				}
 				posicao = posicao + 1;
 			}
@@ -340,10 +343,10 @@ ListView.OnItemLongClickListener{
 
 
 	private String removerTreino() throws Exception {
-		ControleFicha controle = new ControleFicha();
+		ControleTreino controle = new ControleTreino();
 		String mensagem = "";
 		for (Treino t : ficha.getTreinos()){
-			if(t.getNomeTreino().
+			if(t.getNome().
 					equalsIgnoreCase(item)){
 				long codigoTreino = t.getCodigoTreino();
 				long codigoFicha = t.getCodigoFicha();
@@ -367,7 +370,7 @@ ListView.OnItemLongClickListener{
 		String item = (String) parent.getItemAtPosition(pos);
 		Treino treino = null;
 		for (Treino t : ficha.getTreinos()){
-			if (item.equalsIgnoreCase(t.getNomeTreino())){
+			if (item.equalsIgnoreCase(t.getNome())){
 				treino = t;
 				break;
 			}
@@ -382,7 +385,7 @@ ListView.OnItemLongClickListener{
 		dialog.setTitle(titulo);
 		editNomeTreino.setText(nomeTreino);
 		for(Treino t : ficha.getTreinos()){
-			if(t.getNomeTreino().equalsIgnoreCase(nomeTreino)){
+			if(t.getNome().equalsIgnoreCase(nomeTreino)){
 				txtCodigoTreino.setText(String.valueOf(t.getCodigoTreino()));
 				break;
 			}
@@ -408,13 +411,14 @@ ListView.OnItemLongClickListener{
 		switch (v.getId()) {
 		case R.id.btn_confirmarNome:
 			String mensagem = "";
-			ControleFicha controle = new ControleFicha();
+			ControleTreino controleTreino = new ControleTreino();
+			ControleFicha controleFicha = new ControleFicha();
 			try {
-				mensagem = controle.manipularTreino
+				mensagem = controleTreino.manipularTreino
 						 (editNomeTreino.getText().toString(),
 							ficha.getCodigoFicha(),
 							Long.parseLong(txtCodigoTreino.getText().toString()));
-				ficha = controle.buscarFichaCodigo(ficha.getCodigoFicha());
+				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigoFicha());
 				createListView(ficha.getTreinos());
 				dialog.dismiss();
 			} catch (Exception e) {

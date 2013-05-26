@@ -8,19 +8,16 @@
     />
 
 <item
-    android:id="@+id/remover_treino"
-    android:title="@string/botao_removertreino"
-    />
-
-
-<item
     android:id="@+id/finalizar_edicao"
     android:title="@string/botao_finalizar"
     />
+
+<!-- 
 
 <item
     android:id="@+id/existente_treino"
     android:title="@string/botao_existente"
     />
+     -->
 
 </menu>

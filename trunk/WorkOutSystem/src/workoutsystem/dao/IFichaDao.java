@@ -26,17 +26,6 @@ public interface IFichaDao {
 	 */
 	public List<Treino> listarTreinos(long codigo) throws SQLException;
 	/**
-	 * Metodo responsavel por listar as especificacoes de um exercicio 
-	 * a partir de um treino
-	 * @return lista de especificacao
-	 * @throws SQLException
-	 */
-	public List<Especificacao> listarEspecificacao(long l,long m,
-			long n)
-	throws SQLException;
-	
-	
-	/**
 	 * Metodo responsavel por inserir um treino e relacionar com uma ficha
 	 * @param treino
 	 * @return
@@ -77,12 +66,16 @@ public interface IFichaDao {
 	 */
 	public boolean excluirTreino(long codigoTreino, long codigoFicha) throws SQLException;
 	/**
-	 * Metodo responsavel pela exclusão da especificacao de um treino 
-	 * @param codigoTreino
+	 * Metodo responsavel pela exclusão da especificacao de um exercicio 
+	 * em um treino
+	 * @param codigoTreino = long 
+	 * @param codigoExercicio = long
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean excluirEspecificacao(long codigoTreino) throws SQLException;
+	public boolean excluirEspecificacao(long codigoTreino,long codigoExercicio)
+	throws SQLException;
+	
 	public boolean setPerfil(int codigoPerfil) throws SQLException;
 	/**
 	 * Metodo responsavel pela reordenação dos treinos de uma ficha
@@ -137,6 +130,28 @@ public interface IFichaDao {
 	 * @return
 	 */
 	public int buscarQuantidadeTreino(long codigoFicha) throws SQLException;
+	
+	/**
+	 * Metodo responsavel pela reordenação das especificacoes/series de uma ficha
+	 * @param ordemAntiga
+	 * @param ordemNova
+	 * @param codigoTreino 
+	 * @return 
+	 * @throws SQLException 
+	 */
+	public boolean reordenarEspecificacao
+			(int ordemAntiga, int ordemNova, long codigoTreino) throws SQLException;
+	/**
+	 * Metodo responsavel pela exclusão da especificacao todos os exercicios  
+	 * em um treino
+	 * @param codigoTreino = long 
+	 * @param codigoExercicio = long
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean excluirEspecificacao(long codigoTreino) throws SQLException;
+	
+	
 	
 	
 	

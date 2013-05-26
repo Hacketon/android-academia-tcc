@@ -8,6 +8,8 @@ import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.IFichaDao;
+import workoutsystem.dao.ITreinoDao;
+import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
@@ -27,14 +29,15 @@ public class ControleFicha {
 
 	}
 	public List<Ficha> buscarFicha() throws SQLException{
+		ITreinoDao daoTreino = new TreinoDao();
 		IFichaDao dao = new FichaDao();
 		IExercicioDao daoExercicio = new ExercicioDao();
 		List<Ficha> lista = dao.listarFichas();
 		for(Ficha f : lista){
-			f.setTreinos(dao.listarTreinos(f.getCodigoFicha()));
+			f.setTreinos(daoTreino.listarTreinos(f.getCodigoFicha()));
 			for(Treino t : f.getTreinos()){
 				t.setEspecificacao
-				(daoExercicio.listarEspecificacao(t.getCodigoTreino()));
+				(daoExercicio.listarEspecificacao(t.getCodigo()));
 			}
 		}
 		return lista;
@@ -101,21 +104,23 @@ public class ControleFicha {
 	}
 
 	
-	public Ficha buscarFichaCodigo(long i) throws Exception{
+	public Ficha buscarFichaCodigo(long codigo) throws Exception{
 		Ficha f = null;
 		IFichaDao dao = new FichaDao();
+		ITreinoDao daoTreino = new TreinoDao();
 		IExercicioDao daoExercicio = new ExercicioDao();
-		f = dao.buscarFichaCodigo(i);
+		f = dao.buscarFichaCodigo(codigo);
 		if(f != null){
-			f.setTreinos(dao.listarTreinos(f.getCodigoFicha()));
+			f.setTreinos(daoTreino.listarTreinos(f.getCodigoFicha()));
 			for(Treino t : f.getTreinos()){
 				t.setEspecificacao
-				(daoExercicio.listarEspecificacao(t.getCodigoTreino()));
+				(daoExercicio.listarEspecificacao(t.getCodigo()));
 
 			}
 
 		}else{
-			throw new Exception("Erro ao encontrar a ficha");
+			f = new Ficha();
+			//throw new Exception("Erro ao encontrar a ficha");
 		}
 
 		return f;

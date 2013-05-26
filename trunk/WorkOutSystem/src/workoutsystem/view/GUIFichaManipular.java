@@ -348,7 +348,7 @@ ListView.OnItemLongClickListener{
 		for (Treino t : ficha.getTreinos()){
 			if(t.getNome().
 					equalsIgnoreCase(item)){
-				long codigoTreino = t.getCodigoTreino();
+				long codigoTreino = t.getCodigo();
 				long codigoFicha = t.getCodigoFicha();
 				mensagem = controle.removerTreino(codigoTreino,codigoFicha);
 				break;
@@ -386,7 +386,7 @@ ListView.OnItemLongClickListener{
 		editNomeTreino.setText(nomeTreino);
 		for(Treino t : ficha.getTreinos()){
 			if(t.getNome().equalsIgnoreCase(nomeTreino)){
-				txtCodigoTreino.setText(String.valueOf(t.getCodigoTreino()));
+				txtCodigoTreino.setText(String.valueOf(t.getCodigo()));
 				break;
 			}
 		}

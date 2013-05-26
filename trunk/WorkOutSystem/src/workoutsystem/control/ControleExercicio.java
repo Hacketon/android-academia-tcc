@@ -10,8 +10,10 @@ import java.util.List;
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.IFichaDao;
+import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.ResourceManager;
 import workoutsystem.dao.ExercicioDao;
+import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;
@@ -55,17 +57,16 @@ public class ControleExercicio {
 		return mensagem;
 	}
 
-	//caso de erro voltar para ArrayList<String>
+	
 	public boolean excluirExercicio(List<String> exercicios) throws SQLException{
 		boolean resultado = true;
 		IExercicioDao dao = new  ExercicioDao();
-		IFichaDao daoFicha = new FichaDao();
-
+		ITreinoDao daoTreino = new TreinoDao();
 
 		for (String e : exercicios){
 			String nome = e; 
 			Exercicio exercicio = dao.buscarExercicio(nome);
-			if(!daoFicha.verificarExercicio(exercicio.getCodigo())){
+			if(!daoTreino.verificarExercicio(exercicio.getCodigo())){
 				dao.excluirExercicio(exercicio.getCodigo());	
 			}else{
 				resultado = false;

@@ -18,27 +18,20 @@ public class Treino implements Serializable{
 	private int ordem;
 	private long codigoFicha;
 	
-	public long getCodigoTreino() {
+	public long getCodigo() {
 		return codigoTreino;
 	}
 	public String getNome() {
 		return nomeTreino;
 	}
 	
-//	public Date getDataRealizacao() {
-//		return dataRealizacao;
-//	}
-	public void setCodigoTreino(long codigoTreino) {
+	public void setCodigo(long codigoTreino) {
 		this.codigoTreino = codigoTreino;
 	}
 	public void setNome(String nomeTreino) {
 		this.nomeTreino = nomeTreino;
 	}
 
-
-//	public void setDataRealizacao(Date dataRealizacao) {
-//		this.dataRealizacao = dataRealizacao;
-//	}
 	public void setEspecificacao(List<Especificacao> especificacao) {
 		this.listaEspecificacao = especificacao;
 	}

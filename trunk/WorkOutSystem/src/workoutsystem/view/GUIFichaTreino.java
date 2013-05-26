@@ -52,7 +52,6 @@ DropListener {
 	private TabSpec  tabExercicio;
 	private TabSpec tabTreino;
 	private Treino treino ; 
-	private EditText txtTreino;
 	private ListView listaBusca;
 	private ListView listaExercicio;
 	private Spinner cbxGrupoMuscular;
@@ -64,6 +63,7 @@ DropListener {
 	private List<Exercicio> listaExercicioBusca;
 	private Dialog dialogNovoExercicio;
 	private TextView txtCodExercicio;
+	private TextView txtCodigoExercicio;
 	private EditText editDescricaoExercicio;
 	private EditText editNomeExercicio;
 	private Button btnCancelarExercicio;
@@ -95,16 +95,20 @@ DropListener {
 		dialogEspecificacao = new Dialog(this);
 		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
 
-		btnConfirmar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_Confirmar_Especficacao);
-		btnCancelar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_cancelar_especficacao);
+		
 		cbxUnidade = (Spinner) dialogEspecificacao.
 		findViewById(R.id.cbx_Unidade);
+		btnConfirmar = (Button) dialogEspecificacao.
+			findViewById(R.id.btn_Confirmar_Especficacao);
+		btnCancelar = (Button) dialogEspecificacao.
+			findViewById(R.id.btn_cancelar_especficacao);
+		
 		edtSeries = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_series);
+			findViewById(R.id.edt_series);
 		edtRepeticao = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_repeticao);
+			findViewById(R.id.edt_repeticao);
+		txtCodigoExercicio = (TextView) dialogEspecificacao.
+			findViewById(R.id.txt_codigoExercicioEspecificacao);
 
 		dialogNovoExercicio = new Dialog(this);
 		dialogNovoExercicio.setContentView(R.layout.criarexercicio);
@@ -148,9 +152,9 @@ DropListener {
 		try {
 			listaExercicioTreino =
 				controleExercicio.
-				listarExercicioTreino(treino.getCodigoTreino());
+				listarExercicioTreino(treino.getCodigo());
 			treino.setEspecificacao
-			(controleTreino.listarEspecificacoes(treino.getCodigoTreino()));
+			(controleTreino.listarEspecificacoes(treino.getCodigo()));
 			listaRemocaoExercicio = new ArrayList<Exercicio>();
 			createListView(treino.getEspecificacao());
 			createListView(listaExercicioTreino, 
@@ -294,14 +298,14 @@ DropListener {
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
 		case R.id.criar_Exercicio:
-			criarCaixaDialogExercicio("Novo Exercicio");
+			criarCaixaDialogoExercicio("Novo Exercicio");
 			break;
 
 		}
 		return true;
 	}
 
-	private void criarCaixaDialogExercicio(String titulo) {
+	private void criarCaixaDialogoExercicio(String titulo) {
 		dialogNovoExercicio.setTitle(titulo);
 		txtCodExercicio.setText("");
 		editDescricaoExercicio.setText("");
@@ -309,6 +313,22 @@ DropListener {
 		txtCodExercicio.setText("");
 		editNomeExercicio.requestFocus();
 		dialogNovoExercicio.show();
+	}
+	
+	private void criarCaixaDialogoEspecificacao(String titulo, long codigo) {
+		dialogEspecificacao.setTitle(titulo);
+		edtRepeticao.setText("");
+		edtSeries.setText("");
+		txtCodigoExercicio.setText(String.valueOf(codigo));
+		ArrayList<String> list = new ArrayList<String>();
+		for (Unidade u : Unidade.values()){
+			list.add(u.getUnidade());
+		}
+		ArrayAdapter<String> adapter =
+			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+		cbxGrupoMuscular.setAdapter(adapter);
+		dialogEspecificacao.show();
 	}
 
 	@Override
@@ -335,7 +355,7 @@ DropListener {
 
 			listaExercicioBusca = 
 				controle.listarExercicioDisponiveis
-				(treino.getCodigoTreino(), 
+				(treino.getCodigo(), 
 						grupoMuscular.getCodigo());
 
 			for(Exercicio e1 : listaExercicioTreino){
@@ -355,12 +375,12 @@ DropListener {
 		}
 		catch (Exception e) {
 			String mensagem = e.getMessage();
-			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT);
+			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
 
 		}
 	}
 
-	public Exercicio criarExercicio(){
+	private Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
 
@@ -414,55 +434,57 @@ DropListener {
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
 			long id) {
+		String item = parent.getItemAtPosition(pos).toString();
+		Exercicio exercicio = new Exercicio();
+		
 		if (parent.getId()== R.id.list_exercicio){
-			criarCaixaDialogo 
-			(parent.getItemAtPosition(pos).toString());
+			for(Exercicio e : listaExercicioTreino){
+				if (e.getNome().equalsIgnoreCase(item)){
+					exercicio = e;
+					break;
+				}
+			}
+			criarCaixaDialogoEspecificacao 
+			(item,exercicio.getCodigo());
 		}else if (parent.getId() == R.id.list_busca){
-			String item = parent.getItemAtPosition(pos).toString();
-			String mensagem = item+
-			" adicionado aos exercicios";
-			Exercicio exercicio = new Exercicio();
+			
 			for(Exercicio e : listaExercicioBusca){
 				if (e.getNome().equalsIgnoreCase(item)){
 					exercicio = e; 
+					break;
 				}
 			}
+			
+			String mensagem = item+
+			" adicionado aos exercicios";
 			listaExercicioTreino.add(exercicio);
 			listarBusca(exercicio.getGrupoMuscular().getNome());
 			createListView(listaExercicioTreino, listaExercicio, R.layout.multiple_choice);
-			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+			Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
 		}
 		return false;
 	}
 
 
 
-	private void criarCaixaDialogo(String titulo) {
-		dialogEspecificacao.setTitle(titulo);
-		edtRepeticao.setText("");
-		edtSeries.setText("");
-		ArrayList<String> list = new ArrayList<String>();
-		for (Unidade u : Unidade.values()){
-			list.add(u.getUnidade());
-		}
-		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-		cbxGrupoMuscular.setAdapter(adapter);
-		dialogEspecificacao.show();
-	}
+	
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_Confirmar_Especficacao:
-			ControleFicha controle = new ControleFicha();
+			String mensagem;
 			try {
-				List<Especificacao> esp = criarEspecificacao();
+				 mensagem = criarEspecificacao();
+				
 			} catch (Exception e) {
-				String mensagem = e.getMessage();
-				Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+				mensagem = e.getMessage();
+				
 			}
+			dialogEspecificacao.dismiss();
+			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+			
+			
 			break;
 		case R.id.btn_cancelar_especficacao:
 			dialogEspecificacao.dismiss();
@@ -489,12 +511,12 @@ DropListener {
 		int posicao = 0;
 		try {
 			controleTreino.removerEspecificacao
-			(treino.getCodigoTreino(),listaRemocaoExercicio);
+			(treino.getCodigo(),listaRemocaoExercicio);
 			listaExercicioTreino.removeAll(listaRemocaoExercicio);
 			listaRemocaoExercicio.clear();	
 			treino.setEspecificacao
 			(controleTreino.listarEspecificacoes
-					(treino.getCodigoTreino()));
+					(treino.getCodigo()));
 			cbxGrupoMuscular.getSelectedItem().toString();
 			createListView(treino.getEspecificacao());
 			createListView(listaExercicioTreino, 
@@ -528,7 +550,7 @@ DropListener {
 			try {
 				listaExercicioBusca = 
 					controle.listarExercicioDisponiveis
-					(treino.getCodigoTreino(), 
+					(treino.getCodigo(), 
 							grupoMuscular .getCodigo());
 			} catch (Exception e1) {
 				mensagem = e1.getMessage();
@@ -563,30 +585,47 @@ DropListener {
 	}
 
 
-	private List<Especificacao> criarEspecificacao() throws Exception {
-		String serieString = edtSeries.getText().toString();
-		String erro = "O numero minimo para serie é 1";
+	private String criarEspecificacao() throws Exception{
+		String serieString = edtSeries.getText().toString().trim();
+		String mensagem = "O numero minimo para serie é 1";
 		List<Especificacao> lista = new ArrayList<Especificacao>();
+		ControleTreino controle = new ControleTreino();
 		if(serieString.equalsIgnoreCase("")){
-			throw new Exception(erro);
+			throw new Exception(mensagem);
 		}else {
 			int serie = Integer.parseInt(serieString);
 			if(serie<=0){
-				throw new Exception(erro);
+				throw new Exception(mensagem);
 			}else{
+				Exercicio e = new Exercicio();
+				e.setCodigo(Long.parseLong
+						(txtCodigoExercicio.getText().toString()));
 				while(serie > 0){
+					
 					Especificacao esp = new Especificacao();
+					
+					esp.setCodigoTreino(treino.getCodigo());
+					esp.setExercicio(e);
 					esp.setQuantidade(Integer.parseInt
-							(edtRepeticao.getText().toString()));
-					esp.setCodigoTreino(treino.getCodigoTreino());
-					esp.setUnidade(cbxGrupoMuscular.getSelectedItem().toString());
+					(edtRepeticao.getText().toString().trim()));
+					esp.setCodigoTreino(treino.getCodigo());
+					esp.setUnidade(cbxUnidade.getSelectedItem().toString());
+					
 					lista.add(esp);
 					serie--;
 				}
+				
+				mensagem = controle.adicionarEspecificacao(lista);
+				List<Especificacao> especificacoes = 
+					controle.listarEspecificacoes(treino.getCodigo());
+				createListView(especificacoes);
+				
 			}
 		}
 
-		return lista;
+		return mensagem;
+		
+		
 	}
 
 	@Override

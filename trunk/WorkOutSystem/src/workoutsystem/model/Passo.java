@@ -6,6 +6,9 @@ public class Passo implements Serializable{
 	
 	private int sequencia;
 	private String explicacao;
+	// possivel alteração para inteiro , 
+	//ou deixar como string o endereço da imagem.
+	private String imagem; 
 	
 	public int getSequencia() {
 		return sequencia;
@@ -18,6 +21,12 @@ public class Passo implements Serializable{
 	}
 	public void setExplicacao(String explicacao) {
 		this.explicacao = explicacao;
+	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 
 }

@@ -142,7 +142,7 @@ DialogInterface.OnClickListener{
 		ControleFicha controle = new ControleFicha();
 		int i = 0 ;
 		int contador = 0;
-		boolean resultado;
+		boolean resultado = false;
 		ArrayList<String> deletados = new ArrayList<String>();
 		ArrayList<String> ndeletados = new ArrayList<String>();
 
@@ -169,7 +169,7 @@ DialogInterface.OnClickListener{
 
 		}
 
-		resultado = controle.excluirFicha(deletados);
+		//resultado = controle.excluirFicha(deletados);
 		return resultado;
 
 

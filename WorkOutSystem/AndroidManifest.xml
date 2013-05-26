@@ -149,17 +149,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Activity  Novo Usuario -->
-        <activity
-            android:name=".GUINovoUsuario"
-            android:label="@string/title_activity_tela_novousuario" >
-            <intent-filter>
-                <action android:name="workoutsystem.view.NOVOUSUARIO" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
+   
         <!-- Activity Login -->
 
         <activity

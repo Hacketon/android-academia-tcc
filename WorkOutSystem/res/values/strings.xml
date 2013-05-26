@@ -15,7 +15,7 @@
     <string name="title_activity_tela_ficha">Ficha</string>
     <string name="title_activity_tela_avatar">Avatar</string>
     <string name="title_activity_tela_medida">Medidas</string>
-    <string name="title_activity_tela_novousuario">Novo Usuario</string>
+    <string name="title_activity_tela_novoexercicio">Novo Exercicio</string>
     <string name="title_activity_tela_grafico">Graficos</string>
     <string name="title_activity_tela_objetivo">Objetivos</string>
     <string name="title_activity_tela_evolucao">Evolução</string>
@@ -96,7 +96,7 @@
     <string name="label_novasenha">Nova senha</string>
     <string name="botao_confirmar">Confirmar</string>
     <string name="label_diasemana">Dias da semana </string>
-    <string name="label_duracaodias">Duração(Dias) </string>
+    <string name="label_duracaotreinos">Duração(Treinos) </string>
     <!-- Ajudas -->
 
 
@@ -184,7 +184,7 @@
     
     <string name="splash_carregando"> Carregando</string>
     <string name="botao_existente">Treino existente</string>
-    <string name="botao_finalizar">Finalizar edição</string>
+    <string name="botao_finalizar">Salvar Ficha</string>
     <string name="botao_novotreino">Novo treino</string>
     <string name="botao_removertreino">Remover treino</string>
 	<string name="botao_visualizarficha">Visualizar ficha</string>

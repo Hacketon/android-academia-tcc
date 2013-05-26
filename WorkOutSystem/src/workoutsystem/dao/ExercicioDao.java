@@ -7,16 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
+import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;
 
 
 public class ExercicioDao implements IExercicioDao {
-
-
-
-
 
 	@Override
 	public boolean adicionarExercicio(Exercicio e) throws SQLException {
@@ -27,7 +24,7 @@ public class ExercicioDao implements IExercicioDao {
 		" values (?,?,?,?,?) ";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setString(1, e.getNomeExercicio().trim());
+		prepare.setString(1, e.getNome().trim());
 		prepare.setString(2, e.getDescricao().trim());
 		prepare.setInt(3, e.getPadrao());
 		prepare.setInt(4, e.getAtivo());
@@ -58,7 +55,7 @@ public class ExercicioDao implements IExercicioDao {
 		"  nome = ? , descricao = ? , codigogrupomuscular = ? " +
 		" where codigo = ?";
 		PreparedStatement prepared = con.prepareStatement(sql);
-		prepared.setString(1, e.getNomeExercicio());
+		prepared.setString(1, e.getNome());
 		prepared.setString(2, e.getDescricao());
 		prepared.setInt(3, e.getGrupoMuscular().getCodigo());
 		prepared.setLong(4, codigo);
@@ -187,7 +184,7 @@ public class ExercicioDao implements IExercicioDao {
 			prepare.close();
 			con.close();
 		}catch (SQLException e) {
-			
+
 		}
 
 
@@ -207,7 +204,7 @@ public class ExercicioDao implements IExercicioDao {
 			if(result.next()){
 				exercicio = new Exercicio();
 				exercicio.setCodigo(result.getInt(1));
-				exercicio.setNomeExercicio(result.getString(2));
+				exercicio.setNome(result.getString(2));
 				exercicio.setDescricao(result.getString(3));
 				exercicio.setPadrao(result.getInt(4));
 				GrupoMuscular grupo = new GrupoMuscular();
@@ -247,7 +244,7 @@ public class ExercicioDao implements IExercicioDao {
 			while (resultSet.next()){
 				Exercicio exercicio = new Exercicio();
 				exercicio.setCodigo(resultSet.getInt(1));
-				exercicio.setNomeExercicio(resultSet.getString(2));
+				exercicio.setNome(resultSet.getString(2));
 				exercicio.setDescricao(resultSet.getString(3));
 				exercicio.setPadrao(resultSet.getInt(4));
 				GrupoMuscular grupoMuscular= new GrupoMuscular();
@@ -284,7 +281,7 @@ public class ExercicioDao implements IExercicioDao {
 
 			//Verificar se está correto 
 			if(result.next()){
-				exercicio.setNomeExercicio(result.getString(1));
+				exercicio.setNome(result.getString(1));
 				exercicio.setDescricao(result.getString(2));
 				//verificar está parte
 				grupomuscular.setCodigo(result.getInt(3));
@@ -376,18 +373,18 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Exercicio> listarExercicio(int codigoFicha, int codigoTreino)
+	public List<Exercicio> listarExercicioTreino (long codigoTreino)
 	throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		String sql = 
-			" select exercicio_codigo,[exercicio_nome], [exercicio_descricao]," +
-			" [exercicio_padrao],[exercicio_ativo],[grupo_codigo],[grupo_nome]" +
+			" select distinct exercicio_codigo," +
+			" exercicio_nome, exercicio_descricao," +
+			" exercicio_padrao,exercicio_ativo,grupo_codigo,grupo_nome" +
 			" from [exercicios_treino_ficha] " +
-			" where [ficha_codigo] = ? and [treino_codigo] = ?";
+			" where [treino_codigo] = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setInt(aux++, codigoFicha);
-		prepare.setInt(aux++, codigoTreino);
+		prepare.setLong(aux++, codigoTreino);
 		ResultSet result = prepare.executeQuery();
 		List<Exercicio> list = new ArrayList<Exercicio>();
 
@@ -395,17 +392,15 @@ public class ExercicioDao implements IExercicioDao {
 			Exercicio e = new Exercicio();
 			GrupoMuscular g = new GrupoMuscular();
 			aux = 1;
-			e.setCodigo(result.getLong(aux++));
-			e.setNomeExercicio(result.getString(aux++));
-			e.setDescricao(result.getString(aux++));
-			e.setPadrao(result.getInt(aux++));
-			e.setAtivo(result.getInt(aux++));
-
-			g.setCodigo(result.getInt(aux++));
-			g.setNome(result.getString(aux++));
+			e.setCodigo(result.getLong("exercicio_codigo"));
+			e.setNome(result.getString("exercicio_nome"));
+			e.setDescricao(result.getString("exercicio_descricao"));
+			e.setPadrao(result.getInt("exercicio_padrao"));
+			e.setAtivo(result.getInt("exercicio_ativo"));
+			g.setCodigo(result.getInt("grupo_codigo"));
+			g.setNome(result.getString("grupo_nome"));
 			e.setGrupoMuscular(g);
 
-			
 			list.add(e);
 		}
 
@@ -420,18 +415,18 @@ public class ExercicioDao implements IExercicioDao {
 			int codigoAtivo) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		
+
 		String sql = " select exercicio_codigo,exercicio_nome,exercicio_descricao, " +
 		" exercicio_padrao,exercicio_ativo,grupo_codigo,grupo_nome " + 
 		" from [exercicios_fora_treino] " +
 		" where especificacao_treino is null " +
 		" and especificacao_exercicio is null " +
 		" and exercicio_grupo = ? and exercicio_ativo = ? ";
-		
+
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++, codigoGrupo);
 		prepare.setInt(aux++, codigoAtivo);
-		
+
 		ResultSet result = prepare.executeQuery();
 		List<Exercicio> lista = new ArrayList<Exercicio>();
 		while (result.next()) {
@@ -439,20 +434,20 @@ public class ExercicioDao implements IExercicioDao {
 			Exercicio e = new Exercicio();
 			GrupoMuscular g = new GrupoMuscular();
 			e.setCodigo(result.getLong(aux++));
-			e.setNomeExercicio(result.getString(aux++));
+			e.setNome(result.getString(aux++));
 			e.setDescricao(result.getString(aux++));
 			e.setPadrao(result.getInt(aux++));
 			e.setAtivo(result.getInt(aux++));
-			
+
 			g.setCodigo(result.getInt(aux++));
 			g.setNome(result.getString(aux++));
-			
+
 			e.setGrupoMuscular(g);
-			
+
 			lista.add(e);
-			
+
 		}
-		
+
 
 		prepare.close();
 		con.close();
@@ -461,44 +456,136 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Exercicio> listarExercicioTreino(long codigoTreino)
-			throws SQLException {
+	public List<Exercicio> listarExercicioFora(long codigoTreino,long codigoGrupo)
+	throws SQLException {
 		int aux = 1;
-		String sql = "select distinct exercicio_codigo,exercicio_nome,exercicio_padrao, " +
-							" exercicio_ativo,exercicio_descricao, "+
-							" grupo_codigo,grupo_nome,especificacao_treino, "+
-							" especificacao_exercicio  from exercicios_fora_treino"+ 
-							" where [especificacao_treino] = ? ";
+		String sql = " select distinct exercicio_codigo,exercicio_nome, " +
+		" exercicio_padrao,exercicio_ativo, " +
+		" exercicio_descricao,grupo_codigo,grupo_nome " +
+		" from exercicio_fora_treino " +
+		" where treino_codigo != ? and grupo_codigo = ?";
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
+		prepare.setLong(aux++, codigoGrupo);
 		ResultSet result = prepare.executeQuery();
 		List<Exercicio> list = new ArrayList<Exercicio>();
-		
-			while (result.next()){
-				Exercicio e = new Exercicio();
-				e.setCodigo(result.getLong("exercicio_codigo"));
-				e.setNomeExercicio(result.getString("exercicio_nome"));
-				e.setPadrao(result.getInt("exercicio_padrao"));
-				e.setAtivo(result.getInt("exercicio_ativo"));
-				e.setDescricao(result.getString("exercicio_descricao"));
-				
-				GrupoMuscular g = new GrupoMuscular();
-				g.setCodigo(result.getInt("grupo_codigo"));
-				g.setNome(result.getString("grupo_nome"));
-				
-				e.setGrupoMuscular(g);
-				
-				list.add(e);
-			}
 
-			prepare.close();
-			con.close();
+		while (result.next()){
+			Exercicio e = new Exercicio();
+			e.setCodigo(result.getLong("exercicio_codigo"));
+			e.setNome(result.getString("exercicio_nome"));
+			e.setPadrao(result.getInt("exercicio_padrao"));
+			e.setAtivo(result.getInt("exercicio_ativo"));
+			e.setDescricao(result.getString("exercicio_descricao"));
+
+			GrupoMuscular g = new GrupoMuscular();
+			g.setCodigo(result.getInt("grupo_codigo"));
+			g.setNome(result.getString("grupo_nome"));
+
+			e.setGrupoMuscular(g);
+
+			list.add(e);
+		}
+
+		prepare.close();
+		con.close();
+		return list;
+	}
+	
+	
+	
+	public List<Exercicio> listarExercicioSemTreino(long codigoGrupo)
+	throws SQLException {
+		int aux = 1;
+		String sql = " select distinct exercicio_codigo,exercicio_nome, " +
+		" exercicio_padrao,exercicio_ativo, " +
+		" exercicio_descricao,grupo_codigo,grupo_nome " +
+		" from exercicio_fora_treino " +
+		" where treino_codigo is null and grupo_codigo = ?";
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		
+		prepare.setLong(aux++, codigoGrupo);
+		ResultSet result = prepare.executeQuery();
+		List<Exercicio> list = new ArrayList<Exercicio>();
+
+		while (result.next()){
+			Exercicio e = new Exercicio();
+			e.setCodigo(result.getLong("exercicio_codigo"));
+			e.setNome(result.getString("exercicio_nome"));
+			e.setPadrao(result.getInt("exercicio_padrao"));
+			e.setAtivo(result.getInt("exercicio_ativo"));
+			e.setDescricao(result.getString("exercicio_descricao"));
+
+			GrupoMuscular g = new GrupoMuscular();
+			g.setCodigo(result.getInt("grupo_codigo"));
+			g.setNome(result.getString("grupo_nome"));
+
+			e.setGrupoMuscular(g);
+
+			list.add(e);
+		}
+
+		prepare.close();
+		con.close();
 		return list;
 	}
 
 
-	
+	@Override
+	public List<Especificacao> listarEspecificacao(long codigoTreino)
+	throws SQLException {
+		int aux = 1;
+		String sql =" select especificacao_ordem, especificacao_repeticao," +
+					" especificacao_carga,especificacao_unidade, " +
+					" exercicio_codigo,exercicio_nome, exercicio_descricao," +
+					" exercicio_ativo,exercicio_padrao, " +
+					" grupo_nome, grupo_codigo, treino_codigo, " +
+					" ficha_codigo " +
+					" from especificacao_exercicio_treino " +
+					" where treino_codigo = ? order by  especificacao_ordem asc";
+		
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		ResultSet result = prepare.executeQuery();
+		List<Especificacao> list = new ArrayList<Especificacao>();
+
+		while (result.next()){
+			Especificacao esp = new Especificacao();
+			esp.setOrdem(result.getInt("especificacao_ordem"));
+			esp.setCarga(result.getInt("especificacao_carga"));
+			esp.setUnidade(result.getString("especificacao_unidade"));
+			esp.setCodigoTreino(result.getLong("treino_codigo"));
+			esp.setQuantidade(result.getInt("especificacao_repeticao"));
+			
+			Exercicio ex = new Exercicio();
+			ex.setNome(result.getString("exercicio_nome"));
+			ex.setCodigo(result.getLong("exercicio_codigo"));
+			ex.setDescricao(result.getString("exercicio_descricao"));
+			ex.setAtivo(result.getInt("exercicio_ativo"));
+			
+			esp.setExercicio(ex);
+			
+			
+			GrupoMuscular gr = new GrupoMuscular();
+			gr.setCodigo(result.getInt("grupo_codigo"));
+			gr.setNome(result.getString("grupo_nome"));
+			
+			ex.setGrupoMuscular(gr);
+			
+			list.add(esp);
+
+		}
+
+		prepare.close();
+		con.close();
+		return list;
+	}
+
+
+
 
 
 }

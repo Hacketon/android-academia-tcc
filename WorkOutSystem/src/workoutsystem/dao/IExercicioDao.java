@@ -3,6 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 
 
@@ -108,7 +109,7 @@ public interface IExercicioDao {
 	 * @param codigoTreino
 	 * @return
 	 */
-	public abstract List<Exercicio> listarExercicio(int codigoFicha,int codigoTreino) throws SQLException;
+	public abstract List<Exercicio> listarExercicioTreino(long codigoTreino) throws SQLException;
 	/**
 	 * Metodo responsavel pela busca dos exercicios 
 	 * que não estão relacionados a nenhum treino 
@@ -120,13 +121,37 @@ public interface IExercicioDao {
 	public abstract List<Exercicio> buscarExercicioTreino (int codigoGrupo,int codigoAtivo) throws SQLException;
 	/**
 	 *  Metodo responsavel por buscar todos
-	 *  os exercicios que estão ligados a um treino 
-	 * @param l
+	 *  os exercicios que não  estão ligados a um treino 
+	 * @param codigoTreino
+	 * @param codigoGrupo
 	 * @return list
 	 * @throws SQLException
 	 */
-	public abstract List<Exercicio> listarExercicioTreino(long l) throws SQLException;
+	public abstract List<Exercicio> listarExercicioFora(long codigoTreino, long codigoGrupo)
+	throws SQLException;
+
+	/**
+	 * 
+	 *  Metodo responsavel por buscar todos
+	 *  os exercicios que não  estão ligados a um treino 
+	 *  especifico
+	 * @param codigoTreino
+	 * @return
+	 * @throws SQLException
+	 */
+	public abstract List<Especificacao> listarEspecificacao(long codigoTreino)
+	throws SQLException;
 
 
+	/**
+	 * 
+	 *  Metodo responsavel por buscar todos
+	 *  os exercicios que não  estão ligados a um treino
+	 * @param codigoTreino
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Exercicio> listarExercicioSemTreino(long codigoGrupo)
+	throws SQLException ;
 
 }

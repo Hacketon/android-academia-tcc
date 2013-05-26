@@ -14,16 +14,14 @@ public class Treino implements Serializable{
 	@NotEmpty(message = "O treino deve ter um nome")
 	@Length(max = 10 ,message = "Escolha um nome com até 10 caracteres")
 	private String nomeTreino;
-	private List <Exercicio> exercicios;
+	private List<Especificacao> listaEspecificacao;
 	private int ordem;
 	private long codigoFicha;
-//	@Future(message = "Não é permitida datas antigas")
-//	private Date dataRealizacao;
 	
 	public long getCodigoTreino() {
 		return codigoTreino;
 	}
-	public String getNomeTreino() {
+	public String getNome() {
 		return nomeTreino;
 	}
 	
@@ -33,7 +31,7 @@ public class Treino implements Serializable{
 	public void setCodigoTreino(long codigoTreino) {
 		this.codigoTreino = codigoTreino;
 	}
-	public void setNomeTreino(String nomeTreino) {
+	public void setNome(String nomeTreino) {
 		this.nomeTreino = nomeTreino;
 	}
 
@@ -41,11 +39,11 @@ public class Treino implements Serializable{
 //	public void setDataRealizacao(Date dataRealizacao) {
 //		this.dataRealizacao = dataRealizacao;
 //	}
-	public void setExercicios(List <Exercicio> exercicios) {
-		this.exercicios = exercicios;
+	public void setEspecificacao(List<Especificacao> especificacao) {
+		this.listaEspecificacao = especificacao;
 	}
-	public List <Exercicio> getExercicios() {
-		return exercicios;
+	public List<Especificacao> getEspecificacao() {
+		return listaEspecificacao;
 	}
 	public void setOrdem(int ordem) {
 		this.ordem = ordem;
@@ -59,6 +57,7 @@ public class Treino implements Serializable{
 	public long getCodigoFicha() {
 		return codigoFicha;
 	}
+	
 	
 
 }

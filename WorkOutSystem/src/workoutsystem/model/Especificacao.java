@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Especificacao implements Serializable {
 	
-	private int codigoTreino;
-	private int  codigoExercicio;
+	private long codigoTreino;
 	private double carga;
 	private String unidade;
 	private int ordem;
 	private int quantidade;
+	private Exercicio exercicio;
 	// unidade pode ser repetições ou tempo
 	
 	public double getCarga() {
@@ -35,20 +35,21 @@ public class Especificacao implements Serializable {
 		this.quantidade = quantidade;
 	}
 	
-	public void setCodigoExercicio(int codigoExercicio) {
-		this.codigoExercicio = codigoExercicio;
-	}
-	public int getCodigoExercicio() {
-		return codigoExercicio;
-	}
-	public void setCodigoTreino(int codigoTreino) {
+	
+	public void setCodigoTreino(long codigoTreino) {
 		this.codigoTreino = codigoTreino;
 	}
-	public int getCodigoTreino() {
+	public long getCodigoTreino() {
 		return codigoTreino;
 	}
 	public int getQuantidade() {
 		return quantidade;
+	}
+	public void setExercicio(Exercicio exercicio) {
+		this.exercicio = exercicio;
+	}
+	public Exercicio getExercicio() {
+		return exercicio;
 	}
 
 }

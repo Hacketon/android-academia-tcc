@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="libs/sqldroid-1.0.0RC1.jar"/>
 	<classpathentry kind="lib" path="libs/oval-1.80.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/achartengine-1.1.0-rc2.jar"/>
+	<classpathentry kind="lib" path="bin/dexedLibs/achartengine-1.1.0-rc2-b63f8d390570beafa3f16da55b794e61.jar"/>
+	<classpathentry kind="lib" path="bin/dexedLibs/annotations-23306d58b89c9a8e6e1479880a70ed77.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

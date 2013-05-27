@@ -10,7 +10,7 @@
 
         <TextView
             android:id="@+id/txt_treino"
-            style="@style/textomedio"
+            style="@style/textogrande"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -18,33 +18,12 @@
             android:text="@string/label_treino_dia" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/linearLayoutPadraoHorizontal"
-        android:weightSum="100" >
-
-        <TextView
-            style="@style/textomedio"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:gravity="left"
-            android:text="@string/label_ordem" />
-
-        <TextView
-            style="@style/textomedio"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:gravity="center"
-            android:text="@string/label_exercicio" />
-    </LinearLayout>
-
     <!-- Lista de exercicios -->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_weight="1"
         android:orientation="horizontal" >
 
         <ListView
@@ -60,7 +39,7 @@
         style="@style/linearLayoutPadraoHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:weightSum="100" >
@@ -70,8 +49,18 @@
             style="@style/textopequenopreto"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="50"
             android:onClick="onClick"
             android:text="@string/botao_fazer" />
+
+        <Button
+            android:id="@+id/btn_voltar"
+            style="@style/textopequenopreto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:onClick="onClick"
+            android:text="@string/botao_voltar" />
     </LinearLayout>
 
 </LinearLayout>

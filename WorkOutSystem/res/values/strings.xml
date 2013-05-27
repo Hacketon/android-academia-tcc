@@ -193,5 +193,7 @@
 	<string name="botao_sair">Sair</string>
 	<string name="botao_trocarusuario">Trocar usuario</string>
 	<string name="botao_trocarsenha">Trocar senha</string>
+	<string name="botao_voltar">Voltar</string>
+	<string name="label_ultimo_treino">Ultimo Treino : </string>
 	
 </resources>

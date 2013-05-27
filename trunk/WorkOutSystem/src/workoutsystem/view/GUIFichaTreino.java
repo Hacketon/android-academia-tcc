@@ -327,7 +327,7 @@ DropListener {
 		ArrayAdapter<String> adapter =
 			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-		cbxGrupoMuscular.setAdapter(adapter);
+		cbxUnidade.setAdapter(adapter);
 		dialogEspecificacao.show();
 	}
 
@@ -476,12 +476,13 @@ DropListener {
 			String mensagem;
 			try {
 				 mensagem = criarEspecificacao();
+				 dialogEspecificacao.dismiss();
 				
 			} catch (Exception e) {
 				mensagem = e.getMessage();
 				
 			}
-			dialogEspecificacao.dismiss();
+			
 			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
 			
 			

@@ -27,7 +27,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private AdaptadorCalendario adapter;
 	private TextView diaSemana;
 	private TextView grupoMuscular;
-	private TextView treinoDia;
+	private TextView ultimoTreino;
 	private Spinner comboTreinos;  
 
 	@Override
@@ -39,7 +39,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		diaSemana = (TextView) findViewById(R.id.diaSemana);
 		textomes = (TextView) findViewById(R.id.txt_mes);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
-		treinoDia = (TextView) findViewById(R.id.treino_dia);
+		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
 		mes = Calendar.getInstance();
 		dia = Calendar.getInstance();
 		

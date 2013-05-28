@@ -1,14 +1,20 @@
 package workoutsystem.view;
 
+
+import java.io.File;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Passo;
+import workoutsystem.view.R.drawable;
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -92,7 +98,12 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 	private void carregarPasso(Passo o) {
 		textDescricao.setText(o.getExplicacao());
 		textSequencia.setText("Passo "+o.getSequencia());
-
+		ImageView imagem = (ImageView) findViewById(R.id.imagemExercicio);
+		//int a = R.drawable.supino2;
+		
+		imagem.setImageResource(o.getImagem());
+		
+		
 	}
 
 

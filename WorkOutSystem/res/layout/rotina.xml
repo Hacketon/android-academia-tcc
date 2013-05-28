@@ -37,8 +37,8 @@
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_weight="50"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50" >
 
                         <TextView
                             android:id="@+id/diaSemana"
@@ -46,6 +46,34 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/label_diasemana" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#B0C4DE"
+                        android:gravity="left"
+                        android:orientation="vertical"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/linhaDesignPrin"
+                            android:layout_width="1dp"
+                            android:layout_height="2dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#191970"
+                        android:gravity="left"
+                        android:orientation="vertical"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/linhaDesignPrin"
+                            android:layout_width="1dp"
+                            android:layout_height="2dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -91,7 +119,7 @@
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoVertical"
-                        android:layout_weight="100">
+                        android:layout_weight="100" >
 
                         <Spinner
                             android:id="@+id/combo_treinos"
@@ -129,16 +157,16 @@
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_weight="50"
-                        android:layout_gravity="bottom">
+                        android:layout_gravity="bottom"
+                        android:layout_weight="50" >
 
                         <Button
                             android:id="@+id/btn_realizar"
                             style="@style/textopequenopreto"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:layout_gravity="bottom"
+                            android:gravity="center"
                             android:onClick="onClick"
                             android:text="@string/button_realizar_treino" >
                         </Button>
@@ -146,6 +174,7 @@
                 </LinearLayout>
 
                 <!-- Tab de Calendario -->
+
                 <LinearLayout
                     android:id="@+id/tabcalendario"
                     android:layout_width="match_parent"

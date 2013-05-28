@@ -6,11 +6,13 @@
     android:orientation="vertical" >
 
     <TextView
-        style="@style/textopequeno"
+        style="@style/textomedio"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/label_ficha_atual" />
+        android:padding="5dp"
+        android:text="@string/label_ficha_atual"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/nome_ficha"
@@ -18,15 +20,29 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="7dp"
         android:text="@string/label_nomeficha" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#4682B4"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
+        <TextView
+            android:id="@+id/linhaDesign"
+            android:layout_width="2dp"
+            android:layout_height="3dp"
+            android:gravity="center" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listafichas"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1" 
-        android:divider="@android:color/transparent"/>
-
-
+        android:layout_weight="1"
+        android:divider="@android:color/transparent" />
 
 </LinearLayout>

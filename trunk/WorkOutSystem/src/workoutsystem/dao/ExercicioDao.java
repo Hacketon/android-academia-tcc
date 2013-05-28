@@ -97,7 +97,7 @@ public class ExercicioDao implements IExercicioDao {
 		List<Passo> passos = null;
 
 		Connection con = ResourceManager.getConexao();
-		String sql = "select passo.sequencia,passo.explicacao" +
+		String sql = "select passo.sequencia,passo.explicacao, passo.imagem" +
 		" from passo inner join exercicio " +
 		" on passo.codigoexercicio = exercicio.codigo" +
 		" where exercicio.codigo = ?";
@@ -109,6 +109,7 @@ public class ExercicioDao implements IExercicioDao {
 			Passo p = new Passo();
 			p.setSequencia(result.getInt(1));
 			p.setExplicacao(result.getString(2));
+			p.setImagem(result.getInt(3));
 			passos.add(p);
 		}
 		prepared.close();
@@ -403,9 +404,6 @@ public class ExercicioDao implements IExercicioDao {
 
 			list.add(e);
 		}
-
-		prepare.close();
-		con.close();
 		return list;
 	}
 

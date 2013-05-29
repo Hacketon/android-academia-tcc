@@ -188,7 +188,6 @@ DialogInterface.OnClickListener{
 				}
 				
 			}
-			
 			iniciarFichaManipular(ficha);
 			 
 		} catch (Exception e) {
@@ -198,6 +197,8 @@ DialogInterface.OnClickListener{
 		
 		
 	}
+	
+	
 	
 	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 		selecaoexc[which]= isChecked;

@@ -84,15 +84,15 @@ ListView.OnItemLongClickListener{
 		try {
 			ficha = controle.buscarFichaCodigo(i);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		btnCancelar.setOnClickListener(this);
 		btnSalvar.setOnClickListener(this);
 		listTreinos = getListView(); 
-		
+
 		preencherFicha(ficha);
-		
+
 		listTreinos.setOnItemClickListener(this);
 		listTreinos.setOnItemLongClickListener(this);
 
@@ -229,7 +229,7 @@ ListView.OnItemLongClickListener{
 
 	}
 
-	
+
 
 	@Override
 	public void drop(int from, int to) {
@@ -264,7 +264,7 @@ ListView.OnItemLongClickListener{
 						(treino.getNome().trim())){
 					treino.setOrdem(ordem);
 					treinos.add(treino);
-					
+
 				}
 				posicao = posicao + 1;
 			}
@@ -380,19 +380,21 @@ ListView.OnItemLongClickListener{
 		startActivity(i);
 	}
 
-
 	private void criarCaixa(String nomeTreino,String titulo) {
 		dialog.setTitle(titulo);
 		editNomeTreino.setText(nomeTreino);
-		for(Treino t : ficha.getTreinos()){
-			if(t.getNome().equalsIgnoreCase(nomeTreino)){
-				txtCodigoTreino.setText(String.valueOf(t.getCodigo()));
-				break;
+		if(nomeTreino.equals("")){
+			txtCodigoTreino.setText("0");
+		}else{
+			for(Treino t : ficha.getTreinos()){
+				if(t.getNome().equalsIgnoreCase(nomeTreino)){
+					txtCodigoTreino.setText(String.valueOf(t.getCodigo()));
+					break;
+				}
 			}
 		}
-		if(txtCodigoTreino.getText().toString().equalsIgnoreCase("")){
-			txtCodigoTreino.setText("0");
-		}
+
+
 		dialog.show();
 	}
 
@@ -415,15 +417,16 @@ ListView.OnItemLongClickListener{
 			ControleFicha controleFicha = new ControleFicha();
 			try {
 				mensagem = controleTreino.manipularTreino
-						 (editNomeTreino.getText().toString(),
-							ficha.getCodigoFicha(),
-							Long.parseLong(txtCodigoTreino.getText().toString()));
+				(editNomeTreino.getText().toString(),
+						ficha.getCodigoFicha(),
+						Long.parseLong(txtCodigoTreino.getText().toString()));
+
 				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigoFicha());
 				createListView(ficha.getTreinos());
 				dialog.dismiss();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
-				
+
 			}
 			dialog.dismiss();
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
@@ -433,7 +436,7 @@ ListView.OnItemLongClickListener{
 			dialog.dismiss();
 			break;
 		}
-		
+
 	}
 
 

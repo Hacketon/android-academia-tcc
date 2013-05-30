@@ -275,6 +275,8 @@ ListView.OnItemLongClickListener{
 		ficha.setTreinos(treinos);
 		try {
 			controle.reordenarTreino(ficha.getTreinos());
+			createListView(ficha.getTreinos());
+			
 		} catch (Exception e) {
 			Toast.makeText(this,
 					e.getMessage(),
@@ -345,15 +347,21 @@ ListView.OnItemLongClickListener{
 	private String removerTreino() throws Exception {
 		ControleTreino controle = new ControleTreino();
 		String mensagem = "";
+		long codigoFicha = 0;
+		long codigoTreino = 0;
+		ControleFicha controleFicha = new ControleFicha();
 		for (Treino t : ficha.getTreinos()){
 			if(t.getNome().
 					equalsIgnoreCase(item)){
-				long codigoTreino = t.getCodigo();
-				long codigoFicha = t.getCodigoFicha();
+				 codigoTreino = t.getCodigo();
+				 codigoFicha= t.getCodigoFicha();
 				mensagem = controle.removerTreino(codigoTreino,codigoFicha);
 				break;
 			}
 		}
+		
+		ficha = controleFicha.buscarFichaCodigo(ficha.getCodigoFicha());
+		createListView(ficha.getTreinos());
 		return mensagem;
 	}
 
@@ -428,7 +436,6 @@ ListView.OnItemLongClickListener{
 				mensagem = e.getMessage();
 
 			}
-			dialog.dismiss();
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 			break;
 

@@ -60,41 +60,44 @@ public class GUIStatus extends Activity{
 		txtPantuDir = (TextView) findViewById(R.id.tv_panturillhadirusuario);
 		txtPantuEsq = (TextView) findViewById(R.id.tv_panturillhaesqusuario);
 		carregarStatus();
-		
+
 	}
 
+	public void carregarStatus(){	
 
-	public void carregarStatus(){
-		try {
 		ControlePerfil controlePerf = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
-		
+
 		Perfil perfil = controlePerf.buscarPerfil();
-		String sexo="";
-
-		txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
-
-		if(perfil.getSexo()){
-			sexo = "Masculino";
-		}else{
-			sexo = "Feminino";
-		}
-		txtSexo.setText(txtSexo.getText() + "   "+ sexo);
-		txtFrequencia.setText(txtFrequencia.getText()+ "   " + controlePerf.quantidadeDias(perfil) );
-
-		if (controleMed.verificarMedicao(perfil.getCodigo())){
-			carregarMedicoes(perfil.getCodigo());
-		}
-		} catch (Exception e) {
+		if (perfil == null){
 			String erro = "Cria o seu perfil primeiro";
 			Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
 			finish();
-			
+
+		}else{
+			String sexo="";
+
+			txtNome.setText(txtNome.getText() + "   "+ perfil.getNome());
+
+			if(perfil.getSexo()){
+				sexo = "Masculino";
+			}else{
+				sexo = "Feminino";
+			}
+			txtSexo.setText(txtSexo.getText() + "   "+ sexo);
+			txtFrequencia.setText(txtFrequencia.getText()+ "   " + controlePerf.quantidadeDias(perfil) );
+
+			if (controleMed.verificarMedicao(perfil.getCodigo())){
+				carregarMedicoes(perfil.getCodigo());
+			}else{
+				String erro = "Você não possui medidas cadastradas";
+				Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
+				finish();
+			}
+
 		}
 
-
 	}
-
 
 	private void carregarMedicoes(int codigo) {
 		Medicao mAltura = new Medicao();
@@ -110,13 +113,13 @@ public class GUIStatus extends Activity{
 		Medicao mPantuD = new Medicao();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		ControleMedida controleMed = new ControleMedida();
-		
-		
+
+
 		List<Medida> lista = controleMed.ultimaMedicao(codigo);
 		String dataf = sdf.format(lista.get(0).getMedicao().get(0).getDataMedicao());
 		//txtMedida.setText(txtMedida.getText()+ " " + dataf);
 		txtDataMedida.setText(dataf);
-		
+
 		for(Medida med : lista){
 			Medicao m = med.getMedicao().get(0);
 			if(m.getCodigoMedida() == 1){
@@ -152,7 +155,7 @@ public class GUIStatus extends Activity{
 			if(m.getCodigoMedida()== 11){
 				mPantuE.setValor(m.getValor());
 			}
-			
+
 		}
 
 		txtAltura.setText(txtAltura.getText()+"   " + mAltura.getValor());

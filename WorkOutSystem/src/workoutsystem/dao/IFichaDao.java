@@ -65,7 +65,7 @@ public interface IFichaDao {
 	 * @return true , alterado com sucesso , false quando não for possivel alterar
 	 * @throws SQLException
 	 */
-	public boolean alterarFichaAtual(int codigoFicha) throws SQLException;
+	public boolean alterarFichaAtual(long codigoFicha) throws SQLException;
 	/**
 	 * Metodo responsavel pela busca de uma ficha através do seu codigo .
 	 * @param i

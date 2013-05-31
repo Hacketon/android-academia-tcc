@@ -3,6 +3,7 @@ package workoutsystem.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Frequencia;
@@ -94,78 +95,68 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
+		ControleFicha controleFicha = new ControleFicha();
+
 		Perfil perfil = null;
+		String mensagem = "";
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
 			try{
 				perfil = criaManipulaPerfil();
+
 				if(verificarCampos()){
 					if(controle.buscarPerfil()!= null){
-						Toast.makeText(this, controle.atualizarPerfil(perfil),
-								Toast.LENGTH_LONG).show();
+						mensagem = controle.atualizarPerfil(perfil);
 					}else{
-						String mensagem;
-						try {
-							mensagem = controle.cadastrarPerfil(perfil);
-						} catch (Exception e) {
-							mensagem = e.getMessage();
-						}
-						Toast.makeText(this, mensagem,
-								Toast.LENGTH_LONG).show();
-
+						mensagem = controle.cadastrarPerfil(perfil);
 					}
-					finish();
 				}else{
-					Toast.makeText(this, "Digite os campos (Principais / Frequencia)",
-							Toast.LENGTH_LONG).show();
-
+					mensagem = "Digite os campos (Principais / Frequencia)";
 				}
-
 			}catch (Exception e) {
-				// TODO: handle exception
+				mensagem = e.getMessage();
 			}
-						break;
+			break;
 		case R.id.btn_excperfil:
 			try{
 
 				limparCampos();
 				perfil = criaManipulaPerfil();
-				Toast.makeText(this, controleMed.excluirMedicoes(perfil.getCodigo()),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(this, controle.excluirPerfil(perfil),
-						Toast.LENGTH_LONG).show();
+				mensagem = controle.excluirPerfil(perfil) +"\n"
+				+ controleMed.excluirMedicoes(perfil.getCodigo())+ "\n"
+				+ controleFicha.desativarFichaAtual();
+				finish();
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
 			break;
 		}
+		Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 	}
 
 
 	//corrigir codigo , deixando as verificações no controle 
 	public Perfil criaManipulaPerfil(){
 		Perfil perfil = null;
-		try{
-			ControlePerfil controle = new ControlePerfil();
-			
-			if(controle.buscarPerfil() != null){
-				perfil = controle.buscarPerfil();
-			}else{
-				perfil = new Perfil();	
-			}
+		ControlePerfil controle = new ControlePerfil();
 
-			perfil.setNome(String.valueOf(editNome.getText()).trim());
-			if (radioMasculino.isChecked()){
-				perfil.setSexo(true);
-			}else {
-				perfil.setSexo(false);
-			}
-
-			carregarFrequencia(perfil);
-			
-		}catch (Exception e) {
-			// TODO: handle exception
+		perfil = controle.buscarPerfil();
+		if(perfil == null){
+			perfil = new Perfil();	
 		}
+
+		perfil.setNome(String.valueOf(editNome.getText()).trim());
+		if (radioMasculino.isChecked()){
+			perfil.setSexo(true);
+		}else {
+			perfil.setSexo(false);
+		}
+
+		carregarFrequencia(perfil);
+
+
+
+
 		return perfil;
 	}
 
@@ -264,7 +255,7 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 						frequenciaTerca.isChecked()== true || frequenciaQuarta.isChecked()== true ||
 						frequenciaQuinta.isChecked() == true || 	frequenciaSexta.isChecked() == true||
 						frequenciaSabado.isChecked() == true){
-					
+
 					verifica = true;
 
 				}
@@ -342,11 +333,11 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		}
-
 
 	}
+
+
+}
 
 
 

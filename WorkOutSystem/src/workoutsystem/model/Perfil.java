@@ -9,7 +9,7 @@ public class Perfil {
 
 	private int codigo;
 	@NotEmpty(message = "O campo nome é obrigatorio")
-	@Length(max=20,message = "Quantidade maxima de caracteres é 20 ")
+	@Length(max=20,message = "Nome deve ter no maximo 20 caracteres")
 	private String nome;
 	private boolean sexo;
 	private List<Frequencia> frequencia;

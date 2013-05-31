@@ -12,8 +12,10 @@ import workoutsystem.model.Perfil;
 
 public class PerfilDao implements IPerfilDao{
 
-	public Perfil buscarPerfil() throws SQLException {
+	public Perfil buscarPerfil() {
+		
 		Perfil perfil = null;
+		try{
 		Connection con = ResourceManager.getConexao();
 		String sql = "select codigo, nome ,sexo from perfil";
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -28,7 +30,9 @@ public class PerfilDao implements IPerfilDao{
 
 			prepare.close();
 			con.close();
-		
+		}catch (SQLException e) {
+			
+		}
 			
 		return perfil;
 

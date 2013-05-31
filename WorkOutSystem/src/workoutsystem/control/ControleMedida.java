@@ -109,7 +109,7 @@ public class ControleMedida implements Comparator<Medicao> {
 		return mensagem;
 	}
 	public String excluirMedicoes(int codigo){
-		String mensagem = "Erro ao excluir Medicões! ";
+		String mensagem = "Não possui medidas cadastradas ! ";
 		IMedidaDao dao = new MedidaDao();
 		
 		if(dao.excluirMedicoes(codigo)== true){

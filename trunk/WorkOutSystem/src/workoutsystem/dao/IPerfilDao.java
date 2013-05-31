@@ -11,9 +11,9 @@ public interface IPerfilDao {
 	 * Metodo responsavel pela busca de perfil relacionada ao usuario, ,
 	 *  o mesmo ira carregar ao inicar a tela
 	 * @return Perfil ou nulo
-	 * @throws SQLException 
+	 
 	 */
-	public abstract Perfil buscarPerfil() throws SQLException;
+	public abstract Perfil buscarPerfil();
 	
 	/**
 	 * metodo responsavel pela criação de um perfil

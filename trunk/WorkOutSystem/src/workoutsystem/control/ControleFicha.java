@@ -141,6 +141,24 @@ public class ControleFicha {
 		return f;
 
 	}
+	
+	public String desativarFichaAtual() throws SQLException{
+		IFichaDao dao = new FichaDao();
+		dao.desativarFichaAtual();
+		return "Não possui uma ficha atual";
+	}
+
+	public String mudarFichaAtual(Ficha ficha) throws SQLException {
+		IFichaDao dao = new FichaDao();
+		desativarFichaAtual();
+		String mensagem = "";
+		boolean retorno = dao.alterarFichaAtual(ficha.getCodigo());
+		if(retorno){
+			 mensagem = "Ficha atual alterada com sucesso!";
+		}
+		return mensagem;
+		
+	}
 
 
 

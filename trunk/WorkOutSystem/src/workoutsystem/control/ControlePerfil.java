@@ -11,60 +11,67 @@ import workoutsystem.dao.IPerfilDao;
 import workoutsystem.dao.PerfilDao;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
+import workoutsystem.utilitaria.Validadora;
 
 public class ControlePerfil {
 
 
 	public String cadastrarPerfil(Perfil perfil) throws Exception{
-		String mensagem = "Erro ao cadastrar Perfil";
+		
 		IPerfilDao dao = new PerfilDao();
 		ControleFicha controle = new ControleFicha();
 		Perfil p = buscarPerfil();
-		if(p == null){
-			if(dao.criarPerfil(perfil)){
-				if(dao.frequenciaPerfil(perfil)){
-					mensagem ="Criado com sucesso";
-					controle.setPerfil(dao.buscarUltimoPerfil());
+		Validadora<Perfil> validadora = new Validadora<Perfil>(perfil);
+		String mensagem = validadora.getMessage();
+		if (mensagem.equalsIgnoreCase("")){
+			if(p == null){
+				if(dao.criarPerfil(perfil)){
+					if(dao.frequenciaPerfil(perfil)){
+						mensagem ="Criado com sucesso";
+						controle.setPerfil(dao.buscarUltimoPerfil());
+					}
 				}
+			}else{
+				throw new Exception(mensagem);
 			}
+			
 		}else{
 			throw new Exception(mensagem);
 		}
-
-
+		
 		return mensagem;
 	}
 
 	public String atualizarPerfil(Perfil perfil) throws Exception{
-		String mensagem = "Erro ao atualizar perfil";
 		IPerfilDao dao = new PerfilDao();
-		if(buscarPerfil() != null){
-			if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfil(perfil)){
-				mensagem ="Atualizado com sucesso"; 
+		Validadora<Perfil> validadora = new Validadora<Perfil>(perfil);
+		String mensagem = validadora.getMessage();
+		if (mensagem.equalsIgnoreCase("")){
+			if(buscarPerfil() != null){
+				if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfil(perfil)){
+					mensagem ="Atualizado com sucesso"; 
+				}
 			}
 		}
+		
 
 		return mensagem;
 	}
 
-	public Perfil buscarPerfil() throws Exception{
+	public Perfil buscarPerfil(){
 		IPerfilDao dao = new PerfilDao();
 		Perfil perfil = dao.buscarPerfil();
-		if (perfil == null){
-			String mensagem = "Perfil inexistente";
-			throw new Exception(mensagem);
-		}
 		return perfil;
 
 	}
 
 	public String excluirPerfil(Perfil perfil) throws SQLException{
-		String mensagem = "Erro ao excluir";
+		String mensagem = "";
 		IPerfilDao dao = new PerfilDao();
 		IFichaDao daoficha = new FichaDao();
 		daoficha.desativarFichaAtual();
 		if(dao.excluirPerfil()&& dao.excluirFrequencia(perfil)){
-			mensagem = "Excluido com sucesso";
+			mensagem = "Perfil excluido com sucesso";
 			
 		}
 		return mensagem;

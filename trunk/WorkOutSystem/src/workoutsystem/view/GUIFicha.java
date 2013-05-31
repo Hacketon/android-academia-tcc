@@ -9,8 +9,10 @@ import workoutsystem.control.ControlePerfil;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
+import workoutsystem.model.Perfil;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -47,7 +49,7 @@ DialogInterface.OnClickListener
 	private TextView txtObjetivo;
 	private TextView txtQuantidade;
 	private TextView txtRealizacao;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +57,20 @@ DialogInterface.OnClickListener
 		setContentView(R.layout.ficha);
 		dialogFicha = new Dialog(this);
 		dialogFicha.setContentView(R.layout.dados_ficha);
-		
+
 		txtNome = (TextView) dialogFicha.findViewById(R.id.ficha_atual_nome);
 		txtObjetivo = (TextView) dialogFicha.findViewById(R.id.ficha_atual_objetivo);
 		txtQuantidade = (TextView) dialogFicha.findViewById(R.id.ficha_atual_quantidade);
 		txtRealizacao = (TextView) dialogFicha.findViewById(R.id.ficha_atual_realizacao);
-		
-		
+
+
 		listaFicha = (ListView) findViewById(R.id.listafichas);
 		listaFicha.setOnItemClickListener(this);
 		listaFicha.setOnItemLongClickListener(this);
 		listaRemocao = new ArrayList<Ficha>();
 		txtNomeFicha = (TextView) findViewById(R.id.nome_ficha_atual);
-		
-		
+
+
 		try {
 			createListView();
 		} catch (SQLException e) {
@@ -90,9 +92,9 @@ DialogInterface.OnClickListener
 			txtNomeFicha.setText(nome);
 			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		}
-		
+
 		return ficha;
-		
+
 	}
 
 	private void createListView() throws SQLException {
@@ -145,7 +147,8 @@ DialogInterface.OnClickListener
 		ControlePerfil controle = new ControlePerfil();
 		ControleFicha controleFicha = new ControleFicha();
 		Ficha f = new Ficha();
-		
+		Perfil perfil = null;
+
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
 		case R.id.mostrar_ficha:
@@ -153,8 +156,8 @@ DialogInterface.OnClickListener
 			if(f != null){
 				criarDialogo("Ficha Atual", f);
 			}
-			
-		break;
+
+			break;
 		case R.id.adicionar_ficha:
 			f = new Ficha();
 			iniciarFichaManipular(f);
@@ -172,23 +175,51 @@ DialogInterface.OnClickListener
 				texto = "Selecione as fichas antes da remoção!";
 				Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
 			}
-			
+
 			break;
 
 		case R.id.mudar_ficha:
-			
-			try {
-				controle.buscarPerfil();
-				
-			} catch (Exception e) {
-				mensagem = "Crie seu perfil!";
-				
+			perfil = controle.buscarPerfil();
+			if(perfil == null){
+				mensagem = "Primeiro crie o seu perfil";
+			}else{
+				if (listFicha.size()<=0){
+					mensagem = "Você não possui ficha(s)" +
+					" cadastrada(s) !";
+				}else{
+					criarDialogoFichaAtual();
+					mensagem = "";
+				}
 			}
+			if(!mensagem.equalsIgnoreCase("")){
+				Toast.makeText
+				(this, mensagem, Toast.LENGTH_SHORT).show();
+			}
+
 			break;
 		}
 
 		return false;
 	}
+
+
+
+	private void criarDialogoFichaAtual() {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Ficha(s)");
+		int selected = -1;
+		int cont = 0;
+		for(Ficha f : listFicha ){
+			fichas[cont] = f.getNome();
+			cont++;
+		}
+		builder.setSingleChoiceItems(fichas, selected, this);
+		builder.show();
+
+	}
+
+
 
 
 
@@ -208,56 +239,73 @@ DialogInterface.OnClickListener
 		boolean selecionado = c.isChecked();
 		String nome = parent.getItemAtPosition(pos).toString();
 		Ficha ficha = new Ficha();
-		
+
 		for(Ficha f : listFicha){
 			if(f.getNome().equalsIgnoreCase(nome)){
-			ficha = f; 
-			break;
+				ficha = f; 
+				break;
 			}
 		}
 		if (!listaRemocao.contains(ficha)
 				&& !selecionado){
-				listaRemocao.add(ficha);
+			listaRemocao.add(ficha);
 		}else{
-				listaRemocao.remove(ficha);
+			listaRemocao.remove(ficha);
 		}
 
 
 	}
 
-
-
-
-
-
-
-
 	public void onClick(DialogInterface dialog, int clicked) {
-		String mensagem;
+		String mensagem = "";
+		ControleFicha controle = new ControleFicha();
 		switch (clicked) {
 		case DialogInterface.BUTTON_POSITIVE:
-			
 			try {
-				ControleFicha controle = new ControleFicha();
 				mensagem = controle.excluirFicha(listaRemocao);
 				createListView();
 				selecionarFichaAtual();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
 			}
-				dialog.dismiss();
-				Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-				
+			dialog.dismiss();
+
+
 			break;
 		case DialogInterface.BUTTON_NEGATIVE:
 			dialog.dismiss();
-			
+			break;
+		default:
+			try {
+				String nome = fichas[clicked];
+				Ficha ficha = null;
+				for (Ficha f : listFicha){
+					if(f.getNome().equalsIgnoreCase(nome)){
+						ficha = f;
+						break;
+					}
+				}
+				mensagem = controle.mudarFichaAtual(ficha);
+				createListView();
+				selecionarFichaAtual();
+				dialog.dismiss();
+			} catch (SQLException e) {
+				mensagem = e.getMessage();
 
+			}
+
+
+			break;
+		}
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
 		}
 
 	}
-	
-	
+
+
+
+
 	private void criarCaixa(
 			String titulo,
 			String texto,
@@ -274,7 +322,7 @@ DialogInterface.OnClickListener
 		alert.setPositiveButton(positiva, this);
 		alert.show();
 	}
-	
+
 	private void criarDialogo(String titulo,Ficha f){
 		int quantidade = f.getTreinos().size() + 1;
 		dialogFicha.setTitle(titulo);
@@ -283,9 +331,9 @@ DialogInterface.OnClickListener
 		txtQuantidade.setText(String.valueOf(quantidade));
 		String realizacao = f.getRealizacoes()+ "/" +f.getDuracao();;
 		txtRealizacao.setText(realizacao);
-		
+
 		dialogFicha.show();
-		
+
 	}
 
 	@Override
@@ -318,5 +366,5 @@ DialogInterface.OnClickListener
 
 
 
-	
+
 }

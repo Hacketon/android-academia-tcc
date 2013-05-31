@@ -241,20 +241,27 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	}
 
 	@Override
-	public boolean alterarFichaAtual(int codigoFicha) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean alterarFichaAtual(long codigoFicha) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1; 
+		String sql = "update ficha set ficha_atual = 1 where codigo = ?";
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setLong(aux++, codigoFicha);
+		int valor = prepared.executeUpdate();
+		prepared.close();
+		con.close();
+		return (valor>0);
 	}
 
 	@Override
-	public Ficha buscarFichaCodigo(long i) throws SQLException {
+	public Ficha buscarFichaCodigo(long codigo) throws SQLException {
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		String sql = "select codigo,nome,duracao, " +
 		" objetivo,realizacoes, " +
 		" ficha_atual,padrao from ficha where codigo = ?";
 		PreparedStatement prepared = con.prepareStatement(sql);
-		prepared.setLong(aux++, i);
+		prepared.setLong(aux++, codigo);
 		ResultSet result = prepared.executeQuery();
 
 		Ficha f = null;
@@ -295,7 +302,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	@Override
 	public boolean desativarFichaAtual() throws SQLException {
 		Connection con = ResourceManager.getConexao();
-		String sql = "update ficha set ficha_atual = 0";
+		String sql = "update ficha set ficha_atual = 0 , realizacoes = 0";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.executeUpdate();
 		return true;

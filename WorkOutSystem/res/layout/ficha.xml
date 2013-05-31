@@ -15,7 +15,7 @@
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/nome_ficha"
+        android:id="@+id/nome_ficha_atual"
         style="@style/textogrande"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -43,6 +43,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+        android:choiceMode="multipleChoice"
         android:divider="@android:color/transparent" />
 
 </LinearLayout>

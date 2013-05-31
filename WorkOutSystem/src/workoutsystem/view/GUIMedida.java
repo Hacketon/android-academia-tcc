@@ -47,14 +47,10 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private Button btnCancelar;
 	private Button btnNovo;
 	
-
-	private ControlePerfil controle = new ControlePerfil();
-	private Perfil perfil =  controle.buscarPerfil();
-	private ControleMedida controleMed = new ControleMedida();
-	
-
-
-	
+	private ControlePerfil controle;
+	private Perfil perfil;
+	private ControleMedida controleMed; 
+		
 	int x = 0;
 	java.util.Date data = new java.util.Date(); 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -69,7 +65,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		criarTab();
 
 		controle = new ControlePerfil();
-		perfil =  controle.buscarPerfil();
+		controleMed = new ControleMedida();
 		controleMed = new ControleMedida();
 		editAltura = (EditText) findViewById(R.id.ed_altura);
 		editPeso = (EditText) findViewById(R.id.ed_peso);
@@ -83,20 +79,24 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		editPantuDir = (EditText) findViewById(R.id.ed_panturrilhadireita);
 		editPantuEsq = (EditText) findViewById(R.id.ed_panturilhaesquerda);
 		
-
-		
-		if(perfil != null){
-			List<Medicao> lista = controleMed.buscarMedicao(perfil.getCodigo());
-			//List<Medicao> listaUltimosValores = ObterUltimosValores(lista);
+		try {
+			perfil =  controle.buscarPerfil();
+			List<Medicao> lista = 
+						controleMed.buscarMedicao(perfil.getCodigo());
 			carregarCampos(lista);
 			bloquearTodosCampos();
-		}else{
-		
+		} catch (Exception e) {
+			finish();
 			Toast.makeText(this,"Antes de Adicionar as medidas, crie seu PERFIL primeiro !",
 					Toast.LENGTH_LONG).show();
-			finish();
-
+		
 		}
+		
+			
+
+		
+		
+
 	}
 
 

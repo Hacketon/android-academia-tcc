@@ -84,20 +84,22 @@ public class GUIEvolucao extends Activity  {
 	private void inicializarEvolucao() {
 		ControleMedida controleMed = new ControleMedida();
 		ControlePerfil controlePerfil = new ControlePerfil();
+		try{
+			listaMedidas = controleMed.buscarMedidas();
+			Perfil perfil = controlePerfil.buscarPerfil();
+			if(!controleMed.verificarMedicao(perfil.getCodigo())){
+				Toast.makeText(this,"Seu perfil não possui medições!",
+						Toast.LENGTH_LONG).show();
+				finish();
 
-		listaMedidas = controleMed.buscarMedidas();
-		Perfil perfil = controlePerfil.buscarPerfil();
-		if(perfil == null ){
+			}else{
+				exibirAnterior();
+			}
+
+		}catch (Exception e) {
 			Toast.makeText(this,"Primeiro crie o seu perfil e adicione medições!",
 					Toast.LENGTH_SHORT).show();
 			finish();
-		}else if(!controleMed.verificarMedicao(perfil.getCodigo())){
-			Toast.makeText(this,"Seu perfil não possui medições!",
-					Toast.LENGTH_LONG).show();
-			finish();
-
-		}else{
-			exibirAnterior();
 		}
 	}
 
@@ -165,6 +167,9 @@ public class GUIEvolucao extends Activity  {
 	}
 
 	public void carregaMedida(Medida medida){
+		try{
+			
+		
 		ControlePerfil controleperfil = new ControlePerfil();
 		ControleMedida controlemedida = new ControleMedida();
 		Perfil perfil = controleperfil.buscarPerfil();
@@ -196,7 +201,9 @@ public class GUIEvolucao extends Activity  {
 		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
 
 		createListView(listaMedicoes, listahistorico, medida);
-
+		}catch (Exception e) {
+			
+		}
 
 	}
 

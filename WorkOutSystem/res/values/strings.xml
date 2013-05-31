@@ -97,6 +97,7 @@
     <string name="botao_confirmar">Confirmar</string>
     <string name="label_diasemana">Dias da semana </string>
     <string name="label_duracaotreinos">Duração(Treinos) </string>
+    <string name="label_quantidade_treinos"> Numero de treinos :</string>
     <!-- Ajudas -->
 
 
@@ -105,7 +106,7 @@
     <string name="label_grupo_muscular">Grupo</string>
     <string name="label_grupo_muscular_trab">Peito e Costas</string>
     <string name="button_realizar_treino">Realizar</string>
-
+	<string name="label_realizacao">Execuções da ficha</string>
     <!-- tela ficha grupo -->
     <string name="check_peito">Peito</string>
     <string name="check_ombro">Ombro</string>
@@ -123,6 +124,7 @@
     <string name="botao_remover">Remover</string>
     <string name="botao_rem">-</string>
     <string name="botao_mudarficha">Mudar ficha atual</string>
+    <string name="botao_dadosficha">Dados ficha atual</string>
     <string name="label_ficha_atual"> Ficha atual </string>
     <string name="label_nomeficha"> Nenhuma </string>
     <!-- Exercicio Ficha -->

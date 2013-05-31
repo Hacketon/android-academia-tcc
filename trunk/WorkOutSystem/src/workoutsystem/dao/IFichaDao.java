@@ -56,11 +56,10 @@ public interface IFichaDao {
 	
 	/**
 	 * Metodo responsavel pela busca da ficha atual do perfil cadastrado
-	 * @param codigoPerfil
 	 * @return Ficha atual do usuario ou nulo , senão tiver ficha.
 	 * @throws SQLException
 	 */
-	public Ficha buscarFichaAtual(int codigoPerfil) throws SQLException;
+	public Ficha buscarFichaAtual() throws SQLException;
 	/**
 	 * Metodo responsavel pela alteração da ficha atual do perfil cadastrado
 	 * @return true , alterado com sucesso , false quando não for possivel alterar
@@ -74,6 +73,13 @@ public interface IFichaDao {
 	 * @throws SQLException
 	 */
 	public Ficha buscarFichaCodigo(long i) throws SQLException;
+
+	/**
+	 * Metodo responsavel pela desativação das fichas atuais
+	 * @return true , caso consiga 
+	 * @throws SQLException 
+	 */
+	public boolean desativarFichaAtual() throws SQLException;
 	
 	
 	

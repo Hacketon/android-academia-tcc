@@ -1,10 +1,12 @@
 package workoutsystem.control;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IDiaSemana;
+import workoutsystem.dao.IFichaDao;
 import workoutsystem.dao.IPerfilDao;
 import workoutsystem.dao.PerfilDao;
 import workoutsystem.model.Frequencia;
@@ -33,7 +35,7 @@ public class ControlePerfil {
 		return mensagem;
 	}
 
-	public String atualizarPerfil(Perfil perfil){
+	public String atualizarPerfil(Perfil perfil) throws Exception{
 		String mensagem = "Erro ao atualizar perfil";
 		IPerfilDao dao = new PerfilDao();
 		if(buscarPerfil() != null){
@@ -45,18 +47,25 @@ public class ControlePerfil {
 		return mensagem;
 	}
 
-	public Perfil buscarPerfil(){
+	public Perfil buscarPerfil() throws Exception{
 		IPerfilDao dao = new PerfilDao();
 		Perfil perfil = dao.buscarPerfil();
+		if (perfil == null){
+			String mensagem = "Perfil inexistente";
+			throw new Exception(mensagem);
+		}
 		return perfil;
 
 	}
 
-	public String excluirPerfil(Perfil perfil){
+	public String excluirPerfil(Perfil perfil) throws SQLException{
 		String mensagem = "Erro ao excluir";
 		IPerfilDao dao = new PerfilDao();
+		IFichaDao daoficha = new FichaDao();
+		daoficha.desativarFichaAtual();
 		if(dao.excluirPerfil()&& dao.excluirFrequencia(perfil)){
 			mensagem = "Excluido com sucesso";
+			
 		}
 		return mensagem;
 	}

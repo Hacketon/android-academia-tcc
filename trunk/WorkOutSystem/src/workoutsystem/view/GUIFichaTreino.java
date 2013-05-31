@@ -70,7 +70,6 @@ DropListener {
 	private Button btnSalvarExercicio;
 	private Button btnConfirmar;
 	private Button btnCancelar;
-	private Button btnRemover;
 	private DragSortListView listaEspecificacao; 
 	private List<Exercicio> listaExercicioTreino;
 	private ArrayAdapter<String> adapterEspecificacao;
@@ -130,7 +129,6 @@ DropListener {
 
 		cbxGrupoMuscular = (Spinner) findViewById(R.id.cbx_buscaexercicio);
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-		btnRemover = (Button) findViewById(R.id.btn_remover_selecionados);
 		listaBusca = (ListView) findViewById(R.id.list_busca);
 		listaExercicio = (ListView) findViewById(R.id.list_exercicio);
 		listaEspecificacao = getListView();
@@ -144,7 +142,6 @@ DropListener {
 		cbxGrupoMuscular.setOnItemSelectedListener(this);		
 		cbxUnidade.setOnItemSelectedListener(this);
 
-		btnRemover.setOnClickListener(this);
 		btnCancelar.setOnClickListener(this);
 		btnConfirmar.setOnClickListener(this);
 		btnCancelarExercicio.setOnClickListener(this);
@@ -300,7 +297,9 @@ DropListener {
 		case R.id.criar_Exercicio:
 			criarCaixaDialogoExercicio("Novo Exercicio");
 			break;
-
+		case R.id.remover_exercicio_ficha:
+			removerExercicios();
+			break;
 		}
 		return true;
 	}
@@ -496,9 +495,7 @@ DropListener {
 		case (R.id.btn_voltar):
 			dialogNovoExercicio.dismiss();
 		break;
-		case (R.id.btn_remover_selecionados):
-			removerExercicios();
-		break;
+		
 		}
 
 

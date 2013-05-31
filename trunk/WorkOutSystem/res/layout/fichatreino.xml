@@ -67,13 +67,6 @@
                         android:layout_weight="1"
                         android:choiceMode="multipleChoice"
                         android:divider="@android:color/transparent" />
-
-                    <Button
-                        android:id="@+id/btn_remover_selecionados"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:text="@string/botao_remover" />
                 </LinearLayout>
 
                 <!-- Tab especificacao -->

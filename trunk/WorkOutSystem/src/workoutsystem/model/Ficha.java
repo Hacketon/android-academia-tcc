@@ -9,14 +9,17 @@ import net.sf.oval.constraint.NotEmpty;
 
 public class Ficha implements Serializable {
 	
-	private long codigoFicha;
+	private long codigo;
 	@NotEmpty(message = "Nome da ficha é obrigatorio")
-	@Length(max=20,message = "Nome da ficha deve ser menor que 20 caracteres")
-	private String nomeFicha;
-	@Min(value = 1,message="O valor minimo para duração de dias é 1")
-	private int duracaoDias;
+	@Length(max=20,
+		message = "Nome da ficha deve ser menor que 20 caracteres")
+	private String nome;
+	@Min(value = 1,
+		message="O valor minimo para duração de dias é 1")
+	private int duracao;
 	private int realizacoes;
-	@Length (max = 100, message = "O tamanho maximo para o campo objetivo é 100 caracteres")
+	@Length (max = 100,
+			message = "O tamanho maximo para o campo objetivo é 100 caracteres")
 	private String objetivo;
 	private List<Treino> treinos;
 	private int padrao;
@@ -29,14 +32,14 @@ public class Ficha implements Serializable {
 		
 	}
 	
-	public long getCodigoFicha() {
-		return codigoFicha;
+	public long getCodigo() {
+		return codigo;
 	}
-	public String getNomeFicha() {
-		return nomeFicha;
+	public String getNome() {
+		return nome;
 	}
-	public int getDuracaoDias() {
-		return duracaoDias;
+	public int getDuracao() {
+		return duracao;
 	}
 	public int getRealizacoes() {
 		return realizacoes;
@@ -44,14 +47,14 @@ public class Ficha implements Serializable {
 	public String getObjetivo() {
 		return objetivo;
 	}
-	public void setCodigoFicha(long codigoFicha) {
-		this.codigoFicha = codigoFicha;
+	public void setCodigo(long codigoFicha) {
+		this.codigo = codigoFicha;
 	}
-	public void setNomeFicha(String nomeFicha) {
-		this.nomeFicha = nomeFicha;
+	public void setNome(String nomeFicha) {
+		this.nome = nomeFicha;
 	}
-	public void setDuracaoDias(int duracaoDias) {
-		this.duracaoDias = duracaoDias;
+	public void setDuracao(int duracaoDias) {
+		this.duracao = duracaoDias;
 	}
 	public void setRealizacoes(int realizacoes) {
 		this.realizacoes = realizacoes;
@@ -60,9 +63,6 @@ public class Ficha implements Serializable {
 		this.objetivo = objetivo;
 	}
 	
-	public int calcularDiasRestantes(){
-		return 0;
-	}
 	public void setTreinos(List<Treino> treinos) {
 		this.treinos = treinos;
 	}

@@ -16,6 +16,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class GUIStatus extends Activity{
@@ -58,19 +59,16 @@ public class GUIStatus extends Activity{
 		txtCoxaEsq = (TextView) findViewById(R.id.tv_coxaesqusuario);
 		txtPantuDir = (TextView) findViewById(R.id.tv_panturillhadirusuario);
 		txtPantuEsq = (TextView) findViewById(R.id.tv_panturillhaesqusuario);
-
-		ControlePerfil controlePerf = new ControlePerfil();
-		if(controlePerf.buscarPerfil()!=null){
-			carregarStatus();
-		}
-
+		carregarStatus();
+		
 	}
 
 
 	public void carregarStatus(){
-
+		try {
 		ControlePerfil controlePerf = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
+		
 		Perfil perfil = controlePerf.buscarPerfil();
 		String sexo="";
 
@@ -87,7 +85,12 @@ public class GUIStatus extends Activity{
 		if (controleMed.verificarMedicao(perfil.getCodigo())){
 			carregarMedicoes(perfil.getCodigo());
 		}
-
+		} catch (Exception e) {
+			String erro = "Cria o seu perfil primeiro";
+			Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
+			finish();
+			
+		}
 
 
 	}

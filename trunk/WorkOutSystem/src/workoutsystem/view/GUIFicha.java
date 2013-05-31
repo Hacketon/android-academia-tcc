@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleFicha;
+import workoutsystem.control.ControlePerfil;
+import workoutsystem.control.ControleTreino;
+import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,33 +22,76 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class GUIFicha extends Activity implements 
-DialogInterface.OnMultiChoiceClickListener,
 ListView.OnItemClickListener,
-DialogInterface.OnClickListener{
+ListView.OnItemLongClickListener,
+DialogInterface.OnClickListener
+
+{
 
 	private ListView listaFicha;
 	private ArrayAdapter<String> adapter;
 	private String [] fichas;
 	private List<Ficha> listFicha;
 	private boolean [] selecaoexc;
+	private List<Ficha> listaRemocao;
+	private TextView txtNomeFicha;
+	private Dialog dialogFicha;
+	private TextView txtNome;
+	private TextView txtObjetivo;
+	private TextView txtQuantidade;
+	private TextView txtRealizacao;
 	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ficha);
+		dialogFicha = new Dialog(this);
+		dialogFicha.setContentView(R.layout.dados_ficha);
+		
+		txtNome = (TextView) dialogFicha.findViewById(R.id.ficha_atual_nome);
+		txtObjetivo = (TextView) dialogFicha.findViewById(R.id.ficha_atual_objetivo);
+		txtQuantidade = (TextView) dialogFicha.findViewById(R.id.ficha_atual_quantidade);
+		txtRealizacao = (TextView) dialogFicha.findViewById(R.id.ficha_atual_realizacao);
+		
 		
 		listaFicha = (ListView) findViewById(R.id.listafichas);
 		listaFicha.setOnItemClickListener(this);
+		listaFicha.setOnItemLongClickListener(this);
+		listaRemocao = new ArrayList<Ficha>();
+		txtNomeFicha = (TextView) findViewById(R.id.nome_ficha_atual);
+		
 		
 		try {
 			createListView();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		selecionarFichaAtual();
+
+	}
+
+	private Ficha selecionarFichaAtual() {
+		ControleFicha controle = new ControleFicha();
+		Ficha ficha = null;
+		String nome = "Nenhuma";
+		try {
+			ficha= controle.buscarFichaAtual();
+			txtNomeFicha.setText(ficha.getNome());
+		} catch (Exception e) {
+			String message = e.getMessage();
+			txtNomeFicha.setText(nome);
+			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		}
+		
+		return ficha;
 		
 	}
 
@@ -54,13 +100,14 @@ DialogInterface.OnClickListener{
 		listFicha  = controle.buscarFicha();
 		ArrayList<String> nomes = new ArrayList<String>();
 		for (Ficha f : listFicha){
-			nomes.add(f.getNomeFicha());
+			nomes.add(f.getNome());
 		}
 		adapter = new ArrayAdapter<String>
-		(this,R.layout.itens_simple_lista,nomes);
+		(this,R.layout.multiple_choice,nomes);
 		adapter.notifyDataSetChanged();
 		listaFicha.setAdapter(adapter);
-		listaFicha.setCacheColorHint(Color.BLUE);
+		listaFicha.setCacheColorHint(Color.TRANSPARENT);
+		listaFicha.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		criarExclusao(listFicha);
 
 	}
@@ -70,31 +117,18 @@ DialogInterface.OnClickListener{
 		fichas = null;
 		selecaoexc = null;
 		int listaTamanho = listFichas.size();
-		
+
 		if (listaTamanho > 0){
 			fichas = new String[listaTamanho];
 			selecaoexc = new boolean[listaTamanho];
 		}
-		 
+
 		for (Ficha f : listFichas){
-			fichas[i] = f.getNomeFicha();
+			fichas[i] = f.getNome();
 			i++;
 		}
 	}
 
-	
-	protected Dialog onCreateDialog(int id){
-
-		return new AlertDialog.Builder(this)
-		.setTitle("Fichas")
-		.setMultiChoiceItems(fichas,selecaoexc,this)
-		.setPositiveButton("Deletar",this)
-		.setNeutralButton("Cancelar",this)
-		.create();
-
-	}
-
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,127 +141,153 @@ DialogInterface.OnClickListener{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		String mensagem = "";
+		ControlePerfil controle = new ControlePerfil();
+		ControleFicha controleFicha = new ControleFicha();
+		Ficha f = new Ficha();
+		
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
-		case R.id.adicionar_ficha:
-			Ficha f = new Ficha();
-			iniciarFichaManipular(f);
+		case R.id.mostrar_ficha:
+			f = selecionarFichaAtual();
+			if(f != null){
+				criarDialogo("Ficha Atual", f);
+			}
+			
 		break;
+		case R.id.adicionar_ficha:
+			f = new Ficha();
+			iniciarFichaManipular(f);
+			break;
 
 		case R.id.remover_ficha:
+			String titulo = "Confirmação";
+			String texto = "Deseja realmente remover as ficha(s) selecionada(s)";
+			String negativa = "Cancelar";
+			String positiva = "Remover";
+			String pontuacao = "?";
+			if (listaRemocao.size()>0){
+				criarCaixa(titulo,texto,negativa,positiva,pontuacao);	
+			}else{
+				texto = "Selecione as fichas antes da remoção!";
+				Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+			}
 			
-		break;
-		
+			break;
+
 		case R.id.mudar_ficha:
 			
-		break;
+			try {
+				controle.buscarPerfil();
+				
+			} catch (Exception e) {
+				mensagem = "Crie seu perfil!";
+				
+			}
+			break;
 		}
-		
+
 		return false;
 	}
 
-	
 
-	
-	
+
+
+
 	private void iniciarFichaManipular(Ficha f) {
 		Intent i = new Intent(this,GUIFichaManipular.class);
-		i.putExtra("ficha", f.getCodigoFicha());
+		i.putExtra("ficha", f.getCodigo());
 		startActivity(i);
-		
-	}
-
-	private boolean deletarFichas() throws SQLException {
-		ControleFicha controle = new ControleFicha();
-		int i = 0 ;
-		int contador = 0;
-		boolean resultado = false;
-		ArrayList<String> deletados = new ArrayList<String>();
-		ArrayList<String> ndeletados = new ArrayList<String>();
-
-		for (boolean b : selecaoexc){
-			if (b == true){
-				deletados.add(fichas[i]);
-				contador++;
-			}else{
-				ndeletados.add(fichas[i]);
-			}
-			i++;
-		}
-		i = 0;
-		contador = fichas.length - contador;
-		fichas = null;
-		selecaoexc = null;
-		if (contador != 0){
-			fichas = new String[contador];
-			selecaoexc = new boolean[contador];
-			for (String o : ndeletados){
-				fichas[i] = o;
-				i++;
-			}
-
-		}
-
-		//resultado = controle.excluirFicha(deletados);
-		return resultado;
-
 
 	}
+
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
-		ControleFicha controle = new ControleFicha();
-		try {
-			Ficha ficha = new Ficha();
-			String s = parent.getItemAtPosition(pos).toString();
-			for (Ficha f : listFicha){
-				if(f.getNomeFicha().equalsIgnoreCase(s.trim())){
-					 ficha = f;
-					break;
-				}
-				
+		CheckedTextView c = (CheckedTextView) view;
+		boolean selecionado = c.isChecked();
+		String nome = parent.getItemAtPosition(pos).toString();
+		Ficha ficha = new Ficha();
+		
+		for(Ficha f : listFicha){
+			if(f.getNome().equalsIgnoreCase(nome)){
+			ficha = f; 
+			break;
 			}
-			iniciarFichaManipular(ficha);
-			 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		
+		if (!listaRemocao.contains(ficha)
+				&& !selecionado){
+				listaRemocao.add(ficha);
+		}else{
+				listaRemocao.remove(ficha);
+		}
+
+
 	}
-	
-	
-	
-	public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-		selecaoexc[which]= isChecked;
-	}
+
+
+
+
+
+
+
 
 	public void onClick(DialogInterface dialog, int clicked) {
 		String mensagem;
 		switch (clicked) {
 		case DialogInterface.BUTTON_POSITIVE:
+			
 			try {
-				if (deletarFichas()){
-					mensagem = "Operação realizada com sucesso";
-					}else{
-					mensagem = "Operação contendo erros";
-				}
-			} catch (SQLException e) {
-				mensagem = "Erro no banco de dados";
-			}
-			try {
+				ControleFicha controle = new ControleFicha();
+				mensagem = controle.excluirFicha(listaRemocao);
 				createListView();
-			} catch (SQLException e) {
-				e.printStackTrace();
+				selecionarFichaAtual();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
 			}
+				dialog.dismiss();
+				Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+				
 			break;
+		case DialogInterface.BUTTON_NEGATIVE:
+			dialog.dismiss();
+			
 
 		}
 
 	}
 	
+	
+	private void criarCaixa(
+			String titulo,
+			String texto,
+			String negativa,
+			String positiva,
+			String pontuacao) {
+
+		texto = texto + pontuacao;
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(texto);
+		alert.setTitle(titulo);
+		alert.setNegativeButton(negativa, this);
+		alert.setPositiveButton(positiva, this);
+		alert.show();
+	}
+	
+	private void criarDialogo(String titulo,Ficha f){
+		int quantidade = f.getTreinos().size() + 1;
+		dialogFicha.setTitle(titulo);
+		txtNome.setText(f.getNome());
+		txtObjetivo.setText(f.getObjetivo());
+		txtQuantidade.setText(String.valueOf(quantidade));
+		String realizacao = f.getRealizacoes()+ "/" +f.getDuracao();;
+		txtRealizacao.setText(realizacao);
+		
+		dialogFicha.show();
+		
+	}
+
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		super.onPrepareDialog(id, dialog);
@@ -239,4 +299,24 @@ DialogInterface.OnClickListener{
 
 
 	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+			long id) {
+		ControleFicha controle = new ControleFicha();
+
+		Ficha ficha = new Ficha();
+		String s = parent.getItemAtPosition(pos).toString();
+		for (Ficha f : listFicha)
+			if(f.getNome().equalsIgnoreCase(s.trim())){
+				ficha = f;
+				break;
+			}
+		iniciarFichaManipular(ficha);
+		return false;
+	}
+
+
+
+	
 }

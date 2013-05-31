@@ -28,13 +28,26 @@ public class ControleFicha {
 		return false;
 
 	}
+
+	public Ficha buscarFichaAtual() throws Exception{
+		Ficha f = null;
+		IFichaDao dao = new FichaDao();
+		ITreinoDao daoTreino = new TreinoDao();
+		f = dao.buscarFichaAtual();
+		String mensagem = "Não há ficha de treino atual selecionada";
+		if (f == null ){
+			throw new Exception(mensagem);
+		}
+		f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
+		return f;
+	}
 	public List<Ficha> buscarFicha() throws SQLException{
 		ITreinoDao daoTreino = new TreinoDao();
 		IFichaDao dao = new FichaDao();
 		IExercicioDao daoExercicio = new ExercicioDao();
 		List<Ficha> lista = dao.listarFichas();
 		for(Ficha f : lista){
-			f.setTreinos(daoTreino.listarTreinos(f.getCodigoFicha()));
+			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			for(Treino t : f.getTreinos()){
 				t.setEspecificacao
 				(daoExercicio.listarEspecificacao(t.getCodigo()));
@@ -59,30 +72,32 @@ public class ControleFicha {
 	return true;
 } 
 	 */
+	public String excluirFicha(List<Ficha> fichas) throws Exception {
+		boolean resultado = true;
+		IFichaDao daoFicha = new FichaDao();
+		ControleTreino daoTreino = new ControleTreino();
+		String mensagem = "Ficha(s) excluidas com sucesso";
+		try{
+			
 
-	/*
-	 *	public boolean excluirFicha(List<String> deletados) throws SQLException {
-	boolean resultado = true;
-	IFichaDao dao = new FichaDao();
-	String mensagem = "Exercicio excluido!";
-
-	for (String texto : deletados){
-		String nome = texto; 
-		Ficha ficha = dao.buscarFicha(nome);
-		for(Treino t : ficha.getTreinos()){
-			for (Exercicio e : t.getExercicios()){
-				e.getListaEspecificacao();
+			for (Ficha f : fichas){
+				for(Treino t : f.getTreinos()){
+					daoTreino.removerTreino(t.getCodigo(),f.getCodigo());
+				}
+				daoFicha.excluirFicha(f.getCodigo());
+				
 			}
 
-
+		}catch (Exception e) {
+			mensagem = "Erro ao executar a exclusão de ficha(s)!";
+			throw new Exception();
 		}
-		resultado = dao.excluirFicha(ficha.getCodigoFicha());
+		return mensagem;
 
 	}
 
-	return resultado;
-} 
-	 */
+
+
 
 
 	public Ficha buscarFichaNome(String nome) throws Exception {
@@ -96,14 +111,14 @@ public class ControleFicha {
 
 	}
 
-	
+
 
 	public void setPerfil(int codigoPerfil) throws SQLException {
 		IFichaDao dao = new FichaDao();
 		boolean resultado = dao.setPerfil(codigoPerfil);
 	}
 
-	
+
 	public Ficha buscarFichaCodigo(long codigo) throws Exception{
 		Ficha f = null;
 		IFichaDao dao = new FichaDao();
@@ -111,7 +126,7 @@ public class ControleFicha {
 		IExercicioDao daoExercicio = new ExercicioDao();
 		f = dao.buscarFichaCodigo(codigo);
 		if(f != null){
-			f.setTreinos(daoTreino.listarTreinos(f.getCodigoFicha()));
+			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			for(Treino t : f.getTreinos()){
 				t.setEspecificacao
 				(daoExercicio.listarEspecificacao(t.getCodigo()));
@@ -127,6 +142,6 @@ public class ControleFicha {
 
 	}
 
-	
+
 
 }

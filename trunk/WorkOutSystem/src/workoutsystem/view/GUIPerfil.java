@@ -57,9 +57,14 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 		frequenciaDomingo = (CheckBox) findViewById(R.id.check_domingo);
 
 		ControlePerfil controlePerfil = new ControlePerfil();
-		if(controlePerfil.buscarPerfil()!=null){
-			carregarPerfil(controlePerfil.buscarPerfil());
-			InicializarFrequencia();
+		try {
+			if(controlePerfil.buscarPerfil()!=null){
+				carregarPerfil(controlePerfil.buscarPerfil());
+				inicializarFrequencia();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -89,40 +94,49 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
-			
 		Perfil perfil = null;
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
-			perfil = criaManipulaPerfil();
-			if(verificarCampos()){
-				if(controle.buscarPerfil()!= null){
-					Toast.makeText(this, controle.atualizarPerfil(perfil),
-							Toast.LENGTH_LONG).show();
-				}else{
-					String mensagem;
-					try {
-						mensagem = controle.cadastrarPerfil(perfil);
-					} catch (Exception e) {
-						mensagem = e.getMessage();
+			try{
+				perfil = criaManipulaPerfil();
+				if(verificarCampos()){
+					if(controle.buscarPerfil()!= null){
+						Toast.makeText(this, controle.atualizarPerfil(perfil),
+								Toast.LENGTH_LONG).show();
+					}else{
+						String mensagem;
+						try {
+							mensagem = controle.cadastrarPerfil(perfil);
+						} catch (Exception e) {
+							mensagem = e.getMessage();
+						}
+						Toast.makeText(this, mensagem,
+								Toast.LENGTH_LONG).show();
+
 					}
-					Toast.makeText(this, mensagem,
+					finish();
+				}else{
+					Toast.makeText(this, "Digite os campos (Principais / Frequencia)",
 							Toast.LENGTH_LONG).show();
 
 				}
-				finish();
-			}else{
-				Toast.makeText(this, "Digite os campos (Principais / Frequencia)",
-						Toast.LENGTH_LONG).show();
 
+			}catch (Exception e) {
+				// TODO: handle exception
 			}
-			break;
+						break;
 		case R.id.btn_excperfil:
-			limparCampos();
-			perfil = criaManipulaPerfil();
-			Toast.makeText(this, controleMed.excluirMedicoes(perfil.getCodigo()),
-					Toast.LENGTH_SHORT).show();
-			Toast.makeText(this, controle.excluirPerfil(perfil),
-					Toast.LENGTH_LONG).show();
+			try{
+
+				limparCampos();
+				perfil = criaManipulaPerfil();
+				Toast.makeText(this, controleMed.excluirMedicoes(perfil.getCodigo()),
+						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, controle.excluirPerfil(perfil),
+						Toast.LENGTH_LONG).show();
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			break;
 		}
 	}
@@ -130,22 +144,28 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 
 	//corrigir codigo , deixando as verificações no controle 
 	public Perfil criaManipulaPerfil(){
-		ControlePerfil controle = new ControlePerfil();
 		Perfil perfil = null;
-		if(controle.buscarPerfil() != null){
-			perfil = controle.buscarPerfil();
-		}else{
-			perfil = new Perfil();	
-		}
+		try{
+			ControlePerfil controle = new ControlePerfil();
+			
+			if(controle.buscarPerfil() != null){
+				perfil = controle.buscarPerfil();
+			}else{
+				perfil = new Perfil();	
+			}
 
-		perfil.setNome(String.valueOf(editNome.getText()).trim());
-		if (radioMasculino.isChecked()){
-			perfil.setSexo(true);
-		}else {
-			perfil.setSexo(false);
-		}
+			perfil.setNome(String.valueOf(editNome.getText()).trim());
+			if (radioMasculino.isChecked()){
+				perfil.setSexo(true);
+			}else {
+				perfil.setSexo(false);
+			}
 
-		carregarFrequencia(perfil);
+			carregarFrequencia(perfil);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		return perfil;
 	}
 
@@ -255,69 +275,74 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	}
 
 
-	public void InicializarFrequencia(){
-		ControlePerfil controlePerfil = new ControlePerfil();
-		Perfil perfil = controlePerfil.buscarPerfil();
-		if (perfil != null){
-			perfil.setFrequencia(controlePerfil.buscarFrequencia(perfil));
+	public void inicializarFrequencia(){
+		try{
+			ControlePerfil controlePerfil = new ControlePerfil();
+			Perfil perfil = controlePerfil.buscarPerfil();
+			if (perfil != null){
+				perfil.setFrequencia(controlePerfil.buscarFrequencia(perfil));
 
-			Frequencia diaPadrao = new Frequencia();
-
-
-			for(Frequencia d: perfil.getFrequencia()){
-
-				diaPadrao.setDiaSemana("Domingo");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaDomingo.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Segunda");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaSegunda.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Terça");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaTerca.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Quarta");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaQuarta.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Quinta");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaQuinta.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Sexta");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaSexta.setChecked(true);
-				}
-
-				diaPadrao.setDiaSemana("Sabado");
-				diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
-
-				if(d.getCodigo() == diaPadrao.getCodigo() ){
-					frequenciaSabado.setChecked(true);
-				}
+				Frequencia diaPadrao = new Frequencia();
 
 
-			}
+				for(Frequencia d: perfil.getFrequencia()){
 
+					diaPadrao.setDiaSemana("Domingo");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaDomingo.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Segunda");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaSegunda.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Terça");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaTerca.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Quarta");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaQuarta.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Quinta");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaQuinta.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Sexta");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaSexta.setChecked(true);
+					}
+
+					diaPadrao.setDiaSemana("Sabado");
+					diaPadrao.setCodigo(controlePerfil.codigoFrequencia(diaPadrao.getDiaSemana()));
+
+					if(d.getCodigo() == diaPadrao.getCodigo() ){
+						frequenciaSabado.setChecked(true);
+					}
+
+
+				}}
+
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		}
 
 
@@ -325,4 +350,4 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 
 
 
-}
+

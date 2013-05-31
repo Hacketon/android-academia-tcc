@@ -83,6 +83,12 @@ ListView.OnItemLongClickListener{
 		ControleFicha controle = new ControleFicha();
 		try {
 			ficha = controle.buscarFichaCodigo(i);
+			if (ficha.getAtual() == 1){
+				editDuracaoFicha.setEnabled(false);
+				Toast.makeText
+					(this,"Ficha Atual : duração não pode ser alterada!",
+						Toast.LENGTH_SHORT).show();
+			}
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -138,9 +144,9 @@ ListView.OnItemLongClickListener{
 	}
 
 	private void preencherFicha(Ficha f ){
-		if (f.getCodigoFicha() != 0){
-			editNomeFicha.setText(f.getNomeFicha());
-			editDuracaoFicha.setText(String.valueOf(f.getDuracaoDias()));
+		if (f.getCodigo() != 0){
+			editNomeFicha.setText(f.getNome());
+			editDuracaoFicha.setText(String.valueOf(f.getDuracao()));
 			int pos = 0 ;
 
 			createListView(f.getTreinos());
@@ -181,8 +187,8 @@ ListView.OnItemLongClickListener{
 
 	private Ficha criarFicha(){
 		Ficha ficha = new Ficha();
-		ficha.setNomeFicha(editNomeFicha.getText().toString());
-		ficha.setDuracaoDias(Integer.parseInt
+		ficha.setNome(editNomeFicha.getText().toString());
+		ficha.setDuracao(Integer.parseInt
 				((editDuracaoFicha.getText().toString())));
 		ficha.setObjetivo(editObjetivoFicha.getText().toString());
 
@@ -360,7 +366,7 @@ ListView.OnItemLongClickListener{
 			}
 		}
 		
-		ficha = controleFicha.buscarFichaCodigo(ficha.getCodigoFicha());
+		ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
 		createListView(ficha.getTreinos());
 		return mensagem;
 	}
@@ -426,10 +432,10 @@ ListView.OnItemLongClickListener{
 			try {
 				mensagem = controleTreino.manipularTreino
 				(editNomeTreino.getText().toString(),
-						ficha.getCodigoFicha(),
+						ficha.getCodigo(),
 						Long.parseLong(txtCodigoTreino.getText().toString()));
 
-				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigoFicha());
+				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
 				createListView(ficha.getTreinos());
 				dialog.dismiss();
 			} catch (Exception e) {

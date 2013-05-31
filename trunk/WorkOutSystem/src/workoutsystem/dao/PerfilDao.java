@@ -12,27 +12,24 @@ import workoutsystem.model.Perfil;
 
 public class PerfilDao implements IPerfilDao{
 
-	public Perfil buscarPerfil() {
+	public Perfil buscarPerfil() throws SQLException {
 		Perfil perfil = null;
-		try{
-			Connection con = ResourceManager.getConexao();
-			String sql = "select codigo, nome ,sexo from perfil";
-			PreparedStatement prepare = con.prepareStatement(sql);
-			ResultSet result = prepare.executeQuery();
+		Connection con = ResourceManager.getConexao();
+		String sql = "select codigo, nome ,sexo from perfil";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
 
 			if (result.next()){
 				perfil = new Perfil();
-				perfil.setCodigo(result.getInt(1));
-				perfil.setNome(result.getString(2));
-				perfil.setSexo(result.getBoolean(3));
+				perfil.setCodigo(result.getInt("codigo"));
+				perfil.setNome(result.getString("nome"));
+				perfil.setSexo(result.getBoolean("sexo"));
 			}
 
 			prepare.close();
 			con.close();
-
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
+		
+			
 		return perfil;
 
 	}

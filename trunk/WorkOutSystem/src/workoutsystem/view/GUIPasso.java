@@ -99,8 +99,6 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		textDescricao.setText(o.getExplicacao());
 		textSequencia.setText("Passo "+o.getSequencia());
 		ImageView imagem = (ImageView) findViewById(R.id.imagemExercicio);
-		//int a = R.drawable.supino2;
-		
 		imagem.setImageResource(o.getImagem());
 		
 		

@@ -286,7 +286,6 @@ DialogInterface.OnClickListener
 					}
 				}
 				mensagem = controle.mudarFichaAtual(ficha);
-				createListView();
 				selecionarFichaAtual();
 				dialog.dismiss();
 			} catch (SQLException e) {

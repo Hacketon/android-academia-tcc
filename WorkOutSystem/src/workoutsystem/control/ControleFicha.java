@@ -78,16 +78,12 @@ public class ControleFicha {
 		ControleTreino daoTreino = new ControleTreino();
 		String mensagem = "Ficha(s) excluidas com sucesso";
 		try{
-			
-
 			for (Ficha f : fichas){
 				for(Treino t : f.getTreinos()){
 					daoTreino.removerTreino(t.getCodigo(),f.getCodigo());
 				}
 				daoFicha.excluirFicha(f.getCodigo());
-				
 			}
-
 		}catch (Exception e) {
 			mensagem = "Erro ao executar a exclusão de ficha(s)!";
 			throw new Exception();

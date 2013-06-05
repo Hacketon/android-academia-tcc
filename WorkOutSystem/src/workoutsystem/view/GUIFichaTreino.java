@@ -11,6 +11,7 @@ import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Treino;
+import workoutsystem.utilitaria.ItemListaHistorico;
 import workoutsystem.utilitaria.Unidade;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -65,6 +66,7 @@ DropListener {
 	private TextView txtCodExercicio;
 	private TextView txtCodigoExercicio;
 	private EditText editDescricaoExercicio;
+	private TextView txtOrdem;
 	private EditText editNomeExercicio;
 	private Button btnCancelarExercicio;
 	private Button btnSalvarExercicio;
@@ -94,20 +96,22 @@ DropListener {
 		dialogEspecificacao = new Dialog(this);
 		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
 
-		
+
 		cbxUnidade = (Spinner) dialogEspecificacao.
 		findViewById(R.id.cbx_Unidade);
 		btnConfirmar = (Button) dialogEspecificacao.
-			findViewById(R.id.btn_Confirmar_Especficacao);
+		findViewById(R.id.btn_Confirmar_Especficacao);
 		btnCancelar = (Button) dialogEspecificacao.
-			findViewById(R.id.btn_cancelar_especficacao);
-		
+		findViewById(R.id.btn_cancelar_especficacao);
+
 		edtSeries = (EditText) dialogEspecificacao.
-			findViewById(R.id.edt_series);
+		findViewById(R.id.edt_series);
 		edtRepeticao = (EditText) dialogEspecificacao.
-			findViewById(R.id.edt_repeticao);
+		findViewById(R.id.edt_repeticao);
 		txtCodigoExercicio = (TextView) dialogEspecificacao.
-			findViewById(R.id.txt_codigoExercicioEspecificacao);
+		findViewById(R.id.txt_codigoExercicioEspecificacao);
+		txtOrdem = (TextView) dialogEspecificacao.
+		findViewById(R.id.txt_ordem);
 
 		dialogNovoExercicio = new Dialog(this);
 		dialogNovoExercicio.setContentView(R.layout.criarexercicio);
@@ -136,7 +140,7 @@ DropListener {
 
 		listaExercicio.setOnItemLongClickListener(this);
 		listaBusca.setOnItemLongClickListener(this);
-		
+
 		listaExercicio.setOnItemClickListener(this);
 
 		cbxGrupoMuscular.setOnItemSelectedListener(this);		
@@ -218,7 +222,6 @@ DropListener {
 
 	private void createListView(List<Especificacao> lista) {
 		List<String> nomeTreinos = new ArrayList<String>();
-
 		for (Especificacao t : lista){
 			String item =  t.getOrdem() + "-" +
 			t.getExercicio().getNome()+"\n" +
@@ -235,6 +238,7 @@ DropListener {
 
 		listaEspecificacao.setAdapter(adapterEspecificacao);
 		listaEspecificacao.setRemoveListener(this);
+		listaEspecificacao.setOnItemLongClickListener(this);
 		listaEspecificacao.setDropListener(this);
 		listaEspecificacao.setCacheColorHint(Color.TRANSPARENT);
 	}
@@ -313,11 +317,13 @@ DropListener {
 		editNomeExercicio.requestFocus();
 		dialogNovoExercicio.show();
 	}
-	
-	private void criarCaixaDialogoEspecificacao(String titulo, long codigo) {
+
+	private void criarCaixaDialogoEspecificacao(String titulo,
+			long codigo) {
 		dialogEspecificacao.setTitle(titulo);
 		edtRepeticao.setText("");
 		edtSeries.setText("");
+		edtSeries.setEnabled(true);
 		txtCodigoExercicio.setText(String.valueOf(codigo));
 		ArrayList<String> list = new ArrayList<String>();
 		for (Unidade u : Unidade.values()){
@@ -327,6 +333,35 @@ DropListener {
 			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		cbxUnidade.setAdapter(adapter);
+		txtOrdem.setText("");
+		dialogEspecificacao.show();
+	}
+
+
+	private void criarCaixaDialogoEspecificacao(Especificacao esp) {
+		int aux = 0;
+		int posicao = 0;
+		dialogEspecificacao.setTitle(esp.getExercicio().getNome());
+		edtRepeticao.setText(String.valueOf(esp.getQuantidade()));
+		edtSeries.setText ("1");
+		edtSeries.setEnabled(false);
+		txtCodigoExercicio.setText(String.valueOf(esp.getExercicio().getCodigo()));
+
+		ArrayList<String> list = new ArrayList<String>();
+		for (Unidade u : Unidade.values()){
+			list.add(u.getUnidade());
+			if (u.getUnidade().equalsIgnoreCase(esp.getUnidade())){
+				posicao = aux;
+			}
+			aux++;
+		}
+
+		ArrayAdapter<String> adapter =
+			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+		cbxUnidade.setAdapter(adapter);
+		cbxUnidade.setSelection(posicao);
+		txtOrdem.setText(String.valueOf(esp.getOrdem()));
 		dialogEspecificacao.show();
 	}
 
@@ -413,14 +448,14 @@ DropListener {
 		boolean selecionado = c.isChecked();
 		String nome = parent.getItemAtPosition(pos).toString();
 		Exercicio exercicio = new Exercicio();
-		
+
 		for(Exercicio e : listaExercicioTreino){
 			if(e.getNome().equalsIgnoreCase(nome)){
-			exercicio = e; 
-			break;
+				exercicio = e; 
+				break;
 			}
 		}
-		
+
 		if (!listaRemocaoExercicio.contains(exercicio)
 				&& !selecionado){
 			listaRemocaoExercicio.add(exercicio);
@@ -435,25 +470,25 @@ DropListener {
 			long id) {
 		String item = parent.getItemAtPosition(pos).toString();
 		Exercicio exercicio = new Exercicio();
-		
-		if (parent.getId()== R.id.list_exercicio){
+		if (parent.getId() == listaEspecificacao.getId()){
+			Especificacao especificacao = getEspecificacao(item);
+			criarCaixaDialogoEspecificacao (especificacao);
+		}else if (parent.getId()== R.id.list_exercicio){
 			for(Exercicio e : listaExercicioTreino){
 				if (e.getNome().equalsIgnoreCase(item)){
 					exercicio = e;
 					break;
 				}
 			}
-			criarCaixaDialogoEspecificacao 
-			(item,exercicio.getCodigo());
+			criarCaixaDialogoEspecificacao(item, exercicio.getCodigo());
 		}else if (parent.getId() == R.id.list_busca){
-			
 			for(Exercicio e : listaExercicioBusca){
 				if (e.getNome().equalsIgnoreCase(item)){
 					exercicio = e; 
 					break;
 				}
 			}
-			
+
 			String mensagem = item+
 			" adicionado aos exercicios";
 			listaExercicioTreino.add(exercicio);
@@ -466,27 +501,29 @@ DropListener {
 
 
 
-	
+
 
 	@Override
 	public void onClick(View v) {
+		ControleTreino controle = new ControleTreino();
+		String mensagem = "";
+
 		switch (v.getId()) {
+
 		case R.id.btn_Confirmar_Especficacao:
-			String mensagem;
-			try {
-				 mensagem = criarEspecificacao();
-				 dialogEspecificacao.dismiss();
-				
+			try{			
+				List<Especificacao> esp = criarEspecificacao();
+				mensagem = controle.manipularEspecificacao(esp);
+				treino.setEspecificacao
+				(controle.listarEspecificacoes(treino.getCodigo()));
+				createListView(treino.getEspecificacao());
+				dialogEspecificacao.dismiss();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
-				
+
 			}
-			
+
 			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-			
-			
-			break;
-		case R.id.btn_cancelar_especficacao:
 			dialogEspecificacao.dismiss();
 			break;
 		case (R.id.btn_criar):
@@ -495,7 +532,7 @@ DropListener {
 		case (R.id.btn_voltar):
 			dialogNovoExercicio.dismiss();
 		break;
-		
+
 		}
 
 
@@ -541,29 +578,23 @@ DropListener {
 			for (GrupoMuscular g : grupos){
 				if (g.getNome().equalsIgnoreCase(grupo)){
 					grupoMuscular = g;
-
 					break;
 				}
 			}
-			try {
-				listaExercicioBusca = 
-					controle.listarExercicioDisponiveis
-					(treino.getCodigo(), 
-							grupoMuscular .getCodigo());
-			} catch (Exception e1) {
-				mensagem = e1.getMessage();
-				Toast.makeText(this, mensagem, Toast.LENGTH_SHORT);
 
-			}
-
+			listaExercicioBusca = 
+				controle.listarExercicioDisponiveis
+				(treino.getCodigo(), 
+						grupoMuscular .getCodigo());
 			atualizarCombo(e, cbxGrupoMuscular);
 			createListView(listaExercicioBusca, listaBusca,
 					R.layout.itens_simple_lista);
 			dialogNovoExercicio.dismiss();
-		} catch (SQLException e1) {
-			mensagem = "Operação do banco contém erros";
-
+		} catch (Exception e1) {
+			mensagem = e1.getMessage();
 		}
+
+
 		Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 
 	}
@@ -583,47 +614,43 @@ DropListener {
 	}
 
 
-	private String criarEspecificacao() throws Exception{
+	private List<Especificacao> criarEspecificacao() throws Exception{
 		String serieString = edtSeries.getText().toString().trim();
-		String mensagem = "O numero minimo para serie é 1";
+		String repeticao = edtRepeticao.getText().toString().trim();
+		String mensagem = "Digite os campos obrigatorios";
 		List<Especificacao> lista = new ArrayList<Especificacao>();
 		ControleTreino controle = new ControleTreino();
-		if(serieString.equalsIgnoreCase("")){
+
+		if(serieString.equalsIgnoreCase("") || repeticao.equalsIgnoreCase("")){
 			throw new Exception(mensagem);
-		}else {
+		}else{
 			int serie = Integer.parseInt(serieString);
-			if(serie<=0){
-				throw new Exception(mensagem);
-			}else{
-				Exercicio e = new Exercicio();
-				e.setCodigo(Long.parseLong
-						(txtCodigoExercicio.getText().toString()));
-				while(serie > 0){
-					
-					Especificacao esp = new Especificacao();
-					
-					esp.setCodigoTreino(treino.getCodigo());
-					esp.setExercicio(e);
-					esp.setQuantidade(Integer.parseInt
-					(edtRepeticao.getText().toString().trim()));
-					esp.setCodigoTreino(treino.getCodigo());
-					esp.setUnidade(cbxUnidade.getSelectedItem().toString());
-					
-					lista.add(esp);
-					serie--;
+			Exercicio e = new Exercicio();
+			e.setCodigo(Long.parseLong
+					(txtCodigoExercicio.getText().toString()));
+			while(serie > 0){
+				Especificacao esp = new Especificacao();
+				esp.setCodigoTreino(treino.getCodigo());
+				esp.setExercicio(e);
+				esp.setQuantidade(Integer.parseInt
+						(edtRepeticao.getText().toString().trim()));
+				esp.setCodigoTreino(treino.getCodigo());
+				esp.setUnidade(cbxUnidade.getSelectedItem().toString());
+				if(!txtOrdem.getText().toString().equalsIgnoreCase("")){
+					esp.setOrdem(Integer.parseInt
+							(txtOrdem.getText().toString().trim()));
 				}
-				
-				mensagem = controle.adicionarEspecificacao(lista);
-				List<Especificacao> especificacoes = 
-					controle.listarEspecificacoes(treino.getCodigo());
-				createListView(especificacoes);
-				
+				lista.add(esp);
+				serie--;
 			}
+
+
 		}
 
-		return mensagem;
-		
-		
+
+		return lista;
+
+
 	}
 
 	@Override
@@ -683,8 +710,32 @@ DropListener {
 
 	@Override
 	public void remove(int which) {
-		// TODO Auto-generated method stub
+		String item = adapterEspecificacao.getItem(which);
+		String mensagem = "";
+		ControleTreino controle = new ControleTreino();
+		Especificacao esp = getEspecificacao(item);
+		try {
+			mensagem = controle.removerEspecificacao(treino.getCodigo(), esp.getOrdem());
+		} catch (Exception e) {
+			mensagem = e.getMessage();
+		}
 
+		Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
+
+	}
+
+	private Especificacao getEspecificacao(String item) {
+		Especificacao esp = new Especificacao();
+		String[] sordem = item.split("-");
+		long ordem = Long.parseLong(sordem[0]
+		                                   .toString());
+		for (Especificacao es : treino.getEspecificacao()){
+			if(ordem == es.getOrdem()){
+				esp = es;
+				break;
+			}
+		}
+		return esp;
 	}
 
 

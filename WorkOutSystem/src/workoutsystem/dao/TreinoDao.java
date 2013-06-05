@@ -205,7 +205,7 @@ public class TreinoDao implements ITreinoDao {
 		int valor = prepare.executeUpdate();
 		con.close();
 		prepare.close();
-		return (valor>0);
+		return (valor>=0);
 	}
 	public List<Treino> listarTreinos(long codigoFicha) throws SQLException{
 		Connection con = ResourceManager.getConexao();
@@ -233,5 +233,49 @@ public class TreinoDao implements ITreinoDao {
 		prepare.close();
 		con.close();
 		return list;
+	}
+	@Override
+	public boolean excluirEspecificacao(long codigoTreino, long ordem) throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from especificacao where codigoTreino = ? and ordem=?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		prepare.setLong(aux++, ordem);
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>=0);
+		
+	}
+	@Override
+	public boolean atualizarEspecificacao(Especificacao especificacao) throws SQLException {
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		boolean verificar = false;
+		String sql = 
+		"   update especificacao " +
+		"   set codigoexercicio = ?,codigotreino = ? ,ordem = ? ," +
+		"	repeticao = ? ,unidade = ?,carga = ? " +
+		"   where ordem = ? and codigoTreino = ?";
+
+		PreparedStatement prepare = con.prepareStatement(sql);
+
+		prepare.setLong(aux++, especificacao.getExercicio().getCodigo());
+		prepare.setLong(aux++, especificacao.getCodigoTreino());
+		prepare.setInt(aux++, especificacao.getOrdem());
+		prepare.setInt(aux++, especificacao.getQuantidade());
+		prepare.setString(aux++, especificacao.getUnidade());
+		prepare.setDouble(aux++, especificacao.getCarga());
+		prepare.setInt(aux++, especificacao.getOrdem());
+		prepare.setLong(aux++, especificacao.getCodigoTreino());
+		
+		resultado = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return resultado>0;
+
+		
 	}
 }

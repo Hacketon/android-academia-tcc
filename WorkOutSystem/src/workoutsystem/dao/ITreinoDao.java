@@ -8,6 +8,15 @@ import workoutsystem.model.Treino;
 
 public interface ITreinoDao {
 	
+	
+	/**
+	 * Metodo responsavel pela remoção de uma determinada especifcacao
+	 * @param codigoTreino
+	 * @param ordem
+	 * @return
+	 * @throws SQLException 
+	 */
+	public abstract boolean excluirEspecificacao(long codigoTreino, long ordem) throws SQLException;
 	public boolean verificarExercicio(long codigoExercicio) throws SQLException;
 	
 	/**
@@ -105,4 +114,11 @@ public interface ITreinoDao {
 	 */
 	public abstract int buscarQuantidadeEspecificacao(long codigoTreino) 
 	throws SQLException;
+	/**
+	 * Metodo responsavel pela alteração de uma especificacao
+	 * @param especificacao
+	 * @return true se a operação foi realizada ou false caso contrario
+	 * @throws SQLException 
+	 */
+	public abstract boolean atualizarEspecificacao(Especificacao especificacao) throws SQLException;
 }

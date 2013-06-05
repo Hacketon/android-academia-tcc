@@ -2,15 +2,18 @@ package workoutsystem.model;
 
 import java.io.Serializable;
 
+import net.sf.oval.constraint.Min;
+
 public class Especificacao implements Serializable {
 	
 	private long codigoTreino;
 	private double carga;
 	private String unidade;
 	private int ordem;
+	@Min(value=1,message="Valor minimos para quantidade é 1")
 	private int quantidade;
 	private Exercicio exercicio;
-	// unidade pode ser repetições ou tempo
+	
 	
 	public double getCarga() {
 		return carga;

@@ -10,6 +10,7 @@ public class Validadora<T> {
 
 	private T objeto;
 
+	
 	public Validadora(T objeto) {
 		this.objeto = objeto;
 	}
@@ -38,4 +39,33 @@ public class Validadora<T> {
 		return mensagem;
 
 	}
+	
+	public static String verificarString(String valorB) {
+		int contador = 0;
+		int espaco = 0;
+		int vchar = 0;
+
+		valorB = valorB.trim();
+		
+		String auxiliar = "";
+		while (contador <valorB.length()){
+			String valor = valorB.substring(contador,contador+1);
+			char character = valor.charAt(vchar);
+			if(Character.isSpaceChar(character)){
+				espaco += 1;
+			}
+
+			if(espaco==1 && Character.isSpaceChar(character)){
+				auxiliar += character; 
+			}
+			if(!Character.isSpaceChar(character)){
+				espaco = 0;
+				auxiliar += character; 
+			}
+			contador++;
+
+		}
+		return auxiliar;
+	}
+
 }

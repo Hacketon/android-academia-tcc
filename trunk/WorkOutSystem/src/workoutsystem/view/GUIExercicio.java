@@ -66,7 +66,7 @@ DialogInterface.OnClickListener{
 		dialog.setContentView(R.layout.criarexercicio);
 		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
 		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
-		
+
 		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
 		cbxGrupo= (Spinner) dialog.findViewById(R.id.cbx_grupo);
 		editDescricaoExercicio = (EditText) dialog.findViewById(R.id.edt_descricaoExercicio);
@@ -75,7 +75,7 @@ DialogInterface.OnClickListener{
 
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
-		
+
 		listapadrao = (ListView) findViewById(R.id.listapadrao);
 		listacriado = (ListView) findViewById(R.id.listacriado);
 		btnCancelar.setOnClickListener(this);
@@ -136,7 +136,7 @@ DialogInterface.OnClickListener{
 				e.printStackTrace();
 			}
 
-		break;
+			break;
 		case (R.id.btn_voltar):
 			dialog.dismiss();
 		break;
@@ -158,21 +158,21 @@ DialogInterface.OnClickListener{
 		String mensagem;
 		try {
 			mensagem = controle.manipularExercicio(e);
-		} catch (SQLException e1) {
-			mensagem = "Operação do banco contém erros";
-
+			ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
+			controle.listarExercicios(e.getGrupoMuscular().getNome(), 
+					e.getPadrao());
+			atualizarCombo(e,cbxExercicioCriado);
+			createListView(exercicios, listacriado);
+			dialog.dismiss();
+		}catch (Exception e1) {
+			mensagem = e1.getMessage();
 		}
+
 		Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 
-		ArrayList<Exercicio> exercicios  = (ArrayList<Exercicio>)
-		controle.listarExercicios(e.getGrupoMuscular().getNome(), 
-				e.getPadrao());
-		atualizarCombo(e,cbxExercicioCriado);
-		createListView(exercicios, listacriado);
-		dialog.dismiss();
 	}
-	
-	
+
+
 	private void atualizarCombo(Exercicio e,Spinner combo) {
 		int i = 0;
 		for (String l : listaGrupos){
@@ -207,7 +207,7 @@ DialogInterface.OnClickListener{
 				e.printStackTrace();
 			}
 			createListView(listaExercicios,listacriado);
-			
+
 		}else if (parent.getId()== R.id.cbx_grupopadrao){
 			try {
 				listaExercicios = controle.listarExercicios
@@ -224,7 +224,7 @@ DialogInterface.OnClickListener{
 
 
 	}
-	
+
 	private void createListView(List <Exercicio> exercicios,ListView lista) {
 		ArrayList<String> nomes = new ArrayList<String>();
 		for (Exercicio e : exercicios){
@@ -266,7 +266,7 @@ DialogInterface.OnClickListener{
 		dialog.show();
 
 	}
-	
+
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
@@ -284,23 +284,23 @@ DialogInterface.OnClickListener{
 		return exercicio;
 	}
 
-	
+
 	private void criarExclusao(List<Exercicio> listaExercicios) {
 		int i = 0 ;
 		exercicios = null;
 		selecaoexc = null;
 		int listaTamanho = listaExercicios.size();
-		
+
 		if (listaTamanho > 0){
 			exercicios = new String[listaTamanho];
 			selecaoexc = new boolean[listaTamanho];
 		}
-		 
+
 		for (Exercicio e : listaExercicios){
 			exercicios[i] = e.getNome();
 			i++;
 		}
-		
+
 	}
 
 
@@ -324,7 +324,7 @@ DialogInterface.OnClickListener{
 			try {
 				if (deletarExercicios()){
 					mensagem = "Operação realizada com sucesso";
-					}else{
+				}else{
 					mensagem = "Exercicios relacionados a fichas não foram excluidos";
 				}
 			} catch (SQLException e) {
@@ -333,7 +333,7 @@ DialogInterface.OnClickListener{
 			List<Exercicio> listarExercicios = null;
 			try {
 				listarExercicios = new 
-						ControleExercicio().listarExercicios(grupo, 1);
+				ControleExercicio().listarExercicios(grupo, 1);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

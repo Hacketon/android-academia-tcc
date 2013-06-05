@@ -24,15 +24,17 @@ public class ControleExercicio {
 
 	//alterar os metodos no diagrama de classes 
 
-	public String manipularExercicio(Exercicio exercicio) throws SQLException{
-		String mensagem = "Não foi possivel realizar a operação";
+	public String manipularExercicio(Exercicio exercicio) throws Exception{
+		String mensagem = "";
 		IExercicioDao dao = new ExercicioDao();
+		exercicio.setNome(Validadora.verificarString(exercicio.getNome()));
 		Validadora<Exercicio> v = new Validadora<Exercicio>(exercicio);
+		String erro = "";
 		if (exercicio!= null){
-			if(v.validarObjeto()){
+			erro = v.getMessage();
+			if(erro.equalsIgnoreCase("")){
 				GrupoMuscular grupo = exercicio.getGrupoMuscular();
 				grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
-
 				if (!dao.buscarExercicio(exercicio.getCodigo())){
 					if (dao.buscarExercicio(exercicio.getNome()) == null){
 						if(dao.adicionarExercicio(exercicio)){
@@ -40,6 +42,9 @@ public class ControleExercicio {
 						}
 					}else if (dao.reativarExercicio(exercicio.getNome(),0)){
 						mensagem = "Exercicio reativado com sucesso !";
+					}else{
+						erro = "Exercicio já existente !";
+						throw new Exception(erro);
 					}
 				}else{
 					if (!dao.buscarExercicio(exercicio.getNome(),exercicio.getCodigo())){
@@ -52,12 +57,16 @@ public class ControleExercicio {
 			}else{
 				mensagem = v.getMessage();
 			}
+
+
+		}else{
+			throw new Exception(erro);
 		}
 
 		return mensagem;
 	}
 
-	
+
 	public boolean excluirExercicio(List<String> exercicios) throws SQLException{
 		boolean resultado = true;
 		IExercicioDao dao = new  ExercicioDao();
@@ -129,11 +138,11 @@ public class ControleExercicio {
 			String erro = "Não há exercicios disponiveis para este grupo muscular";
 			throw new Exception(erro);
 		}
-		
+
 		return listar;
 
 	}
-	
+
 	public List<Exercicio> listarExercicioTreino(long codigoTreino) throws Exception{
 		IExercicioDao dao = new ExercicioDao();
 		List<Exercicio> listar = dao.listarExercicioTreino(codigoTreino);
@@ -141,7 +150,7 @@ public class ControleExercicio {
 			String erro = "Não há exercicios disponiveis para este grupo muscular";
 			throw new Exception(erro);
 		}
-		
+
 		return listar;
 	}
 }

@@ -40,16 +40,16 @@ public class Validadora<T> {
 
 	}
 	
-	public static String verificarString(String valorB) {
+	public static String verificarString(String valorOriginal) {
 		int contador = 0;
 		int espaco = 0;
 		int vchar = 0;
 
-		valorB = valorB.trim();
+		valorOriginal = valorOriginal.trim();
 		
 		String auxiliar = "";
-		while (contador <valorB.length()){
-			String valor = valorB.substring(contador,contador+1);
+		while (contador <valorOriginal.length()){
+			String valor = valorOriginal.substring(contador,contador+1);
 			char character = valor.charAt(vchar);
 			if(Character.isSpaceChar(character)){
 				espaco += 1;

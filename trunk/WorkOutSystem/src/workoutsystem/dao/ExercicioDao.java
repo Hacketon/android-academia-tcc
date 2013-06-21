@@ -38,9 +38,6 @@ public class ExercicioDao implements IExercicioDao {
 		}
 		prepare.close();
 		con.close();
-
-
-
 		return verificador;
 
 	}
@@ -49,7 +46,6 @@ public class ExercicioDao implements IExercicioDao {
 	@Override
 	public boolean alterarExercicio(long codigo, Exercicio e) throws SQLException {
 		boolean verificador = false;
-
 		Connection con = ResourceManager.getConexao();
 		String sql = "update exercicio set " +
 		"  nome = ? , descricao = ? , codigogrupomuscular = ? " +

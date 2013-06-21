@@ -532,11 +532,15 @@ DropListener {
 		case (R.id.btn_voltar):
 			dialogNovoExercicio.dismiss();
 		break;
+		case (R.id.btn_cancelar_especficacao):
+			dialogEspecificacao.dismiss();
+		break;
+		}
 
 		}
 
 
-	}
+	
 
 	private void removerExercicios() {
 		ControleTreino controleTreino

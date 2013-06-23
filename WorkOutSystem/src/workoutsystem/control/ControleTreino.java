@@ -3,16 +3,12 @@ package workoutsystem.control;
 import java.sql.SQLException;
 import java.util.List;
 
-import android.app.ListActivity;
-
 import workoutsystem.dao.ExercicioDao;
-import workoutsystem.dao.FichaDao;
 import workoutsystem.dao.IExercicioDao;
-import workoutsystem.dao.IFichaDao;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
-import workoutsystem.model.Especificacao;
 import workoutsystem.model.Exercicio;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
 
@@ -85,17 +81,17 @@ public class ControleTreino {
 	}
 
 
-	public boolean reordenarEspecificacoes
-	(List<Integer> ordemAntiga, List<Especificacao> especificacao) 
+	public boolean reordenarSerie
+	(List<Integer> ordemAntiga, List<Serie> serie) 
 	throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		boolean verificacao = true;
 		try{
 			for(Integer ordem : ordemAntiga){
 
-				for(Especificacao t : especificacao){
+				for(Serie t : serie){
 					verificacao = 
-						dao.reordenarEspecificacao
+						dao.reordenarSerie
 						(ordem,t.getOrdem(),t.getCodigoTreino());
 					if(!verificacao){
 						break;
@@ -111,24 +107,24 @@ public class ControleTreino {
 
 	}
 
-	public List<Especificacao> listarEspecificacoes(long codigoTreino) 
+	public List<Serie> listarSerie(long codigoTreino) 
 	throws SQLException{
 		IExercicioDao dao = new ExercicioDao();
-		List<Especificacao> esp = dao.listarEspecificacao(codigoTreino);
+		List<Serie> esp = dao.listarSerie(codigoTreino);
 		return esp;
 	}
 
 
 
-	public void removerEspecificacao(long codigoTreino,
+	public void removerSerie(long codigoTreino,
 			List<Exercicio> listaRemocao) throws Exception {
 		String erro = "Não há exercicios para ser removidos";
-		IFichaDao dao = new FichaDao();
+		ITreinoDao dao = new TreinoDao();
 		if(listaRemocao.size()<=0){
 			throw new Exception(erro);
 		}else{
 			for(Exercicio e : listaRemocao){
-				dao.excluirEspecificacao
+				dao.excluirSerie
 				(codigoTreino,e.getCodigo());
 			}
 		}
@@ -140,7 +136,7 @@ public class ControleTreino {
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "";
 
-		dao.excluirEspecificacao(codigoTreino);
+		dao.excluirSerie(codigoTreino);
 		if(dao.excluirTreino(codigoTreino,codigoFicha)){
 			mensagem = "Treino excluido com sucesso";
 		}else{
@@ -151,20 +147,20 @@ public class ControleTreino {
 
 	}
 
-	public String adicionarEspecificacao(List<Especificacao> lista) throws Exception{
+	public String adicionarSerie(List<Serie> lista) throws Exception{
 		ITreinoDao dao = new TreinoDao();
 		boolean resultado = false;
 		int quantidade = 0;
 		String mensagem = "Series adicionadas com sucesso";
 		String erro = "";
-			for(Especificacao esp : lista){
-				Validadora<Especificacao> val = new Validadora<Especificacao>(esp);
+			for(Serie esp : lista){
+				Validadora<Serie> val = new Validadora<Serie>(esp);
 				erro = val.getMessage();
 				if(erro.equalsIgnoreCase("")){
-					quantidade= dao.buscarQuantidadeEspecificacao(esp.getCodigoTreino());
+					quantidade= dao.buscarQuantidadeSerie(esp.getCodigoTreino());
 					quantidade = quantidade + 1;
 					esp.setOrdem(quantidade);
-					resultado = dao.inserirEspecificacao(esp);
+					resultado = dao.inserirSerie(esp);
 					if(!resultado){
 						erro = "Erro ao adicionar series";
 						throw new Exception(mensagem);
@@ -179,15 +175,15 @@ public class ControleTreino {
 	}
 
 
-	public String removerEspecificacao(long codigoTreino, long ordem) throws Exception {
+	public String removerSerie(long codigoTreino, long ordem) throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 		
 		try{
-			boolean resultado = dao.excluirEspecificacao(codigoTreino,ordem);
+			boolean resultado = dao.excluirSerie(codigoTreino,ordem);
 			
 			if(resultado){
-				mensagem= "Especificacao removida com sucesso";
+				mensagem= "Serie removida com sucesso";
 			}
 				
 		}catch (Exception e) {
@@ -199,14 +195,14 @@ public class ControleTreino {
 	}
 
 
-	public String atualizarEspecificacao(Especificacao especificacao) throws Exception {
+	public String atualizarSerie(Serie serie) throws Exception {
 		boolean resultado = false;
 		String mensagem = "Serie alterada com sucesso";
 		ITreinoDao dao = new TreinoDao();
-		Validadora<Especificacao> val = new Validadora<Especificacao>(especificacao);
+		Validadora<Serie> val = new Validadora<Serie>(serie);
 		String erro = val.getMessage();
 		if(erro.equalsIgnoreCase("")){
-			resultado = dao.atualizarEspecificacao(especificacao);
+			resultado = dao.atualizarSerie(serie);
 		}else{
 			throw new Exception(erro);
 		}
@@ -222,15 +218,15 @@ public class ControleTreino {
 	} 
 
 
-	public String manipularEspecificacao(List<Especificacao> esp) throws Exception {
+	public String manipularSerie(List<Serie> esp) throws Exception {
 		String mensagem = "O numero minimo de series é 1";
 		if(esp.size()<=0){
 			throw new Exception(mensagem);
 		}else{
 			if(esp.get(0).getOrdem() == 0){
-				mensagem = adicionarEspecificacao(esp);
+				mensagem = adicionarSerie(esp);
 			}else{
-				mensagem = atualizarEspecificacao(esp.get(0));
+				mensagem = atualizarSerie(esp.get(0));
 			}
 		
 		}

@@ -57,8 +57,6 @@ public class ControleExercicio {
 			}else{
 				mensagem = v.getMessage();
 			}
-
-
 		}else{
 			throw new Exception(erro);
 		}

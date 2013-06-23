@@ -86,12 +86,12 @@ public class Exercicio implements Serializable {
 	}
 
 /*
- * public void setListaEspecificacao(List<Especificacao> listaEspecificacao) {
+ * public void setListaEspecificacao(List<Serie> listaEspecificacao) {
 		this.listaEspecificacao = listaEspecificacao;
 	}
 
 
-	public List<Especificacao> getListaEspecificacao() {
+	public List<Serie> getListaEspecificacao() {
 		return listaEspecificacao;
 	}
  */

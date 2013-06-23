@@ -3,7 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Treino;
@@ -41,16 +41,7 @@ public interface IFichaDao {
 	 */
 	public boolean excluirFicha(long codigoFicha) throws SQLException;
 	
-	/**
-	 * Metodo responsavel pela exclusão da especificacao de um exercicio 
-	 * em um treino
-	 * @param codigoTreino = long 
-	 * @param codigoExercicio = long
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean excluirEspecificacao(long codigoTreino,long codigoExercicio)
-	throws SQLException;
+	
 	
 	public boolean setPerfil(int codigoPerfil) throws SQLException;
 	
@@ -80,12 +71,10 @@ public interface IFichaDao {
 	 * @throws SQLException 
 	 */
 	public boolean desativarFichaAtual() throws SQLException;
-	
-	
-	
-	
-	
-	
-	
+
+	public boolean atualizarFicha(Ficha ficha) throws SQLException;
+
+	public long buscarQuantidadeFicha() throws SQLException;
+
 	
 }

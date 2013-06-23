@@ -363,6 +363,18 @@ DialogInterface.OnClickListener
 		return false;
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		try {
+			createListView();
+			selecionarFichaAtual();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 
 

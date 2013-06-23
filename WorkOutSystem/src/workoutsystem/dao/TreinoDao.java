@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
 public class TreinoDao implements ITreinoDao {
@@ -37,24 +37,24 @@ public class TreinoDao implements ITreinoDao {
 		return verificar;
 	}
 	@Override
-	public boolean inserirEspecificacao(Especificacao especificacao) throws SQLException{
+	public boolean inserirSerie(Serie serie) throws SQLException{
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
 		boolean verificar = false;
-		String sql = "insert into especificacao " +
+		String sql = "insert into serie " +
 		"  (codigoexercicio,codigotreino,ordem," +
 		"	repeticao,unidade,carga)"+ 
 		"values (?,?,?,?,?,?);";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
 
-		prepare.setLong(aux++, especificacao.getExercicio().getCodigo());
-		prepare.setLong(aux++, especificacao.getCodigoTreino());
-		prepare.setInt(aux++, especificacao.getOrdem());
-		prepare.setInt(aux++, especificacao.getQuantidade());
-		prepare.setString(aux++, especificacao.getUnidade());
-		prepare.setDouble(aux++, especificacao.getCarga());
+		prepare.setLong(aux++, serie.getExercicio().getCodigo());
+		prepare.setLong(aux++, serie.getCodigoTreino());
+		prepare.setInt(aux++, serie.getOrdem());
+		prepare.setInt(aux++, serie.getQuantidade());
+		prepare.setString(aux++, serie.getUnidade());
+		prepare.setDouble(aux++, serie.getCarga());
 
 		resultado = prepare.executeUpdate();
 		prepare.close();
@@ -93,7 +93,7 @@ public class TreinoDao implements ITreinoDao {
 	
 	@Override
 	public boolean verificarExercicio(long codigoExercicio) throws SQLException {
-		String sql = "select * from especificacao where codigoexercicio = ?";
+		String sql = "select * from serie where codigoexercicio = ?";
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		boolean retorno = false;
@@ -161,28 +161,28 @@ public class TreinoDao implements ITreinoDao {
 	
 	
 	@Override
-	public int buscarQuantidadeEspecificacao(long codigoTreino) throws SQLException {
+	public int buscarQuantidadeSerie(long codigoTreino) throws SQLException {
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
-		String sql = "select count (*) as numero_especificacao " +
-		"from especificacao where codigoTreino = ?";
+		String sql = "select count (*) as numero_serie " +
+		"from serie where codigoTreino = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++,codigoTreino);
 		ResultSet result = prepare.executeQuery();
 		int resultado = 0;
 		if(result.next()){
-			resultado = result.getInt("numero_especificacao");
+			resultado = result.getInt("numero_serie ");
 		}
 		return resultado;
 	}
 
 	@Override
-	public boolean reordenarEspecificacao(int ordemAntiga, int ordemNova,
+	public boolean reordenarSerie(int ordemAntiga, int ordemNova,
 			long codigoTreino) throws SQLException{
 
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
-		String sql = "update especificacao set ordem = ? " +
+		String sql = "update serie set ordem = ? " +
 		" where ordem = ? and codigotreino = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++,ordemNova );
@@ -196,10 +196,10 @@ public class TreinoDao implements ITreinoDao {
 
 	
 	@Override
-	public boolean excluirEspecificacao(long codigoTreino) throws SQLException {
+	public boolean excluirSerie(long codigoTreino) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		String sql = "delete from especificacao where codigoTreino = ?";
+		String sql = "delete from serie where codigoTreino = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
 		int valor = prepare.executeUpdate();
@@ -235,10 +235,10 @@ public class TreinoDao implements ITreinoDao {
 		return list;
 	}
 	@Override
-	public boolean excluirEspecificacao(long codigoTreino, long ordem) throws SQLException {
+	public boolean excluirSerie(long codigoTreino, long ordem) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		String sql = "delete from especificacao where codigoTreino = ? and ordem=?";
+		String sql = "delete from serie where codigoTreino = ? and ordem=?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
 		prepare.setLong(aux++, ordem);
@@ -249,27 +249,27 @@ public class TreinoDao implements ITreinoDao {
 		
 	}
 	@Override
-	public boolean atualizarEspecificacao(Especificacao especificacao) throws SQLException {
+	public boolean atualizarSerie(Serie serie) throws SQLException {
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
 		boolean verificar = false;
 		String sql = 
-		"   update especificacao " +
+		"   update serie" +
 		"   set codigoexercicio = ?,codigotreino = ? ,ordem = ? ," +
 		"	repeticao = ? ,unidade = ?,carga = ? " +
 		"   where ordem = ? and codigoTreino = ?";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
 
-		prepare.setLong(aux++, especificacao.getExercicio().getCodigo());
-		prepare.setLong(aux++, especificacao.getCodigoTreino());
-		prepare.setInt(aux++, especificacao.getOrdem());
-		prepare.setInt(aux++, especificacao.getQuantidade());
-		prepare.setString(aux++, especificacao.getUnidade());
-		prepare.setDouble(aux++, especificacao.getCarga());
-		prepare.setInt(aux++, especificacao.getOrdem());
-		prepare.setLong(aux++, especificacao.getCodigoTreino());
+		prepare.setLong(aux++, serie.getExercicio().getCodigo());
+		prepare.setLong(aux++, serie.getCodigoTreino());
+		prepare.setInt(aux++, serie.getOrdem());
+		prepare.setInt(aux++, serie.getQuantidade());
+		prepare.setString(aux++, serie.getUnidade());
+		prepare.setDouble(aux++, serie.getCarga());
+		prepare.setInt(aux++, serie.getOrdem());
+		prepare.setLong(aux++, serie.getCodigoTreino());
 		
 		resultado = prepare.executeUpdate();
 		prepare.close();
@@ -278,4 +278,6 @@ public class TreinoDao implements ITreinoDao {
 
 		
 	}
+	
+
 }

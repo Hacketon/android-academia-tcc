@@ -3,7 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
 public interface ITreinoDao {
@@ -16,7 +16,7 @@ public interface ITreinoDao {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public abstract boolean excluirEspecificacao(long codigoTreino, long ordem) throws SQLException;
+	public abstract boolean excluirSerie(long codigoTreino, long ordem) throws SQLException;
 	public boolean verificarExercicio(long codigoExercicio) throws SQLException;
 	
 	/**
@@ -70,31 +70,31 @@ public interface ITreinoDao {
 	public int buscarQuantidadeTreino(long codigoFicha) throws SQLException;
 	
 	/**
-	 * Metodo responsavel pela reordenação das especificacoes/series de uma ficha
+	 * Metodo responsavel pela reordenação das series de uma ficha
 	 * @param ordemAntiga
 	 * @param ordemNova
 	 * @param codigoTreino 
 	 * @return 
 	 * @throws SQLException 
 	 */
-	public boolean reordenarEspecificacao
+	public boolean reordenarSerie
 			(int ordemAntiga, int ordemNova, long codigoTreino) throws SQLException;
 	/**
-	 * Metodo responsavel pela exclusão da especificacao todos os exercicios  
+	 * Metodo responsavel pela exclusão da series de todos os exercicios  
 	 * em um treino
 	 * @param codigoTreino = long 
 	 * @param codigoExercicio = long
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean excluirEspecificacao(long codigoTreino) throws SQLException;
+	public boolean excluirSerie(long codigoTreino) throws SQLException;
 	
 	/**
-	 * Metodo responsavel por adicionar a especificacao um exercicio em uma ficha
-	 * @param especificacao
+	 * Metodo responsavel por adicionar a serie um exercicio em uma ficha
+	 * @param serie
 	 * @return
 	 */
-	public abstract boolean inserirEspecificacao(Especificacao especificacao)
+	public abstract boolean inserirSerie(Serie serie)
 	throws SQLException;
 	
 	/**
@@ -108,17 +108,18 @@ public interface ITreinoDao {
 
 
 	/**
-	 * Metodo responsavel pela busca da quantidade de especificacao em um determinado treino
+	 * Metodo responsavel pela busca da quantidade de serie em um determinado treino
 	 * @param codigoFicha
 	 * @return
 	 */
-	public abstract int buscarQuantidadeEspecificacao(long codigoTreino) 
+	public abstract int buscarQuantidadeSerie(long codigoTreino) 
 	throws SQLException;
 	/**
-	 * Metodo responsavel pela alteração de uma especificacao
-	 * @param especificacao
+	 * Metodo responsavel pela alteração de uma Serie
+	 * @param Serie
 	 * @return true se a operação foi realizada ou false caso contrario
 	 * @throws SQLException 
 	 */
-	public abstract boolean atualizarEspecificacao(Especificacao especificacao) throws SQLException;
+	public abstract boolean atualizarSerie(Serie serie) throws SQLException;
+	
 }

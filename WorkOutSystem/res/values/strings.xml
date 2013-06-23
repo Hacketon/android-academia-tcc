@@ -186,7 +186,7 @@
     
     <string name="splash_carregando"> Carregando</string>
     <string name="botao_existente">Treino existente</string>
-    <string name="botao_finalizar">Salvar Ficha</string>
+    <string name="botao_salvar_ficha">Salvar Ficha</string>
     <string name="botao_novotreino">Novo treino</string>
     <string name="botao_removertreino">Remover treino</string>
 	<string name="botao_visualizarficha">Visualizar ficha</string>

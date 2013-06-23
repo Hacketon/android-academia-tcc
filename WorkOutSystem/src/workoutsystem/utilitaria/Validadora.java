@@ -9,10 +9,12 @@ import net.sf.oval.internal.util.Assert;
 public class Validadora<T> {
 
 	private T objeto;
+	private String error;
 
 	
 	public Validadora(T objeto) {
 		this.objeto = objeto;
+		this.error = "";
 	}
 
 	public boolean validarObjeto() {
@@ -22,6 +24,9 @@ public class Validadora<T> {
 		boolean validador = true;
 
 		if (violations.size() != 0 ){
+			for (ConstraintViolation c : violations) {
+				error += c.getMessage()+"\n";
+			}
 			validador = false;
 		}
 
@@ -29,15 +34,9 @@ public class Validadora<T> {
 	}
 
 	public String getMessage(){
-		Validator validator = new Validator();
-		List<ConstraintViolation> violations = validator.validate(this.objeto);
-		String mensagem = "";
-		for (ConstraintViolation c : violations) {
-			mensagem += c.getMessage();
-		}
-
-		return mensagem;
-
+		error = "";
+		validarObjeto();
+		return error;
 	}
 	
 	public static String verificarString(String valorOriginal) {

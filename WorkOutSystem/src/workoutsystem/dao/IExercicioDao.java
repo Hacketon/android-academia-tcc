@@ -3,7 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 
 
@@ -139,7 +139,7 @@ public interface IExercicioDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public abstract List<Especificacao> listarEspecificacao(long codigoTreino)
+	public abstract List<Serie> listarSerie(long codigoTreino)
 	throws SQLException;
 
 

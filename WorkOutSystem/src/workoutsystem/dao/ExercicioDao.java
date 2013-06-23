@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Passo;
@@ -378,7 +378,7 @@ public class ExercicioDao implements IExercicioDao {
 			" select distinct exercicio_codigo," +
 			" exercicio_nome, exercicio_descricao," +
 			" exercicio_padrao,exercicio_ativo,grupo_codigo,grupo_nome" +
-			" from [exercicios_treino_ficha] " +
+			" from [exercicio_treino_ficha] " +
 			" where [treino_codigo] = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
@@ -412,9 +412,9 @@ public class ExercicioDao implements IExercicioDao {
 
 		String sql = " select exercicio_codigo,exercicio_nome,exercicio_descricao, " +
 		" exercicio_padrao,exercicio_ativo,grupo_codigo,grupo_nome " + 
-		" from [exercicios_fora_treino] " +
-		" where especificacao_treino is null " +
-		" and especificacao_exercicio is null " +
+		" from [exercicio_fora_treino] " +
+		" where serie_treino is null " +
+		" and serie_exercicio is null " +
 		" and exercicio_grupo = ? and exercicio_ativo = ? ";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -528,31 +528,31 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Especificacao> listarEspecificacao(long codigoTreino)
+	public List<Serie> listarSerie(long codigoTreino)
 	throws SQLException {
 		int aux = 1;
-		String sql =" select especificacao_ordem, especificacao_repeticao," +
-					" especificacao_carga,especificacao_unidade, " +
+		String sql =" select serie_ordem, serie_repeticao," +
+					" serie_carga,serie_unidade, " +
 					" exercicio_codigo,exercicio_nome, exercicio_descricao," +
 					" exercicio_ativo,exercicio_padrao, " +
 					" grupo_nome, grupo_codigo, treino_codigo, " +
 					" ficha_codigo " +
-					" from especificacao_exercicio_treino " +
-					" where treino_codigo = ? order by  especificacao_ordem asc";
+					" from serie_exercicio_treino " +
+					" where treino_codigo = ? order by  serie_ordem asc";
 		
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
 		ResultSet result = prepare.executeQuery();
-		List<Especificacao> list = new ArrayList<Especificacao>();
+		List<Serie> list = new ArrayList<Serie>();
 
 		while (result.next()){
-			Especificacao esp = new Especificacao();
-			esp.setOrdem(result.getInt("especificacao_ordem"));
-			esp.setCarga(result.getInt("especificacao_carga"));
-			esp.setUnidade(result.getString("especificacao_unidade"));
-			esp.setCodigoTreino(result.getLong("treino_codigo"));
-			esp.setQuantidade(result.getInt("especificacao_repeticao"));
+			Serie serie = new Serie();
+			serie.setOrdem(result.getInt("serie_ordem"));
+			serie.setCarga(result.getInt("serie_carga"));
+			serie.setUnidade(result.getString("serie_unidade"));
+			serie.setCodigoTreino(result.getLong("treino_codigo"));
+			serie.setQuantidade(result.getInt("serie_repeticao"));
 			
 			Exercicio ex = new Exercicio();
 			ex.setNome(result.getString("exercicio_nome"));
@@ -560,7 +560,7 @@ public class ExercicioDao implements IExercicioDao {
 			ex.setDescricao(result.getString("exercicio_descricao"));
 			ex.setAtivo(result.getInt("exercicio_ativo"));
 			
-			esp.setExercicio(ex);
+			serie.setExercicio(ex);
 			
 			
 			GrupoMuscular gr = new GrupoMuscular();
@@ -569,7 +569,7 @@ public class ExercicioDao implements IExercicioDao {
 			
 			ex.setGrupoMuscular(gr);
 			
-			list.add(esp);
+			list.add(serie);
 
 		}
 

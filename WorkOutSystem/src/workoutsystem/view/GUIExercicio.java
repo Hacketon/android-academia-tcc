@@ -167,7 +167,6 @@ DialogInterface.OnClickListener{
 		}catch (Exception e1) {
 			mensagem = e1.getMessage();
 		}
-
 		Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 
 	}

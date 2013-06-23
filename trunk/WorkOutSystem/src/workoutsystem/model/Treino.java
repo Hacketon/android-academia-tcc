@@ -14,7 +14,7 @@ public class Treino implements Serializable{
 	@NotEmpty(message = "O treino deve ter um nome")
 	@Length(max = 10 ,message = "Escolha um nome com até 10 caracteres")
 	private String nomeTreino;
-	private List<Especificacao> listaEspecificacao;
+	private List<Serie> listaSerie;
 	private int ordem;
 	private long codigoFicha;
 	
@@ -32,11 +32,11 @@ public class Treino implements Serializable{
 		this.nomeTreino = nomeTreino;
 	}
 
-	public void setEspecificacao(List<Especificacao> especificacao) {
-		this.listaEspecificacao = especificacao;
+	public void setSerie(List<Serie> especificacao) {
+		this.listaSerie = especificacao;
 	}
-	public List<Especificacao> getEspecificacao() {
-		return listaEspecificacao;
+	public List<Serie> getSerie() {
+		return listaSerie;
 	}
 	public void setOrdem(int ordem) {
 		this.ordem = ordem;

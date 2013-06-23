@@ -10,7 +10,7 @@ import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.IFichaDao;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
@@ -23,10 +23,73 @@ public class ControleFicha {
 		return new FichaDao().listarDias();
 	}
 
-	public boolean manipularFicha(Ficha ficha) throws SQLException{
-		//inserirFicha(ficha);
-		return false;
+	public String manipularFicha(Ficha ficha) throws Exception{
+		String mensagem = "";
+		Validadora<Ficha> validadora = new Validadora<Ficha>(ficha);
+		ficha.setNome(
+				Validadora.verificarString(ficha.getNome()));
+		if(!validadora.validarObjeto()){
+			mensagem = validadora.getMessage();
+		}else if (ficha.getNome().equalsIgnoreCase("Nenhuma")){
+			mensagem = "Nenhuma é um nome invalido !";
+		}else{
+			if(buscarFichaCodigo(ficha.getCodigo()).getCodigo() == 0){
+				mensagem = inserirFicha(ficha);
+			}else{
+				mensagem = atualizarFicha(ficha); 
+			}
+		}
+		return mensagem;
 
+	}
+	public Ficha buscarUltimaFicha() throws Exception{
+		IFichaDao dao = new FichaDao();
+		String mensagem = "";
+		long codigo = dao.buscarQuantidadeFicha();
+		if(codigo == 0){
+			mensagem = "Não há fichas cadastradas";
+			throw new Exception(mensagem);
+		}
+		Ficha ficha = dao.buscarFichaCodigo(codigo);
+		return ficha;
+	}
+	
+	private String inserirFicha(Ficha ficha) throws Exception{
+		IFichaDao dao = new FichaDao();
+		String mensagem = "";
+		if(buscarFichaNome(ficha.getNome())!= null){
+			mensagem = "Já existe uma ficha com este nome!";
+			throw new Exception(mensagem);
+		}else{
+			boolean resultado = dao.inserirFicha(ficha);
+			if (resultado){
+				mensagem = "Ficha inserida com sucesso!";
+				
+			}else{
+				mensagem = "Falha ao inserir ficha no sistema";
+				throw new Exception(mensagem);
+			}
+		}
+		return mensagem;
+	} 
+
+	private String atualizarFicha(Ficha ficha) throws Exception{
+		Ficha busca = buscarFichaNome(ficha.getNome());
+		IFichaDao dao = new FichaDao();
+		String mensagem = "";
+		if((busca == null) || (busca.getCodigo() == ficha.getCodigo())){
+			boolean resultado = dao.atualizarFicha(ficha);
+			if (resultado){
+				mensagem = "Ficha atualizada com sucesso!";
+			}else{
+				mensagem = "Erro ao inserir a ficha no sistema";
+			}
+			
+		}else{
+			mensagem = "Nome invalido : outra ficha já possui este nome!";
+			throw new Exception(mensagem);
+		}
+		return mensagem;
 	}
 
 	public Ficha buscarFichaAtual() throws Exception{
@@ -49,29 +112,14 @@ public class ControleFicha {
 		for(Ficha f : lista){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			for(Treino t : f.getTreinos()){
-				t.setEspecificacao
-				(daoExercicio.listarEspecificacao(t.getCodigo()));
+				t.setSerie
+				(daoExercicio.listarSerie(t.getCodigo()));
 			}
 		}
 		return lista;
 	}
+	
 
-	/*
-	 *	private boolean inserirFicha(Ficha ficha) throws SQLException{
-	IFichaDao dao = new FichaDao();
-	dao.inserirFicha(ficha);
-	for (Treino treino : ficha.getTreinos()){
-		dao.inserirTreino(treino);
-		for (Exercicio exercicio :treino.getExercicios()){
-			for(Especificacao especificacao : exercicio.getListaEspecificacao()){
-				dao.inserirEspecificacao(especificacao);
-			}
-
-		}
-	}
-	return true;
-} 
-	 */
 	public String excluirFicha(List<Ficha> fichas) throws Exception {
 		boolean resultado = true;
 		IFichaDao daoFicha = new FichaDao();
@@ -98,13 +146,8 @@ public class ControleFicha {
 
 	public Ficha buscarFichaNome(String nome) throws Exception {
 		IFichaDao dao = new  FichaDao();
-		Ficha ficha = dao.buscarFicha(nome.trim());
-		if(ficha == null){
-			String erro = "Não foi possivel achar a ficha";
-			throw new Exception(erro);
-		}
+		Ficha ficha = dao.buscarFicha(Validadora.verificarString(nome));
 		return ficha;
-
 	}
 
 
@@ -124,20 +167,15 @@ public class ControleFicha {
 		if(f != null){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			for(Treino t : f.getTreinos()){
-				t.setEspecificacao
-				(daoExercicio.listarEspecificacao(t.getCodigo()));
-
+				t.setSerie
+				(daoExercicio.listarSerie(t.getCodigo()));
 			}
-
 		}else{
 			f = new Ficha();
-			//throw new Exception("Erro ao encontrar a ficha");
 		}
-
 		return f;
-
 	}
-	
+
 	public String desativarFichaAtual() throws SQLException{
 		IFichaDao dao = new FichaDao();
 		dao.desativarFichaAtual();
@@ -150,10 +188,10 @@ public class ControleFicha {
 		String mensagem = "";
 		boolean retorno = dao.alterarFichaAtual(ficha.getCodigo());
 		if(retorno){
-			 mensagem = "Ficha atual alterada com sucesso!";
+			mensagem = "Ficha atual alterada com sucesso!";
 		}
 		return mensagem;
-		
+
 	}
 
 

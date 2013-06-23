@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import net.sf.oval.constraint.Min;
 
-public class Especificacao implements Serializable {
+public class Serie implements Serializable {
 	
 	private long codigoTreino;
 	private double carga;

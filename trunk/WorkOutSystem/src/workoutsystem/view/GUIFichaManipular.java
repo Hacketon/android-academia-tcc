@@ -185,21 +185,23 @@ ListView.OnItemLongClickListener{
 		listTreinos.setCacheColorHint(Color.TRANSPARENT);
 	}
 
-	private Ficha criarFicha(){
-		Ficha ficha = new Ficha();
-		ficha.setNome(editNomeFicha.getText().toString());
-		ficha.setDuracao(Integer.parseInt
-				((editDuracaoFicha.getText().toString())));
-		ficha.setObjetivo(editObjetivoFicha.getText().toString());
+	private Ficha criarFicha() throws Exception{
+		
+			ficha.setNome(editNomeFicha.getText().toString());
+			if(editDuracaoFicha.getText().toString().
+					equalsIgnoreCase("")){
+				String mensagem = "Duração é obrigatoria!";
+				throw new Exception(mensagem);
+			}
+			ficha.setDuracao(Integer.parseInt
+					((editDuracaoFicha.getText().toString())));
+			ficha.setObjetivo(cbxObjetivo.getSelectedItem().toString());
 
+		
 		return ficha;
 	}
 
-	private Treino criarTreino(){
-		Treino treino = new Treino();
-		String item = "";
-		return treino;
-	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -211,25 +213,32 @@ ListView.OnItemLongClickListener{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		super.onOptionsItemSelected(item);
+		String mensagem = "";
 		switch (item.getItemId()) {
 		case R.id.novo_treino:
-			criarCaixa("", "Novo Treino");
+			if(ficha.getCodigo() == 0 ){
+				mensagem = "Primeiro salve as informações da sua ficha";
+			}else{
+				criarCaixa("", "Novo Treino");
+			}
 			break;
 
-		case R.id.finalizar_edicao:
+		case R.id.salvar_ficha:
+			try {
+				ControleFicha controle = new ControleFicha();
+				ficha = criarFicha();
+				mensagem = controle.manipularFicha(ficha);
+				if(ficha.getCodigo() == 0 ){
+					ficha = controle.buscarUltimaFicha();
+				}
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+			}
 			break;
-
-			/*
-			 * 		case R.id.remover_treino:
-					break;
-					case R.id.existente_treino:
-					break;
-			 * 
-			 * 	
-			 */
-
+		}
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 		}
 		return true;
 
@@ -434,7 +443,6 @@ ListView.OnItemLongClickListener{
 				(editNomeTreino.getText().toString(),
 						ficha.getCodigo(),
 						Long.parseLong(txtCodigoTreino.getText().toString()));
-
 				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
 				createListView(ficha.getTreinos());
 				dialog.dismiss();
@@ -451,8 +459,6 @@ ListView.OnItemLongClickListener{
 		}
 
 	}
-
-
 
 
 }

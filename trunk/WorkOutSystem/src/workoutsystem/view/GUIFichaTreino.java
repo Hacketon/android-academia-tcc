@@ -7,7 +7,7 @@ import java.util.List;
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleTreino;
-import workoutsystem.model.Especificacao;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Treino;
@@ -154,10 +154,10 @@ DropListener {
 			listaExercicioTreino =
 				controleExercicio.
 				listarExercicioTreino(treino.getCodigo());
-			treino.setEspecificacao
-			(controleTreino.listarEspecificacoes(treino.getCodigo()));
+			treino.setSerie
+			(controleTreino.listarSerie(treino.getCodigo()));
 			listaRemocaoExercicio = new ArrayList<Exercicio>();
-			createListView(treino.getEspecificacao());
+			createListView(treino.getSerie());
 			createListView(listaExercicioTreino, 
 					listaExercicio,
 					R.layout.multiple_choice);
@@ -220,9 +220,9 @@ DropListener {
 
 	}
 
-	private void createListView(List<Especificacao> lista) {
+	private void createListView(List<Serie> lista) {
 		List<String> nomeTreinos = new ArrayList<String>();
-		for (Especificacao t : lista){
+		for (Serie t : lista){
 			String item =  t.getOrdem() + "-" +
 			t.getExercicio().getNome()+"\n" +
 			"Quantidade : " + t.getQuantidade() + "\n" +
@@ -338,7 +338,7 @@ DropListener {
 	}
 
 
-	private void criarCaixaDialogoEspecificacao(Especificacao esp) {
+	private void criarCaixaDialogoEspecificacao(Serie esp) {
 		int aux = 0;
 		int posicao = 0;
 		dialogEspecificacao.setTitle(esp.getExercicio().getNome());
@@ -471,7 +471,7 @@ DropListener {
 		String item = parent.getItemAtPosition(pos).toString();
 		Exercicio exercicio = new Exercicio();
 		if (parent.getId() == listaEspecificacao.getId()){
-			Especificacao especificacao = getEspecificacao(item);
+			Serie especificacao = getEspecificacao(item);
 			criarCaixaDialogoEspecificacao (especificacao);
 		}else if (parent.getId()== R.id.list_exercicio){
 			for(Exercicio e : listaExercicioTreino){
@@ -512,11 +512,11 @@ DropListener {
 
 		case R.id.btn_Confirmar_Especficacao:
 			try{			
-				List<Especificacao> esp = criarEspecificacao();
-				mensagem = controle.manipularEspecificacao(esp);
-				treino.setEspecificacao
-				(controle.listarEspecificacoes(treino.getCodigo()));
-				createListView(treino.getEspecificacao());
+				List<Serie> esp = criarEspecificacao();
+				mensagem = controle.manipularSerie(esp);
+				treino.setSerie
+				(controle.listarSerie(treino.getCodigo()));
+				createListView(treino.getSerie());
 				dialogEspecificacao.dismiss();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
@@ -549,15 +549,15 @@ DropListener {
 		= new ControleExercicio();
 		int posicao = 0;
 		try {
-			controleTreino.removerEspecificacao
+			controleTreino.removerSerie
 			(treino.getCodigo(),listaRemocaoExercicio);
 			listaExercicioTreino.removeAll(listaRemocaoExercicio);
 			listaRemocaoExercicio.clear();	
-			treino.setEspecificacao
-			(controleTreino.listarEspecificacoes
+			treino.setSerie
+			(controleTreino.listarSerie
 					(treino.getCodigo()));
 			cbxGrupoMuscular.getSelectedItem().toString();
-			createListView(treino.getEspecificacao());
+			createListView(treino.getSerie());
 			createListView(listaExercicioTreino, 
 					listaExercicio, R.layout.multiple_choice);
 			String grupo = cbxGrupoMuscular.getSelectedItem().toString();
@@ -618,11 +618,11 @@ DropListener {
 	}
 
 
-	private List<Especificacao> criarEspecificacao() throws Exception{
+	private List<Serie> criarEspecificacao() throws Exception{
 		String serieString = edtSeries.getText().toString().trim();
 		String repeticao = edtRepeticao.getText().toString().trim();
 		String mensagem = "Digite os campos obrigatorios";
-		List<Especificacao> lista = new ArrayList<Especificacao>();
+		List<Serie> lista = new ArrayList<Serie>();
 		ControleTreino controle = new ControleTreino();
 
 		if(serieString.equalsIgnoreCase("") || repeticao.equalsIgnoreCase("")){
@@ -633,7 +633,7 @@ DropListener {
 			e.setCodigo(Long.parseLong
 					(txtCodigoExercicio.getText().toString()));
 			while(serie > 0){
-				Especificacao esp = new Especificacao();
+				Serie esp = new Serie();
 				esp.setCodigoTreino(treino.getCodigo());
 				esp.setExercicio(e);
 				esp.setQuantidade(Integer.parseInt
@@ -676,13 +676,13 @@ DropListener {
 		int ordem = 1 ;
 		int posicao = 0;
 		String [] item;
-		List<Especificacao> especificacoes = new ArrayList<Especificacao>();
+		List<Serie> especificacoes = new ArrayList<Serie>();
 		List<Integer> codigosAntigos = new ArrayList<Integer>();
 		for (cont = 0 ; cont < adapterEspecificacao.getCount(); cont++){
 			item = adapterEspecificacao.getItem(cont).split("-");
 			posicao = 0;
 			int valor = Integer.parseInt(item[0].trim());
-			for (Especificacao especificacao : treino.getEspecificacao()){
+			for (Serie especificacao : treino.getSerie()){
 				if (valor == especificacao.getOrdem()){
 					codigosAntigos.add(especificacao.getOrdem()); 
 					especificacao.setOrdem(ordem);
@@ -695,12 +695,12 @@ DropListener {
 
 		}
 
-		treino.setEspecificacao(especificacoes);
+		treino.setSerie(especificacoes);
 
 		try {
-			controle.reordenarEspecificacoes
-			(codigosAntigos,treino.getEspecificacao());
-			createListView(treino.getEspecificacao());
+			controle.reordenarSerie
+			(codigosAntigos,treino.getSerie());
+			createListView(treino.getSerie());
 		} catch (Exception e) {
 			Toast.makeText(this,
 					e.getMessage(),
@@ -717,9 +717,9 @@ DropListener {
 		String item = adapterEspecificacao.getItem(which);
 		String mensagem = "";
 		ControleTreino controle = new ControleTreino();
-		Especificacao esp = getEspecificacao(item);
+		Serie esp = getEspecificacao(item);
 		try {
-			mensagem = controle.removerEspecificacao(treino.getCodigo(), esp.getOrdem());
+			mensagem = controle.removerSerie(treino.getCodigo(), esp.getOrdem());
 		} catch (Exception e) {
 			mensagem = e.getMessage();
 		}
@@ -728,12 +728,12 @@ DropListener {
 
 	}
 
-	private Especificacao getEspecificacao(String item) {
-		Especificacao esp = new Especificacao();
+	private Serie getEspecificacao(String item) {
+		Serie esp = new Serie();
 		String[] sordem = item.split("-");
 		long ordem = Long.parseLong(sordem[0]
 		                                   .toString());
-		for (Especificacao es : treino.getEspecificacao()){
+		for (Serie es : treino.getSerie()){
 			if(ordem == es.getOrdem()){
 				esp = es;
 				break;

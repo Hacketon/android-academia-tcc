@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/finalizar_edicao"
-        android:title="@string/botao_finalizar"/>
+        android:id="@+id/salvar_ficha"
+        android:title="@string/botao_salvar_ficha"/>
     <item
         android:id="@+id/novo_treino"
         android:title="@string/botao_novotreino"/>

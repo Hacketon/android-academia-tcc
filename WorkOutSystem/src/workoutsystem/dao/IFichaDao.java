@@ -43,7 +43,6 @@ public interface IFichaDao {
 	
 	
 	
-	public boolean setPerfil(int codigoPerfil) throws SQLException;
 	
 	/**
 	 * Metodo responsavel pela busca da ficha atual do perfil cadastrado
@@ -72,9 +71,20 @@ public interface IFichaDao {
 	 */
 	public boolean desativarFichaAtual() throws SQLException;
 
+	/**
+	 * Metodo responsavel pela atualização de uma ficha !
+	 * @param ficha
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean atualizarFicha(Ficha ficha) throws SQLException;
 
-	public long buscarQuantidadeFicha() throws SQLException;
+	/**
+	 * Metodo responsavel pela busca do codigo da ultima ficha adicionada !
+	 * @return
+	 * @throws SQLException
+	 */
+	public long buscarUltimaFicha() throws SQLException;
 
 	
 }

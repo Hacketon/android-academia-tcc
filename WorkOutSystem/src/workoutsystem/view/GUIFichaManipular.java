@@ -134,7 +134,7 @@ ListView.OnItemLongClickListener{
 
 		specficha = hostfichatreino.newTabSpec("tabfichas");
 		specficha.setContent(R.id.tabfichas);
-		specficha.setIndicator("Fichas");
+		specficha.setIndicator("Ficha");
 		hostfichatreino.addTab(specficha);
 
 		spectreino = hostfichatreino.newTabSpec("tabfichatreinos");

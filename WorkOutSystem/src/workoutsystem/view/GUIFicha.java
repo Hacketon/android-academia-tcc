@@ -33,9 +33,7 @@ import android.widget.Toast;
 public class GUIFicha extends Activity implements 
 ListView.OnItemClickListener,
 ListView.OnItemLongClickListener,
-DialogInterface.OnClickListener
-
-{
+DialogInterface.OnClickListener{
 
 	private ListView listaFicha;
 	private ArrayAdapter<String> adapter;

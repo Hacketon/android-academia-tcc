@@ -45,7 +45,7 @@ public class ControleFicha {
 	public Ficha buscarUltimaFicha() throws Exception{
 		IFichaDao dao = new FichaDao();
 		String mensagem = "";
-		long codigo = dao.buscarQuantidadeFicha();
+		long codigo = dao.buscarUltimaFicha();
 		if(codigo == 0){
 			mensagem = "Não há fichas cadastradas";
 			throw new Exception(mensagem);
@@ -148,13 +148,6 @@ public class ControleFicha {
 		IFichaDao dao = new  FichaDao();
 		Ficha ficha = dao.buscarFicha(Validadora.verificarString(nome));
 		return ficha;
-	}
-
-
-
-	public void setPerfil(int codigoPerfil) throws SQLException {
-		IFichaDao dao = new FichaDao();
-		boolean resultado = dao.setPerfil(codigoPerfil);
 	}
 
 

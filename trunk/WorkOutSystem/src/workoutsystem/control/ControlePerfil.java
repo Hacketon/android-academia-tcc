@@ -17,7 +17,7 @@ public class ControlePerfil {
 
 
 	public String cadastrarPerfil(Perfil perfil) throws Exception{
-		
+
 		IPerfilDao dao = new PerfilDao();
 		ControleFicha controle = new ControleFicha();
 		Perfil p = buscarPerfil();
@@ -28,17 +28,16 @@ public class ControlePerfil {
 				if(dao.criarPerfil(perfil)){
 					if(dao.frequenciaPerfil(perfil)){
 						mensagem ="Criado com sucesso";
-						controle.setPerfil(dao.buscarUltimoPerfil());
 					}
 				}
 			}else{
 				throw new Exception(mensagem);
 			}
-			
+
 		}else{
 			throw new Exception(mensagem);
 		}
-		
+
 		return mensagem;
 	}
 
@@ -53,7 +52,7 @@ public class ControlePerfil {
 				}
 			}
 		}
-		
+
 
 		return mensagem;
 	}
@@ -72,7 +71,7 @@ public class ControlePerfil {
 		daoficha.desativarFichaAtual();
 		if(dao.excluirPerfil()&& dao.excluirFrequencia(perfil)){
 			mensagem = "Perfil excluido com sucesso";
-			
+
 		}
 		return mensagem;
 	}

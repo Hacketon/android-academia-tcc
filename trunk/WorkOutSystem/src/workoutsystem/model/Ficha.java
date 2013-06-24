@@ -22,11 +22,9 @@ public class Ficha implements Serializable {
 			message = "O tamanho maximo para o campo objetivo é 100 caracteres")
 	private String objetivo;
 	private List<Treino> treinos;
-	private int padrao;
 	private int atual;
 	
 	public Ficha(){
-		padrao = 1;
 		atual = 0;
 		realizacoes = 0;
 		
@@ -70,13 +68,6 @@ public class Ficha implements Serializable {
 		return treinos;
 	}
 
-	public int getPadrao() {
-		return padrao;
-	}
-
-	public void setPadrao(int padrao) {
-		this.padrao = padrao;
-	}
 
 	public void setAtual(int atual) {
 		this.atual = atual;

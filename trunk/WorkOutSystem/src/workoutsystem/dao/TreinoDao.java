@@ -41,7 +41,6 @@ public class TreinoDao implements ITreinoDao {
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
-		boolean verificar = false;
 		String sql = "insert into serie " +
 		"  (codigoexercicio,codigotreino,ordem," +
 		"	repeticao,unidade,carga)"+ 
@@ -61,7 +60,7 @@ public class TreinoDao implements ITreinoDao {
 		con.close();
 		return resultado>0;
 	}
-	
+
 	@Override
 	public boolean reordenarTreino(int ordem, long codigoTreino) throws SQLException {
 		Connection con = ResourceManager.getConexao();
@@ -75,7 +74,7 @@ public class TreinoDao implements ITreinoDao {
 		con.close();
 		return resultado>0;
 	}
-	
+
 	@Override
 	public boolean excluirTreino(long codigoTreino, long codigoFicha)
 	throws SQLException {
@@ -90,7 +89,7 @@ public class TreinoDao implements ITreinoDao {
 		prepare.close();
 		return (valor>0);
 	}
-	
+
 	@Override
 	public boolean verificarExercicio(long codigoExercicio) throws SQLException {
 		String sql = "select * from serie where codigoexercicio = ?";
@@ -158,20 +157,20 @@ public class TreinoDao implements ITreinoDao {
 		}
 		return resultado;
 	}
-	
-	
+
+
 	@Override
 	public int buscarQuantidadeSerie(long codigoTreino) throws SQLException {
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
-		String sql = "select count (*) as numero_serie " +
-		"from serie where codigoTreino = ?";
+		String sql = "select count (*) as numero_serie" +
+		" from serie where codigoTreino = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++,codigoTreino);
 		ResultSet result = prepare.executeQuery();
 		int resultado = 0;
 		if(result.next()){
-			resultado = result.getInt("numero_serie ");
+			resultado = result.getInt("numero_serie");
 		}
 		return resultado;
 	}
@@ -194,7 +193,7 @@ public class TreinoDao implements ITreinoDao {
 		return resultado>0;
 	}
 
-	
+
 	@Override
 	public boolean excluirSerie(long codigoTreino) throws SQLException {
 		int aux = 1;
@@ -246,7 +245,7 @@ public class TreinoDao implements ITreinoDao {
 		con.close();
 		prepare.close();
 		return (valor>=0);
-		
+
 	}
 	@Override
 	public boolean atualizarSerie(Serie serie) throws SQLException {
@@ -255,10 +254,10 @@ public class TreinoDao implements ITreinoDao {
 		Connection con = ResourceManager.getConexao();
 		boolean verificar = false;
 		String sql = 
-		"   update serie" +
-		"   set codigoexercicio = ?,codigotreino = ? ,ordem = ? ," +
-		"	repeticao = ? ,unidade = ?,carga = ? " +
-		"   where ordem = ? and codigoTreino = ?";
+			"   update serie" +
+			"   set codigoexercicio = ?,codigotreino = ? ,ordem = ? ," +
+			"	repeticao = ? ,unidade = ?,carga = ? " +
+			"   where ordem = ? and codigoTreino = ?";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
 
@@ -270,14 +269,27 @@ public class TreinoDao implements ITreinoDao {
 		prepare.setDouble(aux++, serie.getCarga());
 		prepare.setInt(aux++, serie.getOrdem());
 		prepare.setLong(aux++, serie.getCodigoTreino());
-		
+
 		resultado = prepare.executeUpdate();
 		prepare.close();
 		con.close();
 		return resultado>0;
 
-		
+
 	}
-	
+	@Override
+	public boolean removerSerie(long codigoTreino, long codigoExercicio) throws SQLException{
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from serie where codigoTreino = ? and codigoExercicio=?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		prepare.setLong(aux++, codigoExercicio);
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>=0);
+	}
+
 
 }

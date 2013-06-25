@@ -2,6 +2,7 @@ package workoutsystem.view;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
@@ -543,14 +544,11 @@ DropListener {
 	
 
 	private void removerExercicios() {
-		ControleTreino controleTreino
-		= new ControleTreino();
-		ControleExercicio controleExercicio 
-		= new ControleExercicio();
+		ControleTreino controleTreino = new ControleTreino();
+		ControleExercicio controleExercicio	= new ControleExercicio();
 		int posicao = 0;
 		try {
-			controleTreino.removerSerie
-			(treino.getCodigo(),listaRemocaoExercicio);
+			controleTreino.removerSerie(treino.getCodigo(),listaRemocaoExercicio);
 			listaExercicioTreino.removeAll(listaRemocaoExercicio);
 			listaRemocaoExercicio.clear();	
 			treino.setSerie
@@ -660,56 +658,22 @@ DropListener {
 	@Override
 	public void drop(int from, int to) {
 		if (from != to) {
+			ControleTreino controle = new ControleTreino();
 			DragSortListView list = getListView();
 			String item = adapterEspecificacao.getItem(from);
 			adapterEspecificacao.remove(item);
 			adapterEspecificacao.insert(item, to);
 			list.moveCheckState(from, to);
-			reordenarLista();
-		}
-	}
-
-	private void reordenarLista() {
-		ControleTreino controle = 
-			new ControleTreino();
-		int cont; 
-		int ordem = 1 ;
-		int posicao = 0;
-		String [] item;
-		List<Serie> especificacoes = new ArrayList<Serie>();
-		List<Integer> codigosAntigos = new ArrayList<Integer>();
-		for (cont = 0 ; cont < adapterEspecificacao.getCount(); cont++){
-			item = adapterEspecificacao.getItem(cont).split("-");
-			posicao = 0;
-			int valor = Integer.parseInt(item[0].trim());
-			for (Serie especificacao : treino.getSerie()){
-				if (valor == especificacao.getOrdem()){
-					codigosAntigos.add(especificacao.getOrdem()); 
-					especificacao.setOrdem(ordem);
-					especificacoes.add(especificacao);
-
-				}
-				posicao = posicao + 1;
+			try {
+				controle.reordenarLista(from,to,treino.getCodigo());
+			} catch (Exception e) {
+				String mensagem = e.getMessage();
+				Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 			}
-			ordem++;
-
 		}
-
-		treino.setSerie(especificacoes);
-
-		try {
-			controle.reordenarSerie
-			(codigosAntigos,treino.getSerie());
-			createListView(treino.getSerie());
-		} catch (Exception e) {
-			Toast.makeText(this,
-					e.getMessage(),
-					Toast.LENGTH_SHORT).show();
-
-		}
-
 	}
 
+	
 
 
 	@Override

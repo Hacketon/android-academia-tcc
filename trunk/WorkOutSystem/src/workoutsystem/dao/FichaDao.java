@@ -62,8 +62,8 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	public List<Ficha> listarFichas() throws SQLException{
 		Connection con = ResourceManager.getConexao();
 		String sql = "select codigo,nome,duracao, " +
-		" objetivo,realizacoes, " +
-		" ficha_atual from ficha";
+					 " objetivo,realizacoes, " +
+					 " ficha_atual from ficha";
 		PreparedStatement prepared = con.prepareStatement(sql);
 		ResultSet result = prepared.executeQuery();
 		List<Ficha> list = new ArrayList<Ficha>();
@@ -172,6 +172,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setDuracao(result.getInt("duracao"));
 			f.setObjetivo(result.getString("objetivo"));
 			f.setRealizacoes(result.getInt("realizacoes"));
+			f.setAtual(result.getInt("ficha_atual"));
 		}	
 		prepare.close();
 		con.close();

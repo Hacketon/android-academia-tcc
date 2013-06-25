@@ -1,7 +1,9 @@
 package workoutsystem.control;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.IExercicioDao;
@@ -81,30 +83,18 @@ public class ControleTreino {
 	}
 
 
-	public boolean reordenarSerie
-	(List<Integer> ordemAntiga, List<Serie> serie) 
-	throws Exception {
+	public boolean reordenarSerie(HashMap<Integer, Integer> listaCodigo,long codigoTreino) 
+			throws Exception {
 		ITreinoDao dao = new TreinoDao();
-		boolean verificacao = true;
-		try{
-			for(Integer ordem : ordemAntiga){
-
-				for(Serie t : serie){
-					verificacao = 
-						dao.reordenarSerie
-						(ordem,t.getOrdem(),t.getCodigoTreino());
-					if(!verificacao){
-						break;
-					}
-				}
+		String erro = "Não foi possivel fazer a reordenação";
+		boolean verificar = true;
+		for(Map.Entry<Integer, Integer> valor : listaCodigo.entrySet()){
+			if(!dao.reordenarSerie(valor.getKey(), valor.getValue(), codigoTreino)){
+				verificar = false;
+				throw new Exception(erro);
 			}
-		}catch (Exception e) {
-			throw new Exception("Erro ao reordenar as series");
 		}
-
-		return verificacao;
-
-
+		return verificar;
 	}
 
 	public List<Serie> listarSerie(long codigoTreino) 
@@ -116,19 +106,13 @@ public class ControleTreino {
 
 
 
-	public void removerSerie(long codigoTreino,
-			List<Exercicio> listaRemocao) throws Exception {
-		String erro = "Não há exercicios para ser removidos";
+	public void removerSerie(long codigoTreino,List<Exercicio> exercicio) 
+		throws Exception {
 		ITreinoDao dao = new TreinoDao();
-		if(listaRemocao.size()<=0){
-			throw new Exception(erro);
-		}else{
-			for(Exercicio e : listaRemocao){
-				dao.excluirSerie
-				(codigoTreino,e.getCodigo());
-			}
+		for(Exercicio e : exercicio){
+			dao.removerSerie(codigoTreino,e.getCodigo());
 		}
-
+		
 	}
 
 
@@ -175,12 +159,12 @@ public class ControleTreino {
 	}
 
 
-	public String removerSerie(long codigoTreino, long ordem) throws Exception {
+	public String removerSerie(long codigoTreino, int i) throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 		
 		try{
-			boolean resultado = dao.excluirSerie(codigoTreino,ordem);
+			boolean resultado = dao.excluirSerie(codigoTreino,i);
 			
 			if(resultado){
 				mensagem= "Serie removida com sucesso";
@@ -232,4 +216,28 @@ public class ControleTreino {
 		}
 			return mensagem;
 	}
+
+
+	public void reordenarLista(int antigo, int novo, long codigoTreino) throws Exception {
+			HashMap<Integer, Integer> listaCodigo = new HashMap<Integer, Integer>();
+			int auxNovo = 0;
+			int auxAntigo = 0;
+			auxAntigo = antigo+1; 
+			auxNovo = novo + 1;
+			listaCodigo.put(auxAntigo, auxNovo);
+			while(novo<=antigo){
+				novo = auxNovo + 1;
+				listaCodigo.put(auxNovo,novo);
+				auxNovo = auxNovo +1;
+			}
+			reordenarSerie(listaCodigo,codigoTreino);
+
+
+		}
+
+
+	
+
+		
+	
 }

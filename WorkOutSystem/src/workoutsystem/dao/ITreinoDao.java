@@ -10,14 +10,16 @@ public interface ITreinoDao {
 	
 	
 	/**
-	 * Metodo responsavel pela remoção de uma determinada especifcacao
+	 * Metodo responsavel pela remoção de uma determinada serie
 	 * @param codigoTreino
 	 * @param ordem
 	 * @return
 	 * @throws SQLException 
 	 */
 	public abstract boolean excluirSerie(long codigoTreino, long ordem) throws SQLException;
+	
 	public boolean verificarExercicio(long codigoExercicio) throws SQLException;
+	
 	
 	/**
 	 * Metodo responsavel pela busca de um treino em um determinada ficha
@@ -121,5 +123,13 @@ public interface ITreinoDao {
 	 * @throws SQLException 
 	 */
 	public abstract boolean atualizarSerie(Serie serie) throws SQLException;
+	/**
+	 * Remover series de um determinado exercicio 
+	 * @param codigoTreino
+	 * @param codigoExercicio
+	 * @return true or false;
+	 * @throws SQLException 
+	 */
+	public abstract boolean removerSerie(long codigoTreino, long codigoExercicio) throws SQLException;
 	
 }

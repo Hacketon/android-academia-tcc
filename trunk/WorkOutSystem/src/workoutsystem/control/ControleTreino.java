@@ -1,5 +1,6 @@
 package workoutsystem.control;
 
+import android.annotation.SuppressLint;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
 
+@SuppressLint("UseSparseArrays")
 public class ControleTreino {
 
 	public boolean reordenarTreino(List<Treino> treinos) throws Exception {
@@ -40,7 +42,7 @@ public class ControleTreino {
 
 
 	public String manipularTreino
-	(String nomeTreino,long codigoFicha, long codigoTreino) throws Exception {
+	(String nomeTreino,long codigoFicha, int codigoTreino) throws Exception {
 		Treino t = new Treino();
 		
 		t.setNome(Validadora.verificarString(nomeTreino));
@@ -83,23 +85,10 @@ public class ControleTreino {
 	}
 
 
-	public boolean reordenarSerie(HashMap<Integer, Integer> listaCodigo,long codigoTreino) 
-			throws Exception {
-		ITreinoDao dao = new TreinoDao();
-		String erro = "Não foi possivel fazer a reordenação";
-		boolean verificar = true;
-		for(Map.Entry<Integer, Integer> valor : listaCodigo.entrySet()){
-			if(!dao.reordenarSerie(valor.getKey(), valor.getValue(), codigoTreino)){
-				verificar = false;
-				throw new Exception(erro);
-			}
-		}
-		return verificar;
-	}
 
 	public List<Serie> listarSerie(long codigoTreino) 
 	throws SQLException{
-		IExercicioDao dao = new ExercicioDao();
+		ITreinoDao dao = new TreinoDao();
 		List<Serie> esp = dao.listarSerie(codigoTreino);
 		return esp;
 	}
@@ -120,7 +109,7 @@ public class ControleTreino {
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "";
 
-		dao.excluirSerie(codigoTreino);
+		dao.excluirSerieTreino(codigoTreino);
 		if(dao.excluirTreino(codigoTreino,codigoFicha)){
 			mensagem = "Treino excluido com sucesso";
 		}else{
@@ -159,12 +148,13 @@ public class ControleTreino {
 	}
 
 
-	public String removerSerie(long codigoTreino, int i) throws Exception {
+	public String removerSerie(int ordem,int treino) throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 		
 		try{
-			boolean resultado = dao.excluirSerie(codigoTreino,i);
+			int codigo = dao.buscarSerie(ordem, treino);
+			boolean resultado = dao.excluirSerieCodigo(codigo);
 			
 			if(resultado){
 				mensagem= "Serie removida com sucesso";
@@ -216,25 +206,69 @@ public class ControleTreino {
 		}
 			return mensagem;
 	}
+	
+	public boolean reordenarSerie(List<Integer> codAntigo,long treino) throws Exception{
+		int novo = 1;
+		ITreinoDao dao = new TreinoDao();
+		boolean retorno = true;
+		String erro = "Não foi possivel reordenar a ficha!";
+		String teste = "";
+		for(Integer antigo : codAntigo){
+			teste = teste + "codigo antigo > "+antigo+ "codigo novo > " +novo +"\n";
+			retorno = dao.reordenarSerie(antigo, novo,treino);
+			novo = novo + 1;
+			if(!retorno){
+				throw new Exception(erro);
+			}
+			
+		}
+			return retorno;
+		
+	}
 
+/*
+ * 	public void reordenarLista(int antigo, int novo, long codigoTreino) throws Exception {
 
-	public void reordenarLista(int antigo, int novo, long codigoTreino) throws Exception {
+			
+	public boolean reordenarSerie(HashMap<Integer, Integer> listaCodigo,long codigoTreino) 
+			throws Exception {
+		ITreinoDao dao = new TreinoDao();
+		String erro = "Não foi possivel fazer a reordenação";
+		boolean verificar = true;
+		for(Map.Entry<Integer, Integer> valor : listaCodigo.entrySet()){
+			if(!dao.reordenarSerie(valor.getKey(), valor.getValue(), codigoTreino)){
+				verificar = false;
+				throw new Exception(erro);
+			}
+		}
+		return verificar;
+		}
 			HashMap<Integer, Integer> listaCodigo = new HashMap<Integer, Integer>();
 			int auxNovo = 0;
 			int auxAntigo = 0;
-			auxAntigo = antigo+1; 
-			auxNovo = novo + 1;
-			listaCodigo.put(auxAntigo, auxNovo);
-			while(novo<=antigo){
-				novo = auxNovo + 1;
-				listaCodigo.put(auxNovo,novo);
-				auxNovo = auxNovo +1;
+			
+			if(antigo<novo){
+				//while(){
+					//listaCodigo.put(antigo);	
+				//}
+			}else{
+				auxAntigo = antigo+1; 
+				auxNovo = novo + 1;
+				listaCodigo.put(auxAntigo, auxNovo);
+				while(novo<=antigo){
+					novo = auxNovo + 1;
+					listaCodigo.put(auxNovo,novo);
+					auxNovo = auxNovo +1;
+				}
 			}
+			
 			reordenarSerie(listaCodigo,codigoTreino);
 
 
 		}
 
+ */
+	
 
 	
 

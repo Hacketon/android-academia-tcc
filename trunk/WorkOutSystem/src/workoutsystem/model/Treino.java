@@ -10,7 +10,7 @@ import net.sf.oval.constraint.NotEmpty;
 
 public class Treino implements Serializable{
 	
-	private long codigoTreino;
+	private int codigoTreino;
 	@NotEmpty(message = "O treino deve ter um nome")
 	@Length(max = 10 ,message = "Escolha um nome com até 10 caracteres")
 	private String nomeTreino;
@@ -25,7 +25,7 @@ public class Treino implements Serializable{
 		return nomeTreino;
 	}
 	
-	public void setCodigo(long codigoTreino) {
+	public void setCodigo(int codigoTreino) {
 		this.codigoTreino = codigoTreino;
 	}
 	public void setNome(String nomeTreino) {

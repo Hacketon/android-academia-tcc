@@ -83,6 +83,7 @@
                         android:layout_height="fill_parent"
                         android:layout_margin="3dp"
                         android:choiceMode="multipleChoice"
+                        android:divider="@android:color/transparent"
                         dslv:click_remove_id="@id/click_remove"
                         dslv:collapsed_height="1px"
                         dslv:drag_enabled="true"

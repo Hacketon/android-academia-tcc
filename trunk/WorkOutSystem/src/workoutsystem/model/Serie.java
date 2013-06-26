@@ -6,6 +6,7 @@ import net.sf.oval.constraint.Min;
 
 public class Serie implements Serializable {
 	
+	private int codigo;
 	private long codigoTreino;
 	private double carga;
 	private String unidade;
@@ -53,6 +54,12 @@ public class Serie implements Serializable {
 	}
 	public Exercicio getExercicio() {
 		return exercicio;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public int getCodigo() {
+		return codigo;
 	}
 
 }

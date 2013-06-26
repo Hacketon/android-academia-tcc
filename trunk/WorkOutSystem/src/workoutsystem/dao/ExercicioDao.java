@@ -527,57 +527,6 @@ public class ExercicioDao implements IExercicioDao {
 	}
 
 
-	@Override
-	public List<Serie> listarSerie(long codigoTreino)
-	throws SQLException {
-		int aux = 1;
-		String sql =" select serie_ordem, serie_repeticao," +
-					" serie_carga,serie_unidade, " +
-					" exercicio_codigo,exercicio_nome, exercicio_descricao," +
-					" exercicio_ativo,exercicio_padrao, " +
-					" grupo_nome, grupo_codigo, treino_codigo, " +
-					" ficha_codigo " +
-					" from serie_exercicio_treino " +
-					" where treino_codigo = ? order by  serie_ordem asc";
-		
-		Connection con = ResourceManager.getConexao();
-		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setLong(aux++, codigoTreino);
-		ResultSet result = prepare.executeQuery();
-		List<Serie> list = new ArrayList<Serie>();
-
-		while (result.next()){
-			Serie serie = new Serie();
-			serie.setOrdem(result.getInt("serie_ordem"));
-			serie.setCarga(result.getInt("serie_carga"));
-			serie.setUnidade(result.getString("serie_unidade"));
-			serie.setCodigoTreino(result.getLong("treino_codigo"));
-			serie.setQuantidade(result.getInt("serie_repeticao"));
-			
-			Exercicio ex = new Exercicio();
-			ex.setNome(result.getString("exercicio_nome"));
-			ex.setCodigo(result.getLong("exercicio_codigo"));
-			ex.setDescricao(result.getString("exercicio_descricao"));
-			ex.setAtivo(result.getInt("exercicio_ativo"));
-			
-			serie.setExercicio(ex);
-			
-			
-			GrupoMuscular gr = new GrupoMuscular();
-			gr.setCodigo(result.getInt("grupo_codigo"));
-			gr.setNome(result.getString("grupo_nome"));
-			
-			ex.setGrupoMuscular(gr);
-			
-			list.add(serie);
-
-		}
-
-		prepare.close();
-		con.close();
-		return list;
-	}
-
 
 
 

@@ -472,7 +472,7 @@ DropListener {
 		String item = parent.getItemAtPosition(pos).toString();
 		Exercicio exercicio = new Exercicio();
 		if (parent.getId() == listaEspecificacao.getId()){
-			Serie especificacao = getEspecificacao(item);
+			Serie especificacao = getSerie(item);
 			criarCaixaDialogoEspecificacao (especificacao);
 		}else if (parent.getId()== R.id.list_exercicio){
 			for(Exercicio e : listaExercicioTreino){
@@ -658,32 +658,57 @@ DropListener {
 	@Override
 	public void drop(int from, int to) {
 		if (from != to) {
-			ControleTreino controle = new ControleTreino();
+			
 			DragSortListView list = getListView();
 			String item = adapterEspecificacao.getItem(from);
 			adapterEspecificacao.remove(item);
 			adapterEspecificacao.insert(item, to);
 			list.moveCheckState(from, to);
-			try {
-				controle.reordenarLista(from,to,treino.getCodigo());
-			} catch (Exception e) {
-				String mensagem = e.getMessage();
-				Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
-			}
+			reordenarLista(0);
+			
 		}
 	}
 
 	
 
 
+	private void reordenarLista(int qual) {
+		String mensagem ="";
+		ControleTreino controle = new ControleTreino();
+		List<Integer> codigoAntigo = new ArrayList<Integer>();
+		List<Serie> series = new ArrayList<Serie>();
+		try{
+			boolean retorno = false;
+			for (int i= 0 ; i<adapterEspecificacao.getCount();i++){
+				String item = adapterEspecificacao.getItem(i);
+				Serie s = (getSerie(item));
+				if(qual != s.getOrdem()){
+					codigoAntigo.add(s.getOrdem());
+				}
+				
+			}
+			controle.reordenarSerie(codigoAntigo, treino.getCodigo());
+			series = controle.listarSerie(treino.getCodigo());
+			treino.setSerie(series);
+			createListView(treino.getSerie());
+		}catch (Exception e) {
+			mensagem = e.getMessage();
+			Toast.makeText(this,mensagem , Toast.LENGTH_LONG).show();
+		}
+		
+		
+	}
+
 	@Override
 	public void remove(int which) {
 		String item = adapterEspecificacao.getItem(which);
 		String mensagem = "";
 		ControleTreino controle = new ControleTreino();
-		Serie esp = getEspecificacao(item);
+		Serie esp = getSerie(item);
 		try {
-			mensagem = controle.removerSerie(treino.getCodigo(), esp.getOrdem());
+			mensagem = controle.removerSerie
+						(esp.getOrdem(),(int)treino.getCodigo());
+			reordenarLista(which);
 		} catch (Exception e) {
 			mensagem = e.getMessage();
 		}
@@ -692,7 +717,7 @@ DropListener {
 
 	}
 
-	private Serie getEspecificacao(String item) {
+	private Serie getSerie(String item) {
 		Serie esp = new Serie();
 		String[] sordem = item.split("-");
 		long ordem = Long.parseLong(sordem[0]

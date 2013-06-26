@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.model.Exercicio;
+import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
@@ -184,7 +186,7 @@ public class TreinoDao implements ITreinoDao {
 		String sql = "update serie set ordem = ? " +
 		" where ordem = ? and codigotreino = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setInt(aux++,ordemNova );
+		prepare.setInt(aux++,ordemNova);
 		prepare.setInt(aux++, ordemAntiga);
 		prepare.setLong(aux++, codigoTreino);
 		int resultado = prepare.executeUpdate();
@@ -195,7 +197,7 @@ public class TreinoDao implements ITreinoDao {
 
 
 	@Override
-	public boolean excluirSerie(long codigoTreino) throws SQLException {
+	public boolean excluirSerieTreino(long codigoTreino) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		String sql = "delete from serie where codigoTreino = ?";
@@ -234,18 +236,31 @@ public class TreinoDao implements ITreinoDao {
 		return list;
 	}
 	@Override
-	public boolean excluirSerie(long codigoTreino, long ordem) throws SQLException {
+	public boolean excluirSerieCodigo(long codigo) throws SQLException {
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		String sql = "delete from serie where codigoTreino = ? and ordem=?";
+		String sql = "delete from serie where codigo = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setLong(aux++, codigoTreino);
-		prepare.setLong(aux++, ordem);
+		prepare.setLong(aux++, codigo);
 		int valor = prepare.executeUpdate();
 		con.close();
 		prepare.close();
 		return (valor>=0);
-
+	}
+	@Override
+	public int buscarSerie(int ordem,int codigotreino ) throws SQLException{
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		int resultado = 0;
+		String sql = "select codigo from serie where ordem = ? and codigotreino = ? ";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++,ordem);
+		prepare.setInt(aux++,codigotreino);
+		ResultSet result = prepare.executeQuery();
+		if(result.next()){
+			resultado = result.getInt("codigo");
+		}
+		return resultado;
 	}
 	@Override
 	public boolean atualizarSerie(Serie serie) throws SQLException {
@@ -290,6 +305,61 @@ public class TreinoDao implements ITreinoDao {
 		prepare.close();
 		return (valor>=0);
 	}
+	
+	
+
+	@Override
+	public List<Serie> listarSerie(long codigoTreino)
+	throws SQLException {
+		int aux = 1;
+		String sql =" select serie_codigo,serie_ordem, serie_repeticao," +
+					" serie_carga,serie_unidade, " +
+					" exercicio_codigo,exercicio_nome, exercicio_descricao," +
+					" exercicio_ativo,exercicio_padrao, " +
+					" grupo_nome, grupo_codigo, treino_codigo, " +
+					" ficha_codigo " +
+					" from serie_exercicio_treino " +
+					" where treino_codigo = ? order by  serie_ordem asc";
+		
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		ResultSet result = prepare.executeQuery();
+		List<Serie> list = new ArrayList<Serie>();
+		
+		while (result.next()){
+			Serie serie = new Serie();
+			serie.setCodigo(result.getInt("serie_codigo"));
+			serie.setOrdem(result.getInt("serie_ordem"));
+			serie.setCarga(result.getInt("serie_carga"));
+			serie.setUnidade(result.getString("serie_unidade"));
+			serie.setCodigoTreino(result.getLong("treino_codigo"));
+			serie.setQuantidade(result.getInt("serie_repeticao"));
+			
+			Exercicio ex = new Exercicio();
+			ex.setNome(result.getString("exercicio_nome"));
+			ex.setCodigo(result.getLong("exercicio_codigo"));
+			ex.setDescricao(result.getString("exercicio_descricao"));
+			ex.setAtivo(result.getInt("exercicio_ativo"));
+			
+			serie.setExercicio(ex);
+			
+			
+			GrupoMuscular gr = new GrupoMuscular();
+			gr.setCodigo(result.getInt("grupo_codigo"));
+			gr.setNome(result.getString("grupo_nome"));
+			
+			ex.setGrupoMuscular(gr);
+			
+			list.add(serie);
+
+		}
+
+		prepare.close();
+		con.close();
+		return list;
+	}
+
 
 
 }

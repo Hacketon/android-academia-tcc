@@ -442,7 +442,7 @@ ListView.OnItemLongClickListener{
 				mensagem = controleTreino.manipularTreino
 				(editNomeTreino.getText().toString(),
 						ficha.getCodigo(),
-						Long.parseLong(txtCodigoTreino.getText().toString()));
+						(int) Long.parseLong(txtCodigoTreino.getText().toString()));
 				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
 				createListView(ficha.getTreinos());
 				dialog.dismiss();

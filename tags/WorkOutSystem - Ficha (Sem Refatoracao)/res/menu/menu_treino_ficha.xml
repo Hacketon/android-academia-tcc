@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	
+	    	    
+	<item 
+	    android:id="@+id/criar_Exercicio"
+	    android:title="@string/title_activity_tela_novoexercicio"
+	    />    
+	    <item 
+	    android:id="@+id/remover_exercicio_ficha"
+	    android:title="@string/botao_removerexercicio"
+	    />
+
+</menu>

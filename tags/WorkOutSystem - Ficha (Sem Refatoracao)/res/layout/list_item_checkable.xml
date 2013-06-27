@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workoutsystem.utilitaria.CheckableLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/item_height"
+    android:weightSum="100"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@id/drag_handle"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_weight="40"
+        android:background="@drawable/button_drag" />
+    
+    
+    <CheckedTextView 
+        android:id="@+id/text"
+        style="@style/textopequeno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:layout_gravity="left"
+        android:gravity="left"
+		/>
+
+    <ImageView
+        android:id="@id/click_remove"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_weight="40"
+        android:background="@drawable/button_delete" />
+
+</workoutsystem.utilitaria.CheckableLinearLayout>

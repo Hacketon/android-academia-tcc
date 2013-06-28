@@ -14,8 +14,10 @@ import workoutsystem.model.GrupoMuscular;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.ItemListaHistorico;
 import workoutsystem.utilitaria.Unidade;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,6 +48,7 @@ AdapterView.OnItemSelectedListener,
 ListView.OnItemClickListener,
 ListView.OnItemLongClickListener,
 View.OnClickListener,
+DialogInterface.OnClickListener,
 RemoveListener,
 DropListener {
 
@@ -78,12 +81,13 @@ DropListener {
 	private ArrayAdapter<String> adapterEspecificacao;
 	private List<Exercicio> listaRemocaoExercicio;
 	private ArrayList<GrupoMuscular> grupos;
+	private EditText edtCarga;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fichatreino);
 		init();
-		createTabs();
+		criarTabs();
 		criarComboGrupo();
 		criarComboUnidade();
 	}
@@ -108,6 +112,8 @@ DropListener {
 		findViewById(R.id.edt_series);
 		edtRepeticao = (EditText) dialogEspecificacao.
 		findViewById(R.id.edt_repeticao);
+		edtCarga = (EditText) dialogEspecificacao.
+		findViewById(R.id.edt_carga);
 		txtCodigoExercicio = (TextView) dialogEspecificacao.
 		findViewById(R.id.txt_codigoExercicioEspecificacao);
 		txtOrdem = (TextView) dialogEspecificacao.
@@ -157,8 +163,8 @@ DropListener {
 			treino.setSerie
 			(controleTreino.listarSerie(treino.getCodigo()));
 			listaRemocaoExercicio = new ArrayList<Exercicio>();
-			createListView(treino.getSerie());
-			createListView(listaExercicioTreino, 
+			criarListViewSerie(treino.getSerie());
+			criarListViewExercicio(listaExercicioTreino, 
 					listaExercicio,
 					R.layout.multiple_choice);
 			listaExercicio.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -220,13 +226,14 @@ DropListener {
 
 	}
 
-	private void createListView(List<Serie> lista) {
+	private void criarListViewSerie(List<Serie> lista) {
 		List<String> nomeTreinos = new ArrayList<String>();
 		for (Serie t : lista){
 			String item =  t.getOrdem() + "-" +
 			t.getExercicio().getNome()+"\n" +
 			"Quantidade : " + t.getQuantidade() + "\n" +
-			"Unidade :" + t.getUnidade() ;
+			"Unidade : " + t.getUnidade() +"\n" + 
+			"Carga : " + t.getCarga();
 
 			nomeTreinos.add(item);
 		}
@@ -244,7 +251,7 @@ DropListener {
 	}
 
 
-	private void createListView(
+	private void criarListViewExercicio(
 			List<Exercicio> listaExercicio,
 			ListView lista,
 			int layout){
@@ -263,7 +270,7 @@ DropListener {
 
 
 
-	private void createTabs() {
+	private void criarTabs() {
 		host = (TabHost) findViewById(R.id.host_treino);
 		host.setup();
 
@@ -302,8 +309,8 @@ DropListener {
 			criarCaixaDialogoExercicio("Novo Exercicio");
 			break;
 		case R.id.remover_exercicio_ficha:
-			removerExercicios();
-			break;
+			construirCaixa();
+		break;
 		}
 		return true;
 	}
@@ -403,7 +410,7 @@ DropListener {
 
 			}
 
-			createListView(listaExercicioBusca,
+			criarListViewExercicio(listaExercicioBusca,
 					listaBusca,
 					R.layout.itens_simple_lista);
 		}
@@ -493,7 +500,7 @@ DropListener {
 			" adicionado aos exercicios";
 			listaExercicioTreino.add(exercicio);
 			listarBusca(exercicio.getGrupoMuscular().getNome());
-			createListView(listaExercicioTreino, listaExercicio, R.layout.multiple_choice);
+			criarListViewExercicio(listaExercicioTreino, listaExercicio, R.layout.multiple_choice);
 			Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
 		}
 		return false;
@@ -516,7 +523,7 @@ DropListener {
 				mensagem = controle.manipularSerie(esp);
 				treino.setSerie
 				(controle.listarSerie(treino.getCodigo()));
-				createListView(treino.getSerie());
+				criarListViewSerie(treino.getSerie());
 				dialogEspecificacao.dismiss();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
@@ -540,8 +547,12 @@ DropListener {
 		}
 
 
-	
 
+
+
+
+
+	
 	private void removerExercicios() {
 		ControleTreino controleTreino = new ControleTreino();
 		try {
@@ -552,8 +563,8 @@ DropListener {
 			(controleTreino.listarSerie
 					(treino.getCodigo()));
 			cbxGrupoMuscular.getSelectedItem().toString();
-			createListView(treino.getSerie());
-			createListView(listaExercicioTreino, 
+			criarListViewSerie(treino.getSerie());
+			criarListViewExercicio(listaExercicioTreino, 
 					listaExercicio, R.layout.multiple_choice);
 			String grupo = cbxGrupoMuscular.getSelectedItem().toString();
 			listarBusca(grupo);
@@ -567,6 +578,7 @@ DropListener {
 
 	}
 
+	
 	private void salvarExercicio(){
 		Exercicio e = criarExercicio();
 		ControleExercicio controle = new ControleExercicio();
@@ -587,7 +599,7 @@ DropListener {
 				(treino.getCodigo(), 
 						grupoMuscular .getCodigo());
 			atualizarCombo(e, cbxGrupoMuscular);
-			createListView(listaExercicioBusca, listaBusca,
+			criarListViewExercicio(listaExercicioBusca, listaBusca,
 					R.layout.itens_simple_lista);
 			dialogNovoExercicio.dismiss();
 		} catch (Exception e1) {
@@ -617,6 +629,7 @@ DropListener {
 	private List<Serie> criarEspecificacao() throws Exception{
 		String serieString = edtSeries.getText().toString().trim();
 		String repeticao = edtRepeticao.getText().toString().trim();
+		String carga = edtCarga.getText().toString().trim();
 		String mensagem = "Digite os campos obrigatorios";
 		List<Serie> lista = new ArrayList<Serie>();
 		ControleTreino controle = new ControleTreino();
@@ -624,26 +637,30 @@ DropListener {
 		if(serieString.equalsIgnoreCase("") || repeticao.equalsIgnoreCase("")){
 			throw new Exception(mensagem);
 		}else{
-			int serie = Integer.parseInt(serieString);
-			Exercicio e = new Exercicio();
-			e.setCodigo(Long.parseLong
-					(txtCodigoExercicio.getText().toString()));
-			while(serie > 0){
-				Serie esp = new Serie();
-				esp.setCodigoTreino(treino.getCodigo());
-				esp.setExercicio(e);
-				esp.setQuantidade(Integer.parseInt
-						(edtRepeticao.getText().toString().trim()));
-				esp.setCodigoTreino(treino.getCodigo());
-				esp.setUnidade(cbxUnidade.getSelectedItem().toString());
-				if(!txtOrdem.getText().toString().equalsIgnoreCase("")){
-					esp.setOrdem(Integer.parseInt
-							(txtOrdem.getText().toString().trim()));
-				}
-				lista.add(esp);
-				serie--;
-			}
+			if(carga.equalsIgnoreCase("")){
+				carga = "0";
+			}else{
+				int serie = Integer.parseInt(serieString);
+				Exercicio e = new Exercicio();
+				e.setCodigo(Long.parseLong
+						(txtCodigoExercicio.getText().toString()));
+				while(serie > 0){
+					Serie esp = new Serie();
+					esp.setCodigoTreino(treino.getCodigo());
+					esp.setExercicio(e);
+					esp.setCarga(Double.parseDouble(carga));
+					esp.setQuantidade(Integer.parseInt(repeticao));
+					esp.setCodigoTreino(treino.getCodigo());
+					esp.setUnidade(cbxUnidade.getSelectedItem().toString());
+					if(!txtOrdem.getText().toString().equalsIgnoreCase("")){
+						esp.setOrdem(Integer.parseInt
+								(txtOrdem.getText().toString().trim()));
+					}
+					lista.add(esp);
+					serie--;
 
+			}
+		}
 
 		}
 
@@ -687,7 +704,7 @@ DropListener {
 		
 		controle.reordenarSerie(series);
 		treino.setSerie(controle.listarSerie(treino.getCodigo()));
-		createListView(treino.getSerie());
+		criarListViewSerie(treino.getSerie());
 		}catch (Exception e) {
 			mensagem = e.getMessage();
 			Toast.makeText(this,mensagem , Toast.LENGTH_LONG).show();
@@ -727,6 +744,69 @@ DropListener {
 		}
 		return esp;
 	}
+	
+	private void construirCaixa() {
+		if(listaRemocaoExercicio.size()>0){
+			String quantidade = String.
+					valueOf(listaRemocaoExercicio.size())
+									+ " exercicio(s)";
+			String texto = "Você realmente deseja deletar ";
+			String negativa = "Não";
+			String positiva = "Sim";
+			String pontuacao = "?";
+			String titulo = "Confirmação";
+			criarCaixa(quantidade,titulo,texto,negativa,positiva,pontuacao);
+		}
+		
+	}
+
+
+
+	private void criarCaixa(
+			String item,
+			String titulo,
+			String texto,
+			String negativa,
+			String positiva,
+			String pontuacao) {
+
+		texto = texto + item + pontuacao;
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(texto);
+		alert.setTitle(titulo);
+		alert.setNegativeButton(negativa, this);
+		alert.setPositiveButton(positiva, this);
+		alert.show();
+	}
+
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		String mensagem = "";
+		switch (which) {
+
+		case DialogInterface.BUTTON_NEGATIVE:
+			dialog.dismiss();
+			break;	
+		case DialogInterface.BUTTON_POSITIVE:
+			try {
+				removerExercicios();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+
+			}
+			if(!mensagem.equalsIgnoreCase("")){
+				Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+			}
+			
+			break;
+
+
+		}
+
+	}
+
 
 
 }

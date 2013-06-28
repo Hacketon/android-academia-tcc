@@ -392,6 +392,7 @@ ListView.OnItemLongClickListener{
 	private void iniciarFichaTreino(AdapterView<?> parent, int pos) {
 		String item = (String) parent.getItemAtPosition(pos);
 		Treino treino = null;
+		
 		for (Treino t : ficha.getTreinos()){
 			if (item.equalsIgnoreCase(t.getNome())){
 				treino = t;

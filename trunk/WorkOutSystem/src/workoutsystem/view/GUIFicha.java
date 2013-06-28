@@ -261,6 +261,7 @@ DialogInterface.OnClickListener{
 		case DialogInterface.BUTTON_POSITIVE:
 			try {
 				mensagem = controle.excluirFicha(listaRemocao);
+				listaRemocao.clear();
 				createListView();
 				selecionarFichaAtual();
 			} catch (Exception e) {

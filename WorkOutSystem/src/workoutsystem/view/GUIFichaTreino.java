@@ -82,7 +82,6 @@ DropListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fichatreino);
-
 		init();
 		createTabs();
 		criarComboGrupo();
@@ -545,8 +544,6 @@ DropListener {
 
 	private void removerExercicios() {
 		ControleTreino controleTreino = new ControleTreino();
-		ControleExercicio controleExercicio	= new ControleExercicio();
-		int posicao = 0;
 		try {
 			controleTreino.removerSerie(treino.getCodigo(),listaRemocaoExercicio);
 			listaExercicioTreino.removeAll(listaRemocaoExercicio);
@@ -560,6 +557,7 @@ DropListener {
 					listaExercicio, R.layout.multiple_choice);
 			String grupo = cbxGrupoMuscular.getSelectedItem().toString();
 			listarBusca(grupo);
+			reordenarLista(null);
 
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -658,45 +656,43 @@ DropListener {
 	@Override
 	public void drop(int from, int to) {
 		if (from != to) {
-			
 			DragSortListView list = getListView();
 			String item = adapterEspecificacao.getItem(from);
 			adapterEspecificacao.remove(item);
 			adapterEspecificacao.insert(item, to);
 			list.moveCheckState(from, to);
-			reordenarLista(0);
+			reordenarLista(null);
 			
 		}
 	}
 
-	
-
-
-	private void reordenarLista(int qual) {
+	private void reordenarLista(Serie serie) {
 		String mensagem ="";
+		int contador = 0;
 		ControleTreino controle = new ControleTreino();
-		List<Integer> codigoAntigo = new ArrayList<Integer>();
 		List<Serie> series = new ArrayList<Serie>();
 		try{
-			boolean retorno = false;
+		if(serie != null){
+			series = treino.getSerie();
+			series.remove(serie);
+			contador = contador + 1;
+			
+		}else{
 			for (int i= 0 ; i<adapterEspecificacao.getCount();i++){
 				String item = adapterEspecificacao.getItem(i);
 				Serie s = (getSerie(item));
-				if(qual != s.getOrdem()){
-					codigoAntigo.add(s.getOrdem());
-				}
-				
+				series.add(s);
 			}
-			controle.reordenarSerie(codigoAntigo, treino.getCodigo());
-			series = controle.listarSerie(treino.getCodigo());
-			treino.setSerie(series);
-			createListView(treino.getSerie());
+		}
+		
+		controle.reordenarSerie(series);
+		treino.setSerie(controle.listarSerie(treino.getCodigo()));
+		createListView(treino.getSerie());
 		}catch (Exception e) {
 			mensagem = e.getMessage();
 			Toast.makeText(this,mensagem , Toast.LENGTH_LONG).show();
 		}
-		
-		
+			
 	}
 
 	@Override
@@ -708,7 +704,8 @@ DropListener {
 		try {
 			mensagem = controle.removerSerie
 						(esp.getOrdem(),(int)treino.getCodigo());
-			reordenarLista(which);
+			List<Serie> array = new ArrayList<Serie>();
+			reordenarLista(esp);
 		} catch (Exception e) {
 			mensagem = e.getMessage();
 		}

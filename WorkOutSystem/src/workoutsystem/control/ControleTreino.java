@@ -44,7 +44,6 @@ public class ControleTreino {
 	public String manipularTreino
 	(String nomeTreino,long codigoFicha, int codigoTreino) throws Exception {
 		Treino t = new Treino();
-		
 		t.setNome(Validadora.verificarString(nomeTreino));
 		t.setCodigoFicha(codigoFicha);
 		t.setCodigo(codigoTreino);
@@ -207,15 +206,14 @@ public class ControleTreino {
 			return mensagem;
 	}
 	
-	public boolean reordenarSerie(List<Integer> codAntigo,long treino) throws Exception{
+	public boolean reordenarSerie(List<Serie> series) throws Exception{
 		int novo = 1;
 		ITreinoDao dao = new TreinoDao();
 		boolean retorno = true;
 		String erro = "Não foi possivel reordenar a ficha!";
-		String teste = "";
-		for(Integer antigo : codAntigo){
-			teste = teste + "codigo antigo > "+antigo+ "codigo novo > " +novo +"\n";
-			retorno = dao.reordenarSerie(antigo, novo,treino);
+		
+		for(Serie antigo : series){
+			retorno = dao.reordenarSerie(novo,antigo.getCodigo());
 			novo = novo + 1;
 			if(!retorno){
 				throw new Exception(erro);
@@ -225,6 +223,9 @@ public class ControleTreino {
 			return retorno;
 		
 	}
+
+
+	
 
 /*
  * 	public void reordenarLista(int antigo, int novo, long codigoTreino) throws Exception {

@@ -178,17 +178,14 @@ public class TreinoDao implements ITreinoDao {
 	}
 
 	@Override
-	public boolean reordenarSerie(int ordemAntiga, int ordemNova,
-			long codigoTreino) throws SQLException{
-
+	public boolean reordenarSerie(int novo,int codigo) throws SQLException{
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		String sql = "update serie set ordem = ? " +
-		" where ordem = ? and codigotreino = ?";
+		" where codigo = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
-		prepare.setInt(aux++,ordemNova);
-		prepare.setInt(aux++, ordemAntiga);
-		prepare.setLong(aux++, codigoTreino);
+		prepare.setInt(aux++,novo);
+		prepare.setInt(aux++, codigo);
 		int resultado = prepare.executeUpdate();
 		con.close();
 		prepare.close();
@@ -359,7 +356,7 @@ public class TreinoDao implements ITreinoDao {
 		con.close();
 		return list;
 	}
-
+	
 
 
 }

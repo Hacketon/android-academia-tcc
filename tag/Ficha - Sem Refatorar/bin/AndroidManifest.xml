@@ -1,0 +1,284 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="workoutsystem.view"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:configChanges="orientation"
+        android:debuggable="true"
+        android:icon="@drawable/ic_workoutsystem"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Activity Principal -->
+        <activity
+            android:name=".GUIPrincipal"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_tela_principal" >
+            <intent-filter>
+
+                <!--
+                      <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                -->
+                <action android:name="workoutsystem.view.PRINCIPAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Status -->
+
+
+        <!-- Activity Ficha -->
+
+        <activity
+            android:name=".GUIFicha"
+            android:label="@string/title_activity_tela_ficha" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.FICHA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIFichaUsuario"
+            android:label="@string/title_activity_tela_ficha" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.FICHAUSUARIO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIFichaManipular"
+            android:label="@string/title_activity_tela_ficha" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.FICHAMANIPULAR" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIFichaTreino"
+            android:label="@string/title_activity_tela_ficha" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.FICHATREINO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Ajuda -->
+        <activity
+            android:name=".GUIAjuda"
+            android:label="@string/title_activity_tela_ajuda" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.AJUDA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activities  Perfil -->
+        <activity
+            android:name=".GUIPerfil"
+            android:label="@string/title_activity_tela_perfil" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.PERFIL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIStatus"
+            android:label="@string/title_activity_tela_status" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.STATUS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIAvatar"
+            android:label="@string/title_activity_tela_avatar" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.AVATAR" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIMedida"
+            android:label="@string/title_activity_tela_medida" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.MEDIDAS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Rotina -->
+
+        <activity
+            android:name=".GUIRotina"
+            android:label="@string/title_activity_tela_rotina" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.ROTINA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIExemplo"
+            android:label="@string/title_activity_tela_rotina" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.EXEMPLO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+   
+        <!-- Activity Login -->
+
+        <activity
+            android:name=".GUISplash"
+            android:label="@string/title_project" >
+            <intent-filter>
+
+                <!--
+                <action android:name="workoutsystem.view.LOGIN" />
+                
+                <category android:name="android.intent.category.DEFAULT" />
+                -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Configuracao -->
+
+        <activity
+            android:name=".GUIConfiguracao"
+            android:label="@string/title_activity_configuracoes" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.CONFIGURACAO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Exercicio -->
+        <activity
+            android:name=".GUIExercicio"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.EXERCICIO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUICriarExercicio"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.CRIAREXERCICIO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIExercicioFicha"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.EXERCICIOFICHA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIRealizarExercicio"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.REALIZAREXERCICIO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIListaExercicio"
+            android:label="@string/title_activity_tela_exercicio" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.LISTAEXERCICIOS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUIPasso"
+            android:label="@string/title_activity_tela_passo" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.PASSO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Sobre -->
+        <activity
+            android:name=".GUISobre"
+            android:label="@string/title_activity_tela_sobre" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.SOBRE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Grafico -->
+        <activity
+            android:name=".GUIGrafico"
+            android:label="@string/title_activity_tela_grafico" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.GRAFICO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Objetivo -->
+        <activity
+            android:name=".GUIObjetivo"
+            android:label="@string/title_activity_tela_objetivo" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.OBJETIVO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity Evolucao -->
+        <activity
+            android:name=".GUIEvolucao"
+            android:label="@string/title_activity_tela_evolucao" >
+            <intent-filter>
+                <action android:name="workoutsystem.view.EVOLUCAO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

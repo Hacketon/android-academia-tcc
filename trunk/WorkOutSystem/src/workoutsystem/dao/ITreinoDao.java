@@ -92,8 +92,7 @@ public interface ITreinoDao {
 	 * @return 
 	 * @throws SQLException 
 	 */
-	public boolean reordenarSerie
-			(int ordemAntiga, int ordemNova, long codigoTreino) throws SQLException;
+	
 	/**
 	 * Metodo responsavel pela exclusão da series de todos os exercicios  
 	 * em um treino
@@ -118,7 +117,8 @@ public interface ITreinoDao {
 	 * @return 
 	 * @throws SQLException 
 	 */
-	public abstract boolean reordenarTreino(int ordem, long codigoTreino) throws SQLException;
+
+	boolean reordenarTreino(int ordem, long codigoTreino) throws SQLException;
 
 
 	/**
@@ -150,5 +150,9 @@ public interface ITreinoDao {
 	 * @throws SQLException
 	 */
 	public abstract int buscarSerie(int ordem,int codigotreino) throws SQLException;
+
+
+
+	boolean reordenarSerie(int novo, int codigo) throws SQLException;
 	
 }

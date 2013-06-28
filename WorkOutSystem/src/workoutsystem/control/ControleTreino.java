@@ -102,6 +102,7 @@ public class ControleTreino {
 		}
 		
 	}
+	
 
 
 	public String removerTreino(long codigoTreino, long codigoFicha) throws Exception  {

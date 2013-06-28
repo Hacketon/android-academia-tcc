@@ -105,9 +105,16 @@ public class ControleFicha {
 		return f;
 	}
 	public List<Ficha> buscarFicha() throws SQLException{
+		ITreinoDao daoTreino = new TreinoDao();
 		IFichaDao dao = new FichaDao();
 		List<Ficha> lista = dao.listarFichas();
-
+		for(Ficha f : lista){
+			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
+			for(Treino t : f.getTreinos()){
+				t.setSerie
+				(daoTreino.listarSerie(t.getCodigo()));
+			}
+		}
 		return lista;
 	}
 	
@@ -151,6 +158,10 @@ public class ControleFicha {
 		f = dao.buscarFichaCodigo(codigo);
 		if(f != null){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
+			for(Treino t : f.getTreinos()){
+				t.setSerie
+				(daoTreino.listarSerie(t.getCodigo()));
+			}
 		}else{
 			f = new Ficha();
 		}

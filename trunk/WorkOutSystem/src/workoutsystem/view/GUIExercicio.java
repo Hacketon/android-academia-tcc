@@ -120,6 +120,7 @@ DialogInterface.OnClickListener{
 		cbxExercicioPadrao.setAdapter(adapter);
 		cbxGrupo.setAdapter(adapter);
 	}
+	
 	@Override
 	public void onClick(View v) {
 		String mensagem = "Não há exercicios para ser excluido";

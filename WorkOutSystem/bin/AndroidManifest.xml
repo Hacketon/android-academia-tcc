@@ -5,7 +5,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
     <uses-permission android:name="android.permission.READ_OWNER_DATA" />
@@ -218,7 +218,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GUIListaExercicio"
+            android:name=".GUIExecutaFicha"
             android:label="@string/title_activity_tela_exercicio" >
             <intent-filter>
                 <action android:name="workoutsystem.view.LISTAEXERCICIOS" />

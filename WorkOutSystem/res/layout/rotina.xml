@@ -89,6 +89,30 @@
                             android:layout_width="1dp"
                             android:layout_height="2dp" />
                     </LinearLayout>
+                    <!-- Ficha Atual -->
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:weightSum="100" >
+
+                        <TextView
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="left"
+                            android:paddingLeft="20dp"
+                            android:text="@string/label_ficha_atual" />
+
+                        <TextView
+                            android:id="@+id/nome_ficha_atual"
+                            style="@style/textogrande"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:text="" />
+                    </LinearLayout>
 
                     <!-- Ultimo Treino -->
 
@@ -102,7 +126,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
+                            android:paddingLeft="20dp"
                             android:text="@string/label_ultimo_treino" />
 
                         <TextView
@@ -112,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:gravity="left"
-                            android:text="A" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!-- Layout Combo Treino -->
@@ -125,33 +150,14 @@
                             android:id="@+id/combo_treinos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/label_treino" />
+                            android:prompt="@string/label_treino" 
+                            
+                            />
                     </LinearLayout>
 
                     <!-- Layout Grupo Muscular -->
 
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_weight="50"
-                        android:weightSum="100" >
 
-                        <TextView
-                            style="@style/textomedio"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="center"
-                            android:text="@string/label_ficha_atual" />
-
-                        <TextView
-                            android:id="@+id/ficha_treino_atual"
-                            style="@style/textogrande"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="left"
-                            android:text="Pirâmide" />
-                    </LinearLayout>
                     <!-- Layou Grupo Muscular Trabalhado -->
                     <!-- Botão realizar treino -->
 

@@ -110,11 +110,12 @@ public class ControleFicha {
 		List<Ficha> lista = dao.listarFichas();
 		for(Ficha f : lista){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
+			
 			for(Treino t : f.getTreinos()){
-				t.setSerie
-				(daoTreino.listarSerie(t.getCodigo()));
+				t.setSerie(daoTreino.listarSerie(t.getCodigo()));
 			}
 		}
+		
 		return lista;
 	}
 	

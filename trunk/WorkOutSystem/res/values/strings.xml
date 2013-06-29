@@ -125,7 +125,7 @@
     <string name="botao_rem">-</string>
     <string name="botao_mudarficha">Mudar ficha atual</string>
     <string name="botao_dadosficha">Dados ficha atual</string>
-    <string name="label_ficha_atual"> Ficha atual </string>
+    <string name="label_ficha_atual"> Ficha atual: </string>
     <string name="label_nomeficha"> Nenhuma </string>
     <!-- Exercicio Ficha -->
     <string name="botao_ordenar"> Ordenar </string>

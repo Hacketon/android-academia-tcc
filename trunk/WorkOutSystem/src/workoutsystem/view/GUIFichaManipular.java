@@ -236,6 +236,9 @@ ListView.OnItemLongClickListener{
 				mensagem = e.getMessage();
 			}
 			break;
+		case R.id.treino_existente:
+			Toast.makeText(this, "teste", Toast.LENGTH_SHORT).show();
+			break;
 		}
 		if(!mensagem.equalsIgnoreCase("")){
 			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();

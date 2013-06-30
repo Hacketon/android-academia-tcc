@@ -8,11 +8,11 @@
         android:id="@+id/novo_treino"
         android:title="@string/botao_novotreino"/>
 
-    <!--
-<item
-    android:id="@+id/treino_existente"
-    android:title="@string/botao_existente"
+    
+	<item
+    	android:id="@+id/treino_existente"
+    	android:title="@string/botao_existente"
     />
-    -->
+    
 
 </menu>

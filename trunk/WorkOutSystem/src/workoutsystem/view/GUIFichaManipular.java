@@ -1,6 +1,5 @@
 package workoutsystem.view;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,6 +61,8 @@ ListView.OnItemLongClickListener{
 	private Button btnCancelar;
 	private Button btnSalvar;
 	private TextView txtCodigoTreino;
+	private String[] fichas;
+	private List<Ficha> listaFichaExistente;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -237,7 +237,7 @@ ListView.OnItemLongClickListener{
 			}
 			break;
 		case R.id.treino_existente:
-			Toast.makeText(this, "teste", Toast.LENGTH_SHORT).show();
+			criarDialogFicha();
 			break;
 		}
 		if(!mensagem.equalsIgnoreCase("")){
@@ -247,6 +247,39 @@ ListView.OnItemLongClickListener{
 
 	}
 
+
+
+	private void criarDialogFicha() {
+		String mensagem = "";
+		if(ficha.getCodigo() != 0){
+			ControleFicha controle = new ControleFicha();
+			try {
+				listaFichaExistente =
+						controle.buscarFichaDiferente
+									(ficha.getCodigo());
+				AlertDialog.Builder alerta = 
+							new AlertDialog.Builder(this);
+				alerta.setTitle("Selecione uma ficha");
+				int selected = -1;
+				int cont = 0;
+				fichas = new String[listaFichaExistente.size()];
+				for(Ficha f : listaFichaExistente){
+					fichas[cont] = f.getNome();
+					cont ++;
+				}
+				alerta.setSingleChoiceItems(fichas,selected, this);
+				alerta.show();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+			}
+		}else{
+			mensagem = "Salve sua ficha primeiro!";
+		}
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+		}
+		
+	}
 
 
 	@Override
@@ -339,9 +372,10 @@ ListView.OnItemLongClickListener{
 
 
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
+	public void onClick(DialogInterface dialog, int clicked) {
 		String mensagem = "";
-		switch (which) {
+		ControleTreino controle = new ControleTreino();
+		switch (clicked) {
 
 		case DialogInterface.BUTTON_NEGATIVE:
 			createListView(ficha.getTreinos());
@@ -355,10 +389,35 @@ ListView.OnItemLongClickListener{
 			}
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 			break;
+			default:
+				listarTreinoExistente(clicked);
+			break;
 
 
 		}
 
+	}
+
+
+	private void listarTreinoExistente(int clicked) {
+		try {
+			ControleTreino controle = new ControleTreino();
+			if(fichas != null){
+				String nome = fichas[clicked];
+				Ficha ficha = null;
+				for(Ficha f : listaFichaExistente){
+					if(f.getNome().equalsIgnoreCase(nome.trim())){
+						ficha = f;
+						break;
+					}
+				}
+			}
+		
+			controle.buscarTreinoValido(ficha.getCodigo());
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
 	}
 
 

@@ -208,6 +208,7 @@ DialogInterface.OnClickListener{
 		builder.setTitle("Ficha(s)");
 		int selected = -1;
 		int cont = 0;
+		
 		for(Ficha f : listFicha ){
 			fichas[cont] = f.getNome();
 			cont++;

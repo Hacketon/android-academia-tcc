@@ -356,6 +356,27 @@ public class TreinoDao implements ITreinoDao {
 		con.close();
 		return list;
 	}
+	@Override
+	public List<Treino> buscarTreinoValido(long codigoFicha) throws SQLException {
+		String sql = " select treino_codigo,treino_nome," +
+				 	 " treino_ordem,treino_codigoficha" +
+				 	 " from treino_serie where ficha_codigo = ?";
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoFicha);
+		ResultSet result = prepare.executeQuery();
+		List<Treino> listaTreino = new ArrayList<Treino>();
+		while(result.next()){
+			Treino treino = new Treino();
+			treino.setCodigo(result.getInt("treino_codigo"));
+			treino.setNome(result.getString("treino_nome"));
+			treino.setOrdem(result.getInt("treino_ordem"));
+			treino.setCodigoFicha(result.getInt("treino_codigoficha"));
+			listaTreino.add(treino);
+		}
+		return listaTreino;
+	}
 	
 
 

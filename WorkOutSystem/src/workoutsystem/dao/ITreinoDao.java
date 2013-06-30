@@ -154,5 +154,14 @@ public interface ITreinoDao {
 
 
 	boolean reordenarSerie(int novo, int codigo) throws SQLException;
+
+	/**
+	 * Metodo responsavel pela busca de todos os treinos validos , ou seja que tenham
+	 * series 
+	 * @param codigoFicha
+	 * @return listaTreino
+	 * @throws SQLException 
+	 */
+	public abstract List<Treino> buscarTreinoValido(long codigoFicha) throws SQLException;
 	
 }

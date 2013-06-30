@@ -224,56 +224,15 @@ public class ControleTreino {
 			return retorno;
 		
 	}
-
-
 	
-
-/*
- * 	public void reordenarLista(int antigo, int novo, long codigoTreino) throws Exception {
-
-			
-	public boolean reordenarSerie(HashMap<Integer, Integer> listaCodigo,long codigoTreino) 
-			throws Exception {
+	public List<Treino> buscarTreinoValido(long codigoFicha) throws Exception{
 		ITreinoDao dao = new TreinoDao();
-		String erro = "Não foi possivel fazer a reordenação";
-		boolean verificar = true;
-		for(Map.Entry<Integer, Integer> valor : listaCodigo.entrySet()){
-			if(!dao.reordenarSerie(valor.getKey(), valor.getValue(), codigoTreino)){
-				verificar = false;
-				throw new Exception(erro);
-			}
+		List<Treino> treinos = dao.buscarTreinoValido(codigoFicha);
+		String erro = "Não possui treinos com series!";
+		if(treinos.size()<=0){
+			throw new Exception(erro);
 		}
-		return verificar;
-		}
-			HashMap<Integer, Integer> listaCodigo = new HashMap<Integer, Integer>();
-			int auxNovo = 0;
-			int auxAntigo = 0;
-			
-			if(antigo<novo){
-				//while(){
-					//listaCodigo.put(antigo);	
-				//}
-			}else{
-				auxAntigo = antigo+1; 
-				auxNovo = novo + 1;
-				listaCodigo.put(auxAntigo, auxNovo);
-				while(novo<=antigo){
-					novo = auxNovo + 1;
-					listaCodigo.put(auxNovo,novo);
-					auxNovo = auxNovo +1;
-				}
-			}
-			
-			reordenarSerie(listaCodigo,codigoTreino);
-
-
-		}
-
- */
-	
-
-	
-
-		
+		return treinos;
+	}
 	
 }

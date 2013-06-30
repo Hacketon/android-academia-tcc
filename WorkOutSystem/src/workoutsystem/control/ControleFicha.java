@@ -187,6 +187,16 @@ public class ControleFicha {
 
 	}
 
+	public List<Ficha> buscarFichaDiferente(long codigo) throws Exception {
+		IFichaDao dao = new FichaDao();
+		List<Ficha> listaFicha = dao.buscarFichaDiferente(codigo);
+		String erro = "Não possui treinos com series"+"\n"+"em outras fichas !";
+		if(listaFicha.size()<=0){
+			throw new Exception(erro);
+		}
+		return listaFicha;
+	}
+
 
 
 }

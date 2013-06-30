@@ -265,5 +265,33 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		return codigo;
 	}
 
+	@Override
+	public List<Ficha> buscarFichaDiferente(long codigo) throws SQLException {
+		String sql =" select ficha_codigo,ficha_nome,ficha_duracao, " +
+					" ficha_objetivo,ficha_realizacao,ficha_atual " +
+					" from ficha_serie " +
+					" where ficha_codigo != ?";
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigo);
+		ResultSet result = prepare.executeQuery();
+		List<Ficha> listaFicha = new ArrayList<Ficha>();
+		while(result.next()){
+			Ficha ficha = new Ficha();
+			ficha.setCodigo(result.getLong("ficha_codigo"));
+			ficha.setNome(result.getString("ficha_nome"));
+			ficha.setDuracao(result.getInt("ficha_duracao"));
+			ficha.setObjetivo(result.getString("ficha_objetivo"));
+			ficha.setRealizacoes(result.getInt("ficha_realizacao"));
+			ficha.setAtual(result.getInt("ficha_atual"));
+			listaFicha.add(ficha);
+		}
+		
+		con.close();
+		prepare.close();
+		return listaFicha;
+	}
+
 	
 }

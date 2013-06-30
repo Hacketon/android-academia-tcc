@@ -86,5 +86,14 @@ public interface IFichaDao {
 	 */
 	public long buscarUltimaFicha() throws SQLException;
 
+	/**
+	 * Metodo responsavel pela busca de todas as fichas exceto a 
+	 * ficha que esta sendo modificada
+	 * @param codigo [codigo da ficha que esta sendo modificada!]
+	 * @return listaFicha
+	 * @throws SQLException
+	 */
+	public List<Ficha> buscarFichaDiferente(long codigo) throws SQLException;
+
 	
 }

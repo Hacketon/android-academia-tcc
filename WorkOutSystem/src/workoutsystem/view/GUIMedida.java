@@ -993,9 +993,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		return true;
 	}
 
-
-
-		
 	}
 
 

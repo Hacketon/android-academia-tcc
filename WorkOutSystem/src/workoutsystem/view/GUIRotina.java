@@ -1,6 +1,7 @@
 package workoutsystem.view;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -12,11 +13,17 @@ import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.AdaptadorCalendario;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.widget.TabHost.TabSpec;
@@ -39,6 +46,9 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private TextView txtNomeFicha;
 	private List<Treino> listaTreinos;
 	private Ficha ficha;
+	private Dialog dialogPreview;
+	private ListView listaExercicios;
+	private TextView treinoPreview;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +76,12 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		gradedias.setOnItemClickListener(this);
 
 		txtNomeFicha = (TextView) findViewById(R.id.nome_ficha_atual);
+
+
+		dialogPreview = new Dialog(this);
+		dialogPreview.setContentView(R.layout.gerar_preview);
+
+		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
 
 
 
@@ -99,20 +115,45 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		}
 	}
 
+
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflate = getMenuInflater();
+		inflate.inflate(R.menu.menu_rotina, menu);
+		return true;
+	}
 
-	public void onClick(View evento) {
-		switch (evento.getId()) {
-		case R.id.btn_realizar:
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch(item.getItemId()) {
+
+		case R.id.realizar_rotina:
 
 			inicializarTelaRealizacao();
 
 			break;
+		case R.id.preview_rotina:
+			criarListPreview();
+
+			break;
+		}
+		return true;
+	}
+
+	@Override
+
+	public void onClick(View evento) {
+		switch (evento.getId()) {
+
 		case (R.id.btn_proximomes):
 			atualizarProximo();
 
 		break;
+
 		case (R.id.btn_anteriormes):
 
 			atualizarAnterior();
@@ -140,6 +181,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		startActivity(i);
 
 	}
+
 	//combo de treinos da ficha
 
 	public void criarCombo(Ficha ficha) throws SQLException{
@@ -148,7 +190,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		TreinoDao dao = new TreinoDao();
 		List<String> lista = new ArrayList<String>();
 		listaTreinos = dao.listarTreinos(ficha.getCodigo());
-		
+
 		for(Treino t : listaTreinos){
 			t.setSerie(controle.listarSerie(t.getCodigo()));
 			if(t.getSerie().size() != 0) {
@@ -161,6 +203,57 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 		ArrayAdapter<String> adapter =	new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,lista);
 		comboTreinos.setAdapter(adapter);
+
+	}
+
+
+	public void criarListPreview(){
+		//pegando treino selecionado
+		String nome = comboTreinos.getSelectedItem().toString();
+		Treino treino = new Treino();
+
+		for(Treino t : listaTreinos){
+			if( t.getNome().equalsIgnoreCase(nome)){
+				treino = t;
+				break;
+			}
+		}
+
+		//criar lista de exercicios do treino selecionado
+
+		List<String> lista = new ArrayList<String>();
+
+
+		String aux ="";
+		
+		for(Serie s : treino.getSerie()){
+			String exercicio = s.getExercicio().getNome();
+
+			if(aux.equalsIgnoreCase("")){
+				lista.add(exercicio);
+				aux = exercicio;	
+			}
+			if(!exercicio.equalsIgnoreCase(aux)){
+				lista.add(exercicio);
+				aux = exercicio;
+			}
+		}
+		
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itens_simple_lista, lista);
+
+
+
+		listaExercicios.setAdapter(adapter);
+		listaExercicios.setCacheColorHint(Color.TRANSPARENT);
+
+
+		treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
+
+		treinoPreview.setText("Exercicios -" + treino.getNome().toString());		
+
+		dialogPreview.setTitle("Preview");
+		dialogPreview.show();
 
 	}
 
@@ -232,4 +325,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		}
 		atualizarCalendario();
 	}
+
+
+
 }

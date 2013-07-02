@@ -160,8 +160,7 @@ DropListener {
 			listaExercicioTreino =
 				controleExercicio.
 				listarExercicioTreino(treino.getCodigo());
-			treino.setSerie
-			(controleTreino.listarSerie(treino.getCodigo()));
+			treino.setSerie(controleTreino.listarSerie(treino.getCodigo()));
 			listaRemocaoExercicio = new ArrayList<Exercicio>();
 			criarListViewSerie(treino.getSerie());
 			criarListViewExercicio(listaExercicioTreino, 
@@ -234,6 +233,7 @@ DropListener {
 			"Quantidade : " + t.getQuantidade() + "\n" +
 			"Unidade : " + t.getUnidade() +"\n" + 
 			"Carga : " + t.getCarga();
+
 
 			nomeTreinos.add(item);
 		}

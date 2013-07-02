@@ -378,6 +378,21 @@ public class TreinoDao implements ITreinoDao {
 		return listaTreino;
 	}
 	
+	// criar controle e interface dao
+	public boolean alterarCarga(double novo,int codigo) throws SQLException{
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String sql = "update serie set carga = ? " +
+		" where codigo = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setDouble(aux++,novo);
+		prepare.setInt(aux++, codigo);
+		int resultado = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return resultado>0;
+	}
+
 
 
 }

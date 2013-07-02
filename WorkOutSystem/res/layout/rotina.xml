@@ -166,16 +166,7 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="50" >
 
-                        <Button
-                            android:id="@+id/btn_realizar"
-                            style="@style/textopequenopreto"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:gravity="center"
-                            android:onClick="onClick"
-                            android:text="@string/button_realizar_treino" >
-                        </Button>
+                        
                     </LinearLayout>
                 </LinearLayout>
 

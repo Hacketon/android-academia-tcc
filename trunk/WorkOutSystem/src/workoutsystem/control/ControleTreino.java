@@ -47,13 +47,13 @@ public class ControleTreino {
 		t.setNome(Validadora.verificarString(nomeTreino));
 		t.setCodigoFicha(codigoFicha);
 		t.setCodigo(codigoTreino);
-		
+
 		Validadora<Treino> validadora = new Validadora<Treino>(t);
 		String mensagem = validadora.getMessage();
-		
+
 		ITreinoDao dao = new TreinoDao();
 		int resultado = 0;
-		
+
 		if(mensagem.equalsIgnoreCase("")){
 			if(dao.buscarTreino(t.getNome(),t.getCodigoFicha())){
 				mensagem = "Erro treino já existente nesta ficha";
@@ -95,14 +95,14 @@ public class ControleTreino {
 
 
 	public void removerSerie(long codigoTreino,List<Exercicio> exercicio) 
-		throws Exception {
+	throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		for(Exercicio e : exercicio){
 			dao.removerSerie(codigoTreino,e.getCodigo());
 		}
-		
+
 	}
-	
+
 
 
 	public String removerTreino(long codigoTreino, long codigoFicha) throws Exception  {
@@ -126,46 +126,67 @@ public class ControleTreino {
 		int quantidade = 0;
 		String mensagem = "Series adicionadas com sucesso";
 		String erro = "";
-			for(Serie esp : lista){
-				Validadora<Serie> val = new Validadora<Serie>(esp);
-				erro = val.getMessage();
-				if(erro.equalsIgnoreCase("")){
-					quantidade= dao.buscarQuantidadeSerie(esp.getCodigoTreino());
-					quantidade = quantidade + 1;
-					esp.setOrdem(quantidade);
-					resultado = dao.inserirSerie(esp);
-					if(!resultado){
-						erro = "Erro ao adicionar series";
-						throw new Exception(mensagem);
-					}
-				}else{
-					throw new Exception(erro);
+		for(Serie esp : lista){
+			Validadora<Serie> val = new Validadora<Serie>(esp);
+			erro = val.getMessage();
+			if(erro.equalsIgnoreCase("")){
+				quantidade= dao.buscarQuantidadeSerie(esp.getCodigoTreino());
+				quantidade = quantidade + 1;
+				esp.setOrdem(quantidade);
+				resultado = dao.inserirSerie(esp);
+				if(!resultado){
+					erro = "Erro ao adicionar series";
+					throw new Exception(mensagem);
 				}
+			}else{
+				throw new Exception(erro);
 			}
-		
-		
+		}
+
+
 		return  mensagem;
 	}
 
 
-	public String removerSerie(int ordem,int treino) throws Exception {
+	public String removerSerieCodigo(int codigo) throws Exception{
 		ITreinoDao dao = new TreinoDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
-		
+
 		try{
-			int codigo = dao.buscarSerie(ordem, treino);
 			boolean resultado = dao.excluirSerieCodigo(codigo);
-			
+
 			if(resultado){
 				mensagem= "Serie removida com sucesso";
 			}
-				
+
 		}catch (Exception e) {
 			throw new Exception(mensagem);
 		}
-		
+
 		return mensagem;
-		
+
+
+	}
+	
+	
+	public String removerSerie(int ordem,int treino) throws Exception {
+		ITreinoDao dao = new TreinoDao();
+		String mensagem = "Não foi possivel realizar a remoção"; 
+
+		try{
+			int codigo = dao.buscarSerie(ordem, treino);
+			boolean resultado = dao.excluirSerieCodigo(codigo);
+
+			if(resultado){
+				mensagem= "Serie removida com sucesso";
+			}
+
+		}catch (Exception e) {
+			throw new Exception(mensagem);
+		}
+
+		return mensagem;
+
 	}
 
 
@@ -180,15 +201,15 @@ public class ControleTreino {
 		}else{
 			throw new Exception(erro);
 		}
-			
+
 		if(!resultado){
 			mensagem = "Erro ao alterar a serie";
 			throw new Exception(mensagem);
 		}
-		
+
 
 		return  mensagem;
-		
+
 	} 
 
 
@@ -202,29 +223,29 @@ public class ControleTreino {
 			}else{
 				mensagem = atualizarSerie(esp.get(0));
 			}
-		
+
 		}
-			return mensagem;
+		return mensagem;
 	}
-	
+
 	public boolean reordenarSerie(List<Serie> series) throws Exception{
 		int novo = 1;
 		ITreinoDao dao = new TreinoDao();
 		boolean retorno = true;
 		String erro = "Não foi possivel reordenar a ficha!";
-		
+
 		for(Serie antigo : series){
 			retorno = dao.reordenarSerie(novo,antigo.getCodigo());
 			novo = novo + 1;
 			if(!retorno){
 				throw new Exception(erro);
 			}
-			
+
 		}
-			return retorno;
-		
+		return retorno;
+
 	}
-	
+
 	public List<Treino> buscarTreinoValido(long codigoFicha) throws Exception{
 		ITreinoDao dao = new TreinoDao();
 		List<Treino> treinos = dao.buscarTreinoValido(codigoFicha);
@@ -234,5 +255,23 @@ public class ControleTreino {
 		}
 		return treinos;
 	}
-	
+
+	public String alterarCarga(Double carga, int codigo){
+		String mensagem = "";
+		TreinoDao dao = new TreinoDao();
+
+		try {
+			if(dao.alterarCarga(carga, codigo)){
+				mensagem = "Alterado com sucesso";
+			}else{
+				mensagem = "Erro ao alterar";
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return mensagem;
+	}
+
 }

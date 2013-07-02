@@ -39,7 +39,6 @@
     <string name="label_esquerda">Esq.</string>
     <string name="botao_add">+</string>
     <string name="botao_salvar">Salvar</string>
-    
 
     <!-- texto em Geral -->
     <string name="label_dadospessoais">Dados Pessoais</string>
@@ -102,11 +101,16 @@
 
 
     <!-- texto rotina -->
+    <string name="botao_finalizar_treino"> Finalizar Treino </string>
+    <string name="botao_finalizar_multiplos"> Finalizar Series </string>
     <string name="label_treino_dia">Treino Dia</string>
     <string name="label_grupo_muscular">Grupo</string>
     <string name="label_grupo_muscular_trab">Peito e Costas</string>
     <string name="button_realizar_treino">Realizar</string>
-	<string name="label_realizacao">Execuções da ficha</string>
+    <string name="label_realizacao">Execuções da ficha</string>
+    <string name="botao_realizar_rotina"> Realizar </string>
+    <string name="botao_preview_rotina"> Preview </string>
+
     <!-- tela ficha grupo -->
     <string name="check_peito">Peito</string>
     <string name="check_ombro">Ombro</string>
@@ -118,7 +122,7 @@
     <string name="check_aerobico">Aerobico</string>
     <string name="label_treino">Treino</string>
     <string name="button_continuar">Continuar</string>
-    
+
     <!-- Fichaa -->
     <string name="botao_adicionar">Adicionar</string>
     <string name="botao_remover">Remover</string>
@@ -129,16 +133,16 @@
     <string name="label_nomeficha"> Nenhuma </string>
     <!-- Exercicio Ficha -->
     <string name="botao_ordenar"> Ordenar </string>
-    
+
     <!-- Tela Passos -->
-    
+
     <string name="label_passos"> Passo  </string>
     <string name="label_descricao_passo"> Realização do exercicio, bla bla bla bla 
         bla bla bla bal bal blan lbanba dbvjsd djbvdshdb</string>
 
     <!-- Exercicio Realização -->
 
-	<string name="title_activity_tela_passo"> Passos </string>
+    <string name="title_activity_tela_passo"> Passos </string>
     <string name="label_exercicio"> Nome Exercicio </string>
     <string name="label_serie"> Série </string>
     <string name="label_numero_serie"> 0/0 </string>
@@ -161,13 +165,10 @@
     <string name="botao_braco"> Braço </string>
     <string name="botao_panturrilha"> Panturilha </string>
     <string name="botao_coxa"> Coxa </string>
-    
 
     <!-- Sobre -->
 
-    <string name="label_descricaoSobre">
-       	
-     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
+    <string name="label_descricaoSobre">     	Descrição : Este projeto baseia-se na criação de um sistema para o auxílio 
      	nas atividades de musculação, limitando-se 
      	ao acompanhamento dos exercícios diário, correções posturais, e desenvolvimento.\n \n
      	
@@ -175,27 +176,23 @@
      	
      	Desenvolvedores: \n  Caio Felipe da Silva Portugal \n Gabriel Alves Ferra \n
         		Gabriel Mattano Pezzo  
-        		\n \n
-     	
-     	</string>
+        		\n \n</string>
     <string name="label_data1">Data 1</string>
     <string name="label_data2">Data 2</string>
     <string name="calendario_mes"> Mês </string>
     <string name="label_data3">Data 3</string>
-    
-    
     <string name="splash_carregando"> Carregando</string>
     <string name="botao_existente">Treino existente</string>
     <string name="botao_salvar_ficha">Salvar Ficha</string>
     <string name="botao_novotreino">Novo treino</string>
     <string name="botao_removertreino">Remover treino</string>
-	<string name="botao_visualizarficha">Visualizar ficha</string>
-	<string name="botao_adicionarexercicio">Adicionar exercicio</string>
-	<string name="botao_removerexercicio">Remover exercicio</string>
-	<string name="botao_sair">Sair</string>
-	<string name="botao_trocarusuario">Trocar usuario</string>
-	<string name="botao_trocarsenha">Trocar senha</string>
-	<string name="botao_voltar">Voltar</string>
-	<string name="label_ultimo_treino">Ultimo Treino : </string>
-	
+    <string name="botao_visualizarficha">Visualizar ficha</string>
+    <string name="botao_adicionarexercicio">Adicionar exercicio</string>
+    <string name="botao_removerexercicio">Remover exercicio</string>
+    <string name="botao_sair">Sair</string>
+    <string name="botao_trocarusuario">Trocar usuario</string>
+    <string name="botao_trocarsenha">Trocar senha</string>
+    <string name="botao_voltar">Voltar</string>
+    <string name="label_ultimo_treino">Ultimo Treino : </string>
+
 </resources>

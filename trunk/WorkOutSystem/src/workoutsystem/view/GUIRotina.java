@@ -80,9 +80,8 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 		dialogPreview = new Dialog(this);
 		dialogPreview.setContentView(R.layout.gerar_preview);
-
 		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
-
+		//treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
 
 
 		criarTab();
@@ -196,12 +195,11 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			if(t.getSerie().size() != 0) {
 				lista.add(t.getNome());
 			}
-
-
 		}
 
-
-		ArrayAdapter<String> adapter =	new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,lista);
+		ArrayAdapter<String> adapter =	new ArrayAdapter<String>
+			(this,android.R.layout.simple_spinner_item,lista);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		comboTreinos.setAdapter(adapter);
 
 	}
@@ -223,7 +221,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 		List<String> lista = new ArrayList<String>();
 
-
 		String aux ="";
 		
 		for(Serie s : treino.getSerie()){
@@ -239,20 +236,13 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			}
 		}
 		
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itens_simple_lista, lista);
-
-
 
 		listaExercicios.setAdapter(adapter);
 		listaExercicios.setCacheColorHint(Color.TRANSPARENT);
+		//treinoPreview.setText("Exercicios -" + treino.getNome().toString());		
 
-
-		treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
-
-		treinoPreview.setText("Exercicios -" + treino.getNome().toString());		
-
-		dialogPreview.setTitle("Preview");
+		dialogPreview.setTitle(treino.getNome());
 		dialogPreview.show();
 
 	}

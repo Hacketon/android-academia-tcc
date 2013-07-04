@@ -163,5 +163,27 @@ public interface ITreinoDao {
 	 * @throws SQLException 
 	 */
 	public abstract List<Treino> buscarTreinoValido(long codigoFicha) throws SQLException;
+
+
+
+	/**
+	 * Metodo responsavel por inserir series na tabela realizacaoSerie , como uma tabela auxiliar ,
+	 *  que ao excluir dados dessa tabela  os mesmos serão inseridos na tabele realizacao
+	 * @param codigoFicha
+	 * @return listaTreino
+	 * @throws SQLException 
+	 */
+	public abstract boolean inserirRealizacaoSerie(Serie serie) throws SQLException;
+
+
+	public abstract boolean removerRealizacaoSerie(Serie serie) throws SQLException;
+
+
+	public abstract List<Serie> listarRealizacaoSerie() throws SQLException;
 	
+	
+	public abstract boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException;
+	
+	public abstract String buscarUltimoTreino() throws SQLException;
+
 }

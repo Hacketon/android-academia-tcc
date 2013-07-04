@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleTreino;
+import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Serie;
@@ -59,14 +60,41 @@ View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_exercicios);
 
+
+		//refatorar para controle serie
+		ITreinoDao dao = new TreinoDao();
+
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
 
 		ControleTreino controleTreino = new ControleTreino();
+
+
+		//refatorar para controleSerie
+
 		try {
-			seriesTreino = controleTreino.listarSerie(treino.getCodigo());
+			seriesTreino = dao.listarRealizacaoSerie();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		
+		if(seriesTreino.size() == 0){
+			
+			for(Serie s: treino.getSerie()){
+				try {
+					dao.inserirRealizacaoSerie(s);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				seriesTreino = dao.listarRealizacaoSerie();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
 
 
 		init();
@@ -112,15 +140,15 @@ View.OnClickListener{
 		seriesRealizadas = new ArrayList<Serie>();
 
 
-
 		createListView(seriesTreino);
 		treinoDia.setText(treino.getNome());
+
+
+
+
 	}
 
-
 	private void createListView(List<Serie> lista) {
-
-
 
 		for(Serie s: lista){
 
@@ -181,7 +209,6 @@ View.OnClickListener{
 		txtCodigoExercicio.setText(String.valueOf(esp.getExercicio().getCodigo()));
 
 
-
 		ArrayList<String> list = new ArrayList<String>();
 		for (Unidade u : Unidade.values()){
 			list.add(u.getUnidade());
@@ -202,8 +229,6 @@ View.OnClickListener{
 		cbxUnidade.setEnabled(false);
 
 		dialogEspecificacao.show();
-
-
 
 
 	}
@@ -246,8 +271,6 @@ View.OnClickListener{
 				break;
 			}
 
-
-
 		}
 		seriesRealizadas.add(serie);
 
@@ -256,13 +279,15 @@ View.OnClickListener{
 
 	public void finalizarSeries() throws Exception{
 
-		ControleTreino controle = new ControleTreino();
+		//refatorar treino serie
+		ITreinoDao dao = new TreinoDao();
 
-		//		for(Serie s : seriesRealizadas){
-		//			controle.removerSerieCodigo(s.getCodigo());
-		//		}
+		for(Serie s : seriesRealizadas){
+			dao.removerRealizacaoSerie(s);
+			dao.inserirRealizacao(s, treino.getCodigoFicha());
+		}
 
-		seriesTreino.removeAll(seriesRealizadas);
+		seriesTreino = dao.listarRealizacaoSerie();	
 
 		init();
 

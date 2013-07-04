@@ -9,6 +9,7 @@ import java.util.List;
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleTreino;
+import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
@@ -83,6 +84,18 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
 		//treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
 
+		
+		//refatorar
+		
+		ITreinoDao dao = new TreinoDao();
+		try {
+			ultimoTreino.setText(dao.buscarUltimoTreino());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 		criarTab();
 		//		criarCombo();

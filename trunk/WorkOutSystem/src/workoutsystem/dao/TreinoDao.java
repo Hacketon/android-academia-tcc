@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class TreinoDao implements ITreinoDao {
 
 		return verificar;
 	}
+	
 	@Override
 	public boolean inserirSerie(Serie serie) throws SQLException{
 		int aux = 1;
@@ -289,6 +291,7 @@ public class TreinoDao implements ITreinoDao {
 
 
 	}
+	
 	@Override
 	public boolean removerSerie(long codigoTreino, long codigoExercicio) throws SQLException{
 		int aux = 1;
@@ -394,5 +397,134 @@ public class TreinoDao implements ITreinoDao {
 	}
 
 
+	
+	
+	// tabelaRealizaSerie teste
+	
+	
+	
+	@Override
+	public boolean inserirRealizacaoSerie(Serie serie) throws SQLException{
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into realizacaoSerie " +
+				" (codigoserie,codigotreino,codigoexercicio, ordem,unidade,carga, quantidade)" +
+				"values (?,?,?,?,?,?,?);";
+
+		PreparedStatement prepare = con.prepareStatement(sql);
+
+		prepare.setLong(aux++, serie.getCodigo());
+		prepare.setLong(aux++, serie.getCodigoTreino());
+		prepare.setLong(aux++, serie.getExercicio().getCodigo());
+		prepare.setInt(aux++, serie.getOrdem());
+		prepare.setString(aux++, serie.getUnidade());
+		prepare.setDouble(aux++, serie.getCarga());
+		prepare.setInt(aux++, serie.getQuantidade());
+		
+		resultado = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return resultado>0;
+	}
+
+	
+
+	@Override
+	public boolean removerRealizacaoSerie(Serie serie) throws SQLException{
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from realizacaoSerie where  codigoserie = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, serie.getCodigo());
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>=0);
+	}
+
+	
+	
+	
+	@Override
+	public List<Serie> listarRealizacaoSerie()	throws SQLException {
+		
+		String sql = " select codigoserie,codigotreino ,ordem,carga, unidade, quantidade, nome from serie_realizacao ";
+		
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
+		List<Serie> list = new ArrayList<Serie>();
+		Exercicio exercicio = new Exercicio();
+		
+		while (result.next()){
+						Serie serie = new Serie();
+			serie.setCodigo(result.getInt("codigoserie"));
+			serie.setCodigoTreino(result.getInt("codigotreino"));
+			serie.setOrdem(result.getInt("ordem"));
+			serie.setCarga(result.getInt("carga"));
+			serie.setUnidade(result.getString("unidade"));
+			serie.setQuantidade(result.getInt("quantidade"));
+			exercicio.setNome(result.getString("nome"));
+			serie.setExercicio(exercicio);
+			
+			
+			list.add(serie);
+
+		}
+
+		prepare.close();
+		con.close();
+		return list;
+	}
+
+	@Override
+	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {
+		
+	
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into realizacao" +
+				"(datarealizacao,codigoserie, codigotreino, codigoficha)" +
+				"values (?,?,?,?);";
+
+		PreparedStatement prepare = con.prepareStatement(sql);
+
+		java.util.Date data = new java.util.Date(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dataFormat = sdf.format(data); 
+		
+		prepare.setString(aux++, dataFormat);
+		prepare.setLong(aux++, serie.getCodigo());
+		prepare.setLong(aux++, serie.getCodigoTreino());
+		prepare.setLong(aux++, codigoFicha);
+		
+		resultado = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return resultado>0;
+
+	}
+
+	@Override
+	public String buscarUltimoTreino() throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String resultado = "";
+		String sql = "select treino.nome as treino from realizacao" +
+				" inner join treino on treino.codigo = codigotreino " +
+				"order by datarealizacao asc  ";
+		
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
+		if(result.next()){
+			resultado = result.getString("treino");
+		}
+		return resultado;	
+	
+	}
+
+	
 
 }

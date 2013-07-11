@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:padding="5dp">
 
     <TabHost
         android:id="@+id/hostrotina"
@@ -42,7 +43,7 @@
 
                         <TextView
                             android:id="@+id/diaSemana"
-                            style="@style/textogrande"
+                            style="@style/textomedio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/label_diasemana" />
@@ -77,11 +78,26 @@
                     </LinearLayout>
                     <!-- Ficha Atual -->
 
+					
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoVertical"
+                        android:layout_weight="100" >
+
+                        <Spinner
+                            android:id="@+id/combo_treinos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/label_treino" 
+                            
+                            />
+                    </LinearLayout>
+                    
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
                         android:layout_weight="50"
                         android:weightSum="100" >
 
+                        
                         <TextView
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
@@ -93,7 +109,7 @@
 
                         <TextView
                             android:id="@+id/nome_ficha_atual"
-                            style="@style/textogrande"
+                            style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
@@ -118,34 +134,15 @@
 
                         <TextView
                             android:id="@+id/ultimo_treino"
-                            style="@style/textogrande"
+                            style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:gravity="left"
                             android:text="" />
                     </LinearLayout>
 
                     <!-- Layout Combo Treino -->
 
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoVertical"
-                        android:layout_weight="100" >
-
-                        <Spinner
-                            android:id="@+id/combo_treinos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:prompt="@string/label_treino" 
-                            
-                            />
-                    </LinearLayout>
-
-                    <!-- Layout Grupo Muscular -->
-
-
-                    <!-- Layou Grupo Muscular Trabalhado -->
-                    <!-- Botão realizar treino -->
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"

@@ -85,9 +85,6 @@ ListView.OnItemLongClickListener{
 			ficha = controle.buscarFichaCodigo(i);
 			if (ficha.getAtual() == 1){
 				editDuracaoFicha.setEnabled(false);
-				Toast.makeText
-					(this,"Ficha Atual : duração não pode ser alterada!",
-						Toast.LENGTH_SHORT).show();
 			}
 		} catch (Exception e) {
 
@@ -376,7 +373,6 @@ ListView.OnItemLongClickListener{
 		String mensagem = "";
 		ControleTreino controle = new ControleTreino();
 		switch (clicked) {
-
 		case DialogInterface.BUTTON_NEGATIVE:
 			createListView(ficha.getTreinos());
 			break;	
@@ -413,7 +409,7 @@ ListView.OnItemLongClickListener{
 				}
 			}
 		
-			controle.buscarTreinoValido(ficha.getCodigo());
+			List<Treino> treinos = controle.buscarTreinoValido(ficha.getCodigo());
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();

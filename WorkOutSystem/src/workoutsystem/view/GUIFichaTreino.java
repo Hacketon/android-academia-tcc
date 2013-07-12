@@ -1,18 +1,14 @@
 package workoutsystem.view;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
-import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleTreino;
-import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
-import workoutsystem.utilitaria.ItemListaHistorico;
 import workoutsystem.utilitaria.Unidade;
 import android.app.AlertDialog;
 import android.app.Dialog;

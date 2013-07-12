@@ -350,9 +350,7 @@ DialogInterface.OnClickListener{
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
 			long id) {
-		ControleFicha controle = new ControleFicha();
-
-		Ficha ficha = new Ficha();
+				Ficha ficha = new Ficha();
 		String s = parent.getItemAtPosition(pos).toString();
 		for (Ficha f : listFicha)
 			if(f.getNome().equalsIgnoreCase(s.trim())){

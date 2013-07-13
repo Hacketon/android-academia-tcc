@@ -159,6 +159,9 @@ public class TreinoDao implements ITreinoDao {
 		if(result.next()){
 			resultado = result.getInt("numero_treino");
 		}
+
+		prepare.close();
+		con.close();
 		return resultado;
 	}
 
@@ -176,6 +179,9 @@ public class TreinoDao implements ITreinoDao {
 		if(result.next()){
 			resultado = result.getInt("numero_serie");
 		}
+
+		prepare.close();
+		con.close();
 		return resultado;
 	}
 
@@ -259,6 +265,9 @@ public class TreinoDao implements ITreinoDao {
 		if(result.next()){
 			resultado = result.getInt("codigo");
 		}
+
+		prepare.close();
+		con.close();
 		return resultado;
 	}
 	@Override
@@ -266,7 +275,7 @@ public class TreinoDao implements ITreinoDao {
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
-		boolean verificar = false;
+		
 		String sql = 
 			"   update serie" +
 			"   set codigoexercicio = ?,codigotreino = ? ,ordem = ? ," +
@@ -378,6 +387,9 @@ public class TreinoDao implements ITreinoDao {
 			treino.setCodigoFicha(result.getInt("treino_codigoficha"));
 			listaTreino.add(treino);
 		}
+
+		prepare.close();
+		con.close();
 		return listaTreino;
 	}
 	
@@ -508,9 +520,8 @@ public class TreinoDao implements ITreinoDao {
 	}
 
 	@Override
-	public String buscarUltimoTreino() throws SQLException {
+	public String buscarUltimoTreinoRealizado() throws SQLException {
 		Connection con = ResourceManager.getConexao();
-		int aux = 1;
 		String resultado = "";
 		String sql = "select treino.nome as treino from realizacao" +
 				" inner join treino on treino.codigo = codigotreino " +
@@ -521,8 +532,25 @@ public class TreinoDao implements ITreinoDao {
 		if(result.next()){
 			resultado = result.getString("treino");
 		}
+
+		prepare.close();
+		con.close();
 		return resultado;	
 	
+	}
+	
+	public long buscarUltimoTreino() throws SQLException{
+		Connection con = ResourceManager.getConexao();
+		long resultado = 0;
+		String sql = "select max(codigo) as codigo from treino";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
+		if(result.next()){
+			resultado = result.getLong("codigo");
+		}
+		prepare.close();
+		con.close();
+		return resultado;	
 	}
 
 	

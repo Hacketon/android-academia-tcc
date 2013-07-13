@@ -227,6 +227,9 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		String sql = "update ficha set ficha_atual = 0 , realizacoes = 0";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.executeUpdate();
+
+		prepare.close();
+		con.close();
 		return true;
 	}
 

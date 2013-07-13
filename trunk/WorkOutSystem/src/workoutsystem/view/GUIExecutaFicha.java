@@ -4,17 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
-import workoutsystem.model.Exercicio;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
-import android.R.color;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -179,7 +177,7 @@ View.OnClickListener{
 
 		case R.id.btn_Confirmar_Especficacao:
 			String mensagem = "";
-			ControleTreino controle = new ControleTreino();
+			ControleSerie controle = new ControleSerie();
 			Double carga = Double.parseDouble(edtCarga.getText().toString());
 
 			mensagem = controle.alterarCarga(carga, especificacao.getCodigo());

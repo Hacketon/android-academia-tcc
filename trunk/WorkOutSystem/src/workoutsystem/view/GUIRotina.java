@@ -8,6 +8,7 @@ import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
+import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
@@ -89,7 +90,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		
 		ITreinoDao dao = new TreinoDao();
 		try {
-			ultimoTreino.setText(dao.buscarUltimoTreino());
+			ultimoTreino.setText(dao.buscarUltimoTreinoRealizado());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,15 +199,16 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	public void criarCombo(Ficha ficha) throws SQLException{
 		listaTreinos = new ArrayList<Treino>();
-		ControleTreino controle = new ControleTreino();
+		ControleTreino controleTreino = new ControleTreino();
+		ControleSerie controleSerie = new ControleSerie();
 		TreinoDao dao = new TreinoDao();
 		List<String> lista = new ArrayList<String>();
-		listaTreinos = dao.listarTreinos(ficha.getCodigo());
+		listaTreinos = controleTreino.listarTreinos(ficha.getCodigo());
 
-		for(Treino t : listaTreinos){
-			t.setSerie(controle.listarSerie(t.getCodigo()));
-			if(t.getSerie().size() != 0) {
-				lista.add(t.getNome());
+		for(Treino te : listaTreinos){
+			te.setSerie(controleSerie.listarSerie(te.getCodigo()));
+			if(te.getSerie().size() != 0) {
+				lista.add(te.getNome());
 			}
 		}
 

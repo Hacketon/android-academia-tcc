@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
+import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.GrupoMuscular;
@@ -91,6 +92,7 @@ DropListener {
 	private void init() {
 		ControleTreino controleTreino 
 		= new ControleTreino();
+		ControleSerie controleSerie = new ControleSerie();
 		ControleExercicio controleExercicio 
 		= new ControleExercicio();
 		dialogEspecificacao = new Dialog(this);
@@ -156,7 +158,7 @@ DropListener {
 			listaExercicioTreino =
 				controleExercicio.
 				listarExercicioTreino(treino.getCodigo());
-			treino.setSerie(controleTreino.listarSerie(treino.getCodigo()));
+			treino.setSerie(controleSerie.listarSerie(treino.getCodigo()));
 			listaRemocaoExercicio = new ArrayList<Exercicio>();
 			criarListViewSerie(treino.getSerie());
 			criarListViewExercicio(listaExercicioTreino, 
@@ -508,7 +510,7 @@ DropListener {
 
 	@Override
 	public void onClick(View v) {
-		ControleTreino controle = new ControleTreino();
+		ControleSerie controle = new ControleSerie();
 		String mensagem = "";
 
 		switch (v.getId()) {
@@ -550,13 +552,13 @@ DropListener {
 
 	
 	private void removerExercicios() {
-		ControleTreino controleTreino = new ControleTreino();
+		ControleSerie controle = new ControleSerie();
 		try {
-			controleTreino.removerSerie(treino.getCodigo(),listaRemocaoExercicio);
+			controle.removerSerie(treino.getCodigo(),listaRemocaoExercicio);
 			listaExercicioTreino.removeAll(listaRemocaoExercicio);
 			listaRemocaoExercicio.clear();	
 			treino.setSerie
-			(controleTreino.listarSerie
+			(controle.listarSerie
 					(treino.getCodigo()));
 			cbxGrupoMuscular.getSelectedItem().toString();
 			criarListViewSerie(treino.getSerie());
@@ -682,7 +684,7 @@ DropListener {
 	private void reordenarLista(Serie serie) {
 		String mensagem ="";
 		int contador = 0;
-		ControleTreino controle = new ControleTreino();
+		ControleSerie controle = new ControleSerie();
 		List<Serie> series = new ArrayList<Serie>();
 		try{
 		if(serie != null){
@@ -712,7 +714,7 @@ DropListener {
 	public void remove(int which) {
 		String item = adapterEspecificacao.getItem(which);
 		String mensagem = "";
-		ControleTreino controle = new ControleTreino();
+		ControleSerie controle = new ControleSerie();
 		Serie esp = getSerie(item);
 		try {
 			mensagem = controle.removerSerie

@@ -81,6 +81,7 @@ ListView.OnItemLongClickListener{
 		dialogTreinos = new Dialog(this);
 		dialogTreinos.setContentView(R.layout.lista_treinos);
 		listaExistente = (ListView) dialogTreinos.findViewById(R.id.lista_treino_existente);
+		btnAdicionar = (Button) dialogTreinos.findViewById(R.id.btn_adicionar_treinos);
 		
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.nome_treino);
@@ -299,32 +300,22 @@ ListView.OnItemLongClickListener{
 			String ntreinos = "";
 			String titulo = "";
 			ControleTreino controle = new ControleTreino();
+			listaAdicao.clear();
 			treinos = controle.buscarTreinoValido(f.getCodigo());
 			List<String> nomeTreinos = new ArrayList<String>();
-			titulo = "Treino disponiveis";
+			titulo = "Treinos validos";
 			dialogTreinos.setTitle(titulo);
-			for(Treino t1 : listaAdicao){
-				for(Treino t : treinos){
-					if(t.getCodigo() == t1.getCodigo()){
-						treinos.remove(t);
-					}
-				}		
-			}
 			for(Treino t : treinos){
 				ntreinos= t.getNome();
 				nomeTreinos.add(ntreinos);
 			}
-			if(treinos.size() != 0){
-				adapterExistente = new ArrayAdapter<String>(this,		
-						R.layout.multiple_choice,
-						nomeTreinos);
-				listaExistente.setAdapter(adapterExistente);
-				listaExistente.setCacheColorHint(Color.TRANSPARENT);
-				dialogTreinos.show();
-			}else{
-				titulo = "Não há treinos disponiveis para a " + f.getNome();
-				Toast.makeText(this, titulo, Toast.LENGTH_LONG).show();
-			}
+			adapterExistente = new ArrayAdapter<String>(this,		
+					R.layout.multiple_choice,
+					nomeTreinos);
+			listaExistente.setAdapter(adapterExistente);
+			listaExistente.setCacheColorHint(Color.TRANSPARENT);
+			dialogTreinos.show();
+		
 			
 		} catch (Exception e) {
 			e.getMessage();
@@ -543,9 +534,10 @@ ListView.OnItemLongClickListener{
 
 	@Override
 	public void onClick(View v) {
+		String mensagem = "";
 		switch (v.getId()) {
 		case R.id.btn_confirmarNome:
-			String mensagem = "";
+			
 			ControleTreino controleTreino = new ControleTreino();
 			ControleFicha controleFicha = new ControleFicha();
 			try {
@@ -560,16 +552,41 @@ ListView.OnItemLongClickListener{
 				mensagem = e.getMessage();
 
 			}
-			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+			
 			break;
 
 		case R.id.btn_cancelarNome:
 			dialog.dismiss();
 			break;
 		
-			
+		case R.id.btn_adicionar_treinos:
+				mensagem = adicionarTreinoExistente();
+				dialogTreinos.dismiss();
+			break;
 		}
+		
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+		}
+		
+	}
 
+
+	private String adicionarTreinoExistente() {
+		ControleTreino controle = new ControleTreino();
+		List<Treino> treinos = new ArrayList<Treino>();
+		String mensagem;
+		try {
+			mensagem = controle.adicionarTreinoExistentes(ficha.getTreinos(),listaAdicao,ficha.getCodigo());
+		    treinos = controle.listarTreinos(ficha.getCodigo());
+		} catch (Exception e) {
+			
+			mensagem = e.getMessage();
+		}
+		
+		createListView(treinos);
+		return mensagem;
+		
 	}
 
 

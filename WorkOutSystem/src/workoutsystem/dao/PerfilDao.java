@@ -214,13 +214,16 @@ public class PerfilDao implements IPerfilDao{
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql = " select count (*) codigodia from frequenciaPerfil where codigoperfil = ?;";
-			PreparedStatement prepared = con.prepareStatement(sql);
-			prepared.setInt(1, perfil.getCodigo());
-			ResultSet result = prepared.executeQuery();
+			PreparedStatement prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			ResultSet result = prepare.executeQuery();
 			
 			while(result.next()){
 				quantidade = result.getInt(1);
 			}
+
+			prepare.close();
+			con.close();
 
 		}catch (SQLException e) {
 			// TODO: handle exception
@@ -241,7 +244,8 @@ public class PerfilDao implements IPerfilDao{
 		if(result.next()){
 			retorno = result.getInt("perfil_max_codigo");
 		}
-				
+		prepare.close();
+		con.close();
 		return retorno;
 	}
 

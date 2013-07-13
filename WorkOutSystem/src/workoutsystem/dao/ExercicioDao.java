@@ -400,6 +400,8 @@ public class ExercicioDao implements IExercicioDao {
 
 			list.add(e);
 		}
+		prepare.close();
+		con.close();
 		return list;
 	}
 

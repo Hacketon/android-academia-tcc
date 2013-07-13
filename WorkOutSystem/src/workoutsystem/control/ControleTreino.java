@@ -1,19 +1,14 @@
 package workoutsystem.control;
 
-import android.annotation.SuppressLint;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import workoutsystem.dao.ExercicioDao;
-import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
-import workoutsystem.model.Exercicio;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
+import android.annotation.SuppressLint;
 
 @SuppressLint("UseSparseArrays")
 public class ControleTreino {
@@ -64,15 +59,7 @@ public class ControleTreino {
 						t.getCodigo())){
 					mensagem = "Nome alterado com sucesso"; 
 				}else{
-					resultado = dao.buscarQuantidadeTreino(t.getCodigoFicha());
-					resultado = resultado + 1;
-					t.setOrdem(resultado);
-					if(dao.inserirTreino(t)){
-						mensagem = "Treino criado com sucesso";
-					}else{
-						mensagem = "Não foi possivel criar o treino";
-						throw new Exception(mensagem);
-					}
+					mensagem = adicionarTreino(t);
 				}
 			}
 		}else{
@@ -84,24 +71,22 @@ public class ControleTreino {
 	}
 
 
-
-	public List<Serie> listarSerie(long codigoTreino) 
-	throws SQLException{
+	private String adicionarTreino(Treino t)throws Exception {
+		String mensagem;
 		ITreinoDao dao = new TreinoDao();
-		List<Serie> esp = dao.listarSerie(codigoTreino);
-		return esp;
-	}
-
-
-
-	public void removerSerie(long codigoTreino,List<Exercicio> exercicio) 
-	throws Exception {
-		ITreinoDao dao = new TreinoDao();
-		for(Exercicio e : exercicio){
-			dao.removerSerie(codigoTreino,e.getCodigo());
+		int resultado;
+		resultado = dao.buscarQuantidadeTreino(t.getCodigoFicha());
+		resultado = resultado + 1;
+		t.setOrdem(resultado);
+		if(dao.inserirTreino(t)){
+			mensagem = "Treino criado com sucesso";
+		}else{
+			mensagem = "Não foi possivel criar o treino";
+			throw new Exception(mensagem);
 		}
-
+		return mensagem;
 	}
+
 
 
 
@@ -120,131 +105,7 @@ public class ControleTreino {
 
 	}
 
-	public String adicionarSerie(List<Serie> lista) throws Exception{
-		ITreinoDao dao = new TreinoDao();
-		boolean resultado = false;
-		int quantidade = 0;
-		String mensagem = "Series adicionadas com sucesso";
-		String erro = "";
-		for(Serie esp : lista){
-			Validadora<Serie> val = new Validadora<Serie>(esp);
-			erro = val.getMessage();
-			if(erro.equalsIgnoreCase("")){
-				quantidade= dao.buscarQuantidadeSerie(esp.getCodigoTreino());
-				quantidade = quantidade + 1;
-				esp.setOrdem(quantidade);
-				resultado = dao.inserirSerie(esp);
-				if(!resultado){
-					erro = "Erro ao adicionar series";
-					throw new Exception(mensagem);
-				}
-			}else{
-				throw new Exception(erro);
-			}
-		}
 
-
-		return  mensagem;
-	}
-
-
-	public String removerSerieCodigo(int codigo) throws Exception{
-		ITreinoDao dao = new TreinoDao();
-		String mensagem = "Não foi possivel realizar a remoção"; 
-
-		try{
-			boolean resultado = dao.excluirSerieCodigo(codigo);
-
-			if(resultado){
-				mensagem= "Serie removida com sucesso";
-			}
-
-		}catch (Exception e) {
-			throw new Exception(mensagem);
-		}
-
-		return mensagem;
-
-
-	}
-	
-	
-	public String removerSerie(int ordem,int treino) throws Exception {
-		ITreinoDao dao = new TreinoDao();
-		String mensagem = "Não foi possivel realizar a remoção"; 
-
-		try{
-			int codigo = dao.buscarSerie(ordem, treino);
-			boolean resultado = dao.excluirSerieCodigo(codigo);
-
-			if(resultado){
-				mensagem= "Serie removida com sucesso";
-			}
-
-		}catch (Exception e) {
-			throw new Exception(mensagem);
-		}
-
-		return mensagem;
-
-	}
-
-
-	public String atualizarSerie(Serie serie) throws Exception {
-		boolean resultado = false;
-		String mensagem = "Serie alterada com sucesso";
-		ITreinoDao dao = new TreinoDao();
-		Validadora<Serie> val = new Validadora<Serie>(serie);
-		String erro = val.getMessage();
-		if(erro.equalsIgnoreCase("")){
-			resultado = dao.atualizarSerie(serie);
-		}else{
-			throw new Exception(erro);
-		}
-
-		if(!resultado){
-			mensagem = "Erro ao alterar a serie";
-			throw new Exception(mensagem);
-		}
-
-
-		return  mensagem;
-
-	} 
-
-
-	public String manipularSerie(List<Serie> esp) throws Exception {
-		String mensagem = "O numero minimo de series é 1";
-		if(esp.size()<=0){
-			throw new Exception(mensagem);
-		}else{
-			if(esp.get(0).getOrdem() == 0){
-				mensagem = adicionarSerie(esp);
-			}else{
-				mensagem = atualizarSerie(esp.get(0));
-			}
-
-		}
-		return mensagem;
-	}
-
-	public boolean reordenarSerie(List<Serie> series) throws Exception{
-		int novo = 1;
-		ITreinoDao dao = new TreinoDao();
-		boolean retorno = true;
-		String erro = "Não foi possivel reordenar a ficha!";
-
-		for(Serie antigo : series){
-			retorno = dao.reordenarSerie(novo,antigo.getCodigo());
-			novo = novo + 1;
-			if(!retorno){
-				throw new Exception(erro);
-			}
-
-		}
-		return retorno;
-
-	}
 
 	public List<Treino> buscarTreinoValido(long codigoFicha) throws Exception{
 		ITreinoDao dao = new TreinoDao();
@@ -256,22 +117,53 @@ public class ControleTreino {
 		return treinos;
 	}
 
-	public String alterarCarga(Double carga, int codigo){
-		String mensagem = "";
-		TreinoDao dao = new TreinoDao();
 
-		try {
-			if(dao.alterarCarga(carga, codigo)){
-				mensagem = "Alterado com sucesso";
-			}else{
-				mensagem = "Erro ao alterar";
+	public List<Treino> listarTreinos(long codigoFicha) throws SQLException {
+		ITreinoDao dao = new TreinoDao();
+		return dao.listarTreinos(codigoFicha);
+	}
+
+
+	public String adicionarTreinoExistentes(List<Treino> treinos,
+			List<Treino> listaAdicao,long codigoficha) throws Exception {
+		String mensagem = "Treinos adicionados! ";
+		TreinoDao dao = new TreinoDao();
+		ControleSerie controle = new ControleSerie();
+		long contador = 1;
+		boolean conflito = false;
+		String nnome = "t";
+		int i = 0;
+		for(Treino t : listaAdicao){
+			t.setNome(Validadora.verificarString(t.getNome()));
+			for(i = 0 ; i<treinos.size();i++){
+				Treino t1 = treinos.get(i);
+				t.setCodigoFicha(t1.getCodigoFicha());
+				if(t.getNome().equalsIgnoreCase(t1.getNome())){
+					contador = Math.round(Math.random()*100);
+					nnome+=contador;
+					conflito = true;
+					t.setNome(nnome);
+					nnome = "t";
+					i = 0;
+				}
 			}
+		}
 		
-		} catch (SQLException e) {
-			e.printStackTrace();
+		
+		for(Treino t:listaAdicao){
+			adicionarTreino(t);
+			long codigo = dao.buscarUltimoTreino();
+			List<Serie> series = controle.listarSerie(t.getCodigo());
+			for(Serie s : series){
+				s.setCodigoTreino(codigo);
+			}
+			controle.adicionarSerie(series);
+		}
+		if(conflito){
+			mensagem += " : alguns treinos foram renomeados devido a conflito";
 		}
 		
 		return mensagem;
 	}
-
+	
 }

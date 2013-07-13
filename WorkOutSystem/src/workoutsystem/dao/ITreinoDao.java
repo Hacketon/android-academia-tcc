@@ -184,6 +184,6 @@ public interface ITreinoDao {
 	
 	public abstract boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException;
 	
-	public abstract String buscarUltimoTreino() throws SQLException;
+	public abstract String buscarUltimoTreinoRealizado() throws SQLException;
 
 }

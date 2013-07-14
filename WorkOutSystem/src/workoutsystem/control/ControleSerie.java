@@ -3,7 +3,8 @@ package workoutsystem.control;
 import java.sql.SQLException;
 import java.util.List;
 
-import workoutsystem.dao.ITreinoDao;
+import workoutsystem.dao.ISerieDao;
+import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Serie;
@@ -13,7 +14,7 @@ public class ControleSerie {
 
 	public List<Serie> listarSerie(long codigoTreino) 
 	throws SQLException{
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		List<Serie> esp = dao.listarSerie(codigoTreino);
 		return esp;
 	}
@@ -22,7 +23,7 @@ public class ControleSerie {
 
 	public void removerSerie(long codigoTreino,List<Exercicio> exercicio) 
 	throws Exception {
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		for(Exercicio e : exercicio){
 			dao.removerSerie(codigoTreino,e.getCodigo());
 		}
@@ -31,7 +32,7 @@ public class ControleSerie {
 	
 	public String alterarCarga(Double carga, int codigo){
 		String mensagem = "";
-		TreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 
 		try {
 			if(dao.alterarCarga(carga, codigo)){
@@ -53,7 +54,7 @@ public class ControleSerie {
 	public String atualizarSerie(Serie serie) throws Exception {
 		boolean resultado = false;
 		String mensagem = "Serie alterada com sucesso";
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		Validadora<Serie> val = new Validadora<Serie>(serie);
 		String erro = val.getMessage();
 		if(erro.equalsIgnoreCase("")){
@@ -90,7 +91,7 @@ public class ControleSerie {
 	
 	public boolean reordenarSerie(List<Serie> series) throws Exception{
 		int novo = 1;
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		boolean retorno = true;
 		String erro = "Não foi possivel reordenar a ficha!";
 
@@ -107,7 +108,7 @@ public class ControleSerie {
 	}
 	
 	public String adicionarSerie(List<Serie> lista) throws Exception{
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		boolean resultado = false;
 		int quantidade = 0;
 		String mensagem = "Series adicionadas com sucesso";
@@ -134,7 +135,7 @@ public class ControleSerie {
 	}
 	
 	public String removerSerieCodigo(int codigo) throws Exception{
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 
 		try{
@@ -155,7 +156,7 @@ public class ControleSerie {
 	
 	
 	public String removerSerie(int ordem,int treino) throws Exception {
-		ITreinoDao dao = new TreinoDao();
+		ISerieDao dao = new SerieDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 
 		try{
@@ -172,6 +173,41 @@ public class ControleSerie {
 
 		return mensagem;
 
+	}
+
+
+
+	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {
+		ISerieDao dao = new SerieDao();
+		boolean retorno = dao.inserirRealizacao(serie, codigoFicha);
+		return retorno;
+	}
+
+
+
+	public boolean removerRealizacaoSerie(Serie serie) throws SQLException {
+		ISerieDao dao = new SerieDao();
+		boolean retorno = dao.removerRealizacaoSerie(serie);
+		return retorno;
+		
+	}
+
+
+
+	public List<Serie> listarRealizacaoSerie() throws SQLException {
+		ISerieDao dao = new SerieDao();
+		List<Serie> retorno = dao.listarRealizacaoSerie();
+		return retorno;
+		
+	}
+
+
+
+	public boolean inserirRealizacaoSerie(Serie serie) throws SQLException {
+		ISerieDao dao = new SerieDao();
+		boolean retorno = dao.inserirRealizacaoSerie(serie);
+		return retorno;
+		
 	}
 	
 }

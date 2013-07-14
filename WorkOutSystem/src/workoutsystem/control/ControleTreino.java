@@ -3,7 +3,9 @@ package workoutsystem.control;
 import java.sql.SQLException;
 import java.util.List;
 
+import workoutsystem.dao.ISerieDao;
 import workoutsystem.dao.ITreinoDao;
+import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
@@ -92,9 +94,10 @@ public class ControleTreino {
 
 	public String removerTreino(long codigoTreino, long codigoFicha) throws Exception  {
 		ITreinoDao dao = new TreinoDao();
+		ISerieDao daoSerie = new SerieDao();
 		String mensagem = "";
 
-		dao.excluirSerieTreino(codigoTreino);
+		daoSerie.excluirSerieTreino(codigoTreino);
 		if(dao.excluirTreino(codigoTreino,codigoFicha)){
 			mensagem = "Treino excluido com sucesso";
 		}else{

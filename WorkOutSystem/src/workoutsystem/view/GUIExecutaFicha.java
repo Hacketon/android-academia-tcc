@@ -61,16 +61,13 @@ View.OnClickListener{
 
 		//refatorar para controle serie
 		ITreinoDao dao = new TreinoDao();
-
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-
 		ControleTreino controleTreino = new ControleTreino();
-
-
+		ControleSerie controleSerie = new ControleSerie();
 		//refatorar para controleSerie
 
 		try {
-			seriesTreino = dao.listarRealizacaoSerie();
+			seriesTreino = controleSerie.listarRealizacaoSerie();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,13 +77,13 @@ View.OnClickListener{
 			
 			for(Serie s: treino.getSerie()){
 				try {
-					dao.inserirRealizacaoSerie(s);
+					controleSerie.inserirRealizacaoSerie(s);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 			try {
-				seriesTreino = dao.listarRealizacaoSerie();
+				seriesTreino = controleSerie.listarRealizacaoSerie();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -279,13 +276,14 @@ View.OnClickListener{
 
 		//refatorar treino serie
 		ITreinoDao dao = new TreinoDao();
+		ControleSerie controleSerie = new ControleSerie();
 
 		for(Serie s : seriesRealizadas){
-			dao.removerRealizacaoSerie(s);
-			dao.inserirRealizacao(s, treino.getCodigoFicha());
+			controleSerie.removerRealizacaoSerie(s);
+			controleSerie.inserirRealizacao(s, treino.getCodigoFicha());
 		}
 
-		seriesTreino = dao.listarRealizacaoSerie();	
+		seriesTreino = controleSerie.listarRealizacaoSerie();	
 
 		init();
 

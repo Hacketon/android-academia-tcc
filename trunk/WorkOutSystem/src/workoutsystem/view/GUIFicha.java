@@ -225,35 +225,14 @@ DialogInterface.OnClickListener{
 
 
 	private void iniciarFichaManipular(Ficha f) {
-		Intent i = new Intent(this,GUIFichaManipular.class);
+		Intent i = new Intent(this,GUIFichaTreino.class);
 		i.putExtra("ficha", f.getCodigo());
 		startActivity(i);
 
 	}
 
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
-		CheckedTextView c = (CheckedTextView) view;
-		boolean selecionado = c.isChecked();
-		String nome = parent.getItemAtPosition(pos).toString();
-		Ficha ficha = new Ficha();
-
-		for(Ficha f : listFicha){
-			if(f.getNome().equalsIgnoreCase(nome)){
-				ficha = f; 
-				break;
-			}
-		}
-		if (!listaRemocao.contains(ficha)
-				&& !selecionado){
-			listaRemocao.add(ficha);
-		}else{
-			listaRemocao.remove(ficha);
-		}
-
-
-	}
+	
 
 	public void onClick(DialogInterface dialog, int clicked) {
 		String mensagem = "";
@@ -346,11 +325,10 @@ DialogInterface.OnClickListener{
 
 
 	}
-
+	
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
-			long id) {
-				Ficha ficha = new Ficha();
+	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
+		Ficha ficha = new Ficha();
 		String s = parent.getItemAtPosition(pos).toString();
 		for (Ficha f : listFicha)
 			if(f.getNome().equalsIgnoreCase(s.trim())){
@@ -358,7 +336,32 @@ DialogInterface.OnClickListener{
 				break;
 			}
 		iniciarFichaManipular(ficha);
+
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+			long id) {
+		
+		CheckedTextView c = (CheckedTextView) view;
+		boolean selecionado = c.isChecked();
+		String nome = parent.getItemAtPosition(pos).toString();
+		Ficha ficha = new Ficha();
+
+		for(Ficha f : listFicha){
+			if(f.getNome().equalsIgnoreCase(nome)){
+				ficha = f; 
+				break;
+			}
+		}
+		if (!listaRemocao.contains(ficha)
+				&& !selecionado){
+			listaRemocao.add(ficha);
+		}else{
+			listaRemocao.remove(ficha);
+		}
 		return false;
+		
 	}
 
 	@Override

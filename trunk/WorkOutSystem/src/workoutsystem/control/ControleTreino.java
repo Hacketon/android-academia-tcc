@@ -126,32 +126,31 @@ public class ControleTreino {
 		return dao.listarTreinos(codigoFicha);
 	}
 
-
+	
+	
+	
 	public String adicionarTreinoExistentes(List<Treino> treinos,
 			List<Treino> listaAdicao,long codigoficha) throws Exception {
-		String mensagem = "Treinos adicionados! ";
+		String comparacao = "";
+		String comparar = "";
+		String mensagem = "Treinos adicionados! \n";
 		TreinoDao dao = new TreinoDao();
 		ControleSerie controle = new ControleSerie();
-		long contador = 1;
-		boolean conflito = false;
-		String nnome = "t";
-		int i = 0;
-		for(Treino t : listaAdicao){
-			t.setNome(Validadora.verificarString(t.getNome()));
-			for(i = 0 ; i<treinos.size();i++){
-				Treino t1 = treinos.get(i);
-				t.setCodigoFicha(t1.getCodigoFicha());
-				if(t.getNome().equalsIgnoreCase(t1.getNome())){
-					contador = Math.round(Math.random()*100);
-					nnome+=contador;
-					conflito = true;
-					t.setNome(nnome);
-					nnome = "t";
-					i = 0;
-				}
-			}
+		
+		for(Treino t: treinos){
+			comparacao+=t.getNome()+";";
 		}
 		
+		for(Treino t1 : listaAdicao){
+			t1.setCodigoFicha(codigoficha);
+			comparar = t1.getNome();
+			comparar = Validadora.compararNome(comparacao, comparar);
+			if(!comparar.equalsIgnoreCase(t1.getNome())){
+				mensagem += t1.getNome() + " => " + comparar +"\n";
+			}
+			t1.setNome(comparar);
+			comparacao += comparar+";";
+		}
 		
 		for(Treino t:listaAdicao){
 			adicionarTreino(t);
@@ -162,11 +161,8 @@ public class ControleTreino {
 			}
 			controle.adicionarSerie(series);
 		}
-		if(conflito){
-			mensagem += " : alguns treinos foram renomeados devido a conflito";
-		}
 		
 		return mensagem;
 	}
-	
+
 }

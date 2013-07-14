@@ -1,20 +1,20 @@
 package workoutsystem.view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import workoutsystem.control.ControleExercicio;
-import workoutsystem.control.ControleSerie;
+import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleTreino;
-import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
-import workoutsystem.model.Serie;
+import workoutsystem.model.Ficha;
 import workoutsystem.model.Treino;
-import workoutsystem.utilitaria.Unidade;
+import workoutsystem.utilitaria.Objetivo;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +26,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -38,726 +37,351 @@ import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.DragSortListView.DropListener;
 import com.mobeta.android.dslv.DragSortListView.RemoveListener;
 
-public class GUIFichaTreino 
-extends ListActivity
-implements
-AdapterView.OnItemSelectedListener,
-ListView.OnItemClickListener,
-ListView.OnItemLongClickListener,
-View.OnClickListener,
-DialogInterface.OnClickListener,
+public class GUIFichaTreino extends ListActivity 
+implements 
 RemoveListener,
-DropListener {
+DropListener,
+View.OnClickListener,
+ListView.OnItemClickListener,
+DialogInterface.OnClickListener,
+ListView.OnItemLongClickListener{
 
-	private TabHost host;
-	private TabSpec tabEspecificacao;
-	private TabSpec  tabExercicio;
-	private TabSpec tabTreino;
-	private Treino treino ; 
-	private ListView listaBusca;
-	private ListView listaExercicio;
-	private Spinner cbxGrupoMuscular;
-	private Spinner cbxGrupo;
-	private Dialog dialogEspecificacao;
-	private Spinner cbxUnidade;
-	private EditText edtSeries;
-	private EditText edtRepeticao;
-	private List<Exercicio> listaExercicioBusca;
-	private Dialog dialogNovoExercicio;
-	private TextView txtCodExercicio;
-	private TextView txtCodigoExercicio;
-	private EditText editDescricaoExercicio;
-	private TextView txtOrdem;
-	private EditText editNomeExercicio;
-	private Button btnCancelarExercicio;
-	private Button btnSalvarExercicio;
-	private Button btnConfirmar;
+	private TabHost hostfichatreino;
+	private TabSpec spectreino;
+	private Dialog dialog;
+	private TabSpec specficha;
+	private EditText editNomeFicha;
+	private EditText editNomeTreino;
+	private EditText editDuracaoFicha;
+	private Spinner cbxObjetivo;
+	private List<String> listaObjetivo; 
+	private ArrayAdapter<String> adapterTreino;
+	private DragSortListView listTreinos;
+	private String item;
+	private int qual;
+	private Ficha ficha;
 	private Button btnCancelar;
-	private DragSortListView listaEspecificacao; 
-	private List<Exercicio> listaExercicioTreino;
-	private ArrayAdapter<String> adapterEspecificacao;
-	private List<Exercicio> listaRemocaoExercicio;
-	private ArrayList<GrupoMuscular> grupos;
-	private EditText edtCarga;
+	private Button btnSalvar;
+	private Button btnAdicionar;
+	private TextView txtCodigoTreino;
+	private String[] fichas;
+	private List<Ficha> listaFichaExistente;
+	private Dialog dialogTreinos;
+	private ListView listaExistente;
+	private ArrayAdapter<String> adapterExistente;
+	private List<Treino> listaAdicao;
+	private List<Treino> treinos;
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fichatreino);
-		init();
-		criarTabs();
-		criarComboGrupo();
-		criarComboUnidade();
-	}
-
-	private void init() {
-		ControleTreino controleTreino 
-		= new ControleTreino();
-		ControleSerie controleSerie = new ControleSerie();
-		ControleExercicio controleExercicio 
-		= new ControleExercicio();
-		dialogEspecificacao = new Dialog(this);
-		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
-
-
-		cbxUnidade = (Spinner) dialogEspecificacao.
-		findViewById(R.id.cbx_Unidade);
-		btnConfirmar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_Confirmar_Especficacao);
-		btnCancelar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_cancelar_especficacao);
-
-		edtSeries = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_series);
-		edtRepeticao = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_repeticao);
-		edtCarga = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_carga);
-		txtCodigoExercicio = (TextView) dialogEspecificacao.
-		findViewById(R.id.txt_codigoExercicioEspecificacao);
-		txtOrdem = (TextView) dialogEspecificacao.
-		findViewById(R.id.txt_ordem);
-
-		dialogNovoExercicio = new Dialog(this);
-		dialogNovoExercicio.setContentView(R.layout.criarexercicio);
-
-		txtCodExercicio = (TextView)
-		dialogNovoExercicio.findViewById(R.id.codigo_exercicio);
-		cbxGrupo= (Spinner) 
-		dialogNovoExercicio.findViewById(R.id.cbx_grupo);
-		editDescricaoExercicio = (EditText) 
-		dialogNovoExercicio.findViewById(R.id.edt_descricaoExercicio);
-		editNomeExercicio = (EditText)
-		dialogNovoExercicio.findViewById(R.id.edt_nomeExercicio);
-
-		btnCancelarExercicio = (Button) 
-		dialogNovoExercicio.findViewById(R.id.btn_voltar);
-
-		btnSalvarExercicio = (Button)
-		dialogNovoExercicio.findViewById(R.id.btn_criar);
-
-		cbxGrupoMuscular = (Spinner) findViewById(R.id.cbx_buscaexercicio);
-		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-		listaBusca = (ListView) findViewById(R.id.list_busca);
-		listaExercicio = (ListView) findViewById(R.id.list_exercicio);
-		listaEspecificacao = getListView();
-
-
-		listaExercicio.setOnItemLongClickListener(this);
-		listaBusca.setOnItemLongClickListener(this);
-
-		listaExercicio.setOnItemClickListener(this);
-
-		cbxGrupoMuscular.setOnItemSelectedListener(this);		
-		cbxUnidade.setOnItemSelectedListener(this);
-
-		btnCancelar.setOnClickListener(this);
-		btnConfirmar.setOnClickListener(this);
-		btnCancelarExercicio.setOnClickListener(this);
-		btnSalvarExercicio.setOnClickListener(this);
+		setContentView(R.layout.fichamanipular);
+		criarTab();
+		dialogTreinos = new Dialog(this);
+		dialogTreinos.setContentView(R.layout.lista_treinos);
+		listaExistente = (ListView) dialogTreinos.findViewById(R.id.lista_treino_existente);
+		btnAdicionar = (Button) dialogTreinos.findViewById(R.id.btn_adicionar_treinos);
+		
+		dialog = new Dialog(this);
+		dialog.setContentView(R.layout.nome_treino);
+		editNomeTreino = (EditText) dialog.findViewById(R.id.txt_NomeTreino);
+		txtCodigoTreino = (TextView) dialog.findViewById(R.id.txt_codigoTreino);
+		btnCancelar = (Button) dialog.findViewById(R.id.btn_cancelarNome);
+		btnSalvar = (Button) dialog.findViewById(R.id.btn_confirmarNome);
+		editNomeFicha = (EditText) findViewById(R.id.edt_nomeFicha);
+		editDuracaoFicha = (EditText) findViewById(R.id.edt_duracaodias);
+		cbxObjetivo = (Spinner) findViewById(R.id.cbx_fichaObjetivo);
+		criarCombo();
+		long i  = (Long) getIntent().getExtras().getSerializable("ficha");
+		ControleFicha controle = new ControleFicha();
 		try {
-			listaExercicioTreino =
-				controleExercicio.
-				listarExercicioTreino(treino.getCodigo());
-			treino.setSerie(controleSerie.listarSerie(treino.getCodigo()));
-			listaRemocaoExercicio = new ArrayList<Exercicio>();
-			criarListViewSerie(treino.getSerie());
-			criarListViewExercicio(listaExercicioTreino, 
-					listaExercicio,
-					R.layout.multiple_choice);
-			listaExercicio.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+			ficha = controle.buscarFichaCodigo(i);
+			if (ficha.getAtual() == 1){
+				editDuracaoFicha.setEnabled(false);
+			}
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
+		
+		btnCancelar.setOnClickListener(this);
+		btnSalvar.setOnClickListener(this);
+		btnAdicionar.setOnClickListener(this);
+		listaAdicao = new ArrayList<Treino>();
+		
+		listTreinos = getListView(); 
+
+		preencherFicha(ficha);
+
+		listTreinos.setOnItemClickListener(this);
+		listTreinos.setOnItemLongClickListener(this);
+		listaExistente.setOnItemClickListener(this);
 	}
+
 
 	@Override
 	public DragSortListView getListView() {
 		return (DragSortListView) super.getListView(); 
 
-	}
+	} 
 
-	private void criarComboGrupo() {
 
-		ArrayList<String> listaGrupos = new ArrayList<String>();
-		ControleExercicio controle = new ControleExercicio();
-		grupos = 
-			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
 
-		for (GrupoMuscular grupo : grupos){
-			listaGrupos.add(grupo.getNome());
+	private void criarCombo(){
+		listaObjetivo = new ArrayList<String>();
+
+		for (Objetivo s : Objetivo.values()){
+			listaObjetivo.add(s.getObjetivo());
 		}
 
 		ArrayAdapter<String> adapter =
 			new ArrayAdapter<String>
-		(this,android.R.layout.simple_spinner_item,listaGrupos);
+		(this,android.R.layout.simple_spinner_item,listaObjetivo);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+		cbxObjetivo.setAdapter(adapter);
+	} 
 
-		adapter.
-		setDropDownViewResource
-		(android.R.layout.simple_list_item_multiple_choice);
 
-		cbxGrupoMuscular.setAdapter(adapter);
-		cbxGrupo.setAdapter(adapter);
+	public void criarTab(){
+		hostfichatreino = (TabHost) findViewById(R.id.hostfichatreino);
+		hostfichatreino.setup();
 
+		specficha = hostfichatreino.newTabSpec("tabfichas");
+		specficha.setContent(R.id.tabfichas);
+		specficha.setIndicator("Ficha");
+		hostfichatreino.addTab(specficha);
+
+		spectreino = hostfichatreino.newTabSpec("tabfichatreinos");
+		spectreino.setContent(R.id.tabfichatreinos);
+		spectreino.setIndicator("Treinos");
+		hostfichatreino.addTab(spectreino);
 	}
 
-	private void criarComboUnidade() {
-		List<String> listaUnidade = new ArrayList<String>();
+	private void preencherFicha(Ficha f ){
+		if (f.getCodigo() != 0){
+			editNomeFicha.setText(f.getNome());
+			editDuracaoFicha.setText(String.valueOf(f.getDuracao()));
+			int pos = 0 ;
 
-		ControleExercicio controle = new ControleExercicio();
+			createListView(f.getTreinos());
+			for (String s : listaObjetivo){
+				if (s.trim().equalsIgnoreCase(f.getObjetivo().trim())){
+					cbxObjetivo.setSelection(pos);
+					break;
+				}
+				pos++;
+			}
 
-		for (Unidade unidade : Unidade.values()){
-			listaUnidade.add(unidade.getUnidade());
+		}else{
+
+			createListView(new ArrayList<Treino>());
 		}
 
-		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>
-		(this,android.R.layout.simple_spinner_item,listaUnidade);
-
-		adapter.
-		setDropDownViewResource
-		(android.R.layout.simple_list_item_multiple_choice);
-
-		cbxUnidade.setAdapter(adapter);
-
 	}
 
-	private void criarListViewSerie(List<Serie> lista) {
+
+	private void createListView(List<Treino> treinos) {
 		List<String> nomeTreinos = new ArrayList<String>();
-		for (Serie t : lista){
-			String item =  t.getOrdem() + "-" +
-			t.getExercicio().getNome()+"\n" +
-			"Quantidade : " + t.getQuantidade() + "\n" +
-			"Unidade : " + t.getUnidade() +"\n" + 
-			"Carga : " + t.getCarga();
 
-
-			nomeTreinos.add(item);
+		for (Treino t : treinos){
+			nomeTreinos.add(t.getNome());
 		}
 
-		adapterEspecificacao = new ArrayAdapter<String>(this,
+		adapterTreino = new ArrayAdapter<String>(this,
 				R.layout.list_item_checkable,
 				R.id.text,
 				nomeTreinos);
 
-		listaEspecificacao.setAdapter(adapterEspecificacao);
-		listaEspecificacao.setRemoveListener(this);
-		listaEspecificacao.setOnItemLongClickListener(this);
-		listaEspecificacao.setDropListener(this);
-		listaEspecificacao.setCacheColorHint(Color.TRANSPARENT);
+
+		listTreinos.setAdapter(adapterTreino);
+		listTreinos.setRemoveListener(this);
+		listTreinos.setDropListener(this);
+		listTreinos.setCacheColorHint(Color.TRANSPARENT);
 	}
 
+	private Ficha criarFicha() throws Exception{
+		
+			ficha.setNome(editNomeFicha.getText().toString());
+			if(editDuracaoFicha.getText().toString().
+					equalsIgnoreCase("")){
+				String mensagem = "Duração é obrigatoria!";
+				throw new Exception(mensagem);
+			}
+			ficha.setDuracao(Integer.parseInt
+					((editDuracaoFicha.getText().toString())));
+			ficha.setObjetivo(cbxObjetivo.getSelectedItem().toString());
 
-	private void criarListViewExercicio(
-			List<Exercicio> listaExercicio,
-			ListView lista,
-			int layout){
-		List<String> nomes = new ArrayList<String>();
-		for(Exercicio e : listaExercicio){
-			nomes.add(e.getNome());
-		}
-		ListAdapter adapter = 
-			new ArrayAdapter<String>(this,
-					layout,nomes);
-
-		lista.setCacheColorHint(Color.TRANSPARENT);
-		lista.setAdapter(adapter);
-		lista.setOnItemLongClickListener(this);
+		
+		return ficha;
 	}
 
-
-
-	private void criarTabs() {
-		host = (TabHost) findViewById(R.id.host_treino);
-		host.setup();
-
-		tabTreino = host.newTabSpec("tab_treino");
-		tabTreino.setContent(R.id.tab_treino);
-		tabTreino.setIndicator("Busca");
-		host.addTab(tabTreino);
-
-		tabExercicio = host.newTabSpec("tab_exercicio_treino");
-		tabExercicio.setContent(R.id.tab_exercicio_treino);
-		tabExercicio.setIndicator("Exercicios");
-		host.addTab(tabExercicio);
-
-		tabEspecificacao = host.newTabSpec("tab_especificacao");
-		tabEspecificacao.setContent(R.id.tab_especificacao);
-		tabEspecificacao.setIndicator("Series");
-		host.addTab(tabEspecificacao);
-	}
-
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_treino_ficha, menu);
+		inflater.inflate(R.menu.menu_manipular_ficha, menu);
 		return true;
 
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		super.onOptionsItemSelected(item);
-		switch (item.getItemId()) {
-		case R.id.criar_Exercicio:
-			criarCaixaDialogoExercicio("Novo Exercicio");
-			break;
-		case R.id.remover_exercicio_ficha:
-			construirCaixa();
-		break;
-		}
-		return true;
-	}
-
-	private void criarCaixaDialogoExercicio(String titulo) {
-		dialogNovoExercicio.setTitle(titulo);
-		txtCodExercicio.setText("");
-		editDescricaoExercicio.setText("");
-		editNomeExercicio.setText("");
-		txtCodExercicio.setText("");
-		editNomeExercicio.requestFocus();
-		dialogNovoExercicio.show();
-	}
-
-	private void criarCaixaDialogoEspecificacao(String titulo,
-			long codigo) {
-		dialogEspecificacao.setTitle(titulo);
-		edtRepeticao.setText("");
-		edtSeries.setText("");
-		edtSeries.setEnabled(true);
-		txtCodigoExercicio.setText(String.valueOf(codigo));
-		ArrayList<String> list = new ArrayList<String>();
-		for (Unidade u : Unidade.values()){
-			list.add(u.getUnidade());
-		}
-		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-		cbxUnidade.setAdapter(adapter);
-		txtOrdem.setText("");
-		dialogEspecificacao.show();
-	}
-
-
-	private void criarCaixaDialogoEspecificacao(Serie esp) {
-		int aux = 0;
-		int posicao = 0;
-		dialogEspecificacao.setTitle(esp.getExercicio().getNome());
-		edtRepeticao.setText(String.valueOf(esp.getQuantidade()));
-		edtSeries.setText ("1");
-		edtSeries.setEnabled(false);
-		txtCodigoExercicio.setText(String.valueOf(esp.getExercicio().getCodigo()));
-
-		ArrayList<String> list = new ArrayList<String>();
-		for (Unidade u : Unidade.values()){
-			list.add(u.getUnidade());
-			if (u.getUnidade().equalsIgnoreCase(esp.getUnidade())){
-				posicao = aux;
-			}
-			aux++;
-		}
-
-		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-		cbxUnidade.setAdapter(adapter);
-		cbxUnidade.setSelection(posicao);
-		txtOrdem.setText(String.valueOf(esp.getOrdem()));
-		dialogEspecificacao.show();
-	}
-
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,
-			long id) {
-
-		if(parent.getId() == R.id.cbx_buscaexercicio){
-			String grupo = parent.getItemAtPosition(pos).toString();
-			listarBusca(grupo);
-		}
-
-	}
-
-	private void listarBusca(String grupo) {
-		ControleExercicio controle = new ControleExercicio();
-		GrupoMuscular grupoMuscular = new GrupoMuscular();
-		try {
-			for (GrupoMuscular g : grupos){
-				if(g.getNome().equalsIgnoreCase(grupo)){
-					grupoMuscular = g;
-					break;
-				}
-			}
-
-			listaExercicioBusca = 
-				controle.listarExercicioDisponiveis
-				(treino.getCodigo(), 
-						grupoMuscular.getCodigo());
-
-			for(Exercicio e1 : listaExercicioTreino){
-				for(Exercicio e: listaExercicioBusca){
-					if(e1.getCodigo()==(e.getCodigo())){
-						listaExercicioBusca.remove(e);
-						break;
-					}
-
-				}
-
-			}
-
-			criarListViewExercicio(listaExercicioBusca,
-					listaBusca,
-					R.layout.itens_simple_lista);
-		}
-		catch (Exception e) {
-			String mensagem = e.getMessage();
-			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-
-		}
-	}
-
-	private Exercicio criarExercicio(){
-		Exercicio exercicio = new Exercicio();
-		GrupoMuscular grupo = new GrupoMuscular();
-
-		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
-			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
-		}
-
-		exercicio.setNome(editNomeExercicio.getText().toString());
-		grupo.setNome(cbxGrupo.getSelectedItem().toString());
-		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
-		exercicio.setGrupoMuscular(grupo);
-
-		return exercicio;
-	}
-
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-
-		/*
-		 * este metodo o obtem o estado anterior da seleção , ou seja , 
-		 *  se estiver a caixa marcada então o estado anterior é false  
-		 */
-		CheckedTextView c = (CheckedTextView) view;
-		boolean selecionado = c.isChecked();
-		String nome = parent.getItemAtPosition(pos).toString();
-		Exercicio exercicio = new Exercicio();
-
-		for(Exercicio e : listaExercicioTreino){
-			if(e.getNome().equalsIgnoreCase(nome)){
-				exercicio = e; 
-				break;
-			}
-		}
-
-		if (!listaRemocaoExercicio.contains(exercicio)
-				&& !selecionado){
-			listaRemocaoExercicio.add(exercicio);
-		}else{
-			listaRemocaoExercicio.remove(exercicio);
-		}
-
-	}
-
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
-			long id) {
-		String item = parent.getItemAtPosition(pos).toString();
-		Exercicio exercicio = new Exercicio();
-		if (parent.getId() == listaEspecificacao.getId()){
-			Serie especificacao = getSerie(item);
-			criarCaixaDialogoEspecificacao (especificacao);
-		}else if (parent.getId()== R.id.list_exercicio){
-			for(Exercicio e : listaExercicioTreino){
-				if (e.getNome().equalsIgnoreCase(item)){
-					exercicio = e;
-					break;
-				}
-			}
-			criarCaixaDialogoEspecificacao(item, exercicio.getCodigo());
-		}else if (parent.getId() == R.id.list_busca){
-			for(Exercicio e : listaExercicioBusca){
-				if (e.getNome().equalsIgnoreCase(item)){
-					exercicio = e; 
-					break;
-				}
-			}
-
-			String mensagem = item+
-			" adicionado aos exercicios";
-			listaExercicioTreino.add(exercicio);
-			listarBusca(exercicio.getGrupoMuscular().getNome());
-			criarListViewExercicio(listaExercicioTreino, listaExercicio, R.layout.multiple_choice);
-			Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
-		}
-		return false;
-	}
-
-
-
-
-
-	@Override
-	public void onClick(View v) {
-		ControleSerie controle = new ControleSerie();
 		String mensagem = "";
+		switch (item.getItemId()) {
+		case R.id.novo_treino:
+			if(ficha.getCodigo() == 0 ){
+				mensagem = "Primeiro salve as informações da sua ficha";
+			}else{
+				criarCaixa("", "Novo Treino");
+			}
+			break;
 
-		switch (v.getId()) {
-
-		case R.id.btn_Confirmar_Especficacao:
-			try{			
-				List<Serie> esp = criarEspecificacao();
-				mensagem = controle.manipularSerie(esp);
-				treino.setSerie
-				(controle.listarSerie(treino.getCodigo()));
-				criarListViewSerie(treino.getSerie());
-				dialogEspecificacao.dismiss();
+		case R.id.salvar_ficha:
+			try {
+				ControleFicha controle = new ControleFicha();
+				ficha = criarFicha();
+				mensagem = controle.manipularFicha(ficha);
+				if(ficha.getCodigo() == 0 ){
+					ficha = controle.buscarUltimaFicha();
+				}
 			} catch (Exception e) {
 				mensagem = e.getMessage();
-
 			}
-
-			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-			dialogEspecificacao.dismiss();
 			break;
-		case (R.id.btn_criar):
-			salvarExercicio();
-		break;
-		case (R.id.btn_voltar):
-			dialogNovoExercicio.dismiss();
-		break;
-		case (R.id.btn_cancelar_especficacao):
-			dialogEspecificacao.dismiss();
-		break;
+		case R.id.treino_existente:
+			criarDialogFicha();
+			break;
 		}
-
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 		}
+		return true;
 
+	}
+	/**
+	 * criação da lista de fichas que possui treino 
+	 */
+	private void criarDialogFicha() {
+		String mensagem = "";
+		if(ficha.getCodigo() != 0){
+			ControleFicha controle = new ControleFicha();
+			try {
+				listaFichaExistente =
+						controle.buscarFichaDiferente
+									(ficha.getCodigo());
+				Builder alertaFicha = new AlertDialog.Builder(this);
+				alertaFicha.setTitle("Selecione uma ficha");
+				int selected = -1;
+				int cont = 0;
+				fichas = new String[listaFichaExistente.size()];
+				for(Ficha f : listaFichaExistente){
+					fichas[cont] = f.getNome();
+					cont ++;
+				}
+				alertaFicha.setSingleChoiceItems(fichas,selected, this);
+				alertaFicha.show();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+			}
+		}else{
+			mensagem = "Salve sua ficha primeiro!";
+		}
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+		}
+		
+	}
 
-
-
-
-
-
-	
-	private void removerExercicios() {
-		ControleSerie controle = new ControleSerie();
+	private void listarTreinoExistente(Ficha f) {
 		try {
-			controle.removerSerie(treino.getCodigo(),listaRemocaoExercicio);
-			listaExercicioTreino.removeAll(listaRemocaoExercicio);
-			listaRemocaoExercicio.clear();	
-			treino.setSerie
-			(controle.listarSerie
-					(treino.getCodigo()));
-			cbxGrupoMuscular.getSelectedItem().toString();
-			criarListViewSerie(treino.getSerie());
-			criarListViewExercicio(listaExercicioTreino, 
-					listaExercicio, R.layout.multiple_choice);
-			String grupo = cbxGrupoMuscular.getSelectedItem().toString();
-			listarBusca(grupo);
-			reordenarLista(null);
-
-		}catch (Exception e) {
-			// TODO Auto-generated catch block
+			String ntreinos = "";
+			String titulo = "";
+			ControleTreino controle = new ControleTreino();
+			listaAdicao.clear();
+			treinos = controle.buscarTreinoValido(f.getCodigo());
+			List<String> nomeTreinos = new ArrayList<String>();
+			titulo = "Treinos validos";
+			dialogTreinos.setTitle(titulo);
+			for(Treino t : treinos){
+				ntreinos= t.getNome();
+				nomeTreinos.add(ntreinos);
+			}
+			adapterExistente = new ArrayAdapter<String>(this,		
+					R.layout.multiple_choice,
+					nomeTreinos);
+			listaExistente.setAdapter(adapterExistente);
+			listaExistente.setCacheColorHint(Color.TRANSPARENT);
+			dialogTreinos.show();
+		
+			
+		} catch (Exception e) {
+			e.getMessage();
 			e.printStackTrace();
 		}
-
-
-	}
-
-	
-	private void salvarExercicio(){
-		Exercicio e = criarExercicio();
-		ControleExercicio controle = new ControleExercicio();
-		String mensagem;
-		try {
-			mensagem = controle.manipularExercicio(e);
-			GrupoMuscular grupoMuscular = new GrupoMuscular();
-			String grupo =cbxGrupo.getSelectedItem().toString();
-			for (GrupoMuscular g : grupos){
-				if (g.getNome().equalsIgnoreCase(grupo)){
-					grupoMuscular = g;
-					break;
-				}
-			}
-
-			listaExercicioBusca = 
-				controle.listarExercicioDisponiveis
-				(treino.getCodigo(), 
-						grupoMuscular .getCodigo());
-			atualizarCombo(e, cbxGrupoMuscular);
-			criarListViewExercicio(listaExercicioBusca, listaBusca,
-					R.layout.itens_simple_lista);
-			dialogNovoExercicio.dismiss();
-		} catch (Exception e1) {
-			mensagem = e1.getMessage();
-		}
-
-
-		Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
-
 	}
 
 
-	private void atualizarCombo(Exercicio e,Spinner combo) {
-		int i = 0;
-		for (GrupoMuscular l : grupos){
-			if (l.getNome()
-					.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
-				combo.setSelection(i);
-				break;
-			}
-			i++;
-		}
-
-	}
-
-
-	private List<Serie> criarEspecificacao() throws Exception{
-		String serieString = edtSeries.getText().toString().trim();
-		String repeticao = edtRepeticao.getText().toString().trim();
-		String carga = edtCarga.getText().toString().trim();
-		String mensagem = "Digite os campos obrigatorios";
-		List<Serie> lista = new ArrayList<Serie>();
-		ControleTreino controle = new ControleTreino();
-
-		if(serieString.equalsIgnoreCase("") || repeticao.equalsIgnoreCase("")){
-			throw new Exception(mensagem);
-		}else{
-			if(carga.equalsIgnoreCase("")){
-				carga = "0";
-			}else{
-				int serie = Integer.parseInt(serieString);
-				Exercicio e = new Exercicio();
-				e.setCodigo(Long.parseLong
-						(txtCodigoExercicio.getText().toString()));
-				while(serie > 0){
-					Serie esp = new Serie();
-					esp.setCodigoTreino(treino.getCodigo());
-					esp.setExercicio(e);
-					esp.setCarga(Double.parseDouble(carga));
-					esp.setQuantidade(Integer.parseInt(repeticao));
-					esp.setCodigoTreino(treino.getCodigo());
-					esp.setUnidade(cbxUnidade.getSelectedItem().toString());
-					if(!txtOrdem.getText().toString().equalsIgnoreCase("")){
-						esp.setOrdem(Integer.parseInt
-								(txtOrdem.getText().toString().trim()));
-					}
-					lista.add(esp);
-					serie--;
-
-			}
-		}
-
-		}
-
-
-		return lista;
-
-
-	}
 
 	@Override
 	public void drop(int from, int to) {
 		if (from != to) {
 			DragSortListView list = getListView();
-			String item = adapterEspecificacao.getItem(from);
-			adapterEspecificacao.remove(item);
-			adapterEspecificacao.insert(item, to);
+			String item = adapterTreino.getItem(from);
+			adapterTreino.remove(item);
+			adapterTreino.insert(item, to);
 			list.moveCheckState(from, to);
-			reordenarLista(null);
-			
+			reordenarLista();
+		}
+
+	}
+
+	private void reordenarLista() {
+		ControleTreino controle = new ControleTreino();
+		int cont; 
+		int ordem = 1 ;
+		int posicao = 0;
+		String nome = ""  ;
+		List<Treino> treinos = new ArrayList<Treino>();
+		for (cont = 0 ; cont < adapterTreino.getCount(); cont++){
+			nome = adapterTreino.getItem(cont);
+			posicao = 0;
+			for (Treino treino  : ficha.getTreinos()){
+				if (nome.trim().
+						equalsIgnoreCase
+						(treino.getNome().trim())){
+					treino.setOrdem(ordem);
+					treinos.add(treino);
+				}
+				posicao = posicao + 1;
+			}
+			ordem++;
+		}
+		ficha.setTreinos(treinos);
+		try {
+			controle.reordenarTreino(ficha.getTreinos());
+			createListView(ficha.getTreinos());
+		} catch (Exception e) {
+			Toast.makeText(this,
+					e.getMessage(),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	private void reordenarLista(Serie serie) {
-		String mensagem ="";
-		int contador = 0;
-		ControleSerie controle = new ControleSerie();
-		List<Serie> series = new ArrayList<Serie>();
-		try{
-		if(serie != null){
-			series = treino.getSerie();
-			series.remove(serie);
-			contador = contador + 1;
-			
-		}else{
-			for (int i= 0 ; i<adapterEspecificacao.getCount();i++){
-				String item = adapterEspecificacao.getItem(i);
-				Serie s = (getSerie(item));
-				series.add(s);
-			}
-		}
-		
-		controle.reordenarSerie(series);
-		treino.setSerie(controle.listarSerie(treino.getCodigo()));
-		criarListViewSerie(treino.getSerie());
-		}catch (Exception e) {
-			mensagem = e.getMessage();
-			Toast.makeText(this,mensagem , Toast.LENGTH_LONG).show();
-		}
-			
-	}
 
 	@Override
 	public void remove(int which) {
-		String item = adapterEspecificacao.getItem(which);
-		String mensagem = "";
-		ControleSerie controle = new ControleSerie();
-		Serie esp = getSerie(item);
-		try {
-			mensagem = controle.removerSerie
-						(esp.getOrdem(),(int)treino.getCodigo());
-			List<Serie> array = new ArrayList<Serie>();
-			reordenarLista(esp);
-		} catch (Exception e) {
-			mensagem = e.getMessage();
-		}
-
-		Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
-
+		item = adapterTreino.getItem(which);
+		qual = which;
+		String texto = "Você realmente deseja deletar ";
+		String negativa = "Não";
+		String positiva = "Sim";
+		String pontuacao = "?";
+		String titulo = "Confirmação";
+		criarCaixa(item,titulo,texto,negativa,positiva,pontuacao);
 	}
-
-	private Serie getSerie(String item) {
-		Serie esp = new Serie();
-		String[] sordem = item.split("-");
-		long ordem = Long.parseLong(sordem[0]
-		                                   .toString());
-		for (Serie es : treino.getSerie()){
-			if(ordem == es.getOrdem()){
-				esp = es;
-				break;
-			}
-		}
-		return esp;
-	}
-	
-	private void construirCaixa() {
-		if(listaRemocaoExercicio.size()>0){
-			String quantidade = String.
-					valueOf(listaRemocaoExercicio.size())
-									+ " exercicio(s)";
-			String texto = "Você realmente deseja deletar ";
-			String negativa = "Não";
-			String positiva = "Sim";
-			String pontuacao = "?";
-			String titulo = "Confirmação";
-			criarCaixa(quantidade,titulo,texto,negativa,positiva,pontuacao);
-		}
-		
-	}
-
 
 
 	private void criarCaixa(
@@ -780,24 +404,34 @@ DropListener {
 
 
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
+	public void onClick(DialogInterface dialog, int clicked) {
 		String mensagem = "";
-		switch (which) {
-
+		switch (clicked) {
 		case DialogInterface.BUTTON_NEGATIVE:
-			dialog.dismiss();
+			createListView(ficha.getTreinos());
 			break;	
 		case DialogInterface.BUTTON_POSITIVE:
 			try {
-				removerExercicios();
+				mensagem = removerTreino();
 			} catch (Exception e) {
 				mensagem = e.getMessage();
 
 			}
-			if(!mensagem.equalsIgnoreCase("")){
-				Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
-			}
-			
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+			break;
+			default:
+				
+				Ficha ficha = null;
+				if(fichas != null){
+					String nome = fichas[clicked];
+					for(Ficha f : listaFichaExistente){
+						if(f.getNome().equalsIgnoreCase(nome.trim())){
+							ficha = f;
+							break;
+						}
+					}
+				}
+				listarTreinoExistente(ficha);
 			break;
 
 
@@ -805,6 +439,155 @@ DropListener {
 
 	}
 
+
+
+	private String removerTreino() throws Exception {
+		ControleTreino controle = new ControleTreino();
+		String mensagem = "";
+		long codigoFicha = 0;
+		long codigoTreino = 0;
+		ControleFicha controleFicha = new ControleFicha();
+		for (Treino t : ficha.getTreinos()){
+			if(t.getNome().
+					equalsIgnoreCase(item)){
+				 codigoTreino = t.getCodigo();
+				 codigoFicha= t.getCodigoFicha();
+				mensagem = controle.removerTreino(codigoTreino,codigoFicha);
+				break;
+			}
+		}	
+		ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
+		createListView(ficha.getTreinos());
+		return mensagem;
+	}
+
+
+
+	
+
+	private void iniciarFichaTreino(AdapterView<?> parent, int pos) {
+		String item = (String) parent.getItemAtPosition(pos);
+		Treino treino = null;
+		
+		for (Treino t : ficha.getTreinos()){
+			if (item.equalsIgnoreCase(t.getNome())){
+				treino = t;
+				break;
+			}
+		}
+		Intent i = new Intent(this,GUIFichaSerie.class);
+		i.putExtra("treino",treino);
+		startActivity(i);
+	}
+
+	private void criarCaixa(String nomeTreino,String titulo) {
+		dialog.setTitle(titulo);
+		editNomeTreino.setText(nomeTreino);
+		if(nomeTreino.equals("")){
+			txtCodigoTreino.setText("0");
+		}else{
+			for(Treino t : ficha.getTreinos()){
+				if(t.getNome().equalsIgnoreCase(nomeTreino)){
+					txtCodigoTreino.setText(String.valueOf(t.getCodigo()));
+					break;
+				}
+			}
+		}
+		dialog.show();
+	}
+
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+			long id) {
+		String item = (String) parent.getItemAtPosition(pos);
+		criarCaixa(item,"Renomear Treino");
+		return false;
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+			if(parent.getId() == listTreinos.getId()){
+				iniciarFichaTreino(parent, pos);
+			}else if (parent.getId() == listaExistente.getId()){
+				CheckedTextView c = (CheckedTextView) view;
+				boolean selecionado = c.isChecked();
+				String nome = parent.getItemAtPosition(pos).toString();
+				Treino treino = new Treino();
+				for(Treino f : treinos){
+					if(f.getNome().equalsIgnoreCase(nome)){
+						treino = f; 
+						break;
+					}
+				}
+				if (!listaAdicao.contains(treino)
+						&& !selecionado){
+					listaAdicao.add(treino);
+				}else{
+					listaAdicao.remove(treino);
+				}
+				
+			}
+			
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		String mensagem = "";
+		switch (v.getId()) {
+		case R.id.btn_confirmarNome:
+			
+			ControleTreino controleTreino = new ControleTreino();
+			ControleFicha controleFicha = new ControleFicha();
+			try {
+				mensagem = controleTreino.manipularTreino
+				(editNomeTreino.getText().toString(),
+						ficha.getCodigo(),
+						(int) Long.parseLong(txtCodigoTreino.getText().toString()));
+				ficha = controleFicha.buscarFichaCodigo(ficha.getCodigo());
+				createListView(ficha.getTreinos());
+				dialog.dismiss();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+
+			}
+			
+			break;
+
+		case R.id.btn_cancelarNome:
+			dialog.dismiss();
+			break;
+		
+		case R.id.btn_adicionar_treinos:
+				mensagem = adicionarTreinoExistente();
+			break;
+		}
+		
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+		}
+		
+	}
+
+
+	private String adicionarTreinoExistente() {
+		ControleTreino controle = new ControleTreino();
+		String mensagem = "Selecione algum treino !";
+		if(listaAdicao.size()>0){
+			try {
+				mensagem = controle.adicionarTreinoExistentes(ficha.getTreinos(),listaAdicao,ficha.getCodigo());
+			    ficha.setTreinos(controle.listarTreinos(ficha.getCodigo()));
+			    dialogTreinos.dismiss();
+			} catch (Exception e) {
+				mensagem = e.getMessage();
+			}
+		}
+		
+		createListView(ficha.getTreinos());
+		return mensagem;
+		
+	}
 
 
 }

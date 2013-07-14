@@ -38,7 +38,21 @@ public class Validadora<T> {
 		validarObjeto();
 		return error;
 	}
-	
+	/**
+	 * metodo responsavel por retorno de um nome valido !
+	 * @param comparacao = string de comparação 
+	 * @param comparar = string de busca 
+	 * @return nome valido;
+	 */
+	public static String compararNome(String comparacao,String comparar){
+		if(comparacao.contains(comparar)){
+			String nome = "t";
+			long contador = Math.round(Math.random()*20000);
+			comparar = nome + contador;
+			compararNome(comparacao, comparar);
+		}
+		return comparar;
+	}
 	public static String verificarString(String valorOriginal) {
 		int contador = 0;
 		int espaco = 0;

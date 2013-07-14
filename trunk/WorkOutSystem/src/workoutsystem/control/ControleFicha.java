@@ -1,17 +1,14 @@
 package workoutsystem.control;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.FichaDao;
-import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.IFichaDao;
+import workoutsystem.dao.ISerieDao;
 import workoutsystem.dao.ITreinoDao;
+import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
-import workoutsystem.model.Serie;
-import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Treino;
@@ -107,12 +104,13 @@ public class ControleFicha {
 	public List<Ficha> buscarFicha() throws SQLException{
 		ITreinoDao daoTreino = new TreinoDao();
 		IFichaDao dao = new FichaDao();
+		ISerieDao daoSerie = new SerieDao();
 		List<Ficha> lista = dao.listarFichas();
 		for(Ficha f : lista){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			
 			for(Treino t : f.getTreinos()){
-				t.setSerie(daoTreino.listarSerie(t.getCodigo()));
+				t.setSerie(daoSerie.listarSerie(t.getCodigo()));
 			}
 		}
 		
@@ -155,13 +153,14 @@ public class ControleFicha {
 		Ficha f = null;
 		IFichaDao dao = new FichaDao();
 		ITreinoDao daoTreino = new TreinoDao();
+		ISerieDao daoSerie = new SerieDao();
 		
 		f = dao.buscarFichaCodigo(codigo);
 		if(f != null){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
 			for(Treino t : f.getTreinos()){
 				t.setSerie
-				(daoTreino.listarSerie(t.getCodigo()));
+				(daoSerie.listarSerie(t.getCodigo()));
 			}
 		}else{
 			f = new Ficha();

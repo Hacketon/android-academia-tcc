@@ -64,23 +64,18 @@ ListView.OnItemLongClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.exercicio);
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.criarexercicio);
 		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
 		btnCancelar = (Button) dialog.findViewById(R.id.btn_voltar);
-
 		txtCodExercicio = (TextView) dialog.findViewById(R.id.codigo_exercicio);
 		cbxGrupo= (Spinner) dialog.findViewById(R.id.cbx_grupo);
 		editDescricaoExercicio = (EditText) dialog.findViewById(R.id.edt_descricaoExercicio);
 		editNomeExercicio = (EditText) dialog.findViewById(R.id.edt_nomeExercicio);
-
-
 		cbxExercicioCriado = (Spinner) findViewById(R.id.cbx_grupocriado);
 		cbxExercicioPadrao = (Spinner) findViewById(R.id.cbx_grupopadrao);
-
 		listapadrao = (ListView) findViewById(R.id.listapadrao);
 		listacriado = (ListView) findViewById(R.id.listacriado);
 		btnCancelar.setOnClickListener(this);
@@ -164,7 +159,7 @@ ListView.OnItemLongClickListener{
 			String quantidade = String.
 					valueOf(listaRemocaoExercicio.size())
 									+ " exercicio(s)";
-			String texto = "Exercicios podem estar vinculados com ficha, realmente deseja deletar  ";
+			String texto = "Exercicios podem estar vinculados com treinos, realmente deseja deletar  ";
 			String negativa = "Não";
 			String positiva = "Sim";
 			String pontuacao = "?";
@@ -235,9 +230,9 @@ ListView.OnItemLongClickListener{
 			if(!listaRemocaoExercicio.isEmpty()){
 				mensagem = controleExercicio.excluirExercicio(listaRemocaoExercicio);	
 			}
-			 
+ 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -373,7 +368,6 @@ ListView.OnItemLongClickListener{
 			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
 		criarCaixaDialog("Alterar Exercicio");
 		carregarExercicio(exercicio);
-		
 		return false;
 	}
 	
@@ -392,12 +386,9 @@ ListView.OnItemLongClickListener{
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
 		GrupoMuscular grupo = new GrupoMuscular();
-
 		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
 			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
 		}
-
-
 		exercicio.setNome(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());

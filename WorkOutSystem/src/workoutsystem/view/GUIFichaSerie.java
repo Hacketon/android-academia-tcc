@@ -90,8 +90,7 @@ DropListener {
 	}
 
 	private void init() {
-		ControleTreino controleTreino 
-		= new ControleTreino();
+		
 		ControleSerie controleSerie = new ControleSerie();
 		ControleExercicio controleExercicio 
 		= new ControleExercicio();

@@ -30,6 +30,15 @@ public class ControleSerie {
 
 	}
 	
+	public boolean removerSerie(List<Exercicio> exercicio) throws SQLException{
+		ISerieDao dao = new SerieDao();
+		boolean retorno = false;
+		for(Exercicio e : exercicio){
+			retorno = dao.removerSerie(e.getCodigo());
+		}
+		return retorno;
+	}
+	
 	public String alterarCarga(Double carga, int codigo){
 		String mensagem = "";
 		ISerieDao dao = new SerieDao();

@@ -158,7 +158,7 @@ DialogInterface.OnClickListener{
 			break;
 		case R.id.adicionar_ficha:
 			f = new Ficha();
-			iniciarFichaManipular(f);
+			iniciarFichaTreino(f);
 			break;
 
 		case R.id.remover_ficha:
@@ -224,7 +224,7 @@ DialogInterface.OnClickListener{
 
 
 
-	private void iniciarFichaManipular(Ficha f) {
+	private void iniciarFichaTreino(Ficha f) {
 		Intent i = new Intent(this,GUIFichaTreino.class);
 		i.putExtra("ficha", f.getCodigo());
 		startActivity(i);
@@ -335,7 +335,7 @@ DialogInterface.OnClickListener{
 				ficha = f;
 				break;
 			}
-		iniciarFichaManipular(ficha);
+		iniciarFichaTreino(ficha);
 
 	}
 

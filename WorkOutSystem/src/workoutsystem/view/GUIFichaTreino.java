@@ -465,7 +465,7 @@ ListView.OnItemLongClickListener{
 
 	
 
-	private void iniciarFichaTreino(AdapterView<?> parent, int pos) {
+	private void iniciarFichaSerie(AdapterView<?> parent, int pos) {
 		String item = (String) parent.getItemAtPosition(pos);
 		Treino treino = null;
 		
@@ -508,7 +508,7 @@ ListView.OnItemLongClickListener{
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 			if(parent.getId() == listTreinos.getId()){
-				iniciarFichaTreino(parent, pos);
+				iniciarFichaSerie(parent, pos);
 			}else if (parent.getId() == listaExistente.getId()){
 				CheckedTextView c = (CheckedTextView) view;
 				boolean selecionado = c.isChecked();

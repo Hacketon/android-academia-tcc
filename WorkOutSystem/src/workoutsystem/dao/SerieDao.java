@@ -338,5 +338,20 @@ public class SerieDao implements ISerieDao {
 		return resultado>0;
 	}
 
+	@Override
+	public boolean removerSerie(long codigo) throws SQLException {
+		int aux = 1;
+		Connection con = ResourceManager.getConexao();
+		String sql = "delete from serie where codigoExercicio=?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		
+		prepare.setLong(aux++, codigo);
+		int valor = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return (valor>=0);
+	
+	}
+
 
 }

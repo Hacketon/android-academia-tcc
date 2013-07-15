@@ -74,6 +74,7 @@
                         android:id="@+id/listacriado"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:choiceMode="multipleChoice"
                         android:divider="@android:color/transparent"
                         android:layout_weight="1" />
 

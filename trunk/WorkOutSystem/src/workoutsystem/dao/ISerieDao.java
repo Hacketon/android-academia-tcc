@@ -97,5 +97,11 @@ public interface ISerieDao {
 	
 	
 	public abstract boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException;
+	/**
+	 * Remove todos os exercicios que tem alguma serie relacionada !
+	 * @param codigo [exercicio]
+	 * @return true or false
+	 */
+	public abstract boolean removerSerie(long codigo) throws SQLException;
 	
 }

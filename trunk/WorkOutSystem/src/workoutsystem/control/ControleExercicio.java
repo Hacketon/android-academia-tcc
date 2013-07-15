@@ -65,23 +65,26 @@ public class ControleExercicio {
 	}
 
 
-	public boolean excluirExercicio(List<String> exercicios) throws SQLException{
-		boolean resultado = true;
+	public String excluirExercicio(List<Exercicio> lista) throws SQLException{
+		String mensagem = "Exericios foram removidos com sucesso!";
+		boolean resultado = false;
 		IExercicioDao dao = new  ExercicioDao();
 		ITreinoDao daoTreino = new TreinoDao();
-
-		for (String e : exercicios){
-			String nome = e; 
-			Exercicio exercicio = dao.buscarExercicio(nome);
-			if(!daoTreino.verificarExercicio(exercicio.getCodigo())){
-				dao.excluirExercicio(exercicio.getCodigo());	
-			}else{
-				resultado = false;
-			}
-
-
+		ControleSerie controle = new ControleSerie();
+		controle.removerSerie(lista);
+		for (Exercicio e : lista){
+				resultado = dao.excluirExercicio(e.getCodigo());
+				if(!resultado){
+					break;
+				}
 		}
-		return resultado;
+		if(!resultado){
+			mensagem = "Não foi possivel remover os exercicios!";
+		}
+		
+		return mensagem;
+		
+		
 	}
 
 

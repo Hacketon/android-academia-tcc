@@ -10,7 +10,7 @@ import workoutsystem.model.Exercicio;
 import workoutsystem.model.Passo;
 
 
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 
 
 public interface IExercicioDao {
@@ -69,12 +69,12 @@ public interface IExercicioDao {
 
 
 	/**
-	 * Metodo que fará a busca do código de cada grupo muscular 
-	 * @return numero do grupo muscular
+	 * Metodo que fará a busca do código de cada grupo 
+	 * @return numero do grupo 
 	 * @throws SQLException 
 	 */
-	public abstract int buscarGrupoMuscular(String nome) throws SQLException;
-	public abstract String buscarGrupoMuscular(int codigo) throws SQLException;
+	public abstract int buscarGrupo(String nome) throws SQLException;
+	public abstract String buscarGrupo(int codigo) throws SQLException;
 	/**
 	 * Uma lista de exercicio através do nome do exercicio
 	 * @param nome = nome do exercicio
@@ -82,18 +82,18 @@ public interface IExercicioDao {
 	 */
 	public abstract Exercicio buscarExercicio(String nome);
 	/**
-	 * Lista de exercicios não personalizados ou personalizados através do grupo muscular e 
+	 * Lista de exercicios não personalizados ou personalizados através do grupo  e 
 	 * booleano indicando se esta ou não personalizado
 	 * @param grupo
 	 * @return List
 	 */
 	public abstract List<Exercicio> listarExercicios(int grupo,int personalizado);
 	/**
-	 * Metodo responsavel pela busca de exercicio por grupo muscular
+	 * Metodo responsavel pela busca de exercicio por grupo
 	 * @param grupo
 	 * @return
 	 */
-	public abstract Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo);
+	public abstract Exercicio buscarExercicioGrupo(Grupo grupo);
 
 	/**
 	 * Metodo responsavel por buscar exercicios "desativados" (excluidos)
@@ -113,7 +113,7 @@ public interface IExercicioDao {
 	/**
 	 * Metodo responsavel pela busca dos exercicios 
 	 * que não estão relacionados a nenhum treino 
-	 * @param codigoGrupo = grupo muscular
+	 * @param codigoGrupo = grupo 
 	 * @param codigoAtivo = ativo ou não 
 	 * @return Lista de Exercicio
 	 * @throws SQLException

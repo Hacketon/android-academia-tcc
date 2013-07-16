@@ -7,7 +7,7 @@ import java.util.List;
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.view.GUIPasso;
 import workoutsystem.view.R;
 import android.app.Activity;
@@ -107,10 +107,10 @@ ListView.OnItemLongClickListener{
 	private void criarCombo(){
 		listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
-		ArrayList<GrupoMuscular> grupos = 
-			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
+		ArrayList<Grupo> grupos = 
+			(ArrayList<Grupo>) controle.listarGrupos(); 
 
-		for (GrupoMuscular grupo : grupos){
+		for (Grupo grupo : grupos){
 			listaGrupos.add(grupo.getNome());
 		}
 
@@ -248,7 +248,7 @@ ListView.OnItemLongClickListener{
 		try {
 			mensagem = controle.manipularExercicio(e);
 			listaExercicio = 
-			controle.listarExercicios(e.getGrupoMuscular().getNome(), 
+			controle.listarExercicios(e.getGrupo().getNome(), 
 					e.getPadrao());
 			atualizarCombo(e,cbxExercicioCriado);
 			criarListView(listaExercicio, listacriado,LAYOUT_MULTIPLE);
@@ -264,7 +264,7 @@ ListView.OnItemLongClickListener{
 	private void atualizarCombo(Exercicio e,Spinner combo) {
 		int i = 0;
 		for (String l : listaGrupos){
-			if (l.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
+			if (l.equalsIgnoreCase(e.getGrupo().getNome())){
 				combo.setSelection(i);
 				break;
 			}
@@ -385,14 +385,14 @@ ListView.OnItemLongClickListener{
 
 	public Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
-		GrupoMuscular grupo = new GrupoMuscular();
+		Grupo grupo = new Grupo();
 		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
 			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
 		}
 		exercicio.setNome(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
-		exercicio.setGrupoMuscular(grupo);
+		exercicio.setGrupo(grupo);
 
 		return exercicio;
 	}

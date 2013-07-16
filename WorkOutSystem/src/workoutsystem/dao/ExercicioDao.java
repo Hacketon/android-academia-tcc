@@ -9,7 +9,7 @@ import java.util.List;
 import android.util.Log;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Passo;
 
 
@@ -28,7 +28,7 @@ public class ExercicioDao implements IExercicioDao {
 		prepare.setString(2, e.getDescricao().trim());
 		prepare.setInt(3, e.getPadrao());
 		prepare.setInt(4, e.getAtivo());
-		prepare.setInt(5, e.getGrupoMuscular().getCodigo());
+		prepare.setInt(5, e.getGrupo().getCodigo());
 
 
 		if(prepare.executeUpdate()!=0){
@@ -53,7 +53,7 @@ public class ExercicioDao implements IExercicioDao {
 		PreparedStatement prepared = con.prepareStatement(sql);
 		prepared.setString(1, e.getNome());
 		prepared.setString(2, e.getDescricao());
-		prepared.setInt(3, e.getGrupoMuscular().getCodigo());
+		prepared.setInt(3, e.getGrupo().getCodigo());
 		prepared.setLong(4, codigo);
 		int resultado = prepared.executeUpdate();
 		if (resultado > 0 ){
@@ -116,7 +116,7 @@ public class ExercicioDao implements IExercicioDao {
 	}
 
 	@Override
-	public int buscarGrupoMuscular(String nome) throws SQLException {
+	public int buscarGrupo(String nome) throws SQLException {
 		int codigo = 0;
 
 		Connection con = ResourceManager.getConexao();
@@ -137,17 +137,17 @@ public class ExercicioDao implements IExercicioDao {
 		return codigo;
 	}
 
-	public List<GrupoMuscular> listarGrupos() {
-		List<GrupoMuscular> lista = null;
+	public List<Grupo> listarGrupos() {
+		List<Grupo> lista = null;
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql = "select codigo,nome from grupomuscular";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
-			lista = new ArrayList<GrupoMuscular>();
+			lista = new ArrayList<Grupo>();
 
 			while (result.next()){
-				GrupoMuscular grupo = new GrupoMuscular();
+				Grupo grupo = new Grupo();
 				grupo.setCodigo(result.getInt(1));
 				grupo.setNome(result.getString(2));
 				lista.add(grupo);
@@ -204,11 +204,11 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setNome(result.getString(2));
 				exercicio.setDescricao(result.getString(3));
 				exercicio.setPadrao(result.getInt(4));
-				GrupoMuscular grupo = new GrupoMuscular();
+				Grupo grupo = new Grupo();
 				grupo.setCodigo(result.getInt(5));
-				grupo.setNome(buscarGrupoMuscular(grupo.getCodigo()));
+				grupo.setNome(buscarGrupo(grupo.getCodigo()));
 				exercicio.setListaPassos(visualizarPassos(exercicio));
-				exercicio.setGrupoMuscular(grupo);
+				exercicio.setGrupo(grupo);
 			}
 			prepared.close();
 			con.close();
@@ -244,10 +244,10 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setNome(resultSet.getString(2));
 				exercicio.setDescricao(resultSet.getString(3));
 				exercicio.setPadrao(resultSet.getInt(4));
-				GrupoMuscular grupoMuscular= new GrupoMuscular();
+				Grupo grupoMuscular= new Grupo();
 				grupoMuscular.setCodigo(resultSet.getInt(5));
 				grupoMuscular.setNome(resultSet.getString(6));
-				exercicio.setGrupoMuscular(grupoMuscular);
+				exercicio.setGrupo(grupoMuscular);
 				exercicio.setListaPassos(visualizarPassos(exercicio));
 				lista.add(exercicio);
 			}
@@ -264,15 +264,15 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public Exercicio buscarExercicioGrupoMuscular(GrupoMuscular grupo) {
+	public Exercicio buscarExercicioGrupo(Grupo grupo) {
 		Exercicio exercicio = new Exercicio();
-		GrupoMuscular grupomuscular = new GrupoMuscular();
+		Grupo grupomuscular = new Grupo();
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql = "select nome, descricao, codigogrupomuscular, padrao from exercicio " +
 			" where codigogrupomuscular = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);	
-			prepare.setInt(1, exercicio.getGrupoMuscular().getCodigo());
+			prepare.setInt(1, exercicio.getGrupo().getCodigo());
 			ResultSet result  = prepare.executeQuery();
 
 
@@ -282,7 +282,7 @@ public class ExercicioDao implements IExercicioDao {
 				exercicio.setDescricao(result.getString(2));
 				//verificar está parte
 				grupomuscular.setCodigo(result.getInt(3));
-				exercicio.setGrupoMuscular(grupomuscular);
+				exercicio.setGrupo(grupomuscular);
 				//
 				exercicio.setPadrao(result.getInt(4));
 			}
@@ -324,7 +324,7 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public String buscarGrupoMuscular(int codigo) throws SQLException {
+	public String buscarGrupo(int codigo) throws SQLException {
 		String nome= "";
 
 		Connection con = ResourceManager.getConexao();
@@ -387,7 +387,7 @@ public class ExercicioDao implements IExercicioDao {
 
 		while (result.next()){
 			Exercicio e = new Exercicio();
-			GrupoMuscular g = new GrupoMuscular();
+			Grupo g = new Grupo();
 			aux = 1;
 			e.setCodigo(result.getLong("exercicio_codigo"));
 			e.setNome(result.getString("exercicio_nome"));
@@ -396,7 +396,7 @@ public class ExercicioDao implements IExercicioDao {
 			e.setAtivo(result.getInt("exercicio_ativo"));
 			g.setCodigo(result.getInt("grupo_codigo"));
 			g.setNome(result.getString("grupo_nome"));
-			e.setGrupoMuscular(g);
+			e.setGrupo(g);
 
 			list.add(e);
 		}
@@ -428,7 +428,7 @@ public class ExercicioDao implements IExercicioDao {
 		while (result.next()) {
 			aux = 1;
 			Exercicio e = new Exercicio();
-			GrupoMuscular g = new GrupoMuscular();
+			Grupo g = new Grupo();
 			e.setCodigo(result.getLong(aux++));
 			e.setNome(result.getString(aux++));
 			e.setDescricao(result.getString(aux++));
@@ -438,7 +438,7 @@ public class ExercicioDao implements IExercicioDao {
 			g.setCodigo(result.getInt(aux++));
 			g.setNome(result.getString(aux++));
 
-			e.setGrupoMuscular(g);
+			e.setGrupo(g);
 
 			lista.add(e);
 
@@ -475,11 +475,11 @@ public class ExercicioDao implements IExercicioDao {
 			e.setAtivo(result.getInt("exercicio_ativo"));
 			e.setDescricao(result.getString("exercicio_descricao"));
 
-			GrupoMuscular g = new GrupoMuscular();
+			Grupo g = new Grupo();
 			g.setCodigo(result.getInt("grupo_codigo"));
 			g.setNome(result.getString("grupo_nome"));
 
-			e.setGrupoMuscular(g);
+			e.setGrupo(g);
 
 			list.add(e);
 		}
@@ -514,11 +514,11 @@ public class ExercicioDao implements IExercicioDao {
 			e.setAtivo(result.getInt("exercicio_ativo"));
 			e.setDescricao(result.getString("exercicio_descricao"));
 
-			GrupoMuscular g = new GrupoMuscular();
+			Grupo g = new Grupo();
 			g.setCodigo(result.getInt("grupo_codigo"));
 			g.setNome(result.getString("grupo_nome"));
 
-			e.setGrupoMuscular(g);
+			e.setGrupo(g);
 
 			list.add(e);
 		}

@@ -14,7 +14,7 @@ import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Frequencia;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.AdaptadorCalendario;

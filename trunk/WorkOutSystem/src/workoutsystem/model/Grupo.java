@@ -2,7 +2,7 @@ package workoutsystem.model;
 
 import java.io.Serializable;
 
-public class GrupoMuscular implements Serializable {
+public class Grupo implements Serializable {
 	
 	private int codigo;
 	private String nome;

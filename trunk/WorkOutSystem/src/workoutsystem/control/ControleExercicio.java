@@ -15,7 +15,7 @@ import workoutsystem.dao.ResourceManager;
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Passo;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
@@ -33,8 +33,8 @@ public class ControleExercicio {
 		if (exercicio!= null){
 			erro = v.getMessage();
 			if(erro.equalsIgnoreCase("")){
-				GrupoMuscular grupo = exercicio.getGrupoMuscular();
-				grupo.setCodigo(dao.buscarGrupoMuscular(grupo.getNome()));
+				Grupo grupo = exercicio.getGrupo();
+				grupo.setCodigo(dao.buscarGrupo(grupo.getNome()));
 				if (!dao.buscarExercicio(exercicio.getCodigo())){
 					if (dao.buscarExercicio(exercicio.getNome()) == null){
 						if(dao.adicionarExercicio(exercicio)){
@@ -88,11 +88,11 @@ public class ControleExercicio {
 	}
 
 
-	public String buscarExercicio(GrupoMuscular gMuscular){
+	public String buscarExercicio(Grupo g){
 		String mensagem = "Erro ao buscar Exercicio";
 		IExercicioDao dao = new ExercicioDao();
 
-		if(dao.buscarExercicioGrupoMuscular(gMuscular) != null){
+		if(dao.buscarExercicioGrupo(g) != null){
 			mensagem = "Encontardos os exercicios";
 		}else{
 			mensagem = "Exercicio não foram encontrados";
@@ -109,14 +109,14 @@ public class ControleExercicio {
 
 
 
-	public List<GrupoMuscular> listarGrupos(){
+	public List<Grupo> listarGrupos(){
 		return new ExercicioDao().listarGrupos();
 	}
 
 	public List<Exercicio> listarExercicios(String grupo, int personalizado)
 	throws SQLException {
 		IExercicioDao exercicioDao = new ExercicioDao();
-		int ngrupo = exercicioDao.buscarGrupoMuscular(grupo);
+		int ngrupo = exercicioDao.buscarGrupo(grupo);
 		return exercicioDao.listarExercicios(ngrupo, personalizado);
 
 	}

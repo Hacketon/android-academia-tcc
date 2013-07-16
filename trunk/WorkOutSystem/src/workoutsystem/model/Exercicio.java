@@ -16,7 +16,7 @@ public class Exercicio implements Serializable {
 	@NotEmpty(message="Nome obrigatorio")
 	@Length(max=20,message="Nome deve ser menor que ou igual a 20 caracteres")
 	private String nome;
-	private GrupoMuscular grupo;
+	private Grupo grupo;
 	@Length(max=20,message="Descricao deve ser menor que ou igual a 20 caracteres")
 	private String descricao;
 	private int ativo;
@@ -50,13 +50,12 @@ public class Exercicio implements Serializable {
 	public String getNome() {
 		return nome;
 	}
-	public GrupoMuscular getGrupoMuscular() {
+	public Grupo getGrupo() {
 		return grupo;
 	}
 	public String getDescricao() {
 		return descricao;
 	}
-	
 		
 	public int getPadrao() {
 		return padrao;
@@ -67,7 +66,7 @@ public class Exercicio implements Serializable {
 	public void setNome(String nomeExercicio) {
 		nome = nomeExercicio;
 	}
-	public void setGrupoMuscular(GrupoMuscular grupo) {
+	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
 	public void setDescricao(String descricao) {
@@ -85,15 +84,5 @@ public class Exercicio implements Serializable {
 		return listaPassos;
 	}
 
-/*
- * public void setListaEspecificacao(List<Serie> listaEspecificacao) {
-		this.listaEspecificacao = listaEspecificacao;
-	}
-
-
-	public List<Serie> getListaEspecificacao() {
-		return listaEspecificacao;
-	}
- */
 	
 }

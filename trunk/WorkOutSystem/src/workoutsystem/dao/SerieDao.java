@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Serie;
 
 public class SerieDao implements ISerieDao {
@@ -283,11 +283,11 @@ public class SerieDao implements ISerieDao {
 			serie.setExercicio(ex);
 			
 			
-			GrupoMuscular gr = new GrupoMuscular();
+			Grupo gr = new Grupo();
 			gr.setCodigo(result.getInt("grupo_codigo"));
 			gr.setNome(result.getString("grupo_nome"));
 			
-			ex.setGrupoMuscular(gr);
+			ex.setGrupo(gr);
 			
 			list.add(serie);
 

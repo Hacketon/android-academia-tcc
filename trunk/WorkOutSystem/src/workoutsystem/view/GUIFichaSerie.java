@@ -7,7 +7,7 @@ import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
@@ -77,7 +77,7 @@ DropListener {
 	private List<Exercicio> listaExercicioTreino;
 	private ArrayAdapter<String> adapterEspecificacao;
 	private List<Exercicio> listaRemocaoExercicio;
-	private ArrayList<GrupoMuscular> grupos;
+	private ArrayList<Grupo> grupos;
 	private EditText edtCarga;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,9 +182,9 @@ DropListener {
 		ArrayList<String> listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
 		grupos = 
-			(ArrayList<GrupoMuscular>) controle.listarGrupos(); 
+			(ArrayList<Grupo>) controle.listarGrupos(); 
 
-		for (GrupoMuscular grupo : grupos){
+		for (Grupo grupo : grupos){
 			listaGrupos.add(grupo.getNome());
 		}
 
@@ -382,9 +382,9 @@ DropListener {
 
 	private void listarBusca(String grupo) {
 		ControleExercicio controle = new ControleExercicio();
-		GrupoMuscular grupoMuscular = new GrupoMuscular();
+		Grupo grupoMuscular = new Grupo();
 		try {
-			for (GrupoMuscular g : grupos){
+			for (Grupo g : grupos){
 				if(g.getNome().equalsIgnoreCase(grupo)){
 					grupoMuscular = g;
 					break;
@@ -420,7 +420,7 @@ DropListener {
 
 	private Exercicio criarExercicio(){
 		Exercicio exercicio = new Exercicio();
-		GrupoMuscular grupo = new GrupoMuscular();
+		Grupo grupo = new Grupo();
 
 		if (!txtCodExercicio.getText().toString().equalsIgnoreCase("")){
 			exercicio.setCodigo(Long.parseLong(txtCodExercicio.getText().toString()));
@@ -429,7 +429,7 @@ DropListener {
 		exercicio.setNome(editNomeExercicio.getText().toString());
 		grupo.setNome(cbxGrupo.getSelectedItem().toString());
 		exercicio.setDescricao(editDescricaoExercicio.getText().toString());
-		exercicio.setGrupoMuscular(grupo);
+		exercicio.setGrupo(grupo);
 
 		return exercicio;
 	}
@@ -496,7 +496,7 @@ DropListener {
 			String mensagem = item+
 			" adicionado aos exercicios";
 			listaExercicioTreino.add(exercicio);
-			listarBusca(exercicio.getGrupoMuscular().getNome());
+			listarBusca(exercicio.getGrupo().getNome());
 			criarListViewExercicio(listaExercicioTreino, listaExercicio, R.layout.multiple_choice);
 			Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
 		}
@@ -582,9 +582,9 @@ DropListener {
 		String mensagem;
 		try {
 			mensagem = controle.manipularExercicio(e);
-			GrupoMuscular grupoMuscular = new GrupoMuscular();
+			Grupo grupoMuscular = new Grupo();
 			String grupo =cbxGrupo.getSelectedItem().toString();
-			for (GrupoMuscular g : grupos){
+			for (Grupo g : grupos){
 				if (g.getNome().equalsIgnoreCase(grupo)){
 					grupoMuscular = g;
 					break;
@@ -611,9 +611,9 @@ DropListener {
 
 	private void atualizarCombo(Exercicio e,Spinner combo) {
 		int i = 0;
-		for (GrupoMuscular l : grupos){
+		for (Grupo l : grupos){
 			if (l.getNome()
-					.equalsIgnoreCase(e.getGrupoMuscular().getNome())){
+					.equalsIgnoreCase(e.getGrupo().getNome())){
 				combo.setSelection(i);
 				break;
 			}

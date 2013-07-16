@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
-import workoutsystem.model.GrupoMuscular;
+import workoutsystem.model.Grupo;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 

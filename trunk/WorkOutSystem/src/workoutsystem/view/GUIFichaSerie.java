@@ -204,8 +204,6 @@ DropListener {
 	private void criarComboUnidade() {
 		List<String> listaUnidade = new ArrayList<String>();
 
-		ControleExercicio controle = new ControleExercicio();
-
 		for (Unidade unidade : Unidade.values()){
 			listaUnidade.add(unidade.getUnidade());
 		}
@@ -629,7 +627,7 @@ DropListener {
 		String carga = edtCarga.getText().toString().trim();
 		String mensagem = "Digite os campos obrigatorios";
 		List<Serie> lista = new ArrayList<Serie>();
-		ControleTreino controle = new ControleTreino();
+	
 
 		if(serieString.equalsIgnoreCase("") || repeticao.equalsIgnoreCase("")){
 			throw new Exception(mensagem);
@@ -682,15 +680,13 @@ DropListener {
 
 	private void reordenarLista(Serie serie) {
 		String mensagem ="";
-		int contador = 0;
+		
 		ControleSerie controle = new ControleSerie();
 		List<Serie> series = new ArrayList<Serie>();
 		try{
 		if(serie != null){
 			series = treino.getSerie();
 			series.remove(serie);
-			contador = contador + 1;
-			
 		}else{
 			for (int i= 0 ; i<adapterEspecificacao.getCount();i++){
 				String item = adapterEspecificacao.getItem(i);
@@ -718,7 +714,7 @@ DropListener {
 		try {
 			mensagem = controle.removerSerie
 						(esp.getOrdem(),(int)treino.getCodigo());
-			List<Serie> array = new ArrayList<Serie>();
+			
 			reordenarLista(esp);
 		} catch (Exception e) {
 			mensagem = e.getMessage();

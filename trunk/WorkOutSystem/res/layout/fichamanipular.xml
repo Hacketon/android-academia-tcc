@@ -67,12 +67,30 @@
                         android:layout_height="wrap_content"
                         android:text="@string/botao_objetivo" />
 
+            
+                    
                     <Spinner
                         android:id="@+id/cbx_fichaObjetivo"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:prompt="@string/botao_objetivo" />
+
+                    
+                    <TextView
+                        style="@style/textopequeno"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_classificacao" />
+            
+                    <RatingBar
+                      android:id="@+id/ratingBar1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:stepSize="1.0"
+                      android:numStars="5"
+                       />
+
                 </LinearLayout>
 
                 <!-- Treinos -->

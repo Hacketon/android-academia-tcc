@@ -77,7 +77,7 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int posicao, long id) {
 		TextView textView = (TextView) view.findViewById(R.id.texto_icone);
 		String comando = (String) textView.getText();
-		String tela = "";
+		//String tela = "";
 
 		if(comando.equalsIgnoreCase("exercicio")){
 			alert("Exercicio", "Teste ");

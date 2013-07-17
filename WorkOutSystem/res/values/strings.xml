@@ -90,6 +90,7 @@
     <!-- texto de label -->
 
     <string name="label_usuario">Usuario </string>
+    <string name="label_classificacao">Classificação </string>
     <string name="label_senha">Senha </string>
     <string name="label_senhaatual">Senha Atual</string>
     <string name="label_novasenha">Nova senha</string>

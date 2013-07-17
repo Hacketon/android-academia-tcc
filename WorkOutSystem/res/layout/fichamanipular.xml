@@ -76,7 +76,7 @@
                         android:layout_weight="0"
                         android:prompt="@string/botao_objetivo" />
 
-                    
+                   <!-- 
                     <TextView
                         style="@style/textopequeno"
                         android:layout_width="fill_parent"
@@ -90,6 +90,7 @@
                       android:stepSize="1.0"
                       android:numStars="5"
                        />
+                         -->
 
                 </LinearLayout>
 

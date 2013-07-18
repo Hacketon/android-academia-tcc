@@ -63,7 +63,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		Connection con = ResourceManager.getConexao();
 		String sql = "select codigo,nome,duracao, " +
 					 " objetivo,realizacoes, " +
-					 " ficha_atual from ficha";
+					 " ficha_atual,antecedencia from ficha";
 		PreparedStatement prepared = con.prepareStatement(sql);
 		ResultSet result = prepared.executeQuery();
 		List<Ficha> list = new ArrayList<Ficha>();
@@ -73,6 +73,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setCodigo(result.getInt("codigo"));
 			f.setDuracao(result.getInt("duracao"));
 			f.setAtual(result.getInt("ficha_atual"));
+			f.setAntecedencia(result.getInt("antecedencia"));
 			f.setNome(result.getString("nome"));
 			f.setObjetivo(result.getString("objetivo"));
 			f.setRealizacoes(result.getInt("realizacoes"));
@@ -90,8 +91,8 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	public boolean inserirFicha(Ficha ficha) throws SQLException {
 		String sql = "insert into ficha " +
 		" (nome,duracao,objetivo,realizacoes," +
-		" ficha_atual) " +
-		" values (?,?,?,?,?)";
+		" ficha_atual , antecedencia) " +
+		" values (?,?,?,?,?,?)";
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -100,6 +101,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		prepare.setString(aux++, ficha.getObjetivo());
 		prepare.setInt(aux++, ficha.getRealizacoes());
 		prepare.setInt(aux++, ficha.getAtual());
+		prepare.setInt(aux++, ficha.getAntecedencia());
 		int valor = prepare.executeUpdate();
 		prepare.close();
 		con.close();
@@ -114,7 +116,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		Ficha f = null;
 		String sql = "select codigo,nome, " +
 		"duracao,objetivo, " +
-		"realizacoes,ficha_atual " +
+		"realizacoes,ficha_atual,antecedencia " +
 		"from ficha " +
 		"where nome like ? ";
 		int aux = 1;
@@ -127,6 +129,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setCodigo(result.getInt("codigo"));
 			f.setNome(result.getString("nome"));
 			f.setDuracao(result.getInt("duracao"));
+			f.setAntecedencia(result.getInt("antecedencia"));
 			f.setObjetivo(result.getString("objetivo"));
 			f.setRealizacoes(result.getInt("realizacoes"));
 		}	
@@ -157,7 +160,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		Ficha f = null;
 		String sql = "select codigo,nome, " +
 		"duracao,objetivo, " +
-		"realizacoes,ficha_atual " +
+		"realizacoes,ficha_atual,antecedencia " +
 		"from ficha " +
 		"where ficha_atual = ? ";
 		int aux = 1;
@@ -171,6 +174,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 			f.setNome(result.getString("nome"));
 			f.setDuracao(result.getInt("duracao"));
 			f.setObjetivo(result.getString("objetivo"));
+			f.setAntecedencia(result.getInt("antecedencia"));
 			f.setRealizacoes(result.getInt("realizacoes"));
 			f.setAtual(result.getInt("ficha_atual"));
 		}	
@@ -200,7 +204,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		String sql = "select codigo,nome,duracao, " +
-		" objetivo,realizacoes, " +
+		" objetivo,realizacoes,antecedencia, " +
 		" ficha_atual from ficha where codigo = ?";
 		PreparedStatement prepared = con.prepareStatement(sql);
 		prepared.setLong(aux++, codigo);
@@ -210,11 +214,14 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		if(result.next()){
 			f = new Ficha();
 			f.setCodigo(result.getInt("codigo"));
-			f.setDuracao(result.getInt("duracao"));
-			f.setAtual(result.getInt("ficha_atual"));
 			f.setNome(result.getString("nome"));
+			f.setDuracao(result.getInt("duracao"));
 			f.setObjetivo(result.getString("objetivo"));
 			f.setRealizacoes(result.getInt("realizacoes"));
+			f.setAtual(result.getInt("ficha_atual"));
+			f.setAntecedencia(result.getInt("antecedencia"));
+			
+			
 		}
 		prepared.close();
 		con.close();
@@ -227,7 +234,6 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		String sql = "update ficha set ficha_atual = 0 , realizacoes = 0";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.executeUpdate();
-
 		prepare.close();
 		con.close();
 		return true;
@@ -237,7 +243,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 	public boolean atualizarFicha(Ficha ficha) throws SQLException {
 		String sql = "update ficha set  nome = ? ,duracao =  ? ," +
 		"objetivo = ? ,realizacoes = ? ," +
-		" ficha_atual = ? where codigo = ?";
+		" ficha_atual = ?,antecedencia = ? where codigo = ?";
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -246,6 +252,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		prepare.setString(aux++, ficha.getObjetivo());
 		prepare.setInt(aux++, ficha.getRealizacoes());
 		prepare.setInt(aux++, ficha.getAtual());
+		prepare.setInt(aux++, ficha.getAntecedencia());
 		prepare.setLong(aux++, ficha.getCodigo());
 		int valor = prepare.executeUpdate();
 		con.close();
@@ -270,7 +277,7 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 	@Override
 	public List<Ficha> buscarFichaDiferente(long codigo) throws SQLException {
-		String sql =" select ficha_codigo,ficha_nome,ficha_duracao, " +
+		String sql =" select ficha_codigo,ficha_nome,ficha_duracao,ficha_antecedencia, " +
 					" ficha_objetivo,ficha_realizacao,ficha_atual " +
 					" from ficha_serie " +
 					" where ficha_codigo != ?";

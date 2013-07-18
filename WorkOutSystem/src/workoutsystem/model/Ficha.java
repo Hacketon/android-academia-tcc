@@ -23,10 +23,12 @@ public class Ficha implements Serializable {
 	private String objetivo;
 	private List<Treino> treinos;
 	private int atual;
+	private int antecedencia;
 	
 	public Ficha(){
 		atual = 0;
 		realizacoes = 0;
+		antecedencia = 0;
 		
 	}
 	
@@ -75,6 +77,14 @@ public class Ficha implements Serializable {
 
 	public int getAtual() {
 		return atual;
+	}
+
+	public void setAntecedencia(int antecedencia) {
+		this.antecedencia = antecedencia;
+	}
+
+	public int getAntecedencia() {
+		return antecedencia;
 	}
 
 

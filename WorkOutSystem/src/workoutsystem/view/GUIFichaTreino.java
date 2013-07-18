@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ ListView.OnItemLongClickListener{
 	private TabSpec specficha;
 	private EditText editNomeFicha;
 	private EditText editNomeTreino;
+	private EditText editAntecedencia;
 	private EditText editDuracaoFicha;
 	private Spinner cbxObjetivo;
 	private List<String> listaObjetivo; 
@@ -90,6 +92,7 @@ ListView.OnItemLongClickListener{
 		btnCancelar = (Button) dialog.findViewById(R.id.btn_cancelarNome);
 		btnSalvar = (Button) dialog.findViewById(R.id.btn_confirmarNome);
 		editNomeFicha = (EditText) findViewById(R.id.edt_nomeFicha);
+		editAntecedencia = (EditText) findViewById(R.id.edt_antecedencia);
 		editDuracaoFicha = (EditText) findViewById(R.id.edt_duracaodias);
 		cbxObjetivo = (Spinner) findViewById(R.id.cbx_fichaObjetivo);
 		criarCombo();
@@ -162,6 +165,7 @@ ListView.OnItemLongClickListener{
 		if (f.getCodigo() != 0){
 			editNomeFicha.setText(f.getNome());
 			editDuracaoFicha.setText(String.valueOf(f.getDuracao()));
+			editAntecedencia.setText(String.valueOf(f.getAntecedencia()));
 			int pos = 0 ;
 
 			createListView(f.getTreinos());
@@ -207,6 +211,10 @@ ListView.OnItemLongClickListener{
 					equalsIgnoreCase("")){
 				String mensagem = "Duração é obrigatoria!";
 				throw new Exception(mensagem);
+			}
+			if(!editDuracaoFicha.getText().toString().
+					equalsIgnoreCase("")){
+				ficha.setAntecedencia(Integer.parseInt(editAntecedencia.getText().toString()));
 			}
 			ficha.setDuracao(Integer.parseInt
 					((editDuracaoFicha.getText().toString())));

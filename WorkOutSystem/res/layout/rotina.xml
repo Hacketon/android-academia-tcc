@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_padrao"
-    android:orientation="vertical" 
-    android:padding="5dp">
+    android:orientation="vertical"
+    android:padding="5dp" >
 
     <TabHost
         android:id="@+id/hostrotina"
@@ -78,7 +78,6 @@
                     </LinearLayout>
                     <!-- Ficha Atual -->
 
-					
                     <LinearLayout
                         style="@style/linearLayoutPadraoVertical"
                         android:layout_weight="100" >
@@ -87,17 +86,14 @@
                             android:id="@+id/combo_treinos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:prompt="@string/label_treino" 
-                            
-                            />
+                            android:prompt="@string/label_treino" />
                     </LinearLayout>
-                    
+
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
                         android:layout_weight="50"
                         android:weightSum="100" >
 
-                        
                         <TextView
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
@@ -143,79 +139,30 @@
 
                     <!-- Layout Combo Treino -->
 
-
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
                         android:layout_gravity="bottom"
                         android:layout_weight="50" >
-
-                        
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Tab de Calendario -->
+                <!-- Tab de Histórico -->
 
                 <LinearLayout
-                    android:id="@+id/tabcalendario"
+                    android:id="@+id/tabhistoricoRotina"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="100" >
 
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_width="fill_parent"
+                    <ListView
+                        android:id="@+id/lista_historicoRealizacao"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:gravity="center"
-                        android:weightSum="100" >
-
-                        <ImageButton
-                            android:id="@+id/btn_anteriormes"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="40"
-                            android:background="@android:color/transparent"
-                            android:onClick="onClick"
-                            android:src="@drawable/ic_setaesquerda" />
-
-                        <TextView
-                            android:id="@+id/txt_mes"
-                            style="@style/textomedio"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="20"
-                            android:gravity="center"
-                            android:text="@string/calendario_mes" />
-
-                        <ImageButton
-                            android:id="@+id/btn_proximomes"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="40"
-                            android:background="@android:color/transparent"
-                            android:onClick="onClick"
-                            android:src="@drawable/ic_setadireita" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="70"
-                        android:gravity="center" >
-
-                        <GridView
-                            android:id="@+id/calendariogrid"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:horizontalSpacing="5dp"
-                            android:numColumns="7"
-                            android:stretchMode="columnWidth"
-                            android:verticalSpacing="5dp" >
-                        </GridView>
-                    </LinearLayout>
+                        android:layout_gravity="center"
+                        android:divider="@android:color/black"
+                        android:dividerHeight="1dp" >
+                    </ListView>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

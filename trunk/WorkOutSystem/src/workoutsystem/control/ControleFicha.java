@@ -29,6 +29,8 @@ public class ControleFicha {
 			mensagem = validadora.getMessage();
 		}else if (ficha.getNome().equalsIgnoreCase("Nenhuma")){
 			mensagem = "Nenhuma é um nome invalido !";
+		}else if(ficha.getAntecedencia()>ficha.getDuracao()){
+			mensagem = "Duração tem que ser maior que alerta!";
 		}else{
 			if(buscarFichaCodigo(ficha.getCodigo()).getCodigo() == 0){
 				mensagem = inserirFicha(ficha);
@@ -54,6 +56,7 @@ public class ControleFicha {
 	private String inserirFicha(Ficha ficha) throws Exception{
 		IFichaDao dao = new FichaDao();
 		String mensagem = "";
+		
 		if(buscarFichaNome(ficha.getNome())!= null){
 			mensagem = "Já existe uma ficha com este nome!";
 			throw new Exception(mensagem);

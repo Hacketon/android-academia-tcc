@@ -18,8 +18,8 @@ public class ControleSerie {
 		List<Serie> esp = dao.listarSerie(codigoTreino);
 		return esp;
 	}
-	
-	
+
+
 
 	public void removerSerie(long codigoTreino,List<Exercicio> exercicio) 
 	throws Exception {
@@ -29,7 +29,7 @@ public class ControleSerie {
 		}
 
 	}
-	
+
 	public boolean removerSerie(List<Exercicio> exercicio) throws SQLException{
 		ISerieDao dao = new SerieDao();
 		boolean retorno = false;
@@ -38,7 +38,7 @@ public class ControleSerie {
 		}
 		return retorno;
 	}
-	
+
 	public String alterarCarga(Double carga, int codigo){
 		String mensagem = "";
 		ISerieDao dao = new SerieDao();
@@ -49,17 +49,17 @@ public class ControleSerie {
 			}else{
 				mensagem = "Erro ao alterar";
 			}
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return mensagem;
 	}
 
-	
-	
-	
+
+
+
 	public String atualizarSerie(Serie serie) throws Exception {
 		boolean resultado = false;
 		String mensagem = "Serie alterada com sucesso";
@@ -81,7 +81,7 @@ public class ControleSerie {
 		return  mensagem;
 
 	} 
-	
+
 	public String manipularSerie(List<Serie> esp) throws Exception {
 		String mensagem = "O numero minimo de series é 1";
 		if(esp.size()<=0){
@@ -96,8 +96,8 @@ public class ControleSerie {
 		}
 		return mensagem;
 	}
-	
-	
+
+
 	public boolean reordenarSerie(List<Serie> series) throws Exception{
 		int novo = 1;
 		ISerieDao dao = new SerieDao();
@@ -115,7 +115,7 @@ public class ControleSerie {
 		return retorno;
 
 	}
-	
+
 	public String adicionarSerie(List<Serie> lista) throws Exception{
 		ISerieDao dao = new SerieDao();
 		boolean resultado = false;
@@ -142,7 +142,7 @@ public class ControleSerie {
 
 		return  mensagem;
 	}
-	
+
 	public String removerSerieCodigo(int codigo) throws Exception{
 		ISerieDao dao = new SerieDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
@@ -162,8 +162,8 @@ public class ControleSerie {
 
 
 	}
-	
-	
+
+
 	public String removerSerie(int ordem,int treino) throws Exception {
 		ISerieDao dao = new SerieDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
@@ -198,25 +198,37 @@ public class ControleSerie {
 		ISerieDao dao = new SerieDao();
 		boolean retorno = dao.removerRealizacaoSerie(serie);
 		return retorno;
-		
+
 	}
 
+	public boolean removerTudoRealizacaoSerie() throws SQLException {
+		ISerieDao dao = new SerieDao();
+		boolean retorno = dao.removerTodasRealizacoesSerie();
+		return retorno;
+
+	}
 
 
 	public List<Serie> listarRealizacaoSerie() throws SQLException {
 		ISerieDao dao = new SerieDao();
 		List<Serie> retorno = dao.listarRealizacaoSerie();
 		return retorno;
-		
+
 	}
 
+	public int buscarTreinoIniciado() throws SQLException {
+		ISerieDao dao = new SerieDao();
+		int retorno = dao.buscarTreinoIniciado();
+		return retorno;
+
+	}
 
 
 	public boolean inserirRealizacaoSerie(Serie serie) throws SQLException {
 		ISerieDao dao = new SerieDao();
 		boolean retorno = dao.inserirRealizacaoSerie(serie);
 		return retorno;
-		
+
 	}
-	
+
 }

@@ -60,21 +60,42 @@ View.OnClickListener{
 
 
 		//refatorar para controle serie
-		ITreinoDao dao = new TreinoDao();
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-		ControleTreino controleTreino = new ControleTreino();
 		ControleSerie controleSerie = new ControleSerie();
 		//refatorar para controleSerie
 
+		
+		
+		// verificar se treino iniciado é o mesmo que foi selecionado atualmente
+		int treinoIniciado = 0;
+		try {
+			treinoIniciado = controleSerie.buscarTreinoIniciado();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		if(treino.getCodigo() != treinoIniciado){
+			try {
+				controleSerie.removerTudoRealizacaoSerie();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		//listando realizacao serie
+		
 		try {
 			seriesTreino = controleSerie.listarRealizacaoSerie();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		
+		
+
+
 		if(seriesTreino.size() == 0){
-			
+
 			for(Serie s: treino.getSerie()){
 				try {
 					controleSerie.inserirRealizacaoSerie(s);
@@ -88,6 +109,9 @@ View.OnClickListener{
 				e.printStackTrace();
 			}
 
+
+			Toast.makeText(this,"Iniciando: " + treino.getNome() ,
+					Toast.LENGTH_LONG).show();
 		}
 
 
@@ -238,9 +262,6 @@ View.OnClickListener{
 
 		criarCaixaAlteracaoSerie(especificacao);
 
-
-
-
 		return false;
 	}
 
@@ -275,7 +296,6 @@ View.OnClickListener{
 	public void finalizarSeries() throws Exception{
 
 		//refatorar treino serie
-		ITreinoDao dao = new TreinoDao();
 		ControleSerie controleSerie = new ControleSerie();
 
 		for(Serie s : seriesRealizadas){
@@ -286,7 +306,6 @@ View.OnClickListener{
 		seriesTreino = controleSerie.listarRealizacaoSerie();	
 
 		init();
-
 
 	}
 

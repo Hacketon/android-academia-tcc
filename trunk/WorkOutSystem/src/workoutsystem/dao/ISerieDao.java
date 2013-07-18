@@ -3,6 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 
 public interface ISerieDao {
@@ -103,5 +104,12 @@ public interface ISerieDao {
 	 * @return true or false
 	 */
 	public abstract boolean removerSerie(long codigo) throws SQLException;
+	
+	
+	public abstract int buscarTreinoIniciado() throws SQLException;
+
+	public abstract boolean removerTodasRealizacoesSerie() throws SQLException;
+	
+	public abstract List<Realizacao> listarHistoricoRealizacaoSerie() throws  Exception;
 	
 }

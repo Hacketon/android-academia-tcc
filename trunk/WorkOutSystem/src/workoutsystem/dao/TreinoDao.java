@@ -198,15 +198,8 @@ public class TreinoDao implements ITreinoDao {
 		return listaTreino;
 	}
 	
-	// criar controle e interface dao
-	
-
-	
-	
+		
 	// tabelaRealizaSerie teste
-	
-	
-	
 	
 	@Override
 	public String buscarUltimoTreinoRealizado() throws SQLException {

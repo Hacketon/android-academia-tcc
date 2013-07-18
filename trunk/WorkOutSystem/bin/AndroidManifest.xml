@@ -52,19 +52,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GUIFichaUsuario"
+            android:name=".GUIFichaSerie"
             android:label="@string/title_activity_tela_ficha" >
             <intent-filter>
-                <action android:name="workoutsystem.view.FICHAUSUARIO" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".GUIFichaManipular"
-            android:label="@string/title_activity_tela_ficha" >
-            <intent-filter>
-                <action android:name="workoutsystem.view.FICHAMANIPULAR" />
+                <action android:name="workoutsystem.view.FICHATREINO" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -73,7 +64,7 @@
             android:name=".GUIFichaTreino"
             android:label="@string/title_activity_tela_ficha" >
             <intent-filter>
-                <action android:name="workoutsystem.view.FICHATREINO" />
+                <action android:name="workoutsystem.view.FICHAMANIPULAR" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

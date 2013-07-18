@@ -260,7 +260,7 @@ public class SerieDao implements ISerieDao {
 
 		String sql = " select distinct ficha.[nome] as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
 				" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
-				"inner join treino on treino.[codigo] = realizacao.codigotreino";
+				"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao desc";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = ResourceManager.getConexao();

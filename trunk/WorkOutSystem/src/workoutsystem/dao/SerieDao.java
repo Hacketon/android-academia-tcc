@@ -258,7 +258,8 @@ public class SerieDao implements ISerieDao {
 	@Override
 	public List<Realizacao> listarHistoricoRealizacaoSerie()	throws Exception {
 
-		String sql = " select distinct ficha.[nome] as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
+		String sql = " select distinct ficha.[nome] " +
+				" as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
 				" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
 				"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao desc";
 
@@ -431,6 +432,23 @@ public class SerieDao implements ISerieDao {
 		return (valor>=0);
 
 	}
+
+	@Override
+	public boolean reordenarSerieRemocao(int posicialIncial, int posicaoFinal,long codigoTreino) throws SQLException {
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		String sql = "update serie set ordem = ordem - 1 " +
+		" where ordem > ? and ordem <= ? and codigoTreino = ?";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++,posicialIncial);
+		prepare.setInt(aux++, posicaoFinal);
+		prepare.setLong(aux++, codigoTreino);
+		int resultado = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return resultado>0;
+	}
+	
 
 
 }

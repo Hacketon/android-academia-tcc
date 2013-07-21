@@ -40,7 +40,8 @@ public interface ISerieDao {
 	public abstract int buscarSerie(int ordem,int codigotreino) throws SQLException;
 
 
-
+	public boolean reordenarSerieRemocao(int posicaoInicial, int posicaoFinal,long codigoTreino) throws SQLException;
+	
 	boolean reordenarSerie(int novo, int codigo) throws SQLException;
 	
 	/**

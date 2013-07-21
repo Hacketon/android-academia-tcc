@@ -15,7 +15,9 @@ public class Serie implements Serializable {
 	private int quantidade;
 	private Exercicio exercicio;
 	
-	
+	public Serie(){
+		carga = 0;
+	}
 	public double getCarga() {
 		return carga;
 	}

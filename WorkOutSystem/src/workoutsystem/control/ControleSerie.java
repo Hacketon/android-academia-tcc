@@ -3,6 +3,8 @@ package workoutsystem.control;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.widget.Toast;
+
 import workoutsystem.dao.ISerieDao;
 import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
@@ -97,23 +99,22 @@ public class ControleSerie {
 		return mensagem;
 	}
 
-
-	public boolean reordenarSerie(List<Serie> series) throws Exception{
-		int novo = 1;
+	public boolean reordenarSerie(int posicaoInicial,int posicaoFinal, long codigoTreino,boolean operacao,List<Integer> codigos)
+	throws SQLException{
+		boolean retorno = false;
 		ISerieDao dao = new SerieDao();
-		boolean retorno = true;
-		String erro = "Não foi possivel reordenar a ficha!";
-
-		for(Serie antigo : series){
-			retorno = dao.reordenarSerie(novo,antigo.getCodigo());
-			novo = novo + 1;
-			if(!retorno){
-				throw new Exception(erro);
+		if(operacao){
+			retorno = dao.reordenarSerieRemocao(posicaoInicial, posicaoFinal, codigoTreino);
+		}else{
+			for(Integer codigo : codigos){
+				posicaoInicial++;
+				retorno = dao.reordenarSerie(posicaoInicial,codigo);
 			}
-
+			
 		}
+		
 		return retorno;
-
+		
 	}
 
 	public String adicionarSerie(List<Serie> lista) throws Exception{

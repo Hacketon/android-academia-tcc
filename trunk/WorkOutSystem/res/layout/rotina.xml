@@ -37,16 +37,38 @@
                     android:weightSum="300" >
 
                     <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
+                        style="@style/linearLayoutPadraoVertical"
                         android:layout_height="wrap_content"
                         android:layout_weight="50" >
 
+                        <TextView
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:layout_weight="25"
+                            android:text="@string/label_ficha_atual"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/nome_ficha_atual"
+                            style="@style/textogrande"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="25"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/label_nomeficha" />
+                        <!--
                         <TextView
                             android:id="@+id/diaSemana"
                             style="@style/textomedio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/label_diasemana" />
+                            android:text="@string/label_diasemana" />
+                        -->
                     </LinearLayout>
 
                     <LinearLayout
@@ -55,7 +77,7 @@
                         android:background="#191970"
                         android:gravity="left"
                         android:orientation="vertical"
-                        android:weightSum="100" >
+                        android:weightSum="50">
 
                         <TextView
                             android:id="@+id/linhaDesignPrin"
@@ -80,7 +102,7 @@
 
                     <LinearLayout
                         style="@style/linearLayoutPadraoVertical"
-                        android:layout_weight="100" >
+                        android:layout_weight="50" >
 
                         <Spinner
                             android:id="@+id/combo_treinos"
@@ -88,55 +110,91 @@
                             android:layout_height="wrap_content"
                             android:prompt="@string/label_treino" />
                     </LinearLayout>
-
+					<!-- Ultimo treino -->
                     <LinearLayout
-                        style="@style/linearLayoutPadraoHorizontal"
+                        style="@style/linearLayoutPadraoVertical"
                         android:layout_weight="50"
                         android:weightSum="100" >
 
-                        <TextView
+                      <TextView
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:gravity="left"
                             android:paddingLeft="20dp"
-                            android:text="@string/label_ficha_atual" />
-
-                        <TextView
-                            android:id="@+id/nome_ficha_atual"
-                            style="@style/textomedio"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="" />
-                    </LinearLayout>
-
-                    <!-- Ultimo Treino -->
-
-                    <LinearLayout
+                            android:text="@string/label_ultimo_treino"
+                            android:textStyle="italic"  />
+                      </LinearLayout>
+                      
+                      <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
                         android:layout_weight="50"
                         android:weightSum="100" >
-
-                        <TextView
+                    
+                      <TextView
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="70"
                             android:gravity="left"
                             android:paddingLeft="20dp"
-                            android:text="@string/label_ultimo_treino" />
+                            android:text="Treino :" />
 
                         <TextView
                             android:id="@+id/ultimo_treino"
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="30"
                             android:text="" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:weightSum="100" >
+                    
+                      <TextView
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="70"
+                            android:gravity="left"
+                            android:paddingLeft="20dp"
+                            android:text="Ficha :" />
+
+                        <TextView
+                            android:id="@+id/ultimo_ficha"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:text="" />
+                    </LinearLayout>
+                    
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="50"
+                        android:weightSum="100" >
+                    
+                      <TextView
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="70"
+                            android:gravity="left"
+                            android:paddingLeft="20dp"
+                            android:text="Data :" />
+
+                        <TextView
+                            android:id="@+id/ultimo_data"
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:text="" />
+                    </LinearLayout>
                     <!-- Layout Combo Treino -->
 
                     <LinearLayout

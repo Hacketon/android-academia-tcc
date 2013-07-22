@@ -42,13 +42,14 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private Calendar dia;
 	private TextView textomes;
 	//private GridView gradedias;
-	private TextView diaSemana;
+	private TextView ultimaData;
 	private TextView grupoMuscular;
 	private TextView ultimoTreino;
 	private Spinner comboTreinos;  
 	private TextView txtNomeFicha;
 	private List<Treino> listaTreinos;
 	private Ficha ficha;
+	private TextView ultimaFicha;
 	private Dialog dialogPreview;
 	private ListView listaExercicios;
 	private ArrayAdapter<String> adapter;
@@ -62,10 +63,11 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		setContentView(R.layout.rotina);
 
 		cbxDiaSemana = (Spinner)findViewById(R.id.combo_treinos);
-		diaSemana = (TextView) findViewById(R.id.diaSemana);
+		ultimaData = (TextView) findViewById(R.id.ultimo_data);
+		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
+		ultimaFicha = (TextView) findViewById(R.id.ultimo_ficha);
 		//	textomes = (TextView) findViewById(R.id.txt_mes);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
-		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
 
 		listaRealizacaoString = new ArrayList<String>();
 		listaRealizacao = (ListView) findViewById(R.id.lista_historicoRealizacao);
@@ -76,7 +78,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 		dia.get(Calendar.DAY_OF_WEEK);
 
-		diaSemana.setText(android.text.format.DateFormat.format("EEEEE", dia));
+		//diaSemana.setText(android.text.format.DateFormat.format("EEEEE", dia));
 
 		//		adapter = new AdaptadorCalendario(mes,this);
 
@@ -101,7 +103,15 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 		ITreinoDao dao = new TreinoDao();
 		try {
-			ultimoTreino.setText(dao.buscarUltimoTreinoRealizado());
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
+			if(realizacao.getCodigo()!=0){
+				ultimoTreino.setText(realizacao.getTreino().getNome().toString());
+				ultimaData.setText(format.format(realizacao.getData()));
+				ultimaFicha.setText(realizacao.getFicha().getNome());	
+			}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

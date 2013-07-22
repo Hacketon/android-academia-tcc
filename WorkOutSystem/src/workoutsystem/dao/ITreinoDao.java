@@ -3,6 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
@@ -101,6 +102,6 @@ public interface ITreinoDao {
 
 	
 	
-	public abstract String buscarUltimoTreinoRealizado() throws SQLException;
+	public abstract Realizacao buscarUltimoTreinoRealizado() throws SQLException;
 
 }

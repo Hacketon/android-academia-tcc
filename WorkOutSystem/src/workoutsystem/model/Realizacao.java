@@ -11,6 +11,10 @@ public class Realizacao implements Serializable {
 	private Treino treino;
 	private Ficha ficha;
 	
+	public Realizacao(){
+	
+		
+	}
 	public int getCodigo() {
 		return codigo;
 	}

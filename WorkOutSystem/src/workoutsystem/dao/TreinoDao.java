@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
+import workoutsystem.model.Ficha;
 import workoutsystem.model.Grupo;
+import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
@@ -202,22 +204,33 @@ public class TreinoDao implements ITreinoDao {
 	// tabelaRealizaSerie teste
 	
 	@Override
-	public String buscarUltimoTreinoRealizado() throws SQLException {
+	public Realizacao buscarUltimoTreinoRealizado() throws SQLException {
 		Connection con = ResourceManager.getConexao();
-		String resultado = "";
-		String sql = "select treino.nome as treino from realizacao" +
-				" inner join treino on treino.codigo = codigotreino " +
-				"order by datarealizacao asc  ";
+		
+		String sql = "select treino.nome as treino_nome,realizacao.codigo as realizacao_codigo"+
+					" ficha.nome as ficha_nome,realizacao.datarealizacao "+
+					" as realizacao_data from realizacao "+
+					" inner join treino on treino.codigo = codigotreino "+ 
+					" inner join ficha on ficha.codigo = realizacao.codigoficha "+
+					" order by datarealizacao asc ";
 		
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
+		Realizacao realizacao = new Realizacao();
 		if(result.next()){
-			resultado = result.getString("treino");
+			realizacao.setCodigo(result.getInt("realizacao_codigo"));
+			realizacao.setData(result.getDate("realizacao_data"));
+			Treino treino = new Treino();
+			treino.setNome(result.getString("treino_nome"));
+			Ficha ficha = new Ficha();
+			ficha.setNome(result.getString("ficha_nome"));
+			realizacao.setTreino(treino);
+			realizacao.setFicha(ficha);
 		}
 
 		prepare.close();
 		con.close();
-		return resultado;	
+		return realizacao;	
 	
 	}
 	

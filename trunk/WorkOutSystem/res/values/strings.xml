@@ -27,14 +27,14 @@
 
     <!-- texto medidas ! -->
 
-    <string name="label_altura">Altura</string>
-    <string name="label_peso">Peso</string>
-    <string name="label_braco">Braço</string>
-    <string name="label_quadril">Quadril</string>
-    <string name="label_cintura">Cintura</string>
-    <string name="label_peito">Peito</string>
-    <string name="label_panturrilha">Panturilha</string>
-    <string name="label_coxa">Coxa</string>
+    <string name="label_altura">Altura (cm)</string>
+    <string name="label_peso">Peso (kg)</string>
+    <string name="label_braco">Braço (cm)</string>
+    <string name="label_quadril">Quadril (cm)</string>
+    <string name="label_cintura">Cintura (cm)</string>
+    <string name="label_peito">Peito (cm)</string>
+    <string name="label_panturrilha">Panturilha (cm)</string>
+    <string name="label_coxa">Coxa (cm)</string>
     <string name="label_direita">Dir.</string>
     <string name="label_esquerda">Esq.</string>
     <string name="botao_add">+</string>
@@ -161,11 +161,11 @@
     <!-- Tela Avatar -->
 
     <string name="label_nivel_usuario"> Nivel: </string>
-    <string name="botao_peito"> Peito </string>
-    <string name="botao_quadril"> Quadril </string>
-    <string name="botao_braco"> Braço </string>
-    <string name="botao_panturrilha"> Panturilha </string>
-    <string name="botao_coxa"> Coxa </string>
+    <string name="botao_peito"> Peito (cm) </string>
+    <string name="botao_quadril"> Quadril (cm) </string>
+    <string name="botao_braco"> Braço (cm) </string>
+    <string name="botao_panturrilha"> Panturilha (cm) </string>
+    <string name="botao_coxa"> Coxa (cm) </string>
 
     <!-- Sobre -->
 

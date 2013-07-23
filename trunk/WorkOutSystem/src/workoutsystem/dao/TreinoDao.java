@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import workoutsystem.model.Exercicio;
@@ -204,26 +206,25 @@ public class TreinoDao implements ITreinoDao {
 	// tabelaRealizaSerie teste
 	
 	@Override
-	public Realizacao buscarUltimoTreinoRealizado() throws SQLException {
+	public Realizacao buscarUltimoTreinoRealizado() throws SQLException,ParseException {
 		Connection con = ResourceManager.getConexao();
 		
-		String sql = "select treino.nome as treino_nome,realizacao.codigo as realizacao_codigo"+
-					" ficha.nome as ficha_nome,realizacao.datarealizacao "+
-					" as realizacao_data from realizacao "+
-					" inner join treino on treino.codigo = codigotreino "+ 
-					" inner join ficha on ficha.codigo = realizacao.codigoficha "+
-					" order by datarealizacao asc ";
-		
+		String sql = " select distinct realizacao.codigo  as realizacao_codigo ,ficha.[nome] " +
+		" as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
+		" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
+		"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao asc";
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
 		Realizacao realizacao = new Realizacao();
 		if(result.next()){
 			realizacao.setCodigo(result.getInt("realizacao_codigo"));
-			realizacao.setData(result.getDate("realizacao_data"));
+			realizacao.setData(sdf.parse(result.getString("datarealizacao")));
 			Treino treino = new Treino();
-			treino.setNome(result.getString("treino_nome"));
+			treino.setNome(result.getString("treino"));
 			Ficha ficha = new Ficha();
-			ficha.setNome(result.getString("ficha_nome"));
+			ficha.setNome(result.getString("ficha"));
 			realizacao.setTreino(treino);
 			realizacao.setFicha(ficha);
 		}

@@ -297,8 +297,6 @@ public class SerieDao implements ISerieDao {
 
 	@Override
 	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {
-
-
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();

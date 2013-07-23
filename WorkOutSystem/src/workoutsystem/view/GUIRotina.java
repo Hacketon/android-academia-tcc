@@ -41,7 +41,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private Calendar mes;
 	private Calendar dia;
 	private TextView textomes;
-	//private GridView gradedias;
 	private TextView ultimaData;
 	private TextView grupoMuscular;
 	private TextView ultimoTreino;
@@ -66,7 +65,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		ultimaData = (TextView) findViewById(R.id.ultimo_data);
 		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
 		ultimaFicha = (TextView) findViewById(R.id.ultimo_ficha);
-		//	textomes = (TextView) findViewById(R.id.txt_mes);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
 
 		listaRealizacaoString = new ArrayList<String>();
@@ -100,24 +98,22 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		criarTab();
 
 
-
-
-
 	}
 	private void init() {
 		ITreinoDao dao = new TreinoDao();
 		SerieDao daoSerie = new SerieDao();
 		List<Realizacao> lista = new ArrayList<Realizacao>();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
 		try {
 			lista = daoSerie.listarHistoricoRealizacaoSerie();
 			createListView(lista);
 			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
-			if(realizacao.getCodigo()!=0){
+			//if(realizacao.getCodigo()!=0){
 				ultimoTreino.setText(realizacao.getTreino().getNome());
 				ultimaData.setText(sdf.format(realizacao.getData()));
 				ultimaFicha.setText(realizacao.getFicha().getNome());	
-			}
+			//}
 			selecionarFichaAtual();
 			
 		} catch (Exception e) {
@@ -125,10 +121,10 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			e.printStackTrace();
 		}
 	}
-	protected void onResume() {
-		super.onResume();
-		init();	
-	}
+//	protected void onResume() {
+//		super.onResume();
+//		init();	
+//	}
 	/**
 	 * Metodo de criação das tab spec e tab host
 	 */

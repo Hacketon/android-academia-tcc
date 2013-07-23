@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.dao.ITreinoDao;
@@ -12,7 +13,10 @@ import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,7 +36,7 @@ import android.widget.Toast;
 public class GUIExecutaFicha extends Activity implements 
 ListView.OnItemLongClickListener,
 ListView.OnItemClickListener ,
-View.OnClickListener{
+View.OnClickListener,DialogInterface.OnClickListener{
 
 	private ListView listaSerie; 
 	private ArrayAdapter<String> adapterSerie;
@@ -64,8 +68,8 @@ View.OnClickListener{
 		ControleSerie controleSerie = new ControleSerie();
 		//refatorar para controleSerie
 
-		
-		
+
+
 		// verificar se treino iniciado é o mesmo que foi selecionado atualmente
 		int treinoIniciado = 0;
 		try {
@@ -73,7 +77,7 @@ View.OnClickListener{
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		if(treino.getCodigo() != treinoIniciado){
 			try {
 				controleSerie.removerTudoRealizacaoSerie();
@@ -81,17 +85,17 @@ View.OnClickListener{
 				e.printStackTrace();
 			}
 		}
-		
-		
+
+
 		//listando realizacao serie
-		
+
 		try {
 			seriesTreino = controleSerie.listarRealizacaoSerie();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 
 
 		if(seriesTreino.size() == 0){
@@ -351,10 +355,81 @@ View.OnClickListener{
 
 		case R.id.finalizar_treino:
 
+			
+			
+			try {
+				finalizarSeries();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			if(seriesTreino.size() > 0){
+				construirCaixa();
+			}
+			
 			break;
 		}
 		return false;
 	}
 
+	public void finalizarTudo() throws SQLException{
+
+		ControleSerie controleSerie = new ControleSerie();
+
+		
+		controleSerie.removerTudoRealizacaoSerie();
+
+		seriesTreino = controleSerie.listarRealizacaoSerie();
+
+
+		init();
+
+	}
+	
+	private void construirCaixa() {
+			String quantidade = String.valueOf(seriesTreino.size());
+			String texto = quantidade + " serie(s) não relizadas, realmente deseja finalizar treino ?";
+			
+			criarCaixa(texto);
+		}
+		
+	private void criarCaixa(String texto) {
+
+		
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(texto);
+		alert.setTitle("Confirmação");
+		alert.setNegativeButton("Não", this);
+		alert.setPositiveButton("Sim",this);
+		alert.show();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		
+		switch (which) {
+
+		case DialogInterface.BUTTON_NEGATIVE:
+			dialog.dismiss();
+			break;	
+		case DialogInterface.BUTTON_POSITIVE:
+					
+
+			try {
+				finalizarTudo();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			break;
+
+
+		}
+
+
+		
+	}
+
+	
 
 }

@@ -209,7 +209,7 @@ public class TreinoDao implements ITreinoDao {
 	public Realizacao buscarUltimoTreinoRealizado() throws SQLException,ParseException {
 		Connection con = ResourceManager.getConexao();
 		
-		String sql = " select distinct realizacao.codigo  as realizacao_codigo ,ficha.[nome] " +
+		String sql = " select distinct ficha.[nome] " +
 		" as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
 		" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
 		"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao asc";
@@ -218,8 +218,7 @@ public class TreinoDao implements ITreinoDao {
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
 		Realizacao realizacao = new Realizacao();
-		if(result.next()){
-			realizacao.setCodigo(result.getInt("realizacao_codigo"));
+		while(result.next()){
 			realizacao.setData(sdf.parse(result.getString("datarealizacao")));
 			Treino treino = new Treino();
 			treino.setNome(result.getString("treino"));

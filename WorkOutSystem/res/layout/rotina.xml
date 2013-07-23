@@ -29,6 +29,8 @@
 
                 <!-- Tab de treino -->
 
+			
+
                 <LinearLayout
                     android:id="@+id/tabtreino"
                     android:layout_width="match_parent"
@@ -111,21 +113,22 @@
                             android:prompt="@string/label_treino" />
                     </LinearLayout>
 					<!-- Ultimo treino -->
+                    <!-- 
                     <LinearLayout
                         style="@style/linearLayoutPadraoVertical"
                         android:layout_weight="50"
                         android:weightSum="100" >
-
+ -->
                       <TextView
                             style="@style/textomedio"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
                             android:gravity="left"
-                            android:paddingLeft="20dp"
+                            android:paddingLeft="10dp"
                             android:text="@string/label_ultimo_treino"
                             android:textStyle="italic"  />
-                      </LinearLayout>
+             <!--         </LinearLayout>  --> 
                       
                       <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
@@ -138,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:gravity="left"
-                            android:paddingLeft="20dp"
+                            android:paddingLeft="10dp"
                             android:text="Treino :" />
 
                         <TextView
@@ -149,7 +152,7 @@
                             android:layout_weight="30"
                             android:text="" />
                     </LinearLayout>
-
+	
                     <LinearLayout
                         style="@style/linearLayoutPadraoHorizontal"
                         android:layout_weight="50"
@@ -161,7 +164,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:gravity="left"
-                            android:paddingLeft="20dp"
+                            android:paddingLeft="10dp"
                             android:text="Ficha :" />
 
                         <TextView
@@ -184,7 +187,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:gravity="left"
-                            android:paddingLeft="20dp"
+                            android:paddingLeft="10dp"
                             android:text="Data :" />
 
                         <TextView
@@ -203,7 +206,7 @@
                         android:layout_weight="50" >
                     </LinearLayout>
                 </LinearLayout>
-
+				
                 <!-- Tab de Histórico -->
 
                 <LinearLayout

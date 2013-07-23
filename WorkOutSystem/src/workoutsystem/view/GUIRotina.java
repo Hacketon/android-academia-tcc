@@ -96,48 +96,38 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
 		//treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
 
-
-
-
-		//refatorar
-
-		ITreinoDao dao = new TreinoDao();
-		try {
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
-			if(realizacao.getCodigo()!=0){
-				ultimoTreino.setText(realizacao.getTreino().getNome().toString());
-				ultimaData.setText(format.format(realizacao.getData()));
-				ultimaFicha.setText(realizacao.getFicha().getNome());	
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-
+		init();
 		criarTab();
 
 
-		//testando historico
-		//refatorar 
-		//
-		//
-		//
 
+
+
+	}
+	private void init() {
+		ITreinoDao dao = new TreinoDao();
 		SerieDao daoSerie = new SerieDao();
 		List<Realizacao> lista = new ArrayList<Realizacao>();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			lista = daoSerie.listarHistoricoRealizacaoSerie();
+			createListView(lista);
+			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
+			if(realizacao.getCodigo()!=0){
+				ultimoTreino.setText(realizacao.getTreino().getNome());
+				ultimaData.setText(sdf.format(realizacao.getData()));
+				ultimaFicha.setText(realizacao.getFicha().getNome());	
+			}
+			selecionarFichaAtual();
+			
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		createListView(lista);
-
-
+	}
+	protected void onResume() {
+		super.onResume();
+		init();	
 	}
 	/**
 	 * Metodo de criação das tab spec e tab host

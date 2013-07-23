@@ -63,14 +63,7 @@
                             android:paddingBottom="15dp"
                             android:paddingTop="7dp"
                             android:text="@string/label_nomeficha" />
-                        <!--
-                        <TextView
-                            android:id="@+id/diaSemana"
-                            style="@style/textomedio"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_diasemana" />
-                        -->
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -124,7 +117,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:gravity="left"
+                            android:gravity="center"
                             android:paddingLeft="10dp"
                             android:text="@string/label_ultimo_treino"
                             android:textStyle="italic"  />

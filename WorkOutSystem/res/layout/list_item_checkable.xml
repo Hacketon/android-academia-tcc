@@ -27,8 +27,9 @@
     <ImageView
         android:id="@id/click_remove"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/item_height"
-        android:layout_weight="40"
+        android:layout_height="45dp"
+        android:layout_weight="45"
+        android:layout_gravity="center"
         android:background="@drawable/button_delete" />
 
 </workoutsystem.utilitaria.CheckableLinearLayout>

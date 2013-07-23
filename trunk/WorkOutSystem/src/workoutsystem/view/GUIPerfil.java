@@ -1,5 +1,6 @@
 package workoutsystem.view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Frequencia;
 import workoutsystem.model.Perfil;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -19,7 +22,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
-public class GUIPerfil extends Activity implements View.OnClickListener {
+public class GUIPerfil extends Activity implements View.OnClickListener, DialogInterface.OnClickListener {
 
 
 	private TabHost tabperfil;
@@ -36,6 +39,9 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	private CheckBox frequenciaSexta;
 	private CheckBox frequenciaSabado;
 	private CheckBox frequenciaDomingo;
+
+	Perfil perfil = null;
+	String mensagem = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +100,7 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		ControlePerfil controle = new ControlePerfil();
-		ControleMedida controleMed = new ControleMedida();
-		ControleFicha controleFicha = new ControleFicha();
 
-		Perfil perfil = null;
-		String mensagem = "";
 		switch (v.getId()){
 		case R.id.btn_cadperfil:
 			try{
@@ -118,21 +120,15 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 			}
 			break;
 		case R.id.btn_excperfil:
-			try{
 
-				limparCampos();
-				perfil = criaManipulaPerfil();
-				mensagem = controle.excluirPerfil(perfil) +"\n"
-				+ controleMed.excluirMedicoes(perfil.getCodigo())+ "\n"
-				+ controleFicha.desativarFichaAtual();
-				finish();
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
+			construirCaixa();
+
 			break;
 		}
 		Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 	}
+
+
 
 
 	//corrigir codigo , deixando as verificações no controle 
@@ -333,6 +329,54 @@ public class GUIPerfil extends Activity implements View.OnClickListener {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
+
+	}
+
+
+	private void construirCaixa() {
+		String texto = "Realmente deseja excluir o Perfil ?";
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(texto);
+		alert.setTitle("Confirmação");
+		alert.setNegativeButton("Não", this);
+		alert.setPositiveButton("Sim",this);
+		alert.show();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+
+		ControlePerfil controle = new ControlePerfil();
+		ControleMedida controleMed = new ControleMedida();
+		ControleFicha controleFicha = new ControleFicha();
+
+
+		switch (which) {
+
+		case DialogInterface.BUTTON_NEGATIVE:
+			dialog.dismiss();
+			break;	
+		case DialogInterface.BUTTON_POSITIVE:
+			try{
+
+				limparCampos();
+				perfil = criaManipulaPerfil();
+				mensagem = controle.excluirPerfil(perfil) +"\n"
+				+ controleMed.excluirMedicoes(perfil.getCodigo())+ "\n"
+				+ controleFicha.desativarFichaAtual();
+				finish();
+
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+
+
+			break;
+
+
+		}
+
+
 
 	}
 

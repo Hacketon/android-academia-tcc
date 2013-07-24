@@ -8,6 +8,7 @@ import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
+import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.dao.ITreinoDao;
@@ -37,7 +38,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private TabHost hostrotina;
 	private TabSpec spechistorico;
 	private TabSpec spectreino;
-	private Spinner cbxDiaSemana;
+	private Spinner cbxTreinos;
 	private Calendar mes;
 	private Calendar dia;
 	private TextView textomes;
@@ -60,72 +61,54 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rotina);
-
-		cbxDiaSemana = (Spinner)findViewById(R.id.combo_treinos);
+		cbxTreinos = (Spinner)findViewById(R.id.combo_treinos);
 		ultimaData = (TextView) findViewById(R.id.ultimo_data);
 		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
 		ultimaFicha = (TextView) findViewById(R.id.ultimo_ficha);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
-
 		listaRealizacaoString = new ArrayList<String>();
 		listaRealizacao = (ListView) findViewById(R.id.lista_historicoRealizacao);
-
-
-		//		mes = Calendar.getInstance();
-		dia = Calendar.getInstance();
-
-		dia.get(Calendar.DAY_OF_WEEK);
-
-		//diaSemana.setText(android.text.format.DateFormat.format("EEEEE", dia));
-
-		//		adapter = new AdaptadorCalendario(mes,this);
-
-		//		textomes.setText(android.text.format.DateFormat.format("MMMM yyyy", mes));
-
-		//		gradedias = (GridView) findViewById(R.id.calendariogrid);
-		//		gradedias.setAdapter(adapter);
-		//		gradedias.setOnItemClickListener(this);
-
 		txtNomeFicha = (TextView) findViewById(R.id.nome_ficha_atual);
-
-
 		dialogPreview = new Dialog(this);
 		dialogPreview.setContentView(R.layout.gerar_preview);
 		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
-		//treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
-
 		init();
 		criarTab();
-
+		/*
+		 * //diaSemana.setText(android.text.format.DateFormat.format("EEEEE", dia));
+		//		adapter = new AdaptadorCalendario(mes,this);
+		//		textomes.setText(android.text.format.DateFormat.format("MMMM yyyy", mes));
+		//		gradedias = (GridView) findViewById(R.id.calendariogrid);
+		//		gradedias.setAdapter(adapter);
+		//		gradedias.setOnItemClickListener(this);
+		 * //treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
+		 * //		mes = Calendar.getInstance();
+		dia = Calendar.getInstance();
+		dia.get(Calendar.DAY_OF_WEEK);
+		
+		 */
 
 	}
 	
 	private void init() {
 		ITreinoDao dao = new TreinoDao();
 		SerieDao daoSerie = new SerieDao();
+		ControleRotina controleRotina = new ControleRotina();
 		List<Realizacao> lista = new ArrayList<Realizacao>();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
 		try {
 			lista = daoSerie.listarHistoricoRealizacaoSerie();
 			createListView(lista);
-			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
-			if(realizacao.getCodigo()!=0){
-				ultimoTreino.setText(realizacao.getTreino().getNome());
-				ultimaData.setText(sdf.format(realizacao.getData()));
-				ultimaFicha.setText(realizacao.getFicha().getNome());	
-			}
+			Realizacao realizacao = controleRotina.buscarUltimoTreinoRealizado();
+			ultimoTreino.setText(realizacao.getTreino().getNome());
+			ultimaData.setText(sdf.format(realizacao.getData()));
+			ultimaFicha.setText(realizacao.getFicha().getNome());	
 			selecionarFichaAtual();
-			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Toast.makeText(this,e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
-//	protected void onResume() {
-//		super.onResume();
-//		init();	
-//	}
+
 	/**
 	 * Metodo de criação das tab spec e tab host
 	 */

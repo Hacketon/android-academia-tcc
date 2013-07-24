@@ -1,10 +1,14 @@
 package workoutsystem.control;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import workoutsystem.dao.ISerieDao;
+import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.SerieDao;
+import workoutsystem.dao.TreinoDao;
+import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 
 public class ControleRotina {
@@ -49,7 +53,15 @@ public class ControleRotina {
 
 	}
 
-
+	public Realizacao buscarUltimoTreinoRealizado() throws Exception{
+		ITreinoDao dao = new TreinoDao();
+		Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
+		String mensagem = "Nenhum treino foi realizado!";
+		if(realizacao.getCodigo() == 0){
+			throw new Exception(mensagem);
+		}
+		return realizacao;
+	}
 	public boolean inserirRealizacaoSerie(Serie serie) throws SQLException {
 		ISerieDao dao = new SerieDao();
 		boolean retorno = dao.inserirRealizacaoSerie(serie);

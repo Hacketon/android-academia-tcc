@@ -51,7 +51,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private Perfil perfil;
 	private ControleMedida controleMed; 
 		
-	
+	private int operacao;
 	private java.util.Date data; 
 	private SimpleDateFormat sdf;
 	private String dataFormat;  
@@ -63,6 +63,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.medidas);
 		criarTab();
+		operacao = 0;
 		data = new java.util.Date();
 		sdf = new SimpleDateFormat("yyyy-MM-dd");
 		dataFormat = sdf.format(data);
@@ -833,7 +834,6 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	public void bloquearCampoNull(){
 		if(editAltura.getText().toString().equalsIgnoreCase("")){
 			editAltura.setEnabled(false);
-
 		}else{
 			editAltura.setEnabled(true);
 		}
@@ -945,28 +945,21 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
-		int x= 0;
+		
 		switch(item.getItemId()) {
 		
 		case R.id.novo_medida:
-			x = 1;
-			
+			operacao = 1;
 			desbloquearCampos();
-
 			SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
 			String dataExibe = sdf2.format(data);  
-
 			Toast.makeText(this,"Medidas serão registradas na data: \n " + dataExibe, Toast.LENGTH_SHORT).show();
-
-			
 			break;
 		case R.id.alterar_medida:
-			
-			x =2;
+			operacao =2;
 			//metodo para bloquear campos em branco 
 			//carregarCampos(lista);
 			bloquearCampoNull();
-			
 			break;
 		case R.id.cancelar_medida:
 
@@ -979,16 +972,13 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		//	listaUltimosValores = ObterUltimosValores(listaUltimosValores);
 			listaUltimosValores = ObterUltimosValores(lista);
 
-			if(x==1){
+			if(operacao==1){
 				criaMedida(perfil, listaUltimosValores);
 				carregarCampos(listaUltimosValores);
-				
-			}else if(x==2){
-				
+			}else if(operacao==2){
 				Toast.makeText(this,controleMed.alterarUltimasMedicoes(listaUltimosValores),
 						Toast.LENGTH_LONG).show();
 			}
-
 			bloquearTodosCampos();
 			break;
 		}

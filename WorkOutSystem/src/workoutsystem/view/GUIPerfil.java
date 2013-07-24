@@ -39,9 +39,8 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 	private CheckBox frequenciaSexta;
 	private CheckBox frequenciaSabado;
 	private CheckBox frequenciaDomingo;
-
-	Perfil perfil = null;
-	String mensagem = "";
+	private Perfil perfil;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,8 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 		frequenciaSexta = (CheckBox) findViewById(R.id.check_sexta);
 		frequenciaSabado = (CheckBox) findViewById(R.id.check_sabado);
 		frequenciaDomingo = (CheckBox) findViewById(R.id.check_domingo);
-
+		
+		perfil = null;
 		ControlePerfil controlePerfil = new ControlePerfil();
 		try {
 			if(controlePerfil.buscarPerfil()!=null){
@@ -99,6 +99,7 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 
 	@Override
 	public void onClick(View v) {
+		String mensagem = "";
 		ControlePerfil controle = new ControlePerfil();
 
 		switch (v.getId()){
@@ -120,12 +121,20 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 			}
 			break;
 		case R.id.btn_excperfil:
-
-			construirCaixa();
+			if(controle.buscarPerfil() == null){
+				mensagem = "Nenhum perfil foi encontrado, exclusão invalida !";
+			}else{
+				construirCaixa();
+			}
+			
 
 			break;
 		}
-		Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+			
+		}
+		
 	}
 
 
@@ -345,11 +354,11 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-
+		
 		ControlePerfil controle = new ControlePerfil();
 		ControleMedida controleMed = new ControleMedida();
 		ControleFicha controleFicha = new ControleFicha();
-
+		String mensagem = "";
 
 		switch (which) {
 
@@ -358,18 +367,21 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 			break;	
 		case DialogInterface.BUTTON_POSITIVE:
 			try{
-
+				
 				limparCampos();
 				perfil = criaManipulaPerfil();
 				mensagem = controle.excluirPerfil(perfil) +"\n"
 				+ controleMed.excluirMedicoes(perfil.getCodigo())+ "\n"
 				+ controleFicha.desativarFichaAtual();
-				finish();
+				//finish();
 
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
-
+			if(!mensagem.equalsIgnoreCase("")){
+				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+				
+			}
 
 			break;
 

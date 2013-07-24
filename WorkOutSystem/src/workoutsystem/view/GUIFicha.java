@@ -328,20 +328,7 @@ DialogInterface.OnClickListener{
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
-		Ficha ficha = new Ficha();
-		String s = parent.getItemAtPosition(pos).toString();
-		for (Ficha f : listFicha)
-			if(f.getNome().equalsIgnoreCase(s.trim())){
-				ficha = f;
-				break;
-			}
-		iniciarFichaTreino(ficha);
-
-	}
-
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
-			long id) {
+		
 		
 		CheckedTextView c = (CheckedTextView) view;
 		boolean selecionado = c.isChecked();
@@ -360,6 +347,20 @@ DialogInterface.OnClickListener{
 		}else{
 			listaRemocao.remove(ficha);
 		}
+
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos,
+			long id) {
+		Ficha ficha = new Ficha();
+		String s = parent.getItemAtPosition(pos).toString();
+		for (Ficha f : listFicha)
+			if(f.getNome().equalsIgnoreCase(s.trim())){
+				ficha = f;
+				break;
+			}
+		iniciarFichaTreino(ficha);
 		return false;
 		
 	}

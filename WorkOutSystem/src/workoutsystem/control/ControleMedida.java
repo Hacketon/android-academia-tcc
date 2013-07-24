@@ -22,7 +22,7 @@ public class ControleMedida implements Comparator<Medicao> {
 			//verificar codigo
 			
 			if(dao.adicionarMedicao(medicoes)){
-				mensagem = " adicionada com sucesso";
+				mensagem = " Medições : Adicionadas com sucesso";
 			}
 		}
 
@@ -92,7 +92,7 @@ public class ControleMedida implements Comparator<Medicao> {
 		IMedidaDao dao = new MedidaDao();
 		
 		if(dao.alterarMedicao(medicoes)== true){
-			mensagem = "Atualizado com sucesso";
+			mensagem = " Medidas : Atualizadas com sucesso";
 		}		
 		
 		return mensagem;
@@ -103,7 +103,7 @@ public class ControleMedida implements Comparator<Medicao> {
 		IMedidaDao dao = new MedidaDao();
 		
 		if(dao.alterarUltimaMedicao(medicoes)!= false){
-			mensagem = "Atualizado com sucesso";
+			mensagem = " Medições : Atualizadas com sucesso";
 		}		
 		
 		return mensagem;

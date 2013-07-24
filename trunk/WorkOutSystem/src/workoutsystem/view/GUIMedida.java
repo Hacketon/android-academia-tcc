@@ -51,10 +51,10 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	private Perfil perfil;
 	private ControleMedida controleMed; 
 		
-	int x = 0;
-	java.util.Date data = new java.util.Date(); 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	String dataFormat = sdf.format(data);  
+	
+	private java.util.Date data; 
+	private SimpleDateFormat sdf;
+	private String dataFormat;  
 
 
 
@@ -63,7 +63,9 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.medidas);
 		criarTab();
-
+		data = new java.util.Date();
+		sdf = new SimpleDateFormat("yyyy-MM-dd");
+		dataFormat = sdf.format(data);
 		controle = new ControlePerfil();
 		controleMed = new ControleMedida();
 		controleMed = new ControleMedida();
@@ -943,7 +945,7 @@ public class GUIMedida extends Activity implements View.OnClickListener{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
-	
+		int x= 0;
 		switch(item.getItemId()) {
 		
 		case R.id.novo_medida:

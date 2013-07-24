@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    >
      <item
         android:id="@+id/novo_medida"
+        
         android:title="@string/botao_novo"/>
     <item
         android:id="@+id/alterar_medida"
+         
         android:title="@string/botao_alterar"/>
     <item
         android:id="@+id/salvar_medida"
+         
         android:title="@string/botao_salvar"/>
     <item
         android:id="@+id/cancelar_medida"
+        
         android:title="@string/botao_cancelar" />
         />
 

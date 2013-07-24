@@ -12,7 +12,7 @@ import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
 import android.annotation.SuppressLint;
 
-@SuppressLint("UseSparseArrays")
+
 public class ControleTreino {
 
 	public boolean reordenarTreino(List<Treino> treinos) throws Exception {

@@ -99,6 +99,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 
 	}
+	
 	private void init() {
 		ITreinoDao dao = new TreinoDao();
 		SerieDao daoSerie = new SerieDao();
@@ -109,11 +110,11 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			lista = daoSerie.listarHistoricoRealizacaoSerie();
 			createListView(lista);
 			Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
-			//if(realizacao.getCodigo()!=0){
+			if(realizacao.getCodigo()!=0){
 				ultimoTreino.setText(realizacao.getTreino().getNome());
 				ultimaData.setText(sdf.format(realizacao.getData()));
 				ultimaFicha.setText(realizacao.getFicha().getNome());	
-			//}
+			}
 			selecionarFichaAtual();
 			
 		} catch (Exception e) {
@@ -153,33 +154,23 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	}
 
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		init();
+	}
 	private void createListView(List<Realizacao> lista) {
-
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		
 		for(Realizacao r: lista){
-
 			String s = sdf.format(r.getData()); 
-			
 			String item = "Treino: " + r.getTreino().getNome() + "\n"
 			+ "Ficha:  "+ r.getFicha().getNome() + "\n"
 			+ "Data: " + s  ;
-
-
-
 			listaRealizacaoString.add(item);
-
 		}
-
-
 		adapter =  new ArrayAdapter<String>(this, R.layout.itens_simple_lista , listaRealizacaoString );
-
-
 		listaRealizacao.setAdapter(adapter);
 		listaRealizacao.setCacheColorHint(Color.TRANSPARENT);
-
-
 	}
 
 

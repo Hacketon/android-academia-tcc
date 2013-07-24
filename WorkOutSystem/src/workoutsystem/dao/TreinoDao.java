@@ -208,22 +208,20 @@ public class TreinoDao implements ITreinoDao {
 	@Override
 	public Realizacao buscarUltimoTreinoRealizado() throws SQLException,ParseException {
 		Connection con = ResourceManager.getConexao();
-		
-		String sql = " select distinct ficha.[nome] " +
-		" as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
-		" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
-		"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao asc";
+		String sql ="select realizacao_codigo,realizacao_data,ficha_nome,treino_nome " +
+					"	from ultima_realizacao order by realizacao_data asc";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
 		Realizacao realizacao = new Realizacao();
-		while(result.next()){
-			realizacao.setData(sdf.parse(result.getString("datarealizacao")));
+		if(result.next()){
 			Treino treino = new Treino();
-			treino.setNome(result.getString("treino"));
 			Ficha ficha = new Ficha();
-			ficha.setNome(result.getString("ficha"));
+			realizacao.setCodigo(result.getInt("realizacao_codigo"));
+			realizacao.setData(sdf.parse(result.getString("realizacao_data")));
+			treino.setNome(result.getString("treino_nome"));
+			ficha.setNome(result.getString("ficha_nome"));
 			realizacao.setTreino(treino);
 			realizacao.setFicha(ficha);
 		}

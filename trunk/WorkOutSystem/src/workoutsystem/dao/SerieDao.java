@@ -197,37 +197,25 @@ public class SerieDao implements ISerieDao {
 		return (valor>=0);
 	}
 
-	
-	
-
 	@Override
-	public int buscarTreinoIniciado()	throws SQLException {
-
+	public int buscarTreinoIniciado()throws SQLException {
 		String sql = " select codigotreino from serie_realizacao ";
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
-
 		while (result.next()){
-
 			resultado = result.getInt("codigotreino");
-
 		}
-
 		prepare.close();
 		con.close();
-
 		return resultado;
 	}
-
-
-
+	
 	@Override
 	public List<Serie> listarRealizacaoSerie()	throws SQLException {
-
-		String sql = " select codigoserie,codigotreino ,ordem,carga, unidade, quantidade, nome from serie_realizacao ";
-
+		String sql = " select codigoserie,codigotreino ,ordem,carga, unidade, " +
+				" quantidade, nome from serie_realizacao ";
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		ResultSet result = prepare.executeQuery();
@@ -259,9 +247,10 @@ public class SerieDao implements ISerieDao {
 	public List<Realizacao> listarHistoricoRealizacaoSerie()	throws Exception {
 
 		String sql = " select distinct ficha.[nome] " +
-				" as ficha, treino.[nome] as treino,  datarealizacao from realizacao" +
+				" as ficha, treino.[nome] as treino, " +
+				" datarealizacao from realizacao" +
 				" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
-				"inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao desc";
+				" inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao desc";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = ResourceManager.getConexao();

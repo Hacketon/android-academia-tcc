@@ -159,6 +159,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		super.onResume();
 		init();
 	}
+	
 	private void createListView(List<Realizacao> lista) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		for(Realizacao r: lista){

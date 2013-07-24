@@ -4,11 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import workoutsystem.control.ControleExercicio;
+import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
-import workoutsystem.control.ControleTreino;
-import workoutsystem.dao.ITreinoDao;
-import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
@@ -16,7 +13,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,25 +58,22 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_exercicios);
 
-
+		// Refatorando para controle de rotina , tudo que envolvido a realização!
 		//refatorar para controle serie
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-		ControleSerie controleSerie = new ControleSerie();
+		ControleRotina controleRotina = new ControleRotina();
 		//refatorar para controleSerie
-
-
-
 		// verificar se treino iniciado é o mesmo que foi selecionado atualmente
 		int treinoIniciado = 0;
 		try {
-			treinoIniciado = controleSerie.buscarTreinoIniciado();
+			treinoIniciado = controleRotina.buscarTreinoIniciado();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 
 		if(treino.getCodigo() != treinoIniciado){
 			try {
-				controleSerie.removerTudoRealizacaoSerie();
+				controleRotina.removerTudoRealizacaoSerie();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -90,7 +83,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		//listando realizacao serie
 
 		try {
-			seriesTreino = controleSerie.listarRealizacaoSerie();
+			seriesTreino = controleRotina.listarRealizacaoSerie();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -102,13 +95,13 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 			for(Serie s: treino.getSerie()){
 				try {
-					controleSerie.inserirRealizacaoSerie(s);
+					controleRotina.inserirRealizacaoSerie(s);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 			try {
-				seriesTreino = controleSerie.listarRealizacaoSerie();
+				seriesTreino = controleRotina.listarRealizacaoSerie();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -300,14 +293,14 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	public void finalizarSeries() throws Exception{
 
 		//refatorar treino serie
-		ControleSerie controleSerie = new ControleSerie();
+		ControleRotina controleRotina = new ControleRotina();
 
 		for(Serie s : seriesRealizadas){
-			controleSerie.removerRealizacaoSerie(s);
-			controleSerie.inserirRealizacao(s, treino.getCodigoFicha());
+			controleRotina.removerRealizacaoSerie(s);
+			controleRotina.inserirRealizacao(s, treino.getCodigoFicha());
 		}
 
-		seriesTreino = controleSerie.listarRealizacaoSerie();	
+		seriesTreino = controleRotina.listarRealizacaoSerie();	
 
 		init();
 
@@ -373,15 +366,9 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	}
 
 	public void finalizarTudo() throws SQLException{
-
-		ControleSerie controleSerie = new ControleSerie();
-
-		
-		controleSerie.removerTudoRealizacaoSerie();
-
-		seriesTreino = controleSerie.listarRealizacaoSerie();
-
-
+		ControleRotina controleRotina = new ControleRotina();
+		controleRotina.removerTudoRealizacaoSerie();
+		seriesTreino = controleRotina.listarRealizacaoSerie();
 		init();
 
 	}

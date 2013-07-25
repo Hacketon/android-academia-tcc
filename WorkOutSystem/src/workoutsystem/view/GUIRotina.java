@@ -180,8 +180,18 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 			break;
 		case R.id.preview_rotina:
+			
+			if(ficha.getTreinos().size() > 0){
+				
 			criarListPreview();
+			}else{
 
+				Toast.makeText(this," Adicionar Treino " ,
+						Toast.LENGTH_LONG).show();
+			}
+			
+
+			
 			break;
 		}
 		return true;

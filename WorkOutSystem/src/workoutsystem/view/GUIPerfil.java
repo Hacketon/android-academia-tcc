@@ -341,7 +341,6 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 
 	}
 
-
 	private void construirCaixa() {
 		String texto = "Realmente deseja excluir o Perfil ?";
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -382,16 +381,10 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 				
 			}
-
 			break;
 
-
 		}
-
-
-
 	}
-
 
 }
 

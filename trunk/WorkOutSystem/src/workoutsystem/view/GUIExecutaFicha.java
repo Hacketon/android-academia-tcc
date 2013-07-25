@@ -265,29 +265,22 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-
 		CheckedTextView c = (CheckedTextView) view;
 		boolean selecionado = c.isChecked();
 		String nomeSerie = parent.getItemAtPosition(pos).toString();
 		Serie serie = new Serie();
-
 		for(Serie s : seriesTreino){
-
 			String item = s.getOrdem() + "-" +
 			s.getExercicio().getNome()+"\n" +
 			"Quantidade : " + s.getQuantidade() +"\n" +
 			"Unidade : " + s.getUnidade() + "\n" + 
 			"Carga : " + s.getCarga() ;
-
 			if(item.equalsIgnoreCase(nomeSerie)){
 				serie = s; 
 				break;
 			}
-
 		}
 		seriesRealizadas.add(serie);
-
-
 	}
 
 	public void finalizarSeries() throws Exception{

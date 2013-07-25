@@ -126,9 +126,10 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		spechistorico.setContent(R.id.tabhistoricoRotina);
 		spechistorico.setIndicator("Histórico");
 		hostrotina.addTab(spechistorico);
-
+		/* Seleção da ficha atual ja esta sendo chamada no init()
 		ficha = new Ficha();
 		ficha = selecionarFichaAtual();
+		*/
 		try {
 			criarCombo(ficha);
 		} catch (SQLException e) {
@@ -211,14 +212,12 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private void inicializarTelaRealizacao() {
 		String nome = comboTreinos.getSelectedItem().toString();
 		Treino treino = new Treino();
-
 		for(Treino t : listaTreinos){
 			if( t.getNome().equalsIgnoreCase(nome)){
 				treino = t;
 				break;
 			}
 		}
-
 		Intent i = new Intent(this, GUIExecutaFicha.class);
 		i.putExtra("treino", treino);
 		startActivity(i);
@@ -228,25 +227,25 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	//combo de treinos da ficha
 
 	public void criarCombo(Ficha ficha) throws SQLException{
-		listaTreinos = new ArrayList<Treino>();
-		ControleTreino controleTreino = new ControleTreino();
-		ControleSerie controleSerie = new ControleSerie();
-		TreinoDao dao = new TreinoDao();
-		List<String> lista = new ArrayList<String>();
-		listaTreinos = controleTreino.listarTreinos(ficha.getCodigo());
-
-		for(Treino te : listaTreinos){
-			te.setSerie(controleSerie.listarSerie(te.getCodigo()));
-			if(te.getSerie().size() != 0) {
-				lista.add(te.getNome());
+		if(ficha!= null){
+			listaTreinos = new ArrayList<Treino>();
+			ControleTreino controleTreino = new ControleTreino();
+			ControleSerie controleSerie = new ControleSerie();
+			TreinoDao dao = new TreinoDao();
+			List<String> lista = new ArrayList<String>();
+			listaTreinos = controleTreino.listarTreinos(ficha.getCodigo());
+			for(Treino te : listaTreinos){
+				te.setSerie(controleSerie.listarSerie(te.getCodigo()));
+				if(te.getSerie().size() != 0) {
+					lista.add(te.getNome());
+				}
 			}
+			ArrayAdapter<String> adapter =	new ArrayAdapter<String>
+			(this,android.R.layout.simple_spinner_item,lista);
+			adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+			comboTreinos.setAdapter(adapter);	
 		}
-
-		ArrayAdapter<String> adapter =	new ArrayAdapter<String>
-		(this,android.R.layout.simple_spinner_item,lista);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-		comboTreinos.setAdapter(adapter);
-
+		
 	}
 
 
@@ -254,23 +253,29 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		//pegando treino selecionado
 		String nome = comboTreinos.getSelectedItem().toString();
 		Treino treino = new Treino();
-
+		List<String> lista = new ArrayList<String>();
+		String aux ="";
 		for(Treino t : listaTreinos){
 			if( t.getNome().equalsIgnoreCase(nome)){
 				treino = t;
 				break;
 			}
 		}
-
+		
+		/* Testado e funcionando - refatorado !
+		 * Tenta usar o contains do array list , (acho que o desempenho é melhor)
+		 * se ja tiver o exercicio na lista não adiciona ! 
+		 * if(!lista.contains(exercicio.getNome()){
+		 * 		
+		 * }
+		 */
 		//criar lista de exercicios do treino selecionado
-
-		List<String> lista = new ArrayList<String>();
-
-		String aux ="";
-
 		for(Serie s : treino.getSerie()){
 			String exercicio = s.getExercicio().getNome();
-
+			if(!lista.contains(exercicio)){
+				lista.add(exercicio);
+			}
+			/*
 			if(aux.equalsIgnoreCase("")){
 				lista.add(exercicio);
 				aux = exercicio;	
@@ -279,14 +284,12 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 				lista.add(exercicio);
 				aux = exercicio;
 			}
+			*/
 		}
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.itens_simple_lista, lista);
-
 		listaExercicios.setAdapter(adapter);
 		listaExercicios.setCacheColorHint(Color.TRANSPARENT);
 		//treinoPreview.setText("Exercicios -" + treino.getNome().toString());		
-
 		dialogPreview.setTitle(treino.getNome());
 		dialogPreview.show();
 
@@ -296,7 +299,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	// ficha atual	
 	private Ficha selecionarFichaAtual() {
 		ControleFicha controle = new ControleFicha();
-		Ficha ficha = null;
+		//Ficha ficha = null;
 		String nome = "Nenhuma";
 		try {
 			ficha= controle.buscarFichaAtual();

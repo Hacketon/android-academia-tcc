@@ -29,7 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GUIExecutaFicha extends Activity implements 
+public class GUIRotinaExecucao extends Activity implements 
 ListView.OnItemLongClickListener,
 ListView.OnItemClickListener ,
 View.OnClickListener,DialogInterface.OnClickListener{

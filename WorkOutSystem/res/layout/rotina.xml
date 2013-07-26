@@ -208,6 +208,52 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="100" >
+                    
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="5"
+                        android:weightSum="100" >
+
+                        <ImageButton
+                            android:id="@+id/btn_proximomes"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:background="@android:color/transparent"
+                            android:onClick="onClick"
+                            android:src="@drawable/ic_setaesquerda"
+                            android:text="@string/label_anterior" />
+
+                        <TextView
+                            android:id="@+id/txt_mes"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20"
+                            android:gravity="center"
+                            android:text="@string/title_activity_tela_medida" />
+
+                        <ImageButton
+                            android:id="@+id/btn_anteriormes"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:background="@android:color/transparent"
+                            android:onClick="onClick"
+                            android:src="@drawable/ic_setadireita"
+                            android:text="@string/label_proximo" />
+                    </LinearLayout>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
                     <ListView
                         android:id="@+id/lista_historicoRealizacao"

@@ -111,6 +111,5 @@ public interface ISerieDao {
 
 	public abstract boolean removerTodasRealizacoesSerie() throws SQLException;
 	
-	public abstract List<Realizacao> listarHistoricoRealizacaoSerie() throws  Exception;
 	
 }

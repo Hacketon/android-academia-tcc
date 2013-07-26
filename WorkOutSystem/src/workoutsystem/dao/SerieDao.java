@@ -243,46 +243,7 @@ public class SerieDao implements ISerieDao {
 		return list;
 	}
 	
-	@Override
-	public List<Realizacao> listarHistoricoRealizacaoSerie()	throws Exception {
-
-		String sql = " select distinct ficha.[nome] " +
-				" as ficha, treino.[nome] as treino, " +
-				" datarealizacao from realizacao" +
-				" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
-				" inner join treino on treino.[codigo] = realizacao.codigotreino order by datarealizacao desc";
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Connection con = ResourceManager.getConexao();
-		PreparedStatement prepare = con.prepareStatement(sql);
-		ResultSet result = prepare.executeQuery();
-		
-		List<Realizacao> list = new ArrayList<Realizacao>();
-		
-		
-		while (result.next()){
-			Realizacao realizacao = new Realizacao();
-			Ficha ficha = new Ficha();
-			Treino treino = new Treino();
-
-			
-			ficha.setNome(result.getString("ficha"));
-			realizacao.setFicha(ficha);
-			
-			treino.setNome(result.getString("treino"));
-			realizacao.setTreino(treino);
-			
-			realizacao.setData(sdf.parse(result.getString("datarealizacao")));
-			
-			list.add(realizacao);
-
-		}
-
-		prepare.close();
-		con.close();
-		return list;
-	}
-
+	
 
 	@Override
 	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {

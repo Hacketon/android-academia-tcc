@@ -139,7 +139,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		}
 	}
 
-
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -217,6 +216,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		String mensagem = "Cadastre treinos validos na ficha !";
 		if(comboTreinos.getSelectedItem().toString() != null){
 			Treino treino = null;
+			nome = comboTreinos.getSelectedItem().toString();
 			for(Treino t : listaTreinos){
 				if( t.getNome().equalsIgnoreCase(nome)){
 					treino = t;
@@ -224,7 +224,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 				}
 			}
 			if(treino != null){
-				Intent i = new Intent(this, GUIExecutaFicha.class);
+				Intent i = new Intent(this, GUIRotinaExecucao.class);
 				i.putExtra("treino", treino);
 				startActivity(i);
 			}else{
@@ -363,7 +363,13 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", mes));
 			
 		}
-
+/*
+		@Override
+		protected void onRestart() {
+			init();
+			super.onRestart();
+		}
+*/
 	//
 	//
 	//	/**

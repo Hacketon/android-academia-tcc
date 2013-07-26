@@ -323,15 +323,11 @@ ListView.OnItemLongClickListener{
 			listaExistente.setAdapter(adapterExistente);
 			listaExistente.setCacheColorHint(Color.TRANSPARENT);
 			dialogTreinos.show();
-		
-			
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();
 		}
 	}
-
-
 
 	@Override
 	public void drop(int from, int to) {
@@ -539,7 +535,6 @@ ListView.OnItemLongClickListener{
 			
 	}
 
-
 	@Override
 	public void onClick(View v) {
 		String mensagem = "";
@@ -584,7 +579,8 @@ ListView.OnItemLongClickListener{
 		String mensagem = "Selecione algum treino !";
 		if(listaAdicao.size()>0){
 			try {
-				mensagem = controle.adicionarTreinoExistentes(ficha.getTreinos(),listaAdicao,ficha.getCodigo());
+				mensagem = controle.adicionarTreinoExistentes
+				(ficha.getTreinos(),listaAdicao,ficha.getCodigo());
 			    ficha.setTreinos(controle.listarTreinos(ficha.getCodigo()));
 			    dialogTreinos.dismiss();
 			} catch (Exception e) {

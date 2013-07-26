@@ -2,6 +2,7 @@ package workoutsystem.view;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -49,16 +50,7 @@ public class GUIEvolucao extends Activity  {
 	private ArrayAdapter<AdaptadorHistorico> adapter;
 	private AdaptadorHistorico adapterListView;
 	private List<ItemListaHistorico> itens;
-
-
-	//	private ListView listView; - ok
-	//    private AdapterListView adapterListView; - 
-	//    private ArrayList<ItemListView> itens;
-
-
-
-
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat sdf;
 
 
 	@Override
@@ -74,6 +66,7 @@ public class GUIEvolucao extends Activity  {
 		barra3 = (ProgressBar) findViewById(R.id.progressBarMedida3);
 		txtmedidas = (TextView) findViewById(R.id.txt_medidas);
 		indice = 0 ;
+		sdf = new SimpleDateFormat("dd/MM/yyyy");
 		listaMedicoes = new ArrayList<Medicao>();
 		listaMedicoes = new ArrayList<Medicao>();
 		listahistorico = (ListView) findViewById(R.id.listahistorico);
@@ -104,48 +97,40 @@ public class GUIEvolucao extends Activity  {
 	}
 
 	public void criarTabs(){
-
 		hostEvolucao = (TabHost) findViewById(R.id.hostevolucao);
 		hostEvolucao.setup();
-
 		tabEvolucao = hostEvolucao.newTabSpec("tabEvolucao");
 		tabEvolucao.setContent(R.id.tabEvolucao);
 		tabEvolucao.setIndicator("Evolução");
 		hostEvolucao.addTab(tabEvolucao);
-
 		tabHistorico = hostEvolucao.newTabSpec("tabHistorico");
 		tabHistorico.setContent(R.id.tabHistorico);
 		tabHistorico.setIndicator("Historico");
 		hostEvolucao.addTab(tabHistorico);
-
-
 	}
 
 	public void onClick(View e) {
 		switch (e.getId()) {
-
 		case (R.id.btn_proximamedida):
 			exibirProximo();
 		break;
 		case (R.id.btn_anteriormedida):
 			exibirAnterior();			
 		break;
-
 		}
-
 	}
-
 	public void exibirProximo(){
 		Medida medida = null;
 		if(!listaMedidas.isEmpty()){
 			if(indice < listaMedidas.size()-1 ){
 				medida = listaMedidas.get(indice + 1);
-				indice ++;
-			}if(indice == listaMedidas.size() -1){
+				indice++;
+			}
+			if(indice == listaMedidas.size() -1){
 				medida = listaMedidas.get(listaMedidas.size() - 1);
 			}
-
 		}
+		
 		if(medida != null){
 			carregaMedida(medida);
 		}
@@ -167,9 +152,8 @@ public class GUIEvolucao extends Activity  {
 	}
 
 	public void carregaMedida(Medida medida){
+		String mensagem = "";
 		try{
-			
-		
 		ControlePerfil controleperfil = new ControlePerfil();
 		ControleMedida controlemedida = new ControleMedida();
 		Perfil perfil = controleperfil.buscarPerfil();
@@ -178,31 +162,25 @@ public class GUIEvolucao extends Activity  {
 		String ndata1 = "Data";
 		String ndata2 = "Data";
 		int contador = 0 ;
-
 		if (medida.getLado()!= null){
 			nome+= " " + medida.getLado();
 		}
-
 		txtmedidas.setText(nome);
-		medida.setMedicao(controlemedida.ultimasMedicoes
-				(perfil.getCodigo(), medida.getCodigo())); 
-
 		data1.setText(ndata);
 		data2.setText(ndata);
 		data3.setText(ndata);
 		barra1.setProgress(0);
 		barra2.setProgress(0);
 		barra3.setProgress(0);
-
+		medida.setMedicao(controlemedida.ultimasMedicoes
+				(perfil.getCodigo(), medida.getCodigo()));
 		calcularProgresso(medida);
-
-
 		// criando ListView
 		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
-
 		createListView(listaMedicoes, listahistorico, medida);
 		}catch (Exception e) {
-			
+			mensagem = e.getMessage();
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 		}
 
 	}
@@ -218,7 +196,6 @@ public class GUIEvolucao extends Activity  {
 			new HashMap<Integer, Integer>();
 		List<Medicao> list = medida.getMedicao();
 		Collections.sort(list,new ControleMedida());
-
 		for (Medicao m : list){
 			if(contador == 0){
 				valores.put(list.get(contador).getCodigo(),menor);

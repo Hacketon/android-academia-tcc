@@ -1,6 +1,7 @@
 package workoutsystem.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.oval.constraint.Length;
@@ -29,6 +30,7 @@ public class Ficha implements Serializable {
 		atual = 0;
 		realizacoes = 0;
 		antecedencia = 0;
+		treinos = new ArrayList<Treino>();
 		
 	}
 	

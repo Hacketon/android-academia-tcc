@@ -59,8 +59,6 @@ public class MedidaDao implements IMedidaDao{
 				prepare.setInt(3, m.getCodigoPerfil());
 				String s = sdf.format(m.getDataMedicao());  
 				prepare.setString(4, s);
-
-
 				if(prepare.executeUpdate()!= 0){
 					verificador = true;
 				}else{
@@ -109,7 +107,9 @@ public class MedidaDao implements IMedidaDao{
 		
 		try{
 			Connection con = ResourceManager.getConexao();
-			String sql ="select * from medicao where codigomedida = ? and codigoperfil = ? order by datamedicao desc;";
+			String sql =" select * from medicao " +
+						" where codigomedida = ? and codigoperfil = ? " +
+						" order by datamedicao desc;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			prepare.setInt(2,codigoPerfil);
@@ -125,7 +125,6 @@ public class MedidaDao implements IMedidaDao{
 				medicao.setCodigoPerfil(result.getInt(5));
 				lista.add(medicao);
 			}
-
 			prepare.close();
 			con.close();
 		}catch (Exception e) {
@@ -137,13 +136,11 @@ public class MedidaDao implements IMedidaDao{
 	
 	public List<Medida> buscarMedidas(){
 		List<Medida> lista = new ArrayList<Medida>();
-
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql = "select codigo, nome, unidade , lado from medida";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			ResultSet result = prepare.executeQuery();
-
 			while(result.next()){
 				Medida medida = new Medida();
 				medida.setCodigo(result.getInt(1));
@@ -153,8 +150,6 @@ public class MedidaDao implements IMedidaDao{
 				medida.setMedicao(new ArrayList<Medicao>());
 				lista.add(medida);
 			}
-
-
 			prepare.close();
 			con.close();
 		}catch (Exception e) {
@@ -169,29 +164,25 @@ public class MedidaDao implements IMedidaDao{
 	
 	
 	public boolean alterarMedicao(List<Medicao> medicoes){
-
 		boolean verificador = false;
 		try{
 			Connection con = ResourceManager.getConexao();
-			String sql =" update medicao set valor = ? where codigomedida = ? and datamedicao = ?;";
+			String sql =" update medicao set valor = ? " +
+						" where codigomedida = ? and datamedicao = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 			for(Medicao m: medicoes){
-
 				prepare.setDouble(1,m.getValor());
 				prepare.setInt(2,m.getCodigoMedida());
-
 				String s = sdf.format(m.getDataMedicao());  
 				prepare.setString(3, s);
-
 				int atualizados = prepare.executeUpdate();
 				if (atualizados > 0){
 					verificador = true;
 				}else{
 					verificador = false;
-
 				}
 				prepare.close();
 				con.close();
@@ -206,7 +197,6 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 	public boolean alterarUltimaMedicao(List<Medicao> medicao){
-
 		boolean verificador = false;
 		try{
 			Connection con = ResourceManager.getConexao();
@@ -214,20 +204,14 @@ public class MedidaDao implements IMedidaDao{
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			for(Medicao m : medicao){
-
 				prepare.setDouble(1,m.getValor());
 				prepare.setInt(2, m.getCodigo());
-
 				int atualizados = prepare.executeUpdate();
-
-
 				if (atualizados > 0){
 					verificador = true;
 				}else{
 					verificador = false;
-
 				}
-
 			}
 			prepare.close();
 			con.close();
@@ -312,7 +296,6 @@ public class MedidaDao implements IMedidaDao{
 				m.setDataMedicao(sdf.parse(result.getString(3)));
 				m.setCodigoPerfil(codigoPerfil);
 				m.setCodigoMedida(codigoMedida);
-
 				medicoes.add(m);
 				contador ++;
 			}

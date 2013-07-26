@@ -104,5 +104,7 @@ public interface ITreinoDao {
 	
 	
 	public abstract Realizacao buscarUltimoTreinoRealizado() throws SQLException, ParseException;
+	
+	public List<Realizacao> listarHistoricoTreinos(String primeiraData,String segundaData) throws Exception;
 
 }

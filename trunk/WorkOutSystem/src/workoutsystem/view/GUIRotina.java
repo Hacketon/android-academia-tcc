@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
@@ -38,8 +39,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private TabHost hostrotina;
 	private TabSpec spechistorico;
 	private TabSpec spectreino;
-	private Calendar mes;
-	private Calendar dia;
+	private Calendar data;
 	private TextView textomes;
 	private TextView ultimaData;
 	private TextView ultimoTreino;
@@ -51,10 +51,9 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	private Dialog dialogPreview;
 	private ListView listaExercicios;
 	private ArrayAdapter<String> adapter;
-	private TextView treinoPreview;
 	private ListView listaRealizacao;
-	private List<String> listaRealizacaoString;
-	private TextView mesView;
+	private int mesAtual;
+	private int anoAtual;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,29 +64,17 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
 		ultimaFicha = (TextView) findViewById(R.id.ultimo_ficha);
 		comboTreinos = (Spinner) findViewById(R.id.combo_treinos);
-		listaRealizacaoString = new ArrayList<String>();
 		listaRealizacao = (ListView) findViewById(R.id.lista_historicoRealizacao);
 		txtNomeFicha = (TextView) findViewById(R.id.nome_ficha_atual);
 		dialogPreview = new Dialog(this);
 		dialogPreview.setContentView(R.layout.gerar_preview);
 		listaExercicios = (ListView) dialogPreview.findViewById(R.id.lista_preview);
-		mes = Calendar.getInstance();
+		data = Calendar.getInstance();
+		mesAtual = data.get(Calendar.MONTH);
+		anoAtual = data.get(Calendar.YEAR);
 		init();
 		criarTab();
-		/*
-		 * //diaSemana.setText(android.text.format.DateFormat.format("EEEEE", dia));
-		//		adapter = new AdaptadorCalendario(mes,this);
-		//		textomes.setText(android.text.format.DateFormat.format("MMMM yyyy", mes));
-		//		gradedias = (GridView) findViewById(R.id.calendariogrid);
-		//		gradedias.setAdapter(adapter);
-		//		gradedias.setOnItemClickListener(this);
-		 * //treinoPreview = (TextView) dialogPreview.findViewById(R.id.txt_preview);
-		 * //		mes = Calendar.getInstance();
-		dia = Calendar.getInstance();
-		dia.get(Calendar.DAY_OF_WEEK);
-
-		 */
-
+	
 	}
 
 	private void init() {
@@ -97,10 +84,9 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		List<Realizacao> lista = new ArrayList<Realizacao>();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", mes));
+			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", data));
 			selecionarFichaAtual();
-			lista = daoSerie.listarHistoricoRealizacaoSerie();
-			createListView(lista);
+			atualizarHistorico();
 			Realizacao realizacao = controleRotina.buscarUltimoTreinoRealizado();
 			ultimoTreino.setText(realizacao.getTreino().getNome());
 			ultimaData.setText(sdf.format(realizacao.getData()));
@@ -128,10 +114,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		spechistorico.setContent(R.id.tabhistoricoRotina);
 		spechistorico.setIndicator("Histórico");
 		hostrotina.addTab(spechistorico);
-		/* Seleção da ficha atual ja esta sendo chamada no init()
-		ficha = new Ficha();
-		ficha = selecionarFichaAtual();
-		 */
+
 		try {
 			criarCombo(ficha);
 		} catch (SQLException e) {
@@ -147,6 +130,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	private void createListView(List<Realizacao> lista) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		List<String> listaRealizacaoString = new ArrayList<String>();
 		for(Realizacao r: lista){
 			String s = sdf.format(r.getData()); 
 			String item = "Treino: " + r.getTreino().getNome() + "\n"
@@ -154,7 +138,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			+ "Data: " + s  ;
 			listaRealizacaoString.add(item);
 		}
-		adapter =  new ArrayAdapter<String>(this, R.layout.itens_simple_lista , listaRealizacaoString );
+		adapter =  new ArrayAdapter<String>(this, R.layout.itens_simples_2 , listaRealizacaoString );
 		listaRealizacao.setAdapter(adapter);
 		listaRealizacao.setCacheColorHint(Color.TRANSPARENT);
 	}
@@ -197,16 +181,15 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	@Override
 	public void onClick(View evento) {
-				switch (evento.getId()) {
-		
-				case (R.id.btn_proximomes):
-					atualizarProximo();
-				break;
-				case (R.id.btn_anteriormes):
-					atualizarAnterior();
-				break;
-		
-				}
+		switch (evento.getId()) {
+		case (R.id.btn_proximomes):
+			atualizarProximo();
+		break;
+		case (R.id.btn_anteriormes):
+			atualizarAnterior();
+		break;
+
+		}
 
 	}
 
@@ -332,44 +315,71 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	}
 
-		/**
-		 * Metodo responsavel por pegar o proximo mes.
-		 * 
-		 */
-		public void atualizarProximo(){
-			if (mes.get(Calendar.MONTH) == mes.getActualMaximum(Calendar.MONTH)){
-				mes.set((mes.get(Calendar.YEAR)+1), mes.getActualMinimum(Calendar.MONTH),1);
-			}else{
-				mes.set(Calendar.MONTH,mes.get(Calendar.MONTH)+1);
-			}
-			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", mes));
-			
-		}
 
-	
-		/**
-		 * Metodo responsavel pela atualização do  mes anterior
-		 */
-	public void atualizarAnterior(){
-			
-			//pega o mes e compara com o mes minimo (janeiro) , se mes atual for janeiro vai 
-			// subtrair um no ano
-			if (mes.get(Calendar.MONTH) == mes.getActualMinimum(Calendar.MONTH)){
-				// vai subtrair um ano , pegar o mes maximo (Dezembro) e iniciar dia 1
-				mes.set((mes.get(Calendar.YEAR)-1),mes.getActualMaximum(Calendar.MONTH) , 1);
+	/**
+	 * Metodo responsavel por pegar o proximo data.
+	 * 
+	 */
+	public void atualizarProximo(){
+
+		int mes =data.get(Calendar.MONTH);
+		int ano = data.get(Calendar.YEAR);
+		if(mes == mesAtual && ano == anoAtual){
+			textomes.setText
+			(android.text.format.DateFormat.format("MMMM - yyyy", data));
+		}else{
+			if (data.get(Calendar.MONTH) == 
+				data.getActualMaximum(Calendar.MONTH)){
+				data.set((data.get(Calendar.YEAR)+1),
+						data.getActualMinimum(Calendar.MONTH),1);
 			}else{
-				mes.set(Calendar.MONTH,mes.get(Calendar.MONTH)-1);
+				data.set(Calendar.MONTH,data.get(Calendar.MONTH)+1);
 			}
-			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", mes));
+			textomes.setText(
+					android.text.format.DateFormat.format
+					("MMMM - yyyy", data));	
+		}
+		
+		atualizarHistorico();
+	}
+
+	public void atualizarHistorico(){
+		String mensagem = "";
+		ControleRotina controle = new ControleRotina();
+		try {
+			List<Realizacao> historicoMensal = controle.buscarHistoricoMensal(data);
+			createListView(historicoMensal);
+		} catch (Exception e) {
+			mensagem = e.getMessage();
+			createListView(new ArrayList<Realizacao>());
+			//Toast.makeText(this, mensagem,Toast.LENGTH_SHORT).show();
 			
 		}
-/*
+	}
+
+
+	/**
+	 * Metodo responsavel pela atualização do  data anterior
+	 */
+	public void atualizarAnterior(){
+		//pega o data e compara com o data minimo (janeiro) , se data atual for janeiro vai 
+		// subtrair um no ano
+		if (data.get(Calendar.MONTH) == data.getActualMinimum(Calendar.MONTH)){
+			// vai subtrair um ano , pegar o data maximo (Dezembro) e iniciar dia 1
+			data.set((data.get(Calendar.YEAR)-1),data.getActualMaximum(Calendar.MONTH) , 1);
+		}else{
+			data.set(Calendar.MONTH,data.get(Calendar.MONTH)-1);
+		}
+		textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", data));
+		atualizarHistorico();
+	}
+	/*
 		@Override
 		protected void onRestart() {
 			init();
 			super.onRestart();
 		}
-*/
+	 */
 	//
 	//
 	//	/**

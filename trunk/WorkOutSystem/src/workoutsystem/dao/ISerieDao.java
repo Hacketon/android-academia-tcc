@@ -89,16 +89,11 @@ public interface ISerieDao {
 	 * @return listaTreino
 	 * @throws SQLException 
 	 */
+
 	public abstract boolean inserirRealizacaoSerie(Serie serie) throws SQLException;
-
-
 	public abstract boolean removerRealizacaoSerie(Serie serie) throws SQLException;
-
-
-	public abstract List<Serie> listarRealizacaoSerie() throws SQLException;
+	public abstract List<Serie> listarRealizacaoSerie(long codigoTreino) throws SQLException;
 	
-	
-	public abstract boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException;
 	/**
 	 * Remove todos os exercicios que tem alguma serie relacionada !
 	 * @param codigo [exercicio]
@@ -107,7 +102,7 @@ public interface ISerieDao {
 	public abstract boolean removerSerie(long codigo) throws SQLException;
 	
 	
-	public abstract int buscarTreinoIniciado() throws SQLException;
+	
 
 	public abstract boolean removerTodasRealizacoesSerie() throws SQLException;
 	

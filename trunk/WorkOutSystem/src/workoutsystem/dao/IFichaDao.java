@@ -11,6 +11,7 @@ import workoutsystem.model.Treino;
 
 
 public interface IFichaDao {
+	public boolean atualizarRealizacoes() throws SQLException;
 
 	/**
 	 * Metodo responsavel por listar todas as fichas existentes

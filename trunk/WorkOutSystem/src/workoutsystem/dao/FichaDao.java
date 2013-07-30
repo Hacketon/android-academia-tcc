@@ -227,6 +227,20 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 		con.close();
 		return f;
 	}
+	
+	public boolean atualizarRealizacoes() throws SQLException{
+		Connection con = ResourceManager.getConexao();
+		String sql = "update ficha set realizacoes = realizacoes + ? where ficha_atual = ?";
+		int valor = 1;
+		int aux = 1;
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, valor);
+		prepare.setInt(aux++, valor);
+		int retorno = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return retorno>0;
+	}
 
 	@Override
 	public boolean desativarFichaAtual() throws SQLException {

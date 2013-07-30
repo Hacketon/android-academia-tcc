@@ -150,19 +150,11 @@ public class SerieDao implements ISerieDao {
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
 		String sql = "insert into realizacaoSerie " +
-		" (codigoserie,codigotreino,codigoexercicio, ordem,unidade,carga, quantidade)" +
-		"values (?,?,?,?,?,?,?);";
+		" (codigoserie)" +
+		"values (?);";
 
 		PreparedStatement prepare = con.prepareStatement(sql);
-
 		prepare.setLong(aux++, serie.getCodigo());
-		prepare.setLong(aux++, serie.getCodigoTreino());
-		prepare.setLong(aux++, serie.getExercicio().getCodigo());
-		prepare.setInt(aux++, serie.getOrdem());
-		prepare.setString(aux++, serie.getUnidade());
-		prepare.setDouble(aux++, serie.getCarga());
-		prepare.setInt(aux++, serie.getQuantidade());
-
 		resultado = prepare.executeUpdate();
 		prepare.close();
 		con.close();
@@ -175,7 +167,7 @@ public class SerieDao implements ISerieDao {
 	public boolean removerRealizacaoSerie(Serie serie) throws SQLException{
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
-		String sql = "delete from realizacaoSerie where  codigoserie = ?";
+		String sql = "delete from realizacaoSerie where codigoserie = ?";
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, serie.getCodigo());
 		int valor = prepare.executeUpdate();
@@ -197,45 +189,35 @@ public class SerieDao implements ISerieDao {
 		return (valor>=0);
 	}
 
-	@Override
-	public int buscarTreinoIniciado()throws SQLException {
-		String sql = " select codigotreino from serie_realizacao ";
-		int resultado = 0;
-		Connection con = ResourceManager.getConexao();
-		PreparedStatement prepare = con.prepareStatement(sql);
-		ResultSet result = prepare.executeQuery();
-		while (result.next()){
-			resultado = result.getInt("codigotreino");
-		}
-		prepare.close();
-		con.close();
-		return resultado;
-	}
+	
 	
 	@Override
-	public List<Serie> listarRealizacaoSerie()	throws SQLException {
-		String sql = " select codigoserie,codigotreino ,ordem,carga, unidade, " +
-				" quantidade, nome from serie_realizacao ";
+	public List<Serie> listarRealizacaoSerie(long codigoTreino)	throws SQLException {
+		String sql = " select serie_codigo, serie_carga, " +
+					 " serie_codigoexercicio,exercicio_nome, " +
+					 " serie_ordem,serie_repeticao, " +
+					 " serie_unidade,serie_codigoTreino " +
+					 " from treino_serie where realizacao_codigoSerie isnull " +
+					 " and serie_codigotreino = ? order by serie_ordem asc";
+		int aux =1;
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux, codigoTreino);
 		ResultSet result = prepare.executeQuery();
 		List<Serie> list = new ArrayList<Serie>();
 		Exercicio exercicio = new Exercicio();
 
 		while (result.next()){
 			Serie serie = new Serie();
-			serie.setCodigo(result.getInt("codigoserie"));
-			serie.setCodigoTreino(result.getInt("codigotreino"));
-			serie.setOrdem(result.getInt("ordem"));
-			serie.setCarga(result.getInt("carga"));
-			serie.setUnidade(result.getString("unidade"));
-			serie.setQuantidade(result.getInt("quantidade"));
-			exercicio.setNome(result.getString("nome"));
+			serie.setCodigo(result.getInt("serie_codigo"));
+			serie.setCodigoTreino(result.getInt("serie_codigoTreino"));
+			serie.setOrdem(result.getInt("serie_ordem"));
+			serie.setCarga(result.getInt("serie_carga"));
+			serie.setUnidade(result.getString("serie_unidade"));
+			serie.setQuantidade(result.getInt("serie_repeticao"));
+			exercicio.setNome(result.getString("exercicio_nome"));
 			serie.setExercicio(exercicio);
-
-
 			list.add(serie);
-
 		}
 
 		prepare.close();
@@ -245,33 +227,7 @@ public class SerieDao implements ISerieDao {
 	
 	
 
-	@Override
-	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {
-		int aux = 1;
-		int resultado = 0;
-		Connection con = ResourceManager.getConexao();
-		String sql = "insert into realizacao" +
-		"(datarealizacao,codigoserie, codigotreino, codigoficha)" +
-		"values (?,?,?,?);";
-
-		PreparedStatement prepare = con.prepareStatement(sql);
-
-		java.util.Date data = new java.util.Date(); 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String dataFormat = sdf.format(data); 
-
-		prepare.setString(aux++, dataFormat);
-		prepare.setLong(aux++, serie.getCodigo());
-		prepare.setLong(aux++, serie.getCodigoTreino());
-		prepare.setLong(aux++, codigoFicha);
-
-		resultado = prepare.executeUpdate();
-		prepare.close();
-		con.close();
-		return resultado>0;
-
-	}
-
+	
 
 
 	@Override

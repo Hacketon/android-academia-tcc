@@ -6,6 +6,7 @@ import java.util.List;
 
 import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
+import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
@@ -33,7 +34,6 @@ public class GUIRotinaExecucao extends Activity implements
 ListView.OnItemLongClickListener,
 ListView.OnItemClickListener ,
 View.OnClickListener,DialogInterface.OnClickListener{
-
 	private ListView listaSerie; 
 	private ArrayAdapter<String> adapterSerie;
 	private Treino treino;
@@ -46,99 +46,29 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	private EditText edtRepeticao;
 	private EditText edtCarga;
 	private TextView txtCodigoExercicio;
-	private TextView txtOrdem;
 	private Serie especificacao;
-	private List<String> series ;
+	//private List<String> series ;
 	private List<Serie> seriesRealizadas;
 	private List<Serie> seriesTreino;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_exercicios);
 
-		// Refatorando para controle de rotina , tudo que envolvido a realização!
-		//refatorar para controle serie
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
-		ControleRotina controleRotina = new ControleRotina();
-		//refatorar para controleSerie
-		// verificar se treino iniciado é o mesmo que foi selecionado atualmente
-		int treinoIniciado = 0;
-		try {
-			treinoIniciado = controleRotina.buscarTreinoIniciado();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-
-		if(treino.getCodigo() != treinoIniciado){
-			try {
-				controleRotina.removerTudoRealizacaoSerie();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		//listando realizacao serie
-
-		try {
-			seriesTreino = controleRotina.listarRealizacaoSerie();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-
-
-
-		if(seriesTreino.size() == 0){
-
-			for(Serie s: treino.getSerie()){
-				try {
-					controleRotina.inserirRealizacaoSerie(s);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			try {
-				seriesTreino = controleRotina.listarRealizacaoSerie();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-
-			Toast.makeText(this,"Iniciando: " + treino.getNome() ,
-					Toast.LENGTH_LONG).show();
-		}
-
-
-
-		init();
-	}
-
-	private void init(){
-
-
-
 		listaSerie = (ListView) findViewById(R.id.lista_realizarexercicio);
-
 		treinoDia = (TextView) findViewById(R.id.txt_treino);
-
 		listaSerie.setOnItemLongClickListener(this);
 		listaSerie.setOnItemClickListener(this);
-
-
 		dialogEspecificacao = new Dialog(this);
 		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
-
-
 		cbxUnidade = (Spinner) dialogEspecificacao.
 		findViewById(R.id.cbx_Unidade);
 		btnConfirmar = (Button) dialogEspecificacao.
 		findViewById(R.id.btn_Confirmar_Especficacao);
 		btnCancelar = (Button) dialogEspecificacao.
 		findViewById(R.id.btn_cancelar_especficacao);
-
 		edtSeries = (EditText) dialogEspecificacao.
 		findViewById(R.id.edt_series);
 		edtRepeticao = (EditText) dialogEspecificacao.
@@ -147,73 +77,74 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		findViewById(R.id.edt_carga);
 		txtCodigoExercicio = (TextView) dialogEspecificacao.
 		findViewById(R.id.txt_codigoExercicioEspecificacao);
-		txtOrdem = (TextView) dialogEspecificacao.
-		findViewById(R.id.txt_ordem);
-
 		btnCancelar.setOnClickListener(this);
 		btnConfirmar.setOnClickListener(this);
-		series = new ArrayList<String>();
+		//series = new ArrayList<String>();
 		seriesRealizadas = new ArrayList<Serie>();
-
-
-		createListView(seriesTreino);
-		treinoDia.setText(treino.getNome());
-
-
-
-
+		init();
 	}
 
-	private void createListView(List<Serie> lista) {
+	private void init(){
+	try{
+		treinoDia.setText(treino.getNome());
+		createListView();
+	}catch (Exception e) {
+		
+	}
+		
+		
+	}
 
-		for(Serie s: lista){
-
+	private void createListView() {
+		ControleRotina controleRotina = new ControleRotina();
+		try {
+		int completa = 1;
+		int chave = 0;
+		treino.setSerie
+			(controleRotina.listarRealizacaoSerie(treino.getCodigo()));
+		List<String> series = new ArrayList<String>();
+		
+		if(treino.getSerie().isEmpty()){
+			controleRotina.atualizarRealizacao(completa,chave);
+			String mensagem = "Treino finalizado com sucesso";
+			Toast.makeText(this,mensagem,Toast.LENGTH_SHORT).show();
+			finish();
+		}
+		for(Serie s: treino.getSerie()){
 			String item = s.getOrdem() + "-" +
 			s.getExercicio().getNome()+"\n" +
 			"Quantidade : " + s.getQuantidade() +"\n" +
 			"Unidade : " + s.getUnidade() + "\n" + 
 			"Carga : " + s.getCarga() ;
-
 			series.add(item);
-
 		}
-
-
 		adapterSerie =  new ArrayAdapter<String>(this, R.layout.multiple_choice_serie, series );
-
-
 		listaSerie.setAdapter(adapterSerie);
 		listaSerie.setOnItemLongClickListener(this);
 		listaSerie.setCacheColorHint(Color.TRANSPARENT);
-
-
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
 	public void onClick(View evento) {
 		switch (evento.getId()) {
-
 		case R.id.btn_Confirmar_Especficacao:
 			String mensagem = "";
 			ControleSerie controle = new ControleSerie();
 			Double carga = Double.parseDouble(edtCarga.getText().toString());
-
 			mensagem = controle.alterarCarga(carga, especificacao.getCodigo());
-
-
 			Toast.makeText(this,mensagem , Toast.LENGTH_LONG).show();
 			dialogEspecificacao.dismiss();
-			init();		
-
+			createListView();		
 			break;
 		case R.id.btn_cancelar_especficacao:
-
 			dialogEspecificacao.dismiss();
-
 			break;
 		}
 	} 
-
 
 	public void criarCaixaAlteracaoSerie(Serie esp){
 		int aux = 0;
@@ -223,8 +154,6 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		edtRepeticao.setText(String.valueOf(esp.getQuantidade()));
 		edtSeries.setText ("1");
 		txtCodigoExercicio.setText(String.valueOf(esp.getExercicio().getCodigo()));
-
-
 		ArrayList<String> list = new ArrayList<String>();
 		for (Unidade u : Unidade.values()){
 			list.add(u.getUnidade());
@@ -239,14 +168,10 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		cbxUnidade.setAdapter(adapter);
 		cbxUnidade.setSelection(posicao);
-
 		edtRepeticao.setEnabled(false);
 		edtSeries.setEnabled(false);
 		cbxUnidade.setEnabled(false);
-
 		dialogEspecificacao.show();
-
-
 	}
 
 
@@ -267,52 +192,30 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		CheckedTextView c = (CheckedTextView) view;
 		boolean selecionado = c.isChecked();
-		String nomeSerie = parent.getItemAtPosition(pos).toString();
-		Serie serie = new Serie();
-		for(Serie s : seriesTreino){
-			String item = s.getOrdem() + "-" +
-			s.getExercicio().getNome()+"\n" +
-			"Quantidade : " + s.getQuantidade() +"\n" +
-			"Unidade : " + s.getUnidade() + "\n" + 
-			"Carga : " + s.getCarga() ;
-			if(item.equalsIgnoreCase(nomeSerie)){
-				serie = s; 
-				break;
-			}
+		String item = parent.getItemAtPosition(pos).toString();
+		Serie serie = getSerie(item);
+		if (!seriesRealizadas.contains(serie) && !selecionado) {
+			seriesRealizadas.add(serie);
+		} else {
+			seriesRealizadas.remove(serie);
 		}
-		seriesRealizadas.add(serie);
 	}
 
 	public void finalizarSeries() throws Exception{
-
-		//refatorar treino serie
 		ControleRotina controleRotina = new ControleRotina();
-
+		Realizacao realizacao = new Realizacao();
+		realizacao.setTreino(treino);
+		controleRotina.inserirRealizacao(realizacao);
 		for(Serie s : seriesRealizadas){
-			controleRotina.removerRealizacaoSerie(s);
-			controleRotina.inserirRealizacao(s, treino.getCodigoFicha());
+			//controleRotina.removerRealizacaoSerie(s);
+			controleRotina.inserirRealizacaoSerie(s);
 		}
-
-		seriesTreino = controleRotina.listarRealizacaoSerie();	
-
-		init();
+		createListView();
 
 	}
 
 
-	private Serie getSerie(String item) {
-		Serie esp = new Serie();
-		String[] sordem = item.split("-");
-		long ordem = Long.parseLong(sordem[0]
-		                                   .toString());
-		for (Serie es : seriesTreino){
-			if(ordem == es.getOrdem()){
-				esp = es;
-				break;
-			}
-		}
-		return esp;
-	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -325,57 +228,45 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		super.onOptionsItemSelected(item);
+		try {
 		switch (item.getItemId()) {
-
 		case R.id.finalizar_multiplos:
-			try {
-				finalizarSeries();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-
+			finalizarSeries();
 			break;
-
 		case R.id.finalizar_treino:
-
-			
-			
-			try {
-				finalizarSeries();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			if(seriesTreino.size() > 0){
+			finalizarSeries();
+			if(treino.getSerie().size() > 0){
 				construirCaixa();
 			}
-			
 			break;
 		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
-	public void finalizarTudo() throws SQLException{
+	public void finalizarTudo() throws Exception{
 		ControleRotina controleRotina = new ControleRotina();
+		int completa = 1;
+		int chave = 0;
+		String mensagem = "Treino finalizado com sucesso";
 		controleRotina.removerTudoRealizacaoSerie();
-		seriesTreino = controleRotina.listarRealizacaoSerie();
-		init();
-
+		controleRotina.atualizarRealizacao(completa,chave);
+		Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
+		finish();
+		
 	}
 	
 	private void construirCaixa() {
-			String quantidade = String.valueOf(seriesTreino.size());
+			String quantidade = String.valueOf(treino.getSerie().size());
 			String texto = quantidade + " serie(s) não relizadas, realmente deseja finalizar treino ?";
-			
 			criarCaixa(texto);
 		}
 		
 	private void criarCaixa(String texto) {
-
-		
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setMessage(texto);
 		alert.setTitle("Confirmação");
@@ -386,30 +277,33 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		
 		switch (which) {
-
 		case DialogInterface.BUTTON_NEGATIVE:
 			dialog.dismiss();
 			break;	
 		case DialogInterface.BUTTON_POSITIVE:
-					
-
 			try {
 				finalizarTudo();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 			break;
-
-
 		}
-
-
-		
 	}
-
+	
+	private Serie getSerie(String item) {
+		Serie esp = new Serie();
+		String[] sordem = item.split("-");
+		long ordem = Long.parseLong(sordem[0]
+		                                   .toString());
+		for (Serie es : treino.getSerie()){
+			if(ordem == es.getOrdem()){
+				esp = es;
+				break;
+			}
+		}
+		return esp;
+	}
 	
 
 }

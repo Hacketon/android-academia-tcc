@@ -4,26 +4,21 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleFicha;
 import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
-import workoutsystem.dao.ITreinoDao;
-import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
-import workoutsystem.model.Frequencia;
-import workoutsystem.model.Grupo;
 import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
-import workoutsystem.utilitaria.AdaptadorCalendario;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,10 +26,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class GUIRotina extends Activity implements View.OnClickListener,AdapterView.OnItemClickListener{
+public class GUIRotina extends Activity 
+implements View.OnClickListener,AdapterView.OnItemClickListener,
+DialogInterface.OnClickListener{
 
 	private TabHost hostrotina;
 	private TabSpec spechistorico;
@@ -74,15 +77,12 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		anoAtual = data.get(Calendar.YEAR);
 		init();
 		criarTab();
-	
+
 	}
 
 	private void init() {
-		ITreinoDao dao = new TreinoDao();
-		SerieDao daoSerie = new SerieDao();
 		ControleRotina controleRotina = new ControleRotina();
-		List<Realizacao> lista = new ArrayList<Realizacao>();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", data));
 			selecionarFichaAtual();
@@ -129,7 +129,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 	}
 
 	private void createListView(List<Realizacao> lista) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		List<String> listaRealizacaoString = new ArrayList<String>();
 		for(Realizacao r: lista){
 			String s = sdf.format(r.getData()); 
@@ -138,7 +138,8 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			+ "Data: " + s  ;
 			listaRealizacaoString.add(item);
 		}
-		adapter =  new ArrayAdapter<String>(this, R.layout.itens_simples_2 , listaRealizacaoString );
+		adapter =  new ArrayAdapter<String>
+			(this, R.layout.itens_simples_2 , listaRealizacaoString );
 		listaRealizacao.setAdapter(adapter);
 		listaRealizacao.setCacheColorHint(Color.TRANSPARENT);
 	}
@@ -146,7 +147,6 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflate = getMenuInflater();
 		inflate.inflate(R.menu.menu_rotina, menu);
 		return true;
@@ -159,9 +159,8 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 		String mensagem = "";
 		try {
 			switch(item.getItemId()) {
-
 			case R.id.realizar_rotina:
-				inicializarTelaRealizacao();
+				validarRealizacao();
 				break;
 			case R.id.preview_rotina:
 				criarListPreview();
@@ -193,12 +192,18 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 
 	}
 
-
-	private void inicializarTelaRealizacao() throws Exception {
+	private void inicializarTelaExecucao(Treino treino){
+		Intent i = new Intent(this, GUIRotinaExecucao.class);
+		i.putExtra("treino", treino);
+		startActivity(i);
+	}
+	private void validarRealizacao() throws Exception {
 		String nome = "";
+		ControleRotina controle = new ControleRotina();
 		String mensagem = "Cadastre treinos validos na ficha !";
-		if(comboTreinos.getSelectedItem().toString() != null){
+		if(comboTreinos.getCount()>0){
 			Treino treino = null;
+			Realizacao resultado = controle.buscarTreinoIniciado();
 			nome = comboTreinos.getSelectedItem().toString();
 			for(Treino t : listaTreinos){
 				if( t.getNome().equalsIgnoreCase(nome)){
@@ -206,18 +211,78 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 					break;
 				}
 			}
+			//treino.setSerie(controle.listarRealizacaoSerie(treino.getCodigo()));
 			if(treino != null){
-				Intent i = new Intent(this, GUIRotinaExecucao.class);
-				i.putExtra("treino", treino);
-				startActivity(i);
+				if(resultado.getCodigo() != 0){
+					if(treino.getCodigo() != resultado.getCodigo() 
+							&& !treino.getSerie().isEmpty() ){
+						criarCaixa(resultado.getTreino().getNome(),"Confirmação","O treino ",
+								"Não","Sim", " ja esta iniciado . Começar um novo?");
+					}else{
+						inicializarTelaExecucao(treino);
+					}
+				}else{
+					inicializarTelaExecucao(treino);
+				}
+				
 			}else{
 				throw new Exception(mensagem);
 			}
 		}else{
 			throw new Exception(mensagem);
 		}
-
 	}
+	
+	@Override
+	public void onClick(DialogInterface dialog, int clicked) {
+		try{
+			ControleRotina controle = new ControleRotina();
+			Realizacao resultado = controle.buscarTreinoIniciado();
+			Treino treino = null;
+			switch (clicked) {
+			case DialogInterface.BUTTON_NEGATIVE:
+				treino = resultado.getTreino();
+				controle.removerTudoRealizacaoSerie();
+				break;	
+			case DialogInterface.BUTTON_POSITIVE:
+				String nome = comboTreinos.getSelectedItem().toString();
+				controle.atualizarRealizacao(1,0);
+				for(Treino t : listaTreinos){
+					if( t.getNome().equalsIgnoreCase(nome)){
+						treino = t;
+						break;
+					}
+				}
+				break;
+			
+			}
+			
+			inicializarTelaExecucao(treino);
+	
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	private void criarCaixa(
+			String item,
+			String titulo,
+			String texto,
+			String negativa,
+			String positiva,
+			String pontuacao) {
+
+		texto = texto + item + pontuacao;
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(texto);
+		alert.setTitle(titulo);
+		alert.setNegativeButton(negativa, this);
+		alert.setPositiveButton(positiva, this);
+		alert.show();
+	}
+
 
 	//combo de treinos da ficha
 
@@ -339,7 +404,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 					android.text.format.DateFormat.format
 					("MMMM - yyyy", data));	
 		}
-		
+
 		atualizarHistorico();
 	}
 
@@ -353,7 +418,7 @@ public class GUIRotina extends Activity implements View.OnClickListener,AdapterV
 			mensagem = e.getMessage();
 			createListView(new ArrayList<Realizacao>());
 			//Toast.makeText(this, mensagem,Toast.LENGTH_SHORT).show();
-			
+
 		}
 	}
 

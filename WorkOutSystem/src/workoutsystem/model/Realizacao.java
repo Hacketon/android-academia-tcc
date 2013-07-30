@@ -5,16 +5,22 @@ import java.util.Date;
 
 public class Realizacao implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int codigo;
 	private Date data;
-	private Serie serie;
 	private Treino treino;
 	private Ficha ficha;
+	private int completa;
 	
 	public Realizacao(){
-	
-		
+		completa = 0;
+		treino = new Treino();
+		ficha = new Ficha();
 	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -27,12 +33,7 @@ public class Realizacao implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Serie getSerie() {
-		return serie;
-	}
-	public void setSerie(Serie serie) {
-		this.serie = serie;
-	}
+	
 	public Treino getTreino() {
 		return treino;
 	}
@@ -44,6 +45,12 @@ public class Realizacao implements Serializable {
 	}
 	public void setFicha(Ficha ficha) {
 		this.ficha = ficha;
+	}
+	public int getCompleta() {
+		return completa;
+	}
+	public void setCompleta(int completa) {
+		this.completa = completa;
 	}
 
 }

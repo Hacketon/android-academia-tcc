@@ -12,6 +12,7 @@ import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
+import workoutsystem.model.Treino;
 
 public class ControleRotina {
 	
@@ -38,16 +39,21 @@ public class ControleRotina {
 		return historico;
 	}
 	
-	public boolean inserirRealizacao(Serie serie, long codigoFicha) throws SQLException {
-		ISerieDao dao = new SerieDao();
-		boolean retorno = dao.inserirRealizacao(serie, codigoFicha);
+	public boolean inserirRealizacao(Realizacao realizacao) throws SQLException, ParseException {
+		ITreinoDao dao = new TreinoDao();
+		boolean retorno = false;
+		Realizacao resultado = dao.buscarTreinoIniciado();
+		if(resultado.getTreino().getCodigo() != realizacao.getTreino().getCodigo()){
+			Calendar data = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			String dataString = sdf.format(data.getTime());
+			realizacao.setData(sdf.parse(dataString));
+			retorno = dao.inserirRealizacaoTreino(realizacao);
+		}
+		
 		return retorno;
 	}
 	
-	
-
-
-
 	public boolean removerRealizacaoSerie(Serie serie) throws SQLException {
 		ISerieDao dao = new SerieDao();
 		boolean retorno = dao.removerRealizacaoSerie(serie);
@@ -63,16 +69,17 @@ public class ControleRotina {
 	}
 
 
-	public List<Serie> listarRealizacaoSerie() throws SQLException {
+	public List<Serie> listarRealizacaoSerie(long codigoTreino) throws SQLException {
 		ISerieDao dao = new SerieDao();
-		List<Serie> retorno = dao.listarRealizacaoSerie();
+		List<Serie> retorno = dao.listarRealizacaoSerie(codigoTreino);
 		return retorno;
 
 	}
 
-	public int buscarTreinoIniciado() throws SQLException {
-		ISerieDao dao = new SerieDao();
-		int retorno = dao.buscarTreinoIniciado();
+	public Realizacao buscarTreinoIniciado() throws Exception {
+		ITreinoDao dao = new TreinoDao();
+		Realizacao retorno = dao.buscarTreinoIniciado();
+		//retorno.setSerie(listarRealizacaoSerie(retorno.getCodigo()));
 		return retorno;
 
 	}
@@ -91,5 +98,16 @@ public class ControleRotina {
 		boolean retorno = dao.inserirRealizacaoSerie(serie);
 		return retorno;
 
+	}
+
+	public boolean atualizarRealizacao(int completa,int chave) throws Exception{
+		ITreinoDao dao = new TreinoDao();
+		ControleFicha controleFicha = new ControleFicha();
+		boolean resultado = dao.atualizarRealizacao(completa,chave);
+		if(chave == 0){
+			controleFicha.atualizarRealizacoes();
+		}
+		return resultado;
+		
 	}
 }

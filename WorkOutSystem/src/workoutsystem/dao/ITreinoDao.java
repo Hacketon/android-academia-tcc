@@ -5,13 +5,13 @@ import java.text.ParseException;
 import java.util.List;
 
 import workoutsystem.model.Realizacao;
-import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
 public interface ITreinoDao {
 	
+	public boolean inserirRealizacaoTreino (Realizacao realizacao) throws SQLException;
 	
-	
+	public abstract Realizacao buscarTreinoIniciado() throws SQLException, ParseException;
 
 	
 	
@@ -99,12 +99,10 @@ public interface ITreinoDao {
 	 */
 	public abstract List<Treino> buscarTreinoValido(long codigoFicha) throws SQLException;
 
-
-
-	
-	
 	public abstract Realizacao buscarUltimoTreinoRealizado() throws SQLException, ParseException;
 	
 	public List<Realizacao> listarHistoricoTreinos(String primeiraData,String segundaData) throws Exception;
+
+	public boolean atualizarRealizacao(int completa, int chave) throws SQLException;
 
 }

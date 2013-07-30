@@ -1,5 +1,6 @@
 package workoutsystem.dao;
 
+import android.annotation.SuppressLint;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -202,26 +203,30 @@ public class TreinoDao implements ITreinoDao {
 		return listaTreino;
 	}
 	
-		
-	// tabelaRealizaSerie teste
-	
 	@Override
 	public Realizacao buscarUltimoTreinoRealizado() throws SQLException,ParseException {
 		Connection con = ResourceManager.getConexao();
-		String sql ="select realizacao_codigo,realizacao_data,ficha_nome,treino_nome " +
-					"	from ultima_realizacao order by realizacao_data asc";
-
+		String sql =" select realizacao_codigo,realizacao_data,ficha_nome,ficha_codigo, " +
+					" treino_nome,realizacao_completa,treino_codigo  " +
+					" from ultima_realizacao where realizacao_completa = ? " +
+					" order by realizacao_data asc";
+		int aux = 1;
+		int completa = 1;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, completa);
 		ResultSet result = prepare.executeQuery();
 		Realizacao realizacao = new Realizacao();
 		if(result.next()){
 			Treino treino = new Treino();
 			Ficha ficha = new Ficha();
+			realizacao.setCompleta(result.getInt("realizacao_completa"));
 			realizacao.setCodigo(result.getInt("realizacao_codigo"));
 			realizacao.setData(sdf.parse(result.getString("realizacao_data")));
+			treino.setCodigo(result.getInt("treino_codigo"));
 			treino.setNome(result.getString("treino_nome"));
 			ficha.setNome(result.getString("ficha_nome"));
+			ficha.setCodigo(result.getLong("ficha_codigo"));
 			realizacao.setTreino(treino);
 			realizacao.setFicha(ficha);
 		}
@@ -246,21 +251,87 @@ public class TreinoDao implements ITreinoDao {
 		return resultado;	
 	}
 	
+	
+	@Override
+	public Realizacao buscarTreinoIniciado()throws SQLException, ParseException {
+		Connection con = ResourceManager.getConexao();
+		String sql =" select realizacao_codigo,ficha_codigo,realizacao_data,ficha_nome," +
+					" treino_nome,treino_codigo,ficha_codigo,realizacao_completa,treino_codigo  " +
+					" from ultima_realizacao where realizacao_completa = ?";
+		int aux = 1;
+		int completa = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, completa);
+		ResultSet result = prepare.executeQuery();
+		Realizacao realizacao = new Realizacao();
+		if(result.next()){
+			Treino treino = new Treino();
+			Ficha ficha = new Ficha();
+			realizacao.setCompleta(result.getInt("realizacao_completa"));
+			realizacao.setCodigo(result.getInt("realizacao_codigo"));
+			realizacao.setData(sdf.parse(result.getString("realizacao_data")));
+			treino.setCodigo(result.getInt("treino_codigo"));
+			treino.setNome(result.getString("treino_nome"));
+			ficha.setNome(result.getString("ficha_nome"));
+			ficha.setCodigo(result.getLong("ficha_codigo"));
+			
+			realizacao.setTreino(treino);
+			realizacao.setFicha(ficha);
+		}
+
+		prepare.close();
+		con.close();
+		return realizacao;	
+
+	}
+	
+	
+	
+	
+	
+	@SuppressLint("SimpleDateFormat")
+	@Override
+	public boolean inserirRealizacaoTreino(Realizacao realizacao) throws SQLException {
+		int aux = 1;
+		int resultado = 0;
+		Connection con = ResourceManager.getConexao();
+		String sql = "insert into realizacao" +
+		"(datarealizacao,codigotreino,completa)" +
+		"values (?,?,?);";
+
+		PreparedStatement prepare = con.prepareStatement(sql);
+		java.util.Date data = new java.util.Date(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dataFormat = sdf.format(data); 
+		prepare.setString(aux++, dataFormat);
+		prepare.setLong(aux++, realizacao.getTreino().getCodigo());
+		prepare.setInt(aux++, realizacao.getCompleta());
+		resultado = prepare.executeUpdate();
+		prepare.close();
+		con.close();
+		return resultado>0;
+
+	}
+
+
 	@Override
 	public List<Realizacao> listarHistoricoTreinos(String primeiraData,String segundaData) throws Exception {
-
-		String sql = " select distinct ficha.[nome] " +
+		String sql = " select ficha.[nome] " +
 				" as ficha, treino.[nome] as treino, " +
-				" datarealizacao from realizacao " +
-				" inner join ficha on ficha.[codigo] = realizacao.codigoficha " +
+				" datarealizacao,completa from realizacao " +
 				" inner join treino on treino.[codigo] = realizacao.codigotreino " +
-				" where datarealizacao between ? and ? order by datarealizacao desc";
+				" inner join ficha on ficha.[codigo] = treino.codigoficha " +
+				" where datarealizacao between ? and ? and completa != ? " +
+				" order by datarealizacao desc";
 		int aux = 1;
+		int completa = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setString(aux++, primeiraData);
 		prepare.setString(aux++, segundaData);
+		prepare.setInt(aux++,completa);
 		ResultSet result = prepare.executeQuery();
 		
 		List<Realizacao> list = new ArrayList<Realizacao>();
@@ -270,7 +341,6 @@ public class TreinoDao implements ITreinoDao {
 			Realizacao realizacao = new Realizacao();
 			Ficha ficha = new Ficha();
 			Treino treino = new Treino();
-
 			
 			ficha.setNome(result.getString("ficha"));
 			realizacao.setFicha(ficha);
@@ -287,6 +357,20 @@ public class TreinoDao implements ITreinoDao {
 		prepare.close();
 		con.close();
 		return list;
+	}
+
+	@Override
+	public boolean atualizarRealizacao(int completa,int chave) throws SQLException {
+		String sql = "update realizacao set completa = ? where completa = ? ";
+		Connection con = ResourceManager.getConexao();
+		int aux = 1;
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setInt(aux++, completa);
+		prepare.setInt(aux++, chave);
+		int retorno = prepare.executeUpdate();
+		con.close();
+		prepare.close();
+		return retorno>0;
 	}
 
 

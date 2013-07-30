@@ -19,6 +19,11 @@ public class ControleFicha {
 	public List<Frequencia> listarDias() {
 		return new FichaDao().listarDias();
 	}
+	
+	public void atualizarRealizacoes() throws SQLException{
+		IFichaDao dao = new FichaDao();
+		dao.atualizarRealizacoes();
+	}
 
 	public String manipularFicha(Ficha ficha) throws Exception{
 		String mensagem = "";

@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -50,6 +51,7 @@ DialogInterface.OnClickListener{
 	private TextView txtNomeFicha;
 	private List<Treino> listaTreinos;
 	private Ficha ficha;
+	private ProgressBar conclusao;
 	private TextView ultimaFicha;
 	private Dialog dialogPreview;
 	private ListView listaExercicios;
@@ -57,11 +59,14 @@ DialogInterface.OnClickListener{
 	private ListView listaRealizacao;
 	private int mesAtual;
 	private int anoAtual;
+	private TextView conclusaoTexto;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rotina);
+		conclusao = (ProgressBar) findViewById(R.id.conclusao_rotina);
+		conclusaoTexto = (TextView) findViewById(R.id.conclusao_texto);
 		ultimaData = (TextView) findViewById(R.id.ultimo_data);
 		textomes = (TextView) findViewById(R.id.txt_mes);
 		ultimoTreino = (TextView) findViewById(R.id.ultimo_treino);
@@ -82,18 +87,30 @@ DialogInterface.OnClickListener{
 
 	private void init() {
 		ControleRotina controleRotina = new ControleRotina();
+		ControleFicha controleFicha = new ControleFicha();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String texto = "";
 		try {
 			textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", data));
 			selecionarFichaAtual();
 			atualizarHistorico();
-			Realizacao realizacao = controleRotina.buscarUltimoTreinoRealizado();
+			long progresso = controleRotina.calcularConclusao();
+			conclusao.setProgress((int)progresso);
+			conclusaoTexto.setText(texto);
+			texto = "Conclusão " + " ( "+ progresso + "% ) ";
+			conclusaoTexto.setText(texto);
+			String mensagem =controleFicha.calcularRestante();
+			Realizacao realizacao = 
+					controleRotina.buscarUltimoTreinoRealizado();
 			ultimoTreino.setText(realizacao.getTreino().getNome());
 			ultimaData.setText(sdf.format(realizacao.getData()));
-			ultimaFicha.setText(realizacao.getFicha().getNome());	
+			ultimaFicha.setText(realizacao.getFicha().getNome());
+			if(!mensagem.equalsIgnoreCase("")){
+				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+			}
 
 		} catch (Exception e) {
-			Toast.makeText(this,e.getMessage(), Toast.LENGTH_LONG).show();
+			//Toast.makeText(this,e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -104,12 +121,10 @@ DialogInterface.OnClickListener{
 
 		hostrotina = (TabHost) findViewById(R.id.hostrotina);
 		hostrotina.setup();
-
 		spectreino = hostrotina.newTabSpec("tabrotina");
 		spectreino.setContent(R.id.tabtreino);
 		spectreino.setIndicator("Treinos");
 		hostrotina.addTab(spectreino);
-
 		spechistorico = hostrotina.newTabSpec("tabchistorico");
 		spechistorico.setContent(R.id.tabhistoricoRotina);
 		spechistorico.setIndicator("Histórico");
@@ -318,7 +333,7 @@ DialogInterface.OnClickListener{
 
 		if(ficha != null){
 			if(ficha.getTreinos().size() > 0 && 
-					comboTreinos.getSelectedItem().toString() != null){
+					comboTreinos.getCount()>0){
 				nome = comboTreinos.getSelectedItem().toString();
 				for(Treino t : listaTreinos){
 					if( t.getNome().equalsIgnoreCase(nome)){

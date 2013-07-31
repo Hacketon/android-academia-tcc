@@ -302,7 +302,7 @@ DialogInterface.OnClickListener{
 	}
 
 	private void criarDialogo(String titulo,Ficha f){
-		int quantidade = f.getTreinos().size() + 1;
+		int quantidade = f.getTreinos().size();
 		dialogFicha.setTitle(titulo);
 		txtNome.setText(f.getNome());
 		txtObjetivo.setText(f.getObjetivo());
@@ -322,8 +322,6 @@ DialogInterface.OnClickListener{
 		AlertDialog alerta = (AlertDialog) dialog;
 		alerta.getListView().setAdapter(list);
 		list.notifyDataSetChanged();
-
-
 	}
 	
 	@Override

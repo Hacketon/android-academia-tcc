@@ -10,9 +10,9 @@ import workoutsystem.dao.ISerieDao;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
+import workoutsystem.model.Ficha;
 import workoutsystem.model.Realizacao;
 import workoutsystem.model.Serie;
-import workoutsystem.model.Treino;
 
 public class ControleRotina {
 	
@@ -110,4 +110,19 @@ public class ControleRotina {
 		return resultado;
 		
 	}
+
+	public long calcularConclusao() throws Exception {
+		ControleFicha controle = new ControleFicha();
+		Ficha ficha = controle.buscarFichaAtual();
+		long progresso = 0;
+		double calculo = 0.0;
+		if(ficha.getCodigo() == 0) {
+			progresso = 0 ;
+		}else{
+			calculo = ficha.getRealizacoes()*100/ficha.getDuracao();
+			progresso = Math.round(calculo);
+		}
+		return progresso;
+	}
+
 }

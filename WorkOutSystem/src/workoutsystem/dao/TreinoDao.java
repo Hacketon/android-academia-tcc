@@ -180,9 +180,8 @@ public class TreinoDao implements ITreinoDao {
 	
 	@Override
 	public List<Treino> buscarTreinoValido(long codigoFicha) throws SQLException {
-		String sql = " select treino_codigo,treino_nome," +
-				 	 " treino_ordem,treino_codigoficha" +
-				 	 " from treino_serie where ficha_codigo = ?";
+		String sql = " select distinct treino_codigo,treino_nome,treino_ordem," +
+					 " ficha_codigo from treino_valido where ficha_codigo = ?";
 		int aux = 1;
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
@@ -194,7 +193,7 @@ public class TreinoDao implements ITreinoDao {
 			treino.setCodigo(result.getInt("treino_codigo"));
 			treino.setNome(result.getString("treino_nome"));
 			treino.setOrdem(result.getInt("treino_ordem"));
-			treino.setCodigoFicha(result.getInt("treino_codigoficha"));
+			treino.setCodigoFicha(result.getInt ("ficha_codigo"));
 			listaTreino.add(treino);
 		}
 

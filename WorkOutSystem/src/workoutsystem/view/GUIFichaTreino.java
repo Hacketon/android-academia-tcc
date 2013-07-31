@@ -424,7 +424,6 @@ ListView.OnItemLongClickListener{
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 			break;
 			default:
-				
 				Ficha ficha = null;
 				if(fichas != null){
 					String nome = fichas[clicked];

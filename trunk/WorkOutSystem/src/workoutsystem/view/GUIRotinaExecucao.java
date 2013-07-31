@@ -1,6 +1,5 @@
 package workoutsystem.view;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +46,8 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	private EditText edtCarga;
 	private TextView txtCodigoExercicio;
 	private Serie especificacao;
-	//private List<String> series ;
 	private List<Serie> seriesRealizadas;
-	private List<Serie> seriesTreino;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +104,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		
 		if(treino.getSerie().isEmpty()){
 			controleRotina.atualizarRealizacao(completa,chave);
+			controleRotina.removerTudoRealizacaoSerie();
 			String mensagem = "Treino finalizado com sucesso";
 			Toast.makeText(this,mensagem,Toast.LENGTH_SHORT).show();
 			finish();

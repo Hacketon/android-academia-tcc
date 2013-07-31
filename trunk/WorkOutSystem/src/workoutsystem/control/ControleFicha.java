@@ -204,6 +204,23 @@ public class ControleFicha {
 		return listaFicha;
 	}
 
+	public String calcularRestante() throws Exception {
+		String mensagem = "";
+		IFichaDao dao = new FichaDao();
+		Ficha ficha = dao.buscarFichaAtual();
+		if(ficha.getCodigo() != 0){
+			int calculo = ficha.getDuracao() - ficha.getRealizacoes();
+			if(calculo<0){
+				mensagem = "Já passou prazo da troca da ficha!";
+			}else if (calculo<=ficha.getAntecedencia()){
+				mensagem = "Faltando " + calculo + " treino(s) para troca da ficha!";
+			}
+	
+		}
+				
+		return mensagem;
+	}
+
 
 
 }

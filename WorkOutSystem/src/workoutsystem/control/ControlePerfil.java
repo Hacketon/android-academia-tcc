@@ -20,13 +20,15 @@ public class ControlePerfil {
 
 		IPerfilDao dao = new PerfilDao();
 		ControleFicha controle = new ControleFicha();
-		Perfil p = buscarPerfil();
+		Perfil p = new Perfil();
+		p = buscarPerfil();
 		Validadora<Perfil> validadora = new Validadora<Perfil>(perfil);
 		String mensagem = validadora.getMessage();
 		if (mensagem.equalsIgnoreCase("")){
 			if(p == null){
-				if(dao.criarPerfil(perfil)){
-					if(dao.frequenciaPerfil(perfil)){
+				if(dao.criarPerfil(perfil) ){
+					p = buscarPerfil();
+					if(dao.frequenciaPerfil(p , perfil)){
 						mensagem ="Criado com sucesso";
 					}
 				}
@@ -47,7 +49,7 @@ public class ControlePerfil {
 		String mensagem = validadora.getMessage();
 		if (mensagem.equalsIgnoreCase("")){
 			if(buscarPerfil() != null){
-				if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfil(perfil)){
+				if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfilAtualiza(perfil)){
 					mensagem ="Atualizado com sucesso"; 
 				}
 			}

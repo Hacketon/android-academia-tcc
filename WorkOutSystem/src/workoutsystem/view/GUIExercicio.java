@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.control.ControleExercicio;
+import workoutsystem.control.ControlePerfil;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Grupo;
 import workoutsystem.view.GUIPasso;
 import workoutsystem.view.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,6 +19,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -103,7 +108,15 @@ ListView.OnItemLongClickListener{
 		tabcriado.setIndicator("Criado");
 		hospedeiro.addTab(tabcriado);
 
+
+
+
+
+
+
 	}
+
+
 	private void criarCombo(){
 		listaGrupos = new ArrayList<String>();
 		ControleExercicio controle = new ControleExercicio();
@@ -121,14 +134,14 @@ ListView.OnItemLongClickListener{
 		cbxExercicioPadrao.setAdapter(adapter);
 		cbxGrupo.setAdapter(adapter);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		String mensagem = "Selecione algum exercicio antes !";
 		switch (v.getId()) {
-		case (R.id.btn_add):
-			criarCaixaDialog("Novo Exercicio");
-		break;
+//		case (R.id.btn_add):
+//			criarCaixaDialog("Novo Exercicio");
+//		break;
 		case (R.id.btn_criar):
 
 			try {
@@ -142,23 +155,23 @@ ListView.OnItemLongClickListener{
 		case (R.id.btn_voltar):
 			dialog.dismiss();
 		break;
-		case (R.id.btn_exc_exercicio):
-			if(listaRemocaoExercicio.size()>0){
-				construirCaixa();
-			}else{
-				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
-			}
-			
-		break;
+//		case (R.id.btn_exc_exercicio):
+//			if(listaRemocaoExercicio.size()>0){
+//				construirCaixa();
+//			}else{
+//				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+//			}
+//
+//		break;
 		}
 
 	}
-	
+
 	private void construirCaixa() {
 		if(listaRemocaoExercicio.size()>0){
 			String quantidade = String.
-					valueOf(listaRemocaoExercicio.size())
-									+ " exercicio(s)";
+			valueOf(listaRemocaoExercicio.size())
+			+ " exercicio(s)";
 			String texto = "Exercicios podem estar vinculados com treinos, realmente deseja deletar  ";
 			String negativa = "Não";
 			String positiva = "Sim";
@@ -166,10 +179,10 @@ ListView.OnItemLongClickListener{
 			String titulo = "Confirmação";
 			criarCaixa(quantidade,titulo,texto,negativa,positiva,pontuacao);
 		}
-		
+
 	}
-	
-	
+
+
 
 	private void criarCaixa(
 			String item,
@@ -188,9 +201,9 @@ ListView.OnItemLongClickListener{
 		alert.setPositiveButton(positiva, this);
 		alert.show();
 	}
-	
-	
-	
+
+
+
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
@@ -214,7 +227,7 @@ ListView.OnItemLongClickListener{
 			if(!mensagem.equalsIgnoreCase("")){
 				Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
 			}
-			
+
 			break;
 
 
@@ -230,13 +243,13 @@ ListView.OnItemLongClickListener{
 			if(!listaRemocaoExercicio.isEmpty()){
 				mensagem = controleExercicio.excluirExercicio(listaRemocaoExercicio);	
 			}
- 
+
 		}catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		
+
 		return mensagem;
 	}
 
@@ -248,8 +261,8 @@ ListView.OnItemLongClickListener{
 		try {
 			mensagem = controle.manipularExercicio(e);
 			listaExercicio = 
-			controle.listarExercicios(e.getGrupo().getNome(), 
-					e.getPadrao());
+				controle.listarExercicios(e.getGrupo().getNome(), 
+						e.getPadrao());
 			atualizarCombo(e,cbxExercicioCriado);
 			criarListView(listaExercicio, listacriado,LAYOUT_MULTIPLE);
 			dialog.dismiss();
@@ -323,7 +336,7 @@ ListView.OnItemLongClickListener{
 		adapter.notifyDataSetChanged();
 		lista.setAdapter(adapter);
 		lista.setCacheColorHint(Color.TRANSPARENT);
-		
+
 
 	}
 
@@ -336,7 +349,7 @@ ListView.OnItemLongClickListener{
 			CheckedTextView c = (CheckedTextView) view;
 			boolean selecionado = c.isChecked();
 			String nome = parent.getItemAtPosition(pos).toString();
-			
+
 
 			for(Exercicio e : listaExercicio){
 				if(e.getNome().equalsIgnoreCase(nome)){
@@ -370,8 +383,8 @@ ListView.OnItemLongClickListener{
 		carregarExercicio(exercicio);
 		return false;
 	}
-	
-	
+
+
 	private void criarCaixaDialog(String titulo) {
 		dialog.setTitle(titulo);
 		txtCodExercicio.setText("");
@@ -397,6 +410,69 @@ ListView.OnItemLongClickListener{
 		return exercicio;
 	}
 
+
+
+
+
+//	@SuppressLint("NewApi")
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//
+//		if(hospedeiro.getCurrentTabTag().equalsIgnoreCase(tabcriado.getTag())){
+//			
+//			MenuInflater inflate = getMenuInflater();
+//			inflate.inflate(R.menu.menu_exercicio, menu);
+//			return true;
+//
+//		
+//		}else{
+//			return false;
+//		}
+//		}
+	
+	
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuInflater inflate = getMenuInflater();
+		int tab = hospedeiro.getCurrentTab();
+		//		Toast.makeText(this, tab+"", Toast.LENGTH_SHORT).show();
+		if (tab == 0){
+			menu.clear();
+		}else{
+			menu.clear();
+			inflate.inflate(R.menu.menu_rotina, menu);
+		}    
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		String mensagem = "";
+		ControlePerfil controle = new ControlePerfil();
+
+		switch(item.getItemId()) {
+		case R.id.adicionar_exercicio:
+			criarCaixaDialog("Novo Exercicio");
+			break;
+
+		case R.id.excluir_exercicio:
+			if(listaRemocaoExercicio.size()>0){
+				construirCaixa();
+			}else{
+				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+			}
+
+			break;
+
+		}
+		return true;
+
+
+	}
 
 }
 

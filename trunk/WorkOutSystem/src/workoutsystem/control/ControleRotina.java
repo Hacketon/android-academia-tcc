@@ -125,4 +125,16 @@ public class ControleRotina {
 		return progresso;
 	}
 
+	public String colorirConclusao(long progresso) {
+		String cor = "";
+		if(progresso>=0 && progresso<=30){
+			cor = "#00FF00";
+		}else if(progresso>=31 && progresso<=70){
+			cor="#FFFF00";
+		}else if(progresso>=71){
+			cor="#FF0000";
+		}
+		return cor;
+	}
+
 }

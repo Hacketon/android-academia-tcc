@@ -52,8 +52,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista_exercicios);
-
+		setContentView(R.layout.rotina_execucao);
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
 		listaSerie = (ListView) findViewById(R.id.lista_realizarexercicio);
 		treinoDia = (TextView) findViewById(R.id.txt_treino);
@@ -77,7 +76,6 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		findViewById(R.id.txt_codigoExercicioEspecificacao);
 		btnCancelar.setOnClickListener(this);
 		btnConfirmar.setOnClickListener(this);
-		//series = new ArrayList<String>();
 		seriesRealizadas = new ArrayList<Serie>();
 		init();
 	}

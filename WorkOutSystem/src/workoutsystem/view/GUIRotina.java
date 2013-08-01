@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -95,13 +96,15 @@ DialogInterface.OnClickListener{
 			selecionarFichaAtual();
 			atualizarHistorico();
 			long progresso = controleRotina.calcularConclusao();
+			String color = controleRotina.colorirConclusao(progresso);
 			conclusao.setProgress((int)progresso);
 			conclusaoTexto.setText(texto);
-			texto = "Conclusão " + " ( "+ progresso + "% ) ";
+			conclusaoTexto.setTextColor(Color.parseColor(color));
+			texto = progresso + "%";
 			conclusaoTexto.setText(texto);
 			String mensagem =controleFicha.calcularRestante();
 			Realizacao realizacao = 
-					controleRotina.buscarUltimoTreinoRealizado();
+				controleRotina.buscarUltimoTreinoRealizado();
 			ultimoTreino.setText(realizacao.getTreino().getNome());
 			ultimaData.setText(sdf.format(realizacao.getData()));
 			ultimaFicha.setText(realizacao.getFicha().getNome());
@@ -154,18 +157,37 @@ DialogInterface.OnClickListener{
 			listaRealizacaoString.add(item);
 		}
 		adapter =  new ArrayAdapter<String>
-			(this, R.layout.itens_simples_2 , listaRealizacaoString );
+		(this, R.layout.itens_simples_2 , listaRealizacaoString );
 		listaRealizacao.setAdapter(adapter);
 		listaRealizacao.setCacheColorHint(Color.TRANSPARENT);
 	}
 
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuInflater inflate = getMenuInflater();
+		int tab = hostrotina.getCurrentTab();
+		
+		if (tab == 0){
+			menu.clear();
+			inflate.inflate(R.menu.menu_rotina, menu);
+		}else{
+			menu.clear();
+		}    
+		return super.onPrepareOptionsMenu(menu);
+	}
 
+
+
+
+
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflate = getMenuInflater();
 		inflate.inflate(R.menu.menu_rotina, menu);
 		return true;
 	}
+	 */
 
 
 	@Override
@@ -239,7 +261,6 @@ DialogInterface.OnClickListener{
 				}else{
 					inicializarTelaExecucao(treino);
 				}
-				
 			}else{
 				throw new Exception(mensagem);
 			}
@@ -247,7 +268,7 @@ DialogInterface.OnClickListener{
 			throw new Exception(mensagem);
 		}
 	}
-	
+
 	@Override
 	public void onClick(DialogInterface dialog, int clicked) {
 		try{
@@ -269,17 +290,17 @@ DialogInterface.OnClickListener{
 					}
 				}
 				break;
-			
+
 			}
-			
+
 			inicializarTelaExecucao(treino);
-	
+
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
-	
+
 	private void criarCaixa(
 			String item,
 			String titulo,
@@ -474,5 +495,10 @@ DialogInterface.OnClickListener{
 	//
 	//	}
 
-
+	
 }
+
+
+
+
+

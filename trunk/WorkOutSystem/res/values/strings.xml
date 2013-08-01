@@ -86,6 +86,8 @@
     <string name="botao_ficha">Ficha</string>
     <string name="botao_sobre"> Sobre</string>
     <string name="botao_configuracao">Config.</string>
+    <string name="botao_excluir_perfil">Excluir</string>
+        <string name="botao_salvar_perfil">Salvar</string>
 
     <!-- texto de label -->
 
@@ -157,7 +159,9 @@
     <string name="label_x"> X </string>
     <string name="label_proximo"> > </string>
     <string name="label_anterior"> &lt; </string>
-
+	<string name= "botao_excluir_exercicio">Excluir</string>
+	<string name= "botao_adicionar_exercicio">Adicionar</string>
+    
     <!-- Tela Avatar -->
 
     <string name="label_nivel_usuario"> Nivel: </string>

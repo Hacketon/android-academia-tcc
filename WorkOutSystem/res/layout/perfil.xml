@@ -235,6 +235,8 @@
         </LinearLayout>
     </TabHost>
 
+
+    <!-- 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -260,6 +262,6 @@
             android:onClick="onClick"
             style="@style/textopequenopreto"
             android:text="@string/botao_excluir" />
-    </LinearLayout>
+        </LinearLayout>    -->
 
 </LinearLayout>

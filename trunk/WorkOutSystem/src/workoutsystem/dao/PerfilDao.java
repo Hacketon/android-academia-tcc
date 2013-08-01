@@ -126,7 +126,39 @@ public class PerfilDao implements IPerfilDao{
 	}
 
 	@Override
-	public boolean frequenciaPerfil(Perfil perfil) {
+	public boolean frequenciaPerfil(Perfil p, Perfil perfil) {
+
+		PreparedStatement prepare = null;
+		String sql = "";
+		try{
+			Connection con = ResourceManager.getConexao();
+			sql = "delete from frequenciaperfil where codigoperfil = ?";
+			prepare = con.prepareStatement(sql);
+			prepare.setInt(1, perfil.getCodigo());
+			prepare.executeUpdate();
+
+
+			for (Frequencia d: perfil.getFrequencia()){
+
+				sql = "insert into frequenciaperfil (codigodia,codigoperfil) values (?,?)";
+				prepare = con.prepareStatement(sql);
+				prepare.setInt(1,d.getCodigo());
+				prepare.setInt(2, p.getCodigo());
+				prepare.executeUpdate();
+			}
+			prepare.close();
+			con.close();
+
+			return true;
+
+		}catch (SQLException e) {
+			return false;
+		}
+
+	}
+	
+
+	public boolean frequenciaPerfilAtualiza(Perfil perfil) {
 
 		PreparedStatement prepare = null;
 		String sql = "";
@@ -156,6 +188,7 @@ public class PerfilDao implements IPerfilDao{
 		}
 
 	}
+
 	public boolean excluirFrequencia(Perfil perfil){
 		PreparedStatement prepare = null;
 		String sql = "";

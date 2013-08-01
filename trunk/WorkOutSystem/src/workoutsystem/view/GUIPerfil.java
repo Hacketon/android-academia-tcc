@@ -13,6 +13,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -96,45 +99,44 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 
 	}
 
-
 	@Override
 	public void onClick(View v) {
-		String mensagem = "";
-		ControlePerfil controle = new ControlePerfil();
-
-		switch (v.getId()){
-		case R.id.btn_cadperfil:
-			try{
-				perfil = criaManipulaPerfil();
-
-				if(verificarCampos()){
-					if(controle.buscarPerfil()!= null){
-						mensagem = controle.atualizarPerfil(perfil);
-					}else{
-						mensagem = controle.cadastrarPerfil(perfil);
-					}
-				}else{
-					mensagem = "Digite os campos (Principais / Frequencia)";
-				}
-			}catch (Exception e) {
-				mensagem = e.getMessage();
-			}
-			break;
-		case R.id.btn_excperfil:
-			if(controle.buscarPerfil() == null){
-				mensagem = "Nenhum perfil foi encontrado, exclusão invalida !";
-			}else{
-				construirCaixa();
-			}
-			
-
-			break;
-		}
-		if(!mensagem.equalsIgnoreCase("")){
-			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
-			
-		}
-		
+//		String mensagem = "";
+//		ControlePerfil controle = new ControlePerfil();
+//
+//		switch (v.getId()){
+//		case R.id.btn_cadperfil:
+//			try{
+//				perfil = criaManipulaPerfil();
+//
+//				if(verificarCampos()){
+//					if(controle.buscarPerfil()!= null){
+//						mensagem = controle.atualizarPerfil(perfil);
+//					}else{
+//						mensagem = controle.cadastrarPerfil(perfil);
+//					}
+//				}else{
+//					mensagem = "Digite os campos (Principais / Frequencia)";
+//				}
+//			}catch (Exception e) {
+//				mensagem = e.getMessage();
+//			}
+//			break;
+//		case R.id.btn_excperfil:
+//			if(controle.buscarPerfil() == null){
+//				mensagem = "Nenhum perfil foi encontrado, exclusão invalida !";
+//			}else{
+//				construirCaixa();
+//			}
+//			
+//
+//			break;
+//		}
+//		if(!mensagem.equalsIgnoreCase("")){
+//			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+//			
+//		}
+//		
 	}
 
 
@@ -386,6 +388,60 @@ public class GUIPerfil extends Activity implements View.OnClickListener, DialogI
 		}
 	}
 
+	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflate = getMenuInflater();
+		inflate.inflate(R.menu.menu_perfil, menu);
+		return true;
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		String mensagem = "";
+		ControlePerfil controle = new ControlePerfil();
+
+		switch(item.getItemId()) {
+			case R.id.salvar_perfil:
+				try{
+					perfil = criaManipulaPerfil();
+
+					if(verificarCampos()){
+						if(controle.buscarPerfil()!= null){
+							mensagem = controle.atualizarPerfil(perfil);
+						}else{
+							mensagem = controle.cadastrarPerfil(perfil);
+						}
+					}else{
+						mensagem = "Digite os campos (Principais / Frequencia)";
+					}
+				}catch (Exception e) {
+					mensagem = e.getMessage();
+				}
+				
+				break;
+			case R.id.excluir_perfil:
+				if(controle.buscarPerfil() == null){
+					mensagem = "Nenhum perfil foi encontrado, exclusão invalida !";
+				}else{
+					construirCaixa();
+				}
+
+				break;
+		
+	}
+		if(!mensagem.equalsIgnoreCase("")){
+			Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
+			
+		}
+
+		return true;
+	}
+	
+	
 }
 
 

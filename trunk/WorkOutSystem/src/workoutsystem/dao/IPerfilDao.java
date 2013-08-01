@@ -39,7 +39,7 @@ public interface IPerfilDao {
 	 * @param perfil
 	 * @return true = possivel atualizar caso contrario false; 
 	 */
-	public abstract boolean frequenciaPerfil(Perfil perfil);
+	public abstract boolean frequenciaPerfil(Perfil p, Perfil perfil);
 	/**
 	 * Busca a Frequencia de um determinado perfil (Implementar) 
 	 * @param perfil
@@ -61,5 +61,7 @@ public interface IPerfilDao {
 
 	public abstract int buscarUltimoPerfil() throws SQLException;
 
-	
+	public abstract boolean frequenciaPerfilAtualiza(Perfil perfil);
+
+
 }

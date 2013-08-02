@@ -19,7 +19,7 @@ public class ControleFicha {
 	public List<Frequencia> listarDias() {
 		return new FichaDao().listarDias();
 	}
-	
+
 	public void atualizarRealizacoes() throws SQLException{
 		IFichaDao dao = new FichaDao();
 		dao.atualizarRealizacoes();
@@ -57,11 +57,11 @@ public class ControleFicha {
 		Ficha ficha = dao.buscarFichaCodigo(codigo);
 		return ficha;
 	}
-	
+
 	private String inserirFicha(Ficha ficha) throws Exception{
 		IFichaDao dao = new FichaDao();
 		String mensagem = "";
-		
+
 		if(buscarFichaNome(ficha.getNome())!= null){
 			mensagem = "Já existe uma ficha com este nome!";
 			throw new Exception(mensagem);
@@ -69,7 +69,7 @@ public class ControleFicha {
 			boolean resultado = dao.inserirFicha(ficha);
 			if (resultado){
 				mensagem = "Ficha inserida com sucesso!";
-				
+
 			}else{
 				mensagem = "Falha ao inserir ficha no sistema";
 				throw new Exception(mensagem);
@@ -89,7 +89,7 @@ public class ControleFicha {
 			}else{
 				mensagem = "Erro ao inserir a ficha no sistema";
 			}
-			
+
 		}else{
 			mensagem = "Nome invalido : outra ficha já possui este nome!";
 			throw new Exception(mensagem);
@@ -116,15 +116,15 @@ public class ControleFicha {
 		List<Ficha> lista = dao.listarFichas();
 		for(Ficha f : lista){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
-			
+
 			for(Treino t : f.getTreinos()){
 				t.setSerie(daoSerie.listarSerie(t.getCodigo()));
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
 
 	public String excluirFicha(List<Ficha> fichas) throws Exception {
 		boolean resultado = true;
@@ -162,7 +162,7 @@ public class ControleFicha {
 		IFichaDao dao = new FichaDao();
 		ITreinoDao daoTreino = new TreinoDao();
 		ISerieDao daoSerie = new SerieDao();
-		
+
 		f = dao.buscarFichaCodigo(codigo);
 		if(f != null){
 			f.setTreinos(daoTreino.listarTreinos(f.getCodigo()));
@@ -182,16 +182,18 @@ public class ControleFicha {
 		return "Não possui uma ficha atual";
 	}
 
-	public String mudarFichaAtual(Ficha ficha) throws SQLException {
+	public String mudarFichaAtual(Ficha ficha) throws Exception {
 		IFichaDao dao = new FichaDao();
+		ControleRotina controle = new ControleRotina();
 		desativarFichaAtual();
+		controle.atualizarRealizacao(1, 0);
+		controle.removerTudoRealizacaoSerie();
 		String mensagem = "";
 		boolean retorno = dao.alterarFichaAtual(ficha.getCodigo());
 		if(retorno){
 			mensagem = "Ficha atual alterada com sucesso!";
 		}
 		return mensagem;
-
 	}
 
 	public List<Ficha> buscarFichaDiferente(long codigo) throws Exception {
@@ -215,9 +217,9 @@ public class ControleFicha {
 			}else if (calculo<=ficha.getAntecedencia()){
 				mensagem = "Faltando " + calculo + " treino(s) para troca da ficha!";
 			}
-	
+
 		}
-				
+
 		return mensagem;
 	}
 

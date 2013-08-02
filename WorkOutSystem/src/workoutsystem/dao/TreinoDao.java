@@ -208,7 +208,7 @@ public class TreinoDao implements ITreinoDao {
 		String sql =" select realizacao_codigo,realizacao_data,ficha_nome,ficha_codigo, " +
 					" treino_nome,realizacao_completa,treino_codigo  " +
 					" from ultima_realizacao where realizacao_completa = ? " +
-					" order by realizacao_data asc";
+					" order by realizacao_data desc";
 		int aux = 1;
 		int completa = 1;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -256,7 +256,7 @@ public class TreinoDao implements ITreinoDao {
 		Connection con = ResourceManager.getConexao();
 		String sql =" select realizacao_codigo,ficha_codigo,realizacao_data,ficha_nome," +
 					" treino_nome,treino_codigo,ficha_codigo,realizacao_completa,treino_codigo  " +
-					" from ultima_realizacao where realizacao_completa = ?";
+					" from ultima_realizacao where realizacao_completa = ? ";
 		int aux = 1;
 		int completa = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -301,7 +301,7 @@ public class TreinoDao implements ITreinoDao {
 
 		PreparedStatement prepare = con.prepareStatement(sql);
 		java.util.Date data = new java.util.Date(); 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dataFormat = sdf.format(data); 
 		prepare.setString(aux++, dataFormat);
 		prepare.setLong(aux++, realizacao.getTreino().getCodigo());

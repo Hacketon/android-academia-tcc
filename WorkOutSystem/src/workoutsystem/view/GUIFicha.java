@@ -270,6 +270,9 @@ DialogInterface.OnClickListener{
 			} catch (SQLException e) {
 				mensagem = e.getMessage();
 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 

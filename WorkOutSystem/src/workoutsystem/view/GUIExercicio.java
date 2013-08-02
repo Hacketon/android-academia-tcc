@@ -448,12 +448,12 @@ ListView.OnItemLongClickListener{
 
 
 
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 		String mensagem = "";
-		ControlePerfil controle = new ControlePerfil();
-
+		
 		switch(item.getItemId()) {
 		case R.id.adicionar_exercicio:
 			criarCaixaDialog("Novo Exercicio");

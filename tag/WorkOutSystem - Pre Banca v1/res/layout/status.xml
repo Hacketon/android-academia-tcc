@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="15dp" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:weightSum="100" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/label_dadospessoais"
+                    android:textColor="#ffffff"
+                    android:textSize="30dp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#4682B4"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/linhaDesign"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:weightSum="150" >
+
+                <TextView
+                    android:id="@+id/tv_nome"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_nomeapelido" />
+
+                <TextView
+                    android:id="@+id/tv_sexousuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_sexo" />
+
+                <TextView
+                    android:id="@+id/tv_frequenciausuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_frequencia" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/texto_medida"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/botao_medidas"
+                    android:textColor="#ffffff"
+                    android:textSize="30dp"
+                    android:textStyle="normal" />
+
+                            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#4682B4"
+                android:orientation="horizontal"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/linhaDesign"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/texto_data_medida"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="data"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp"
+                    android:textStyle="italic" />
+            
+            
+            <TextView
+                android:id="@+id/texto_principal_medida"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingTop="10dp"
+                android:text="Principais"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#B0C4DE"
+                android:gravity="left"
+                android:orientation="vertical"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/linhaDesignPrin"
+                    android:layout_width="1dp"
+                    android:layout_height="2dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="150" >
+
+                <TextView
+                    android:id="@+id/tv_alturausuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_altura" />
+
+                <TextView
+                    android:id="@+id/tv_pesousuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_peso" />
+
+                <TextView
+                    android:id="@+id/tv_cinturausuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_cintura" />
+
+                <TextView
+                    android:id="@+id/tv_quadrilusaurio"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_quadril" />
+
+                <TextView
+                    android:id="@+id/texto_superior_medida"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingTop="20dp"
+                    android:text="Superiores"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp"
+                    android:textStyle="italic" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="#B0C4DE"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:weightSum="100" >
+
+                    <TextView
+                        android:id="@+id/linhaDesignSup"
+                        android:layout_width="1dp"
+                        android:layout_height="2dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_peitousuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_peito" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="150" >
+
+                <TextView
+                    android:id="@+id/tv_bracoo"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_braco" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/tv_bracodirusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_direita" />
+
+                <TextView
+                    android:id="@+id/tv_bracoesqusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_esquerda" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/texto_inferior_medida"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingTop="20dp"
+                android:text="Inferiores"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#B0C4DE"
+                android:gravity="left"
+                android:orientation="vertical"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/linhaDesignInf"
+                    android:layout_width="1dp"
+                    android:layout_height="2dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="150" >
+
+                <TextView
+                    android:id="@+id/tv_coxa"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_coxa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/tv_coxadirusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_direita" />
+
+                <TextView
+                    android:id="@+id/tv_coxaesqusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_esquerda" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:weightSum="150" >
+
+                <TextView
+                    android:id="@+id/tv_panturrilhaa"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_panturrilha" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/tv_panturillhadirusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_direita" />
+
+                <TextView
+                    android:id="@+id/tv_panturillhaesqusuario"
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:padding="5dp"
+                    android:text="@string/label_esquerda" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -52,6 +52,8 @@ public class GUIEvolucao extends Activity  {
 	private List<ItemListaHistorico> itens;
 	private SimpleDateFormat sdf;
 
+	ControlePerfil controleperfil = new ControlePerfil();
+	ControleMedida controlemedida = new ControleMedida();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +114,22 @@ public class GUIEvolucao extends Activity  {
 	public void onClick(View e) {
 		switch (e.getId()) {
 		case (R.id.btn_proximamedida):
-			exibirProximo();
+			try {
+				exibirProximo();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		break;
 		case (R.id.btn_anteriormedida):
-			exibirAnterior();			
+			try {
+				exibirAnterior();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}			
 		break;
 		}
 	}
-	public void exibirProximo(){
+	public void exibirProximo() throws Exception{
 		Medida medida = null;
 		if(!listaMedidas.isEmpty()){
 			if(indice < listaMedidas.size()-1 ){
@@ -130,13 +140,16 @@ public class GUIEvolucao extends Activity  {
 				medida = listaMedidas.get(listaMedidas.size() - 1);
 			}
 		}
-		
+
 		if(medida != null){
-			carregaMedida(medida);
+			Perfil perfil = controleperfil.buscarPerfil();
+			medida.setMedicao(controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()));
+			carregaMedida(medida,perfil);
+
 		}
 	}
 
-	public void exibirAnterior(){
+	public void exibirAnterior() throws Exception{
 		Medida medida = null;
 		if(!listaMedidas.isEmpty()){
 			if(indice > 0){
@@ -147,37 +160,38 @@ public class GUIEvolucao extends Activity  {
 			}
 		}
 		if( medida != null){
-			carregaMedida(medida);
+			Perfil perfil = controleperfil.buscarPerfil();
+			medida.setMedicao(controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()));
+
+			carregaMedida(medida, perfil);
 		}
 	}
 
-	public void carregaMedida(Medida medida){
+	public void carregaMedida(Medida medida, Perfil perfil){
 		String mensagem = "";
 		try{
-		ControlePerfil controleperfil = new ControlePerfil();
-		ControleMedida controlemedida = new ControleMedida();
-		Perfil perfil = controleperfil.buscarPerfil();
-		String nome = medida.getNome();
-		String ndata= "Data";
-		String ndata1 = "Data";
-		String ndata2 = "Data";
-		int contador = 0 ;
-		if (medida.getLado()!= null){
-			nome+= " " + medida.getLado();
-		}
-		txtmedidas.setText(nome);
-		data1.setText(ndata);
-		data2.setText(ndata);
-		data3.setText(ndata);
-		barra1.setProgress(0);
-		barra2.setProgress(0);
-		barra3.setProgress(0);
-		medida.setMedicao(controlemedida.ultimasMedicoes
-				(perfil.getCodigo(), medida.getCodigo()));
-		calcularProgresso(medida);
-		// criando ListView
-		listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
-		createListView(listaMedicoes, listahistorico, medida);
+			//Perfil perfil = controleperfil.buscarPerfil();
+			String nome = medida.getNome();
+			String ndata= "Data";
+			String ndata1 = "Data";
+			String ndata2 = "Data";
+			int contador = 0 ;
+			if (medida.getLado()!= null){
+				nome+= " " + medida.getLado();
+			}
+			txtmedidas.setText(nome);
+			data1.setText(ndata);
+			data2.setText(ndata);
+			data3.setText(ndata);
+			barra1.setProgress(0);
+			barra2.setProgress(0);
+			barra3.setProgress(0);
+			medida.setMedicao(controlemedida.ultimasMedicoes
+					(perfil.getCodigo(), medida.getCodigo()));
+			calcularProgresso(medida);
+			// criando ListView
+			listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
+			createListView(listaMedicoes, listahistorico, medida);
 		}catch (Exception e) {
 			mensagem = e.getMessage();
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();

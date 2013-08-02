@@ -126,13 +126,11 @@ public class ControleMedida implements Comparator<Medicao> {
 	
 	public List<Medicao> ultimasMedicoes
 					(int codigoPerfil,int codigoMedida) throws Exception{
-		String mensagem = "Não há mais medições cadastradas!";
+		
 		IMedidaDao dao = new  MedidaDao();
 		List<Medicao> medicao = 
 			dao.ultimasMedicoes(codigoPerfil, codigoMedida);
-		if(medicao.isEmpty()){
-			throw new Exception(mensagem);
-		}
+		
 		return medicao;
 	}
 

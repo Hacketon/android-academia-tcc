@@ -43,7 +43,7 @@ public class GUIFichaSerie extends ListActivity implements
 		ListView.OnItemLongClickListener, View.OnClickListener,
 		DialogInterface.OnClickListener, RemoveListener, DropListener {
 
-	private TabHost host;
+	private TabHost hospedeiro;
 	private TabSpec tabEspecificacao;
 	private TabSpec tabExercicio;
 	private TabSpec tabTreino;
@@ -235,23 +235,23 @@ public class GUIFichaSerie extends ListActivity implements
 	}
 
 	private void criarTabs() {
-		host = (TabHost) findViewById(R.id.host_treino);
-		host.setup();
+		hospedeiro = (TabHost) findViewById(R.id.host_treino);
+		hospedeiro.setup();
 
-		tabTreino = host.newTabSpec("tab_treino");
+		tabTreino = hospedeiro.newTabSpec("tab_treino");
 		tabTreino.setContent(R.id.tab_treino);
 		tabTreino.setIndicator("Busca");
-		host.addTab(tabTreino);
+		hospedeiro.addTab(tabTreino);
 
-		tabExercicio = host.newTabSpec("tab_exercicio_treino");
+		tabExercicio = hospedeiro.newTabSpec("tab_exercicio_treino");
 		tabExercicio.setContent(R.id.tab_exercicio_treino);
 		tabExercicio.setIndicator("Exercicios");
-		host.addTab(tabExercicio);
+		hospedeiro.addTab(tabExercicio);
 
-		tabEspecificacao = host.newTabSpec("tab_especificacao");
+		tabEspecificacao = hospedeiro.newTabSpec("tab_especificacao");
 		tabEspecificacao.setContent(R.id.tab_especificacao);
 		tabEspecificacao.setIndicator("Series");
-		host.addTab(tabEspecificacao);
+		hospedeiro.addTab(tabEspecificacao);
 	}
 
 	@Override
@@ -261,6 +261,25 @@ public class GUIFichaSerie extends ListActivity implements
 		inflater.inflate(R.menu.menu_treino_ficha, menu);
 		return true;
 
+	}
+
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuInflater inflate = getMenuInflater();
+		int tab = hospedeiro.getCurrentTab();
+		if (tab == 0){
+			menu.clear();
+			inflate.inflate(R.menu.menu_treino_ficha, menu);
+
+		}else if(tab==1){
+			menu.clear();
+			inflate.inflate(R.menu.menu_serie, menu);
+		}    else{
+			menu.clear();
+			
+		}
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override

@@ -100,7 +100,8 @@ DialogInterface.OnClickListener{
 			conclusao.setProgress((int)progresso);
 			conclusaoTexto.setText(texto);
 			conclusaoTexto.setTextColor(Color.parseColor(color));
-			texto = progresso + "%";
+			texto = progresso + "%" +
+			" ("+ficha.getRealizacoes() +"/"+ficha.getDuracao() +")";
 			conclusaoTexto.setText(texto);
 			String mensagem =controleFicha.calcularRestante();
 			Realizacao realizacao = 
@@ -166,7 +167,6 @@ DialogInterface.OnClickListener{
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		MenuInflater inflate = getMenuInflater();
 		int tab = hostrotina.getCurrentTab();
-		
 		if (tab == 0){
 			menu.clear();
 			inflate.inflate(R.menu.menu_rotina, menu);
@@ -251,8 +251,7 @@ DialogInterface.OnClickListener{
 			//treino.setSerie(controle.listarRealizacaoSerie(treino.getCodigo()));
 			if(treino != null){
 				if(resultado.getCodigo() != 0){
-					if(treino.getCodigo() != resultado.getCodigo() 
-							&& !treino.getSerie().isEmpty() ){
+					if(!treino.getSerie().isEmpty() ){
 						criarCaixa(resultado.getTreino().getNome(),"Confirmação","O treino ",
 								"Não","Sim", " ja esta iniciado . Começar um novo?");
 					}else{
@@ -278,11 +277,11 @@ DialogInterface.OnClickListener{
 			switch (clicked) {
 			case DialogInterface.BUTTON_NEGATIVE:
 				treino = resultado.getTreino();
-				controle.removerTudoRealizacaoSerie();
 				break;	
 			case DialogInterface.BUTTON_POSITIVE:
 				String nome = comboTreinos.getSelectedItem().toString();
 				controle.atualizarRealizacao(1,0);
+				controle.removerTudoRealizacaoSerie();
 				for(Treino t : listaTreinos){
 					if( t.getNome().equalsIgnoreCase(nome)){
 						treino = t;
@@ -296,7 +295,7 @@ DialogInterface.OnClickListener{
 			inicializarTelaExecucao(treino);
 
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 
 	}

@@ -47,7 +47,7 @@ ListView.OnItemClickListener,
 DialogInterface.OnClickListener,
 ListView.OnItemLongClickListener{
 
-	private TabHost hostfichatreino;
+	private TabHost hospedeiro;
 	private TabSpec spectreino;
 	private Dialog dialog;
 	private TabSpec specficha;
@@ -147,18 +147,18 @@ ListView.OnItemLongClickListener{
 
 
 	public void criarTab(){
-		hostfichatreino = (TabHost) findViewById(R.id.hostfichatreino);
-		hostfichatreino.setup();
+		hospedeiro = (TabHost) findViewById(R.id.hostfichatreino);
+		hospedeiro.setup();
 
-		specficha = hostfichatreino.newTabSpec("tabfichas");
+		specficha = hospedeiro.newTabSpec("tabfichas");
 		specficha.setContent(R.id.tabfichas);
 		specficha.setIndicator("Ficha");
-		hostfichatreino.addTab(specficha);
+		hospedeiro.addTab(specficha);
 
-		spectreino = hostfichatreino.newTabSpec("tabfichatreinos");
+		spectreino = hospedeiro.newTabSpec("tabfichatreinos");
 		spectreino.setContent(R.id.tabfichatreinos);
 		spectreino.setIndicator("Treinos");
-		hostfichatreino.addTab(spectreino);
+		hospedeiro.addTab(spectreino);
 	}
 
 	private void preencherFicha(Ficha f ){
@@ -223,17 +223,24 @@ ListView.OnItemLongClickListener{
 		
 		return ficha;
 	}
-
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_manipular_ficha, menu);
-		return true;
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuInflater inflate = getMenuInflater();
+		int tab = hospedeiro.getCurrentTab();
+		if (tab == 0){
+			menu.clear();
+			inflate.inflate(R.menu.menu_manipular_ficha, menu);
 
+		}else{
+			menu.clear();
+			inflate.inflate(R.menu.menu_ficha_treino, menu);
+		}    
+		return super.onPrepareOptionsMenu(menu);
 	}
 
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);

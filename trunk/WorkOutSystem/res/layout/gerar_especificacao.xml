@@ -5,150 +5,154 @@
     android:background="@drawable/background_padrao"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp" >
+    <ScrollView style="@style/linearLayoutPadraoVertical" >
 
+        <LinearLayout style="@style/linearLayoutPadraoVertical" >
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_serie" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="100" >
+                <TextView
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_serie" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/edt_series"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="30"
-            android:inputType="number" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="40"
-            android:gravity="center"
-            android:text="@string/label_x" />
+                <EditText
+                    android:id="@+id/edt_series"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:inputType="number" />
 
-        <EditText
-            android:id="@+id/edt_repeticao"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="30" 
-            android:inputType="number" />
-    </LinearLayout>
+                <TextView
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:text="@string/label_x" />
 
-        <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp" >
+                <EditText
+                    android:id="@+id/edt_repeticao"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:inputType="number" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_carga" />
-    </LinearLayout>
-    
-	<LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp" >
-        
-    	<EditText
-            android:id="@+id/edt_carga"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="30" 
-            android:inputType="numberDecimal" />
-    	                   
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp" >
+                <TextView
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_carga" />
+            </LinearLayout>
 
-        <TextView
-            style="@style/textopequeno"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_unidade" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="100" >
+                <EditText
+                    android:id="@+id/edt_carga"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
 
-        <Spinner
-            android:id="@+id/cbx_Unidade"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/label_unidade" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="100" >
+                <TextView
+                    style="@style/textopequeno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_unidade" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_Confirmar_Especficacao"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="@string/botao_confirmar" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
 
-        <Button
-            android:id="@+id/btn_cancelar_especficacao"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="@string/botao_cancelar" />
-    </LinearLayout>
+                <Spinner
+                    android:id="@+id/cbx_Unidade"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/label_unidade" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
 
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="100" >
-    
-        <TextView
-            android:id="@+id/txt_codigoExercicioEspecificacao"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-           <TextView
-            android:id="@+id/txt_ordem"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
+                <Button
+                    android:id="@+id/btn_Confirmar_Especficacao"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:text="@string/botao_confirmar" />
+
+                <Button
+                    android:id="@+id/btn_cancelar_especficacao"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:text="@string/botao_cancelar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="100" >
+
+                <TextView
+                    android:id="@+id/txt_codigoExercicioEspecificacao"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/txt_ordem"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <item
+        android:id="@+id/novo_treino"
+        android:title="@string/botao_novotreino"/>
+
+    
+	<item
+    	android:id="@+id/treino_existente"
+    	android:title="@string/botao_existente"
+    />
+    
+
+</menu>

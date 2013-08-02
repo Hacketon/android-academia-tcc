@@ -120,16 +120,20 @@ public class GUIEvolucao extends Activity  {
 				e2.printStackTrace();
 			}
 		break;
+
 		case (R.id.btn_anteriormedida):
+
 			try {
 				exibirAnterior();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}			
 		break;
+
 		}
 	}
 	public void exibirProximo() throws Exception{
+		Perfil perfil = controleperfil.buscarPerfil();
 		Medida medida = null;
 		if(!listaMedidas.isEmpty()){
 			if(indice < listaMedidas.size()-1 ){
@@ -141,12 +145,13 @@ public class GUIEvolucao extends Activity  {
 			}
 		}
 
-		if(medida != null){
-			Perfil perfil = controleperfil.buscarPerfil();
-			medida.setMedicao(controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()));
+		medida.setMedicao(controlemedida.ultimasMedicoes(perfil.getCodigo(), medida.getCodigo()));
+		if(!medida.getMedicao().isEmpty()){
 			carregaMedida(medida,perfil);
-
+		}else{
+			indice--;
 		}
+
 	}
 
 	public void exibirAnterior() throws Exception{
@@ -176,6 +181,7 @@ public class GUIEvolucao extends Activity  {
 			String ndata1 = "Data";
 			String ndata2 = "Data";
 			int contador = 0 ;
+
 			if (medida.getLado()!= null){
 				nome+= " " + medida.getLado();
 			}
@@ -192,6 +198,7 @@ public class GUIEvolucao extends Activity  {
 			// criando ListView
 			listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
 			createListView(listaMedicoes, listahistorico, medida);
+
 		}catch (Exception e) {
 			mensagem = e.getMessage();
 			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
@@ -270,30 +277,15 @@ public class GUIEvolucao extends Activity  {
 
 
 	private void createListView(List <Medicao> medicoes, ListView lista, Medida medida) {
-
-
-
-
 		ArrayList<Medicao> listaMedicoes = new ArrayList<Medicao>();
-
 		itens = new ArrayList<ItemListaHistorico>();
-
-
-
 		for (Medicao m : medicoes){
-
-
-
 			String data = sdf.format(m.getDataMedicao());
 			//String valor = String.valueOf(m.getValor()+ " "+medida.getUnidade());
 			String valor = String.valueOf(m.getValor());
 			String unidade = medida.getUnidade();
-
 			ItemListaHistorico item = new ItemListaHistorico(valor, data, unidade);
-
 			itens.add(item);
-
-
 		}
 
 		adapterListView = new AdaptadorHistorico(this, itens);

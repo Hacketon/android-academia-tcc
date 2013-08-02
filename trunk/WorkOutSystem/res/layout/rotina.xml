@@ -45,7 +45,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="50" >
 
-                            
                             <TextView
                                 android:id="@+id/nome_ficha_atual"
                                 style="@style/textogrande"
@@ -55,7 +54,8 @@
                                 android:gravity="center"
                                 android:paddingBottom="15dp"
                                 android:paddingTop="7dp"
-                                android:text="@string/label_nomeficha" />
+                                android:text="@string/label_nomeficha"
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -97,28 +97,30 @@
                                 android:layout_height="wrap_content"
                                 android:prompt="@string/label_treino" />
                         </LinearLayout>
-                        
-                        <LinearLayout 
-                            style="@style/linearLayoutPadraoHorizontal"
-                            android:weightSum="100">
 
-                        <TextView
-                            style="@style/textomedio"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="italic"
-                            android:layout_weight="50"
-                            android:paddingLeft="10dp"
-                            android:text="Conclusão :" />
-                        <TextView
-                            android:id="@+id/conclusao_texto"
-                            style="@style/textomedio"
-                            android:layout_weight="50"
-                            android:paddingRight="10dp"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right" />
-						</LinearLayout>
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoHorizontal"
+                            android:weightSum="100" >
+
+                            <TextView
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:paddingLeft="10dp"
+                                android:text="Conclusão :"
+                                android:textStyle="italic" />
+
+                            <TextView
+                                android:id="@+id/conclusao_texto"
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:gravity="right"
+                                android:paddingRight="10dp" />
+                        </LinearLayout>
+
                         <ProgressBar
                             android:id="@+id/conclusao_rotina"
                             style="?android:attr/progressBarStyleHorizontal"
@@ -126,7 +128,6 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp" />
                         <!-- Ultimo treino -->
-                  
 
                         <TextView
                             style="@style/textomedio"
@@ -158,7 +159,8 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="30"
-                                android:text="" />
+                                android:text=""
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -181,7 +183,9 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="30"
-                                android:text="" />
+                                android:text=""
+                                android:textStyle="normal" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -204,7 +208,9 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="30"
-                                android:text="" />
+                                android:text=""
+                                android:textStyle="normal" />
+
                         </LinearLayout>
                         <!-- Layout Combo Treino -->
                     </LinearLayout>

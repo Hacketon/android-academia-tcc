@@ -2,7 +2,6 @@ package workoutsystem.view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.model.Realizacao;
@@ -81,44 +80,44 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	}
 
 	private void init(){
-	try{
-		treinoDia.setText(treino.getNome());
-		createListView();
-	}catch (Exception e) {
-		
-	}
-		
-		
+		try{
+			treinoDia.setText(treino.getNome());
+			createListView();
+		}catch (Exception e) {
+
+		}
+
+
 	}
 
 	private void createListView() {
 		ControleRotina controleRotina = new ControleRotina();
 		try {
-		int completa = 1;
-		int chave = 0;
-		treino.setSerie
+			int completa = 1;
+			int chave = 0;
+			treino.setSerie
 			(controleRotina.listarRealizacaoSerie(treino.getCodigo()));
-		List<String> series = new ArrayList<String>();
-		
-		if(treino.getSerie().isEmpty()){
-			controleRotina.atualizarRealizacao(completa,chave);
-			controleRotina.removerTudoRealizacaoSerie();
-			String mensagem = "Treino finalizado com sucesso";
-			Toast.makeText(this,mensagem,Toast.LENGTH_SHORT).show();
-			finish();
-		}
-		for(Serie s: treino.getSerie()){
-			String item = s.getOrdem() + "-" +
-			s.getExercicio().getNome()+"\n" +
-			"Quantidade : " + s.getQuantidade() +"\n" +
-			"Unidade : " + s.getUnidade() + "\n" + 
-			"Carga : " + s.getCarga() ;
-			series.add(item);
-		}
-		adapterSerie =  new ArrayAdapter<String>(this, R.layout.multiple_choice_serie, series );
-		listaSerie.setAdapter(adapterSerie);
-		listaSerie.setOnItemLongClickListener(this);
-		listaSerie.setCacheColorHint(Color.TRANSPARENT);
+			List<String> series = new ArrayList<String>();
+
+			if(treino.getSerie().isEmpty()){
+				controleRotina.atualizarRealizacao(completa,chave);
+				controleRotina.removerTudoRealizacaoSerie();
+				String mensagem = "Treino finalizado com sucesso";
+				Toast.makeText(this,mensagem,Toast.LENGTH_SHORT).show();
+				finish();
+			}
+			for(Serie s: treino.getSerie()){
+				String item = s.getOrdem() + "-" +
+				s.getExercicio().getNome()+"\n" +
+				"Quantidade : " + s.getQuantidade() +"\n" +
+				"Unidade : " + s.getUnidade() + "\n" + 
+				"Carga : " + s.getCarga() ;
+				series.add(item);
+			}
+			adapterSerie =  new ArrayAdapter<String>(this, R.layout.multiple_choice_serie, series );
+			listaSerie.setAdapter(adapterSerie);
+			listaSerie.setOnItemLongClickListener(this);
+			listaSerie.setCacheColorHint(Color.TRANSPARENT);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,9 +177,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 			long id) {
 		String item = parent.getItemAtPosition(pos).toString();
 		especificacao = getSerie(item);
-
 		criarCaixaAlteracaoSerie(especificacao);
-
 		return false;
 	}
 
@@ -204,7 +201,6 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		realizacao.setTreino(treino);
 		controleRotina.inserirRealizacao(realizacao);
 		for(Serie s : seriesRealizadas){
-			//controleRotina.removerRealizacaoSerie(s);
 			controleRotina.inserirRealizacaoSerie(s);
 		}
 		createListView();
@@ -212,7 +208,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	}
 
 
-	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -227,17 +223,17 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 		try {
-		switch (item.getItemId()) {
-		case R.id.finalizar_multiplos:
-			finalizarSeries();
-			break;
-		case R.id.finalizar_treino:
-			finalizarSeries();
-			if(treino.getSerie().size() > 0){
-				construirCaixa();
+			switch (item.getItemId()) {
+			case R.id.finalizar_multiplos:
+				finalizarSeries();
+				break;
+			case R.id.finalizar_treino:
+				finalizarSeries();
+				if(treino.getSerie().size() > 0){
+					construirCaixa();
+				}
+				break;
 			}
-			break;
-		}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -254,17 +250,19 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		controleRotina.atualizarRealizacao(completa,chave);
 		Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
 		finish();
-		
+
 	}
-	
+
 	private void construirCaixa() {
-			String quantidade = String.valueOf(treino.getSerie().size());
-			String texto = quantidade + " serie(s) não relizadas, realmente deseja finalizar treino ?";
-			criarCaixa(texto);
-		}
-		
+		String quantidade = String.valueOf(treino.getSerie().size());
+		String texto = quantidade + 
+		" serie(s) não relizadas, realmente deseja finalizar treino ?";
+		criarCaixa(texto);
+	}
+
 	private void criarCaixa(String texto) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		AlertDialog.Builder alert = 
+			new AlertDialog.Builder(this);
 		alert.setMessage(texto);
 		alert.setTitle("Confirmação");
 		alert.setNegativeButton("Não", this);
@@ -287,7 +285,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 			break;
 		}
 	}
-	
+
 	private Serie getSerie(String item) {
 		Serie esp = new Serie();
 		String[] sordem = item.split("-");
@@ -301,6 +299,6 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		}
 		return esp;
 	}
-	
+
 
 }

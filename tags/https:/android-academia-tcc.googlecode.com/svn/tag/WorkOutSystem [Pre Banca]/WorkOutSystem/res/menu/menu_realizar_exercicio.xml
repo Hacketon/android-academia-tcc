@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+
+     <item
+        android:id="@+id/finalizar_multiplos"
+        android:title="@string/botao_finalizar_multiplos"/>
+    <item
+        android:id="@+id/finalizar_treino"
+        android:title="@string/botao_finalizar_treino"/>
+    
+</menu>

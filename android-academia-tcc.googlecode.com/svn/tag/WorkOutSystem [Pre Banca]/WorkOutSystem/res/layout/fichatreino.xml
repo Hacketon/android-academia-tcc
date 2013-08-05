@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dslv="http://schemas.android.com/apk/res/workoutsystem.view"
+    xmlns:app="http://schemas.android.com/apk/res/workoutsystem.view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/host_treino"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <!-- Tab busca -->
+
+                <LinearLayout
+                    android:id="@+id/tab_treino"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="2dp" >
+
+                    <Spinner
+                        android:id="@+id/cbx_buscaexercicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:prompt="@string/label_grupo_muscular" />
+
+                    <ListView
+                        android:id="@+id/list_busca"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:divider="@android:color/transparent" />
+                </LinearLayout>
+
+                <!-- Tab exercicio/treino -->
+
+                <LinearLayout
+                    android:id="@+id/tab_exercicio_treino"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="2dp" >
+
+                    <ListView
+                        android:id="@+id/list_exercicio"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:choiceMode="multipleChoice"
+                        android:divider="@android:color/transparent" />
+                </LinearLayout>
+
+                <!-- Tab especificacao -->
+
+                <LinearLayout
+                    android:id="@+id/tab_especificacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <com.mobeta.android.dslv.DragSortListView
+                        android:id="@android:id/list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="3dp"
+                        android:choiceMode="multipleChoice"
+                        android:divider="@android:color/transparent"
+                        dslv:click_remove_id="@id/click_remove"
+                        dslv:collapsed_height="1px"
+                        dslv:drag_enabled="true"
+                        dslv:drag_handle_id="@id/drag_handle"
+                        dslv:drag_scroll_start="0.33"
+                        dslv:drag_start_mode="onDown"
+                        dslv:float_alpha="0.6"
+                        dslv:remove_enabled="true"
+                        dslv:remove_mode="clickRemove"
+                        dslv:slide_shuffle_speed="0.3" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+     >
+
+    <TabHost
+        android:id="@+id/tabmedidas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:id="@+id/tabprincipais"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                                       
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_altura"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_altura" />
+
+                        <TextView
+                            android:id="@+id/tv_peso"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_peso" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <EditText
+                            android:id="@+id/ed_altura"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+
+                        <EditText
+                            android:id="@+id/ed_peso"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_cintura"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_cintura"
+                           style="@style/textopequeno" />
+
+                        <TextView
+                            android:id="@+id/tv_quadril"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_quadril"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <EditText
+                            android:id="@+id/ed_cintura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+
+                        <EditText
+                            android:id="@+id/ed_quadril"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="number"
+                            android:maxLines="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabsuperiores"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_braco"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:padding="5dp"
+                            android:text="@string/label_braco"
+                            style="@style/textopequeno"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_bracodireito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_direita"
+                            style="@style/textopequeno" />
+
+                        <TextView
+                            android:id="@+id/tv_bracoesquerdo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_esquerda"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <EditText
+                            android:id="@+id/ed_bracodireito"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+
+                        <EditText
+                            android:id="@+id/ed_bracoesquerdo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/tv_peito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/label_peito"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <EditText
+                            android:id="@+id/ed_peito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="6"
+                            android:inputType="numberDecimal"
+                            android:padding="5dp"
+                            android:maxLines="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabinferiores"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_coxa"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:padding="5dp"
+                            android:text="@string/label_coxa"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_coxadireita"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_direita"
+                            style="@style/textopequeno" />
+
+                        <TextView
+                            android:id="@+id/tv_coxaesquerda"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_esquerda"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <EditText
+                            android:id="@+id/ed_coxadireita"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+
+                        <EditText
+                            android:id="@+id/ed_coxaesquerda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_panturilha"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/label_panturrilha"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <TextView
+                            android:id="@+id/tv_panturrilhadireita"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_direita"
+                            style="@style/textopequeno" />
+
+                        <TextView
+                            android:id="@+id/tv_panturilhaesquerda"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/label_esquerda"
+                            style="@style/textopequeno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <EditText
+                            android:id="@+id/ed_panturrilhadireita"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+
+                        <EditText
+                            android:id="@+id/ed_panturilhaesquerda"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:ems="10"
+                            android:inputType="numberDecimal" 
+                            android:maxLines="1"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+
+
+</LinearLayout>

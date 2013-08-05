@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:padding="5dp"
+    android:background="@drawable/background_padrao">
+  
+    <ListView 
+        android:id="@+id/lista_treino_existente"
+        android:choiceMode="multipleChoice"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        />
+    <Button 
+        android:id="@+id/btn_adicionar_treinos"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/botao_adicionar"
+        style="@style/textopequenopreto"
+        />
+ 
+</LinearLayout>

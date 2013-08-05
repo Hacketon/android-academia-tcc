@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <GridView
+        android:id="@+id/grid_ajuda"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </GridView>
+
+</LinearLayout><!--
+    <LinearLayout 
+        style="@style/linearLayoutPadraoVertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="120" >
+
+        <ImageButton
+            android:id="@+id/btn_ajudaperfil"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_perfil" />
+
+        <ImageButton
+            android:id="@+id/btn_ajudaexercicio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_exercicio" />
+
+        <ImageButton
+            android:id="@+id/btn_ajudarotina"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_rotina"  />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="120" >
+
+        <ImageButton
+            android:id="@+id/btn_ajudaficha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"           
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ficha"  />
+
+        <ImageButton
+            android:id="@+id/btn_ajudaevolucao"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:onClick="onClick"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_evolucao" />
+
+        <ImageButton
+            android:id="@+id/btn_ajuda"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:enabled="false"
+            android:onClick="onClick"
+            android:text="@string/botao_ajuda"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    </LinearLayout>
+-->

@@ -2,26 +2,23 @@ package workoutsystem.view;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
-import workoutsystem.model.Exercicio;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
-import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.AdaptadorHistorico;
 import workoutsystem.utilitaria.ItemListaHistorico;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
@@ -57,7 +54,6 @@ public class GUIEvolucao extends Activity  {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.evolucao);
 		data1 = (TextView) findViewById(R.id.txtData1);
@@ -92,7 +88,8 @@ public class GUIEvolucao extends Activity  {
 			}
 
 		}catch (Exception e) {
-			Toast.makeText(this,"Primeiro crie o seu perfil e adicione medições!",
+			Toast.makeText(this,"Primeiro crie o seu " +
+					" perfil e adicione medições!",
 					Toast.LENGTH_SHORT).show();
 			finish();
 		}
@@ -122,7 +119,6 @@ public class GUIEvolucao extends Activity  {
 		break;
 
 		case (R.id.btn_anteriormedida):
-
 			try {
 				exibirAnterior();
 			} catch (Exception e1) {
@@ -175,12 +171,9 @@ public class GUIEvolucao extends Activity  {
 	public void carregaMedida(Medida medida, Perfil perfil){
 		String mensagem = "";
 		try{
-			//Perfil perfil = controleperfil.buscarPerfil();
 			String nome = medida.getNome();
 			String ndata= "Data";
-			String ndata1 = "Data";
-			String ndata2 = "Data";
-			int contador = 0 ;
+
 
 			if (medida.getLado()!= null){
 				nome+= " " + medida.getLado();
@@ -206,8 +199,10 @@ public class GUIEvolucao extends Activity  {
 
 	}
 
+	@SuppressLint("UseSparseArrays")
 	private void calcularProgresso(Medida medida) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = 
+			new SimpleDateFormat("dd/MM/yyyy");
 		int maior = 70;
 		int medio = 50;
 		int menor = 30;
@@ -267,31 +262,21 @@ public class GUIEvolucao extends Activity  {
 			}
 			contador ++;
 		}
-
-
-
-
 	}
 
-
-
-
-	private void createListView(List <Medicao> medicoes, ListView lista, Medida medida) {
+	private void createListView
+	(List <Medicao> medicoes, ListView lista, Medida medida) {
 		ArrayList<Medicao> listaMedicoes = new ArrayList<Medicao>();
 		itens = new ArrayList<ItemListaHistorico>();
 		for (Medicao m : medicoes){
 			String data = sdf.format(m.getDataMedicao());
-			//String valor = String.valueOf(m.getValor()+ " "+medida.getUnidade());
 			String valor = String.valueOf(m.getValor());
 			String unidade = medida.getUnidade();
 			ItemListaHistorico item = new ItemListaHistorico(valor, data, unidade);
 			itens.add(item);
 		}
-
 		adapterListView = new AdaptadorHistorico(this, itens);
 		lista.setAdapter(adapterListView);
-
-
 		lista.setCacheColorHint(Color.TRANSPARENT);
 
 	}

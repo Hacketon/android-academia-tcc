@@ -78,7 +78,7 @@ ListView.OnItemLongClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fichamanipular);
+		setContentView(R.layout.ficha_manipular);
 		criarTab();
 		dialogTreinos = new Dialog(this);
 		dialogTreinos.setContentView(R.layout.lista_treinos);

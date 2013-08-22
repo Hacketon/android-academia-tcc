@@ -185,7 +185,6 @@
                                 android:layout_weight="30"
                                 android:text=""
                                 android:textStyle="normal" />
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -210,7 +209,6 @@
                                 android:layout_weight="30"
                                 android:text=""
                                 android:textStyle="normal" />
-
                         </LinearLayout>
                         <!-- Layout Combo Treino -->
                     </LinearLayout>
@@ -222,6 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:padding="5dp"
                     android:weightSum="100" >
 
                     <LinearLayout
@@ -266,7 +265,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="95"
                         android:divider="@android:color/black"
-                        android:dividerHeight="1dp" >
+                        android:dividerHeight="1dp"
+                        android:paddingTop="5dp" >
                     </ListView>
                 </LinearLayout>
             </FrameLayout>

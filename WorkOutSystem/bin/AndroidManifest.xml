@@ -4,8 +4,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="3"
+        android:targetSdkVersion="10" />
 
     <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
     <uses-permission android:name="android.permission.READ_OWNER_DATA" />
@@ -69,6 +69,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
 
         <!-- Activity Ajuda -->
         <activity
@@ -209,7 +210,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GUIExecutaFicha"
+            android:name=".GUIRotinaExecucao"
             android:label="@string/title_activity_tela_exercicio" >
             <intent-filter>
                 <action android:name="workoutsystem.view.LISTAEXERCICIOS" />

@@ -69,14 +69,14 @@ public class AdaptadorHistorico  extends BaseAdapter {
 		float aux = Float.parseFloat(i2.getValor());
 		float valor =  Float.parseFloat(i.getValor());
 		if(aux > valor){
-			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_seta_baixo);
+			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_arrowdown);
 
 		}else if(aux < valor){
-			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_seta_alto);
+			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_arrowup);
 
 
 		}else if(aux == valor){
-			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_trace);
+			((ImageView) view.findViewById(R.id.img_historico_medida)).setImageResource(drawable.ic_dash);
 
 		}
 

@@ -78,7 +78,7 @@ ListView.OnItemLongClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ficha_manipular);
+		setContentView(R.layout.fichamanipular);
 		criarTab();
 		dialogTreinos = new Dialog(this);
 		dialogTreinos.setContentView(R.layout.lista_treinos);
@@ -212,9 +212,9 @@ ListView.OnItemLongClickListener{
 				String mensagem = "Duração é obrigatoria!";
 				throw new Exception(mensagem);
 			}
-			if(!editDuracaoFicha.getText().toString().
-					equalsIgnoreCase("")){
-				ficha.setAntecedencia(Integer.parseInt(editAntecedencia.getText().toString()));
+			if(editAntecedencia.toString().equalsIgnoreCase("")){
+				ficha.setAntecedencia
+				(Integer.parseInt(editAntecedencia.getText().toString()));
 			}
 			ficha.setDuracao(Integer.parseInt
 					((editDuracaoFicha.getText().toString())));

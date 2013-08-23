@@ -1,5 +1,6 @@
 package workoutsystem.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Medicao {
 	private int codigoMedida;
 	private int codigoPerfil;
 
+	
 	public int getCodigo(){
 		return codigo;
 	}
@@ -50,11 +52,13 @@ public class Medicao {
 	}
 	@Override
 	public String toString() {
-		String texto = String.format("codigo perfil : %d /n " +
-				" codigo : %d " +
-				"/n data : %s " +
-				"/n valor : %f" +
-				" /n ", codigoPerfil,codigo,""+dataMedicao,valor);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String dataString = sdf.format(dataMedicao);
+		String texto = String.format("Codigo perfil : %d \n " +
+				" Codigo : %d " +
+				"\n Data : %s " +
+				"\n Valor : %f" +
+				" \n ", codigoPerfil,codigo,""+dataString,valor);
 		
 		return texto;
 	}

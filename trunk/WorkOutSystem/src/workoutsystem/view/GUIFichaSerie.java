@@ -77,7 +77,7 @@ public class GUIFichaSerie extends ListActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ficha_treino);
+		setContentView(R.layout.fichatreino);
 		init();
 		criarTabs();
 		criarComboGrupo();

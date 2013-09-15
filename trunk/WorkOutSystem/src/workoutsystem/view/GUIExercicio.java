@@ -323,7 +323,7 @@ ListView.OnItemLongClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		ControleExercicio controle = new ControleExercicio();
 		Exercicio exercicio =
-			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+			controle.buscarExercicioNome(parent.getItemAtPosition(pos).toString());
 		if (R.id.listacriado == parent.getId()){
 			CheckedTextView c = (CheckedTextView) view;
 			boolean selecionado = c.isChecked();
@@ -357,7 +357,7 @@ ListView.OnItemLongClickListener{
 			long id) {
 		ControleExercicio controle = new ControleExercicio();
 		Exercicio exercicio =
-			controle.buscarExercicio(parent.getItemAtPosition(pos).toString());
+			controle.buscarExercicioNome(parent.getItemAtPosition(pos).toString());
 		criarCaixaDialog("Alterar Exercicio");
 		carregarExercicio(exercicio);
 		return false;

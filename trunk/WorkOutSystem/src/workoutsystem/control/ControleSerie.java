@@ -99,12 +99,26 @@ public class ControleSerie {
 		return mensagem;
 	}
 
-	public boolean reordenarSerie(int posicaoInicial,int posicaoFinal, long codigoTreino,boolean operacao,List<Integer> codigos)
+	/**
+	 * Metodo responsavel pela reordenação das series de um treino 
+	 * 
+	 * @param posicaoInicial [Posição da onde esta saindo a serie]
+	 * @param posicaoFinal [Posição da onde esta indo a serie]
+	 * @param codigoTreino [Codigo do treino correspondente a serie]
+	 * @param operacao [Reordenação do tipo remoção ou movimentação]
+	 * @param codigos [Codigo das series que serão reordenadas ]
+	 * @return [Resultado da operação: verdadeiro = sucesso , false = fracasso]
+	 * @throws SQLException
+	 */
+	public boolean reordenarSerie(int posicaoInicial,
+			int posicaoFinal, long codigoTreino,
+			boolean operacao,List<Integer> codigos)
 	throws SQLException{
 		boolean retorno = false;
 		ISerieDao dao = new SerieDao();
 		if(operacao){
-			retorno = dao.reordenarSerieRemocao(posicaoInicial, posicaoFinal, codigoTreino);
+			retorno = dao.reordenarSerieRemocao
+			(posicaoInicial, posicaoFinal, codigoTreino);
 		}else{
 			for(Integer codigo : codigos){
 				posicaoInicial++;
@@ -184,10 +198,4 @@ public class ControleSerie {
 		return mensagem;
 
 	}
-
-
-
-	
-
-
 }

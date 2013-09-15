@@ -20,10 +20,7 @@ public class ControleFicha {
 		return new FichaDao().listarDias();
 	}
 
-	public void atualizarRealizacoes() throws SQLException{
-		IFichaDao dao = new FichaDao();
-		dao.atualizarRealizacoes();
-	}
+	
 
 	public String manipularFicha(Ficha ficha) throws Exception{
 		String mensagem = "";
@@ -205,6 +202,12 @@ public class ControleFicha {
 		}
 		return listaFicha;
 	}
+	/**
+	 * Metodo responsavel pelo realizações de treinos restantes
+	 * para a troca da ficha !
+	 * @return
+	 * @throws Exception
+	 */
 
 	public String calcularRestante() throws Exception {
 		String mensagem = "";
@@ -222,7 +225,11 @@ public class ControleFicha {
 
 		return mensagem;
 	}
-
+	
+	public void atualizarRealizacoes() throws SQLException{
+		IFichaDao dao = new FichaDao();
+		dao.atualizarRealizacoes();
+	}
 
 
 }

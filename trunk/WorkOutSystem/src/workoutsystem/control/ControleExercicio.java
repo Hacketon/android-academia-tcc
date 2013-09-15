@@ -1,66 +1,55 @@
 package workoutsystem.control;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import workoutsystem.dao.FichaDao;
-import workoutsystem.dao.IExercicioDao;
-import workoutsystem.dao.IFichaDao;
-import workoutsystem.dao.ITreinoDao;
-import workoutsystem.dao.ResourceManager;
 import workoutsystem.dao.ExercicioDao;
+import workoutsystem.dao.IExercicioDao;
+import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Grupo;
-import workoutsystem.model.Passo;
-import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
 
 public class ControleExercicio {
-
-	//alterar os metodos no diagrama de classes 
-
+	/**
+	 * Metodo responsavel pela alteração / adição ou reativação 
+	 * de um exercicio
+	 * @param exercicio
+	 * @return mensagem , confirmação da operação 
+	 * @throws Exception
+	 */
 	public String manipularExercicio(Exercicio exercicio) throws Exception{
 		String mensagem = "";
+		String erro = "";
 		IExercicioDao dao = new ExercicioDao();
 		exercicio.setNome(Validadora.verificarString(exercicio.getNome()));
 		Validadora<Exercicio> v = new Validadora<Exercicio>(exercicio);
-		String erro = "";
-		if (exercicio!= null){
-			erro = v.getMessage();
-			if(erro.equalsIgnoreCase("")){
-				Grupo grupo = exercicio.getGrupo();
-				grupo.setCodigo(dao.buscarGrupo(grupo.getNome()));
-				if (!dao.buscarExercicio(exercicio.getCodigo())){
-					if (dao.buscarExercicio(exercicio.getNome()) == null){
-						if(dao.adicionarExercicio(exercicio)){
-							mensagem = "Exercicio criado com sucesso !";
-						}
-					}else if (dao.reativarExercicio(exercicio.getNome(),0)){
-						mensagem = "Exercicio reativado com sucesso !";
-					}else{
-						erro = "Exercicio já existente !";
-						throw new Exception(erro);
+		erro = v.getMessage();
+		
+		if(erro.equalsIgnoreCase("")){
+			Grupo grupo = exercicio.getGrupo();
+			grupo.setCodigo(dao.buscarGrupo(grupo.getNome()));
+			if (!dao.buscarExercicio(exercicio.getCodigo())){
+				if (dao.buscarExercicio(exercicio.getNome()) == null){
+					if(dao.adicionarExercicio(exercicio)){
+						mensagem = "Exercicio criado com sucesso !";
 					}
+				}else if (dao.reativarExercicio(exercicio.getNome(),0)){
+					mensagem = "Exercicio reativado com sucesso !";
 				}else{
-					if (!dao.buscarExercicio(exercicio.getNome(),exercicio.getCodigo())){
-						if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
-							mensagem = "Exercicio atualizado com sucesso";
-						}
+					erro = "Exercicio já existente !";
+					throw new Exception(erro);
+				}
+			}else{
+				if (!dao.buscarExercicio(exercicio.getNome(),exercicio.getCodigo())){
+					if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
+						mensagem = "Exercicio atualizado com sucesso";
 					}
 				}
-
-			}else{
-				mensagem = v.getMessage();
 			}
 		}else{
-			throw new Exception(erro);
+			mensagem = v.getMessage();
 		}
-
 		return mensagem;
 	}
 
@@ -73,41 +62,35 @@ public class ControleExercicio {
 		ControleSerie controle = new ControleSerie();
 		controle.removerSerie(lista);
 		for (Exercicio e : lista){
-				resultado = dao.excluirExercicio(e.getCodigo());
-				if(!resultado){
-					break;
-				}
+			resultado = dao.excluirExercicio(e.getCodigo());
+			if(!resultado){
+				break;
+			}
 		}
 		if(!resultado){
 			mensagem = "Não foi possivel remover os exercicios!";
 		}
-		
+
 		return mensagem;
-		
-		
+
+
 	}
 
-
-	public String buscarExercicio(Grupo g){
+	public String buscarExercicioGrupo(Grupo g){
 		String mensagem = "Erro ao buscar Exercicio";
 		IExercicioDao dao = new ExercicioDao();
-
 		if(dao.buscarExercicioGrupo(g) != null){
 			mensagem = "Encontardos os exercicios";
 		}else{
 			mensagem = "Exercicio não foram encontrados";
 		}
-
 		return mensagem;
 	}
 
-	public Exercicio buscarExercicio(String nome){
+	public Exercicio buscarExercicioNome(String nome){
 		IExercicioDao dao = new ExercicioDao();
 		return dao.buscarExercicio(nome);
 	}
-
-
-
 
 	public List<Grupo> listarGrupos(){
 		return new ExercicioDao().listarGrupos();

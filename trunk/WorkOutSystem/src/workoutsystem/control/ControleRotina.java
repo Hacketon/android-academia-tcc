@@ -11,12 +11,12 @@ import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.SerieDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 
 public class ControleRotina {
 	
-	public List<Realizacao> buscarHistoricoMensal(Calendar data) throws Exception{
+	public List<Rotina> buscarHistoricoMensal(Calendar data) throws Exception{
 		ITreinoDao dao = new TreinoDao();
 		Calendar calendar = Calendar.getInstance();
 		String mensagem = "Não há historico de treinos para este mês";
@@ -32,22 +32,22 @@ public class ControleRotina {
 		calendar.set(ano, mes, maximo);
 		String ultimaData = sdf.format(calendar.getTime());
 		
-		List<Realizacao> historico = dao.listarHistoricoTreinos(primeiraData, ultimaData);
+		List<Rotina> historico = dao.listarHistoricoTreino(primeiraData, ultimaData);
 		if(historico.isEmpty()){
 			throw new Exception(mensagem);
 		}
 		return historico;
 	}
 	
-	public boolean inserirRealizacao(Realizacao realizacao) throws SQLException, ParseException {
+	public boolean inserirRealizacao(Rotina realizacao) throws SQLException, ParseException {
 		ITreinoDao dao = new TreinoDao();
 		boolean retorno = false;
-		Realizacao resultado = dao.buscarTreinoIniciado();
+		Rotina resultado = dao.buscarTreinoIniciado();
 		if(resultado.getTreino().getCodigo() != realizacao.getTreino().getCodigo()){
 			Calendar data = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			String dataString = sdf.format(data.getTime());
-			realizacao.setData(sdf.parse(dataString));
+			realizacao.setDataRealizacao(sdf.parse(dataString));
 			retorno = dao.inserirRealizacaoTreino(realizacao);
 		}
 		
@@ -76,17 +76,17 @@ public class ControleRotina {
 
 	}
 
-	public Realizacao buscarTreinoIniciado() throws Exception {
+	public Rotina buscarTreinoIniciado() throws Exception {
 		ITreinoDao dao = new TreinoDao();
-		Realizacao retorno = dao.buscarTreinoIniciado();
+		Rotina retorno = dao.buscarTreinoIniciado();
 		//retorno.setSerie(listarRealizacaoSerie(retorno.getCodigo()));
 		return retorno;
 
 	}
 
-	public Realizacao buscarUltimoTreinoRealizado() throws Exception{
+	public Rotina buscarUltimoTreinoRealizado() throws Exception{
 		ITreinoDao dao = new TreinoDao();
-		Realizacao realizacao = dao.buscarUltimoTreinoRealizado();
+		Rotina realizacao = dao.buscarUltimoTreinoRealizado();
 		String mensagem = "Nenhum treino foi realizado!";
 		if(realizacao.getCodigo() == 0){
 			throw new Exception(mensagem);

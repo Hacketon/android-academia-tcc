@@ -14,7 +14,7 @@ import java.util.List;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Grupo;
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 
@@ -203,7 +203,7 @@ public class TreinoDao implements ITreinoDao {
 	}
 	
 	@Override
-	public Realizacao buscarUltimoTreinoRealizado() throws SQLException,ParseException {
+	public Rotina buscarUltimoTreinoRealizado() throws SQLException,ParseException {
 		Connection con = ResourceManager.getConexao();
 		String sql =" select realizacao_codigo,realizacao_data,ficha_nome,ficha_codigo, " +
 					" treino_nome,realizacao_completa,treino_codigo  " +
@@ -215,13 +215,13 @@ public class TreinoDao implements ITreinoDao {
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++, completa);
 		ResultSet result = prepare.executeQuery();
-		Realizacao realizacao = new Realizacao();
+		Rotina realizacao = new Rotina();
 		if(result.next()){
 			Treino treino = new Treino();
 			Ficha ficha = new Ficha();
 			realizacao.setCompleta(result.getInt("realizacao_completa"));
 			realizacao.setCodigo(result.getInt("realizacao_codigo"));
-			realizacao.setData(sdf.parse(result.getString("realizacao_data")));
+			realizacao.setDataRealizacao(sdf.parse(result.getString("realizacao_data")));
 			treino.setCodigo(result.getInt("treino_codigo"));
 			treino.setNome(result.getString("treino_nome"));
 			ficha.setNome(result.getString("ficha_nome"));
@@ -252,7 +252,7 @@ public class TreinoDao implements ITreinoDao {
 	
 	
 	@Override
-	public Realizacao buscarTreinoIniciado()throws SQLException, ParseException {
+	public Rotina buscarTreinoIniciado()throws SQLException, ParseException {
 		Connection con = ResourceManager.getConexao();
 		String sql =" select realizacao_codigo,ficha_codigo,realizacao_data,ficha_nome," +
 					" treino_nome,treino_codigo,ficha_codigo,realizacao_completa,treino_codigo  " +
@@ -263,13 +263,13 @@ public class TreinoDao implements ITreinoDao {
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setInt(aux++, completa);
 		ResultSet result = prepare.executeQuery();
-		Realizacao realizacao = new Realizacao();
+		Rotina realizacao = new Rotina();
 		if(result.next()){
 			Treino treino = new Treino();
 			Ficha ficha = new Ficha();
 			realizacao.setCompleta(result.getInt("realizacao_completa"));
 			realizacao.setCodigo(result.getInt("realizacao_codigo"));
-			realizacao.setData(sdf.parse(result.getString("realizacao_data")));
+			realizacao.setDataRealizacao(sdf.parse(result.getString("realizacao_data")));
 			treino.setCodigo(result.getInt("treino_codigo"));
 			treino.setNome(result.getString("treino_nome"));
 			ficha.setNome(result.getString("ficha_nome"));
@@ -291,7 +291,7 @@ public class TreinoDao implements ITreinoDao {
 	
 	@SuppressLint("SimpleDateFormat")
 	@Override
-	public boolean inserirRealizacaoTreino(Realizacao realizacao) throws SQLException {
+	public boolean inserirRealizacaoTreino(Rotina realizacao) throws SQLException {
 		int aux = 1;
 		int resultado = 0;
 		Connection con = ResourceManager.getConexao();
@@ -315,7 +315,7 @@ public class TreinoDao implements ITreinoDao {
 
 
 	@Override
-	public List<Realizacao> listarHistoricoTreinos(String primeiraData,String segundaData) throws Exception {
+	public List<Rotina> listarHistoricoTreino(String primeiraData,String segundaData) throws Exception {
 		String sql = " select ficha.[nome] " +
 				" as ficha, treino.[nome] as treino, " +
 				" datarealizacao,completa from realizacao " +
@@ -333,11 +333,11 @@ public class TreinoDao implements ITreinoDao {
 		prepare.setInt(aux++,completa);
 		ResultSet result = prepare.executeQuery();
 		
-		List<Realizacao> list = new ArrayList<Realizacao>();
+		List<Rotina> list = new ArrayList<Rotina>();
 		
 		
 		while (result.next()){
-			Realizacao realizacao = new Realizacao();
+			Rotina realizacao = new Rotina();
 			Ficha ficha = new Ficha();
 			Treino treino = new Treino();
 			
@@ -347,7 +347,7 @@ public class TreinoDao implements ITreinoDao {
 			treino.setNome(result.getString("treino"));
 			realizacao.setTreino(treino);
 			
-			realizacao.setData(sdf.parse(result.getString("datarealizacao")));
+			realizacao.setDataRealizacao(sdf.parse(result.getString("datarealizacao")));
 			
 			list.add(realizacao);
 

@@ -10,7 +10,6 @@ import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Validadora;
-import android.annotation.SuppressLint;
 
 
 public class ControleTreino {

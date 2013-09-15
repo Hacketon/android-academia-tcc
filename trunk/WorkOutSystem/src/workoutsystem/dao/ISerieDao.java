@@ -3,7 +3,7 @@ package workoutsystem.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 
 public interface ISerieDao {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
@@ -197,7 +197,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 	public void finalizarSeries() throws Exception{
 		ControleRotina controleRotina = new ControleRotina();
-		Realizacao realizacao = new Realizacao();
+		Rotina realizacao = new Rotina();
 		realizacao.setTreino(treino);
 		controleRotina.inserirRealizacao(realizacao);
 		for(Serie s : seriesRealizadas){

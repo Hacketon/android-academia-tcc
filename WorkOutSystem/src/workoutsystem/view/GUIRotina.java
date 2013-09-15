@@ -12,7 +12,7 @@ import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Ficha;
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import android.app.Activity;
@@ -104,15 +104,14 @@ DialogInterface.OnClickListener{
 			" ("+ficha.getRealizacoes() +"/"+ficha.getDuracao() +")";
 			conclusaoTexto.setText(texto);
 			String mensagem =controleFicha.calcularRestante();
-			Realizacao realizacao = 
+			Rotina realizacao = 
 				controleRotina.buscarUltimoTreinoRealizado();
 			ultimoTreino.setText(realizacao.getTreino().getNome());
-			ultimaData.setText(sdf.format(realizacao.getData()));
+			ultimaData.setText(sdf.format(realizacao.getDataRealizacao()));
 			ultimaFicha.setText(realizacao.getFicha().getNome());
 			if(!mensagem.equalsIgnoreCase("")){
 				Toast.makeText(this,mensagem, Toast.LENGTH_LONG).show();
 			}
-
 		} catch (Exception e) {
 			//Toast.makeText(this,e.getMessage(), Toast.LENGTH_LONG).show();
 		}
@@ -147,11 +146,11 @@ DialogInterface.OnClickListener{
 		init();
 	}
 
-	private void createListView(List<Realizacao> lista) {
+	private void createListView(List<Rotina> lista) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		List<String> listaRealizacaoString = new ArrayList<String>();
-		for(Realizacao r: lista){
-			String s = sdf.format(r.getData()); 
+		for(Rotina r: lista){
+			String s = sdf.format(r.getDataRealizacao()); 
 			String item = "Treino: " + r.getTreino().getNome() + "\n"
 			+ "Ficha:  "+ r.getFicha().getNome() + "\n"
 			+ "Data: " + s  ;
@@ -175,20 +174,6 @@ DialogInterface.OnClickListener{
 		}    
 		return super.onPrepareOptionsMenu(menu);
 	}
-
-
-
-
-
-	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflate = getMenuInflater();
-		inflate.inflate(R.menu.menu_rotina, menu);
-		return true;
-	}
-	 */
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -240,7 +225,7 @@ DialogInterface.OnClickListener{
 		String mensagem = "Cadastre treinos validos na ficha !";
 		if(comboTreinos.getCount()>0){
 			Treino treino = null;
-			Realizacao resultado = controle.buscarTreinoIniciado();
+			Rotina resultado = controle.buscarTreinoIniciado();
 			nome = comboTreinos.getSelectedItem().toString();
 			for(Treino t : listaTreinos){
 				if( t.getNome().equalsIgnoreCase(nome)){
@@ -272,7 +257,7 @@ DialogInterface.OnClickListener{
 	public void onClick(DialogInterface dialog, int clicked) {
 		try{
 			ControleRotina controle = new ControleRotina();
-			Realizacao resultado = controle.buscarTreinoIniciado();
+			Rotina resultado = controle.buscarTreinoIniciado();
 			Treino treino = null;
 			switch (clicked) {
 			case DialogInterface.BUTTON_NEGATIVE:
@@ -447,11 +432,11 @@ DialogInterface.OnClickListener{
 		String mensagem = "";
 		ControleRotina controle = new ControleRotina();
 		try {
-			List<Realizacao> historicoMensal = controle.buscarHistoricoMensal(data);
+			List<Rotina> historicoMensal = controle.buscarHistoricoMensal(data);
 			createListView(historicoMensal);
 		} catch (Exception e) {
 			mensagem = e.getMessage();
-			createListView(new ArrayList<Realizacao>());
+			createListView(new ArrayList<Rotina>());
 			//Toast.makeText(this, mensagem,Toast.LENGTH_SHORT).show();
 
 		}
@@ -473,28 +458,6 @@ DialogInterface.OnClickListener{
 		textomes.setText(android.text.format.DateFormat.format("MMMM - yyyy", data));
 		atualizarHistorico();
 	}
-	/*
-		@Override
-		protected void onRestart() {
-			init();
-			super.onRestart();
-		}
-	 */
-	//
-	//
-	//	/**
-	//	 * Atualização dos dados do Calendario na tela , chamando notifyDataSetChanged para renderizar os dados
-	//	 */
-	//	public void atualizarCalendario() {
-	//
-	//		TextView mesView = (TextView) findViewById(R.id.txt_mes);
-	//		adapter.atualizarDias();
-	//		adapter.notifyDataSetChanged();
-	//		
-	//
-	//	}
-
-	
 }
 
 

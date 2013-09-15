@@ -12,7 +12,7 @@ import java.util.List;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Ficha;
 import workoutsystem.model.Grupo;
-import workoutsystem.model.Realizacao;
+import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 

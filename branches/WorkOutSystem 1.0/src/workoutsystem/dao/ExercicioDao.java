@@ -105,7 +105,7 @@ public class ExercicioDao implements IExercicioDao {
 			Passo p = new Passo();
 			p.setSequencia(result.getInt(1));
 			p.setExplicacao(result.getString(2));
-			p.setImagem(result.getInt(3));
+			p.setImagem(result.getString(3));
 			passos.add(p);
 		}
 		prepared.close();
@@ -452,14 +452,14 @@ public class ExercicioDao implements IExercicioDao {
 
 
 	@Override
-	public List<Exercicio> listarExercicioFora(long codigoTreino,long codigoGrupo)
+	public List<Exercicio> listarExercicioDisponivel(long codigoTreino,long codigoGrupo)
 	throws SQLException {
 		int aux = 1;
 		String sql = " select distinct exercicio_codigo,exercicio_nome, " +
 		" exercicio_padrao,exercicio_ativo, " +
 		" exercicio_descricao,grupo_codigo,grupo_nome " +
 		" from exercicio_fora_treino " +
-		" where treino_codigo != ? and grupo_codigo = ?";
+		" where treino_codigo != ? or treino_codigo is null and grupo_codigo = ?";
 		Connection con = ResourceManager.getConexao();
 		PreparedStatement prepare = con.prepareStatement(sql);
 		prepare.setLong(aux++, codigoTreino);
@@ -489,48 +489,4 @@ public class ExercicioDao implements IExercicioDao {
 		return list;
 	}
 	
-	
-	
-	public List<Exercicio> listarExercicioSemTreino(long codigoGrupo)
-	throws SQLException {
-		int aux = 1;
-		String sql = " select distinct exercicio_codigo,exercicio_nome, " +
-		" exercicio_padrao,exercicio_ativo, " +
-		" exercicio_descricao,grupo_codigo,grupo_nome " +
-		" from exercicio_fora_treino " +
-		" where treino_codigo is null and grupo_codigo = ?";
-		Connection con = ResourceManager.getConexao();
-		PreparedStatement prepare = con.prepareStatement(sql);
-		
-		prepare.setLong(aux++, codigoGrupo);
-		ResultSet result = prepare.executeQuery();
-		List<Exercicio> list = new ArrayList<Exercicio>();
-
-		while (result.next()){
-			Exercicio e = new Exercicio();
-			e.setCodigo(result.getLong("exercicio_codigo"));
-			e.setNome(result.getString("exercicio_nome"));
-			e.setPadrao(result.getInt("exercicio_padrao"));
-			e.setAtivo(result.getInt("exercicio_ativo"));
-			e.setDescricao(result.getString("exercicio_descricao"));
-
-			Grupo g = new Grupo();
-			g.setCodigo(result.getInt("grupo_codigo"));
-			g.setNome(result.getString("grupo_nome"));
-
-			e.setGrupo(g);
-
-			list.add(e);
-		}
-
-		prepare.close();
-		con.close();
-		return list;
-	}
-
-
-
-
-
-
 }

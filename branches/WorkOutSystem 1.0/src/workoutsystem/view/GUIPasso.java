@@ -1,22 +1,17 @@
 package workoutsystem.view;
 
 
-import java.io.File;
 import java.util.List;
 
+import workoutsystem.control.ControleExercicio;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Passo;
-import workoutsystem.view.R.drawable;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GUIPasso extends Activity implements View.OnClickListener{
 
@@ -24,6 +19,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 	private TextView textDescricao;
 	private TextView textSequencia;
 	private int indice;
+	private ImageView imagem;
 	private List<Passo> passo;
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +29,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		textNome = (TextView) findViewById(R.id.txt_nome_exercicio);
 		textSequencia = (TextView) findViewById(R.id.txt_sequenciapasso);
 		textDescricao = (TextView) findViewById(R.id.txt_descricao_passo);
-
+		imagem = (ImageView) findViewById(R.id.imagemExercicio);
 		indice = 0 ;
 		Exercicio exercicio = (Exercicio) getIntent().getExtras()
 		.getSerializable("exercicio");
@@ -96,12 +92,16 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 
 
 	private void carregarPasso(Passo o) {
+		ControleExercicio controle = new ControleExercicio();
 		textDescricao.setText(o.getExplicacao());
 		textSequencia.setText("Passo "+o.getSequencia());
-		ImageView imagem = (ImageView) findViewById(R.id.imagemExercicio);
-		imagem.setImageResource(o.getImagem());
-		
-		
+		try {
+			imagem.setImageResource(controle.carregarImagem(o));
+		} catch (Exception e) {
+			String mensagem = "Erro ao carregar imagem!";
+			Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+			
+		}
 	}
 
 

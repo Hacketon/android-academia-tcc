@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_padrao"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <TabHost
+        android:id="@+id/hostrotina"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+                <!-- Tab de treino -->
+
+                <ScrollView
+                    style="@style/linearLayoutPadraoVertical"
+                    android:layout_height="fill_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/tabtreino"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="300" >
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoVertical"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50" >
+
+                            <TextView
+                                android:id="@+id/nome_ficha_atual"
+                                style="@style/textogrande"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="25"
+                                android:gravity="center"
+                                android:paddingBottom="15dp"
+                                android:paddingTop="7dp"
+                                android:text="@string/label_nomeficha"
+                                android:textStyle="normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#191970"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            android:weightSum="50" >
+
+                            <TextView
+                                android:id="@+id/linhaDesignPrin"
+                                android:layout_width="1dp"
+                                android:layout_height="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#B0C4DE"
+                            android:gravity="left"
+                            android:orientation="vertical"
+                            android:weightSum="100" >
+
+                            <TextView
+                                android:id="@+id/linhaDesignPrin"
+                                android:layout_width="1dp"
+                                android:layout_height="2dp" />
+                        </LinearLayout>
+                        <!-- Ficha Atual -->
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoVertical"
+                            android:layout_weight="50" >
+
+                            <Spinner
+                                android:id="@+id/combo_treinos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:prompt="@string/label_treino" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoHorizontal"
+                            android:weightSum="100" >
+
+                            <TextView
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:paddingLeft="10dp"
+                                android:text="Conclusão :"
+                                android:textStyle="italic" />
+
+                            <TextView
+                                android:id="@+id/conclusao_texto"
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:gravity="right"
+                                android:paddingRight="10dp" />
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/conclusao_rotina"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp" />
+                        <!-- Ultimo treino -->
+
+                        <TextView
+                            style="@style/textomedio"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:text="@string/label_ultimo_treino"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoHorizontal"
+                            android:layout_weight="50"
+                            android:weightSum="100" >
+
+                            <TextView
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="70"
+                                android:gravity="left"
+                                android:paddingLeft="10dp"
+                                android:text="Treino :" />
+
+                            <TextView
+                                android:id="@+id/ultimo_treino"
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="30"
+                                android:text=""
+                                android:textStyle="normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoHorizontal"
+                            android:layout_weight="50"
+                            android:weightSum="100" >
+
+                            <TextView
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="70"
+                                android:gravity="left"
+                                android:paddingLeft="10dp"
+                                android:text="Ficha :" />
+
+                            <TextView
+                                android:id="@+id/ultimo_ficha"
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="30"
+                                android:text=""
+                                android:textStyle="normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/linearLayoutPadraoHorizontal"
+                            android:layout_weight="50"
+                            android:weightSum="100" >
+
+                            <TextView
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="70"
+                                android:gravity="left"
+                                android:paddingLeft="10dp"
+                                android:text="Data :" />
+
+                            <TextView
+                                android:id="@+id/ultimo_data"
+                                style="@style/textomedio"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="30"
+                                android:text=""
+                                android:textStyle="normal" />
+                        </LinearLayout>
+                        <!-- Layout Combo Treino -->
+                    </LinearLayout>
+                </ScrollView>
+                <!-- Tab de Histórico -->
+
+                <LinearLayout
+                    android:id="@+id/tabhistoricoRotina"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:weightSum="100" >
+
+                    <LinearLayout
+                        style="@style/linearLayoutPadraoHorizontal"
+                        android:layout_weight="5"
+                        android:weightSum="100" >
+
+                        <ImageButton
+                            android:id="@+id/btn_proximomes"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:background="@android:color/transparent"
+                            android:onClick="onClick"
+                            android:src="@drawable/ic_setaesquerda"
+                            android:text="@string/label_anterior" />
+
+                        <TextView
+                            android:id="@+id/txt_mes"
+                            style="@style/textopequeno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20"
+                            android:gravity="center"
+                            android:text="@string/title_activity_tela_medida" />
+
+                        <ImageButton
+                            android:id="@+id/btn_anteriormes"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="40"
+                            android:background="@android:color/transparent"
+                            android:onClick="onClick"
+                            android:src="@drawable/ic_setadireita"
+                            android:text="@string/label_proximo" />
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/lista_historicoRealizacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="95"
+                        android:divider="@android:color/black"
+                        android:dividerHeight="1dp"
+                        android:paddingTop="5dp" >
+                    </ListView>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

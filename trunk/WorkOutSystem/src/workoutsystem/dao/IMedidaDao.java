@@ -1,5 +1,7 @@
 package workoutsystem.dao;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import workoutsystem.model.Medicao;
@@ -73,8 +75,10 @@ public interface IMedidaDao {
 	 * @param codigoPerfil
 	 * @param codigoMedicao
 	 * @return List (medicoes)
+	 * @throws SQLException 
+	 * @throws ParseException 
 	 */
-	public abstract List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida);
+	public abstract List<Medicao> ultimasMedicoes(int codigoPerfil,int codigoMedida) throws SQLException, ParseException;
 	/**
 	 * Metodo responsavel pela busca das ultima medicao medicoes de uma determinada medida 
 	 * e um determinado perfil 

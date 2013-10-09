@@ -1,8 +1,13 @@
 package 
 workoutsystem.control;
 
+import android.annotation.SuppressLint;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import workoutsystem.dao.IMedidaDao;
@@ -10,7 +15,7 @@ import workoutsystem.dao.MedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
 
-public class ControleMedida implements Comparator<Medicao> {
+public class ControleMedida {
 	
 	
 	//corrigir codigo
@@ -134,24 +139,49 @@ public class ControleMedida implements Comparator<Medicao> {
 		return medicao;
 	}
 
-	@Override
-	public int compare(Medicao m1, Medicao m2) {
-		int retorno; 
-		if (m1.getValor() > m2.getValor()){
-			retorno =  1;
-		}else if (m1.getValor() == m2.getValor()){
-			retorno =  0;
-		}else {
-			retorno =  -1;
-		}
-		return retorno ;
-		
-	}
+	
 	
 
 	public List<Medida> ultimaMedicao(int codigo) {
 		IMedidaDao dao = new MedidaDao();
 		return dao.ultimaMedicao(codigo);
 	}
+
+	/**
+	 * Metodo responsavel pelo calculo do progresso das ultimas medicoes!
+	 * @param medicao
+	 * @return valores[hash map com o codigo e o valor de progresso ]
+	 */
+	@SuppressLint("UseSparseArrays")
+	public HashMap<Integer, Integer> calcularProgresso(List<Medicao> medicao) {
+		// key , value
+		HashMap<Integer, Integer> valores = new HashMap<Integer, Integer>();
+		double maiorValor = 0.0;
+		int contador = 0;
+		int porcentagem = 0;
+		double valor = 0.0;
+		double calculo = 0.0;
+		
+		Collections.sort(medicao, new Medicao());
+		Collections.reverse(medicao);
+		
+		if(!medicao.isEmpty()){
+			for(Medicao m : medicao){
+				valor = m.getValor();
+				if(contador == 0){
+					maiorValor = m.getValor();
+					maiorValor = (maiorValor * 0.2) + maiorValor;
+				}
+					calculo = (valor * 100) / maiorValor;
+					porcentagem = (int) Math.round(calculo);
+					valores.put(m.getCodigo(), porcentagem);
+					contador++;
+			}
+		}
+		
+		return valores;
+	}
+
+	
 	
 }

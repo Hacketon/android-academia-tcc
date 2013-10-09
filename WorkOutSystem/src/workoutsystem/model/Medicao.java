@@ -1,12 +1,13 @@
 package workoutsystem.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import android.text.method.DateTimeKeyListener;
 
-public class Medicao {
+public class Medicao implements Comparator<Medicao> {
 
 
 	private int codigo;
@@ -15,7 +16,7 @@ public class Medicao {
 	private int codigoMedida;
 	private int codigoPerfil;
 
-	
+
 	public int getCodigo(){
 		return codigo;
 	}
@@ -59,9 +60,24 @@ public class Medicao {
 				"\n Data : %s " +
 				"\n Valor : %f" +
 				" \n ", codigoPerfil,codigo,""+dataString,valor);
-		
+
 		return texto;
 	}
+	@Override
+	public int compare(Medicao m1, Medicao m2) {
+		int retorno = 0;
+		if(m1.getValor()>m2.getValor()){
+			retorno = 1;
+		}else if (m1.getValor() == m2.getValor()){
+			retorno = 0;
+		}else if(m1.getValor() < m2.getValor()){
+			retorno = -1;
+		}
+			
+		return retorno;
+	}
+
+
 
 	
 

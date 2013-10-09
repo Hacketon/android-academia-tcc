@@ -171,13 +171,15 @@ public class GUIEvolucao extends Activity  {
 	public void carregaMedida(Medida medida, Perfil perfil){
 		String mensagem = "";
 		try{
+			int contador = 0;
 			String nome = medida.getNome();
 			String ndata= "Data";
-
+			HashMap<Integer, Integer> valores = new HashMap<Integer, Integer>();
 
 			if (medida.getLado()!= null){
 				nome+= " " + medida.getLado();
 			}
+			
 			txtmedidas.setText(nome);
 			data1.setText(ndata);
 			data2.setText(ndata);
@@ -185,12 +187,34 @@ public class GUIEvolucao extends Activity  {
 			barra1.setProgress(0);
 			barra2.setProgress(0);
 			barra3.setProgress(0);
-			medida.setMedicao(controlemedida.ultimasMedicoes
+			
+			valores = controlemedida.calcularProgresso(medida.getMedicao());
+ 			medida.setMedicao(controlemedida.ultimasMedicoes
 					(perfil.getCodigo(), medida.getCodigo()));
-			calcularProgresso(medida);
+			
+			while (contador != medida.getMedicao().size()){
+				Medicao m = medida.getMedicao().get(contador);
+				String aux  =  sdf.format(m.getDataMedicao())+
+				" \n" + m.getValor()
+				+" "+ medida.getUnidade();
+				int valor = valores.get(m.getCodigo());
+				if (contador == 0){
+					data1.setText(aux);
+					barra1.setProgress(valor);
+				}else if (contador == 1){
+					data2.setText(aux);
+					barra2.setProgress(valor);
+				}else if (contador == 2){
+					data3.setText(aux);
+					barra3.setProgress(valor);
+				}
+				contador ++;
+			}
 			// criando ListView
 			listaMedicoes = controlemedida.buscarListaMedicaoes(medida.getCodigo(),perfil.getCodigo());
 			createListView(listaMedicoes, listahistorico, medida);
+			
+			
 
 		}catch (Exception e) {
 			mensagem = e.getMessage();
@@ -212,181 +236,9 @@ public class GUIEvolucao extends Activity  {
 			new HashMap<Integer, Integer>();
 		List<Medicao> list = medida.getMedicao();
 		//Collections.sort(list,new ControleMedida());
-
-		for (Medicao m : list){
-			if(contador == 0){
-				valores.put(list.get(contador).getCodigo(),menor);
-
-			}else if (contador == 1){
-
-				if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
-
-					valores.remove(list.get(contador-1).getCodigo());
-					valores.put(list.get(contador-1).getCodigo(),medio);
-					valores.put(list.get(contador).getCodigo(),menor);
-
-				}else if(list.get(contador).getValor() == list.get(contador - 1).getValor()){
-					valores.remove(list.get(contador-1).getCodigo());
-					valores.put(list.get(contador-1).getCodigo(),medio);
-					valores.put(list.get(contador).getCodigo(),medio);
-
-				}else{
-					valores.put(list.get(contador).getCodigo(),medio);
-				}
-
-
-			}else if (contador == 2){
-				
-				
-				// 3 menor elemento
-				if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
-					if(list.get(contador).getValor() < list.get(contador - 2).getValor()){
-						
-						if(list.get(contador - 1).getValor() < list.get(contador - 2).getValor()){
-							
-							//3 menor /2 medio /1maior
-							valores.put(list.get(contador-2).getCodigo(),maior);
-							valores.put(list.get(contador-1).getCodigo(),medio);
-							valores.put(list.get(contador).getCodigo(),menor);
-						}else if(list.get(contador - 1).getValor() > list.get(contador - 2).getValor()){
-							
-							//3 menor /1 medio /2 maior
-							valores.put(list.get(contador-2).getCodigo(),medio);
-							valores.put(list.get(contador-1).getCodigo(),maior);
-							valores.put(list.get(contador).getCodigo(),menor);
-						}else{
-							//3 menor / 1 e 2 iguais
-							valores.put(list.get(contador-2).getCodigo(),medio);
-							valores.put(list.get(contador-1).getCodigo(),medio);
-							valores.put(list.get(contador).getCodigo(),menor);
-						}
-						
-					}else if(list.get(contador).getValor() == list.get(contador - 1).getValor()){
-						valores.put(list.get(contador-2).getCodigo(),medio);
-						valores.put(list.get(contador-1).getCodigo(),menor);
-						valores.put(list.get(contador).getCodigo(),menor);
-					}
-					
-					
-					else{
-						//3 menor /
-						valores.put(list.get(contador-2).getCodigo(),menor);
-						valores.put(list.get(contador-1).getCodigo(),medio);
-						valores.put(list.get(contador).getCodigo(),menor);
-
-					}
-					// 2 menor elemento
-					
-				}else if(list.get(contador - 1).getValor() < list.get(contador).getValor()){
-						if(list.get(contador - 1).getValor() < list.get(contador - 2).getValor()){
-							if(list.get(contador).getValor() < list.get(contador - 2).getValor()){
-								
-								//2 menor /3 medio /1maior
-								valores.put(list.get(contador-2).getCodigo(),maior);
-								valores.put(list.get(contador).getCodigo(),medio);
-								valores.put(list.get(contador - 1).getCodigo(),menor);
-							}else if(list.get(contador).getValor() > list.get(contador - 2).getValor()){
-								
-								//2 menor /1 medio /3 maior
-								valores.put(list.get(contador-2).getCodigo(),medio);
-								valores.put(list.get(contador).getCodigo(),maior);
-								valores.put(list.get(contador - 1).getCodigo(),menor);
-							}else{
-								//2 menor / 1 e 3 iguais
-								valores.put(list.get(contador-2).getCodigo(),medio);
-								valores.put(list.get(contador).getCodigo(),medio);
-								valores.put(list.get(contador -1).getCodigo(),menor);
-							}
-						}else if(list.get(contador - 1).getValor() == list.get(contador - 2).getValor()){
-							valores.put(list.get(contador-2).getCodigo(),menor);
-							valores.put(list.get(contador-1).getCodigo(),menor);
-							valores.put(list.get(contador).getCodigo(),medio);
-						}
-						
-						// 1 menor elemento
-				}else if(list.get(contador - 2).getValor() < list.get(contador).getValor()){
-					if(list.get(contador - 2).getValor() < list.get(contador - 1).getValor()){
-						
-						if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
-							//1 menor /3 medio /2maior
-							valores.put(list.get(contador-1).getCodigo(),maior);
-							valores.put(list.get(contador).getCodigo(),medio);
-							valores.put(list.get(contador - 2).getCodigo(),menor);
-						}else if(list.get(contador).getValor() > list.get(contador - 1).getValor()){
-							//1 menor /2 medio /3 maior
-							valores.put(list.get(contador-1).getCodigo(),medio);
-							valores.put(list.get(contador).getCodigo(),maior);
-							valores.put(list.get(contador - 2).getCodigo(),menor);
-						}else{
-							//1 menor / 2 e 3 iguais
-							valores.put(list.get(contador-1).getCodigo(),medio);
-							valores.put(list.get(contador).getCodigo(),medio);
-							valores.put(list.get(contador -2).getCodigo(),menor);
-						}
-					
-					}else if(list.get(contador - 2).getValor() == list.get(contador - 1).getValor()){
-						valores.put(list.get(contador-2).getCodigo(),menor);
-						valores.put(list.get(contador-1).getCodigo(),menor);
-						valores.put(list.get(contador).getCodigo(),medio);
-					}
-					
-					
-				}else{
-
-					valores.put(list.get(contador-1).getCodigo(),medio);
-					valores.put(list.get(contador).getCodigo(),medio);
-					valores.put(list.get(contador -2).getCodigo(),medio);
-
-					
-				}
-					
-				
-				
-
-
-			}
-			contador = contador + 1;
-		}
-
-//		contador = 0;
-//
-//		while (naux <= list.size()){
-//			if (naux == 2){
-//				if (list.get(contador).getValor()
-//						== list.get(contador+1).getValor()){
-//					valores.remove(list.get(contador).getCodigo());
-//					valores.put(list.get(contador).getCodigo(), medio);
-//				} 
-//			}else if (naux== 3){
-//				if (list.get(contador+1).getValor()
-//						== list.get(contador+2).getValor()){
-//					valores.remove(list.get(contador+2).getCodigo());
-//					valores.put(list.get(contador+2).getCodigo(),medio);
-//				}
-//			}
-//			naux++;
-//
-//		}
 		contador = 0;
 
-		while (contador != medida.getMedicao().size()){
-			Medicao m = medida.getMedicao().get(contador);
-			String aux  =  sdf.format(m.getDataMedicao())+
-			" \n" + m.getValor()
-			+" "+ medida.getUnidade();
-			int valor = valores.get(m.getCodigo());
-			if (contador == 0){
-				data1.setText(aux);
-				barra1.setProgress(valor);
-			}else if (contador == 1){
-				data2.setText(aux);
-				barra2.setProgress(valor);
-			}else if (contador == 2){
-				data3.setText(aux);
-				barra3.setProgress(valor);
-			}
-			contador ++;
-		}
+		
 	}
 
 	private void createListView
@@ -408,6 +260,164 @@ public class GUIEvolucao extends Activity  {
 
 
 }
+
+
+/*
+for (Medicao m : list){
+	if(contador == 0){
+		valores.put(list.get(contador).getCodigo(),menor);
+
+	}else if (contador == 1){
+
+		if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
+
+			valores.remove(list.get(contador-1).getCodigo());
+			valores.put(list.get(contador-1).getCodigo(),medio);
+			valores.put(list.get(contador).getCodigo(),menor);
+
+		}else if(list.get(contador).getValor() == list.get(contador - 1).getValor()){
+			valores.remove(list.get(contador-1).getCodigo());
+			valores.put(list.get(contador-1).getCodigo(),medio);
+			valores.put(list.get(contador).getCodigo(),medio);
+
+		}else{
+			valores.put(list.get(contador).getCodigo(),medio);
+		}
+
+
+	}else if (contador == 2){
+		
+		
+		// 3 menor elemento
+		if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
+			if(list.get(contador).getValor() < list.get(contador - 2).getValor()){
+				
+				if(list.get(contador - 1).getValor() < list.get(contador - 2).getValor()){
+					
+					//3 menor /2 medio /1maior
+					valores.put(list.get(contador-2).getCodigo(),maior);
+					valores.put(list.get(contador-1).getCodigo(),medio);
+					valores.put(list.get(contador).getCodigo(),menor);
+				}else if(list.get(contador - 1).getValor() > list.get(contador - 2).getValor()){
+					
+					//3 menor /1 medio /2 maior
+					valores.put(list.get(contador-2).getCodigo(),medio);
+					valores.put(list.get(contador-1).getCodigo(),maior);
+					valores.put(list.get(contador).getCodigo(),menor);
+				}else{
+					//3 menor / 1 e 2 iguais
+					valores.put(list.get(contador-2).getCodigo(),medio);
+					valores.put(list.get(contador-1).getCodigo(),medio);
+					valores.put(list.get(contador).getCodigo(),menor);
+				}
+				
+			}else if(list.get(contador).getValor() == list.get(contador - 1).getValor()){
+				valores.put(list.get(contador-2).getCodigo(),medio);
+				valores.put(list.get(contador-1).getCodigo(),menor);
+				valores.put(list.get(contador).getCodigo(),menor);
+			}
+			
+			
+			else{
+				//3 menor /
+				valores.put(list.get(contador-2).getCodigo(),menor);
+				valores.put(list.get(contador-1).getCodigo(),medio);
+				valores.put(list.get(contador).getCodigo(),menor);
+
+			}
+			// 2 menor elemento
+			
+		}else if(list.get(contador - 1).getValor() < list.get(contador).getValor()){
+				if(list.get(contador - 1).getValor() < list.get(contador - 2).getValor()){
+					if(list.get(contador).getValor() < list.get(contador - 2).getValor()){
+						
+						//2 menor /3 medio /1maior
+						valores.put(list.get(contador-2).getCodigo(),maior);
+						valores.put(list.get(contador).getCodigo(),medio);
+						valores.put(list.get(contador - 1).getCodigo(),menor);
+					}else if(list.get(contador).getValor() > list.get(contador - 2).getValor()){
+						
+						//2 menor /1 medio /3 maior
+						valores.put(list.get(contador-2).getCodigo(),medio);
+						valores.put(list.get(contador).getCodigo(),maior);
+						valores.put(list.get(contador - 1).getCodigo(),menor);
+					}else{
+						//2 menor / 1 e 3 iguais
+						valores.put(list.get(contador-2).getCodigo(),medio);
+						valores.put(list.get(contador).getCodigo(),medio);
+						valores.put(list.get(contador -1).getCodigo(),menor);
+					}
+				}else if(list.get(contador - 1).getValor() == list.get(contador - 2).getValor()){
+					valores.put(list.get(contador-2).getCodigo(),menor);
+					valores.put(list.get(contador-1).getCodigo(),menor);
+					valores.put(list.get(contador).getCodigo(),medio);
+				}
+				
+				// 1 menor elemento
+		}else if(list.get(contador - 2).getValor() < list.get(contador).getValor()){
+			if(list.get(contador - 2).getValor() < list.get(contador - 1).getValor()){
+				
+				if(list.get(contador).getValor() < list.get(contador - 1).getValor()){
+					//1 menor /3 medio /2maior
+					valores.put(list.get(contador-1).getCodigo(),maior);
+					valores.put(list.get(contador).getCodigo(),medio);
+					valores.put(list.get(contador - 2).getCodigo(),menor);
+				}else if(list.get(contador).getValor() > list.get(contador - 1).getValor()){
+					//1 menor /2 medio /3 maior
+					valores.put(list.get(contador-1).getCodigo(),medio);
+					valores.put(list.get(contador).getCodigo(),maior);
+					valores.put(list.get(contador - 2).getCodigo(),menor);
+				}else{
+					//1 menor / 2 e 3 iguais
+					valores.put(list.get(contador-1).getCodigo(),medio);
+					valores.put(list.get(contador).getCodigo(),medio);
+					valores.put(list.get(contador -2).getCodigo(),menor);
+				}
+			
+			}else if(list.get(contador - 2).getValor() == list.get(contador - 1).getValor()){
+				valores.put(list.get(contador-2).getCodigo(),menor);
+				valores.put(list.get(contador-1).getCodigo(),menor);
+				valores.put(list.get(contador).getCodigo(),medio);
+			}
+			
+			
+		}else{
+
+			valores.put(list.get(contador-1).getCodigo(),medio);
+			valores.put(list.get(contador).getCodigo(),medio);
+			valores.put(list.get(contador -2).getCodigo(),medio);
+
+			
+		}
+			
+		
+		
+
+
+	}
+	contador = contador + 1;
+}
+
+//contador = 0;
+//
+//while (naux <= list.size()){
+//	if (naux == 2){
+//		if (list.get(contador).getValor()
+//				== list.get(contador+1).getValor()){
+//			valores.remove(list.get(contador).getCodigo());
+//			valores.put(list.get(contador).getCodigo(), medio);
+//		} 
+//	}else if (naux== 3){
+//		if (list.get(contador+1).getValor()
+//				== list.get(contador+2).getValor()){
+//			valores.remove(list.get(contador+2).getCodigo());
+//			valores.put(list.get(contador+2).getCodigo(),medio);
+//		}
+//	}
+//	naux++;
+//
+//}*/
+
 
 
 

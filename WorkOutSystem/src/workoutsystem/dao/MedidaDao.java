@@ -98,18 +98,18 @@ public class MedidaDao implements IMedidaDao{
 		}
 		return valor;
 	}
-	
-	
+
+
 	@Override
 	public List<Medicao> buscarListaMedicao(int codigo,int codigoPerfil) {
 		List<Medicao> lista = new ArrayList<Medicao>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql =" select * from medicao " +
-						" where codigomedida = ? and codigoperfil = ? " +
-						" order by datamedicao desc;";
+			" where codigomedida = ? and codigoperfil = ? " +
+			" order by datamedicao desc;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			prepare.setInt(2,codigoPerfil);
@@ -133,7 +133,7 @@ public class MedidaDao implements IMedidaDao{
 		return lista;
 	}
 
-	
+
 	public List<Medida> buscarMedidas(){
 		List<Medida> lista = new ArrayList<Medida>();
 		try{
@@ -159,16 +159,16 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 
-	
-	
-	
-	
+
+
+
+
 	public boolean alterarMedicao(List<Medicao> medicoes){
 		boolean verificador = false;
 		try{
 			Connection con = ResourceManager.getConexao();
 			String sql =" update medicao set valor = ? " +
-						" where codigomedida = ? and datamedicao = ?;";
+			" where codigomedida = ? and datamedicao = ?;";
 			PreparedStatement prepare = con.prepareStatement(sql);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -275,39 +275,31 @@ public class MedidaDao implements IMedidaDao{
 	}
 
 	@Override
-	public List<Medicao> ultimasMedicoes(int codigoPerfil, int codigoMedida) {
+	public List<Medicao> ultimasMedicoes(int codigoPerfil, int codigoMedida) throws SQLException, ParseException{
 		List<Medicao> medicoes = new ArrayList<Medicao>();
-		try{
-			int contador = 0;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Connection con = ResourceManager.getConexao();
-			String sql = "select codigo,valor,datamedicao from medicao " +
-			" where codigoperfil = ? and codigomedida = ? " +
-			" order by datamedicao desc ";
-			PreparedStatement prepared = con.prepareStatement(sql);
-			prepared.setInt(1, codigoPerfil);
-			prepared.setInt(2, codigoMedida);
-			ResultSet result = prepared.executeQuery();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Connection con = ResourceManager.getConexao();
+		String sql = "select codigo,valor,datamedicao from medicao " +
+		" where codigoperfil = ? and codigomedida = ? " +
+		" order by datamedicao desc limit 3 ";
+		PreparedStatement prepared = con.prepareStatement(sql);
+		prepared.setInt(1, codigoPerfil);
+		prepared.setInt(2, codigoMedida);
+		ResultSet result = prepared.executeQuery();
 
-			while (result.next() && contador != 3){
-				Medicao m = new Medicao();
-				m.setCodigo(result.getInt(1));
-				m.setValor(result.getDouble(2));
-				m.setDataMedicao(sdf.parse(result.getString(3)));
-				m.setCodigoPerfil(codigoPerfil);
-				m.setCodigoMedida(codigoMedida);
-				medicoes.add(m);
-				contador ++;
-			}
-
-			prepared.close();
-			con.close();
-		}catch (SQLException e){
-			// TODO: handle exception
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (result.next()){
+			Medicao m = new Medicao();
+			m.setCodigo(result.getInt("codigo"));
+			m.setValor(result.getDouble("valor"));
+			m.setDataMedicao(sdf.parse(result.getString("datamedicao")));
+			m.setCodigoPerfil(codigoPerfil);
+			m.setCodigoMedida(codigoMedida);
+			medicoes.add(m);
 		}
+
+		prepared.close();
+		con.close();
+
 		return medicoes;
 	}
 
@@ -402,6 +394,6 @@ public class MedidaDao implements IMedidaDao{
 
 	}
 
-	
-	
+
+
 }

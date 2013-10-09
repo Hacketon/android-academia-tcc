@@ -1,14 +1,19 @@
 package workoutsystem.control;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.List;
+
 import workoutsystem.dao.ExercicioDao;
 import workoutsystem.dao.IExercicioDao;
 import workoutsystem.dao.ITreinoDao;
 import workoutsystem.dao.TreinoDao;
 import workoutsystem.model.Exercicio;
 import workoutsystem.model.Grupo;
+import workoutsystem.model.Passo;
 import workoutsystem.utilitaria.Validadora;
+import workoutsystem.view.R;
+
 
 public class ControleExercicio {
 	/**
@@ -137,4 +142,34 @@ public class ControleExercicio {
 
 		return listar;
 	}
+	
+	
+
+
+	/**
+		 * Metodo responsavel por carregar uma imagem referente a um passo 
+		 * na execução passo a passo de um exercicio padrão 
+		 * @param passo [passo de um determinado exercicio]
+		 * @return id 
+		 * @throws IllegalAccessException 
+		 * @throws IllegalArgumentException 
+		 */
+		public int carregarImagem(Passo passo) throws IllegalArgumentException, IllegalAccessException {
+			Field[] campos = R.raw.class.getFields();
+			String nome = passo.getImagem();
+			String nenhuma = "nenhuma";
+			int resource = 0 ;
+			
+			for(Field campo : campos){
+				String nomeCampo = campo.getName();
+				if(nome.equalsIgnoreCase(nomeCampo)){
+					resource = campo.getInt(campo);
+					break;
+				}else if (nomeCampo.equalsIgnoreCase(nenhuma)){
+					resource = campo.getInt(campo);
+				}
+			}
+			
+			return resource;
+		}
 }

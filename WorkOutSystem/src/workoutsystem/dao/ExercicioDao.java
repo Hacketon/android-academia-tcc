@@ -105,7 +105,7 @@ public class ExercicioDao implements IExercicioDao {
 			Passo p = new Passo();
 			p.setSequencia(result.getInt(1));
 			p.setExplicacao(result.getString(2));
-			p.setImagem(result.getInt(3));
+			p.setImagem(result.getString(3));
 			passos.add(p);
 		}
 		prepared.close();

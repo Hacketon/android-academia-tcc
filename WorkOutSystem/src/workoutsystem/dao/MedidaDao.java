@@ -345,42 +345,40 @@ public class MedidaDao implements IMedidaDao{
 		String data = null;
 		try{
 			Connection con = ResourceManager.getConexao();
-			String sql =" select medida.codigo, medida.nome, medida.lado ," +
-			"  medicao.codigo, medicao.valor , " +
-			"  medicao.datamedicao  from medicao inner join medida " +
-			"  on medida.codigo = medicao.codigomedida " +
-			"  where codigoperfil = ? order by datamedicao desc";
+			String sql = " select medida.codigo as medida_codigo," +
+					     "  medida.nome as medida_nome, medida.lado as medida_lado ," +
+					     "  medicao.codigo as medicao_codigo, medicao.valor as medicao_valor , " +
+					     "  medicao.datamedicao as medicao_data  from medicao inner join medida " +
+					     "  on medida.codigo = medicao.codigomedida " +
+			             "  where codigoperfil = ? order by datamedicao desc limit 3";
 			PreparedStatement prepare = con.prepareStatement(sql);
 			prepare.setInt(1, codigo);
 			ResultSet result = prepare.executeQuery();
 
 			while(result.next()){
 				if (verificador == true){
-					data = result.getString(6);
+					data = result.getString("medicao_data");
 					verificador = false;
 				}
 
-				if (data.equalsIgnoreCase(result.getString(6))){
+				if (data.equalsIgnoreCase(result.getString("medicao_data"))){
 					Medida medida = new Medida();
-
-					medida.setCodigo(result.getInt(1));
-					medida.setNome(result.getString(2));
-					medida.setLado(result.getString(3));
+					Medicao medicao = new Medicao();
+					
+					medida.setCodigo(result.getInt("medida_codigo"));
+					medida.setNome(result.getString("medida_nome"));
+					medida.setLado(result.getString("medida_lado"));
 					medida.setMedicao(new ArrayList<Medicao>());
 
-					Medicao medicao = new Medicao();
-
-					medicao.setCodigo(result.getInt(4));
-					medicao.setValor(result.getDouble(5));
+					medicao.setCodigo(result.getInt("medicao_codigo"));
+					medicao.setValor(result.getDouble("medicao_valor"));
 					medicao.setDataMedicao(sdf.parse(data));
 					medicao.setCodigoMedida(medida.getCodigo());
 					medicao.setCodigoPerfil(codigo);
-
 					medida.getMedicao().add(medicao);
-
 					lista.add(medida);
-
-				}else {
+					
+				} else {
 					break;
 				}
 			}

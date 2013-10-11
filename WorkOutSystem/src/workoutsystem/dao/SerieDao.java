@@ -216,7 +216,8 @@ public class SerieDao implements ISerieDao {
 			serie.setUnidade(result.getString("serie_unidade"));
 			serie.setQuantidade(result.getInt("serie_repeticao"));
 			exercicio.setNome(result.getString("exercicio_nome"));
-			serie.setExercicio(exercicio);
+			exercicio.setCodigo(result.getLong("serie_codigoexercicio"));
+				serie.setExercicio(exercicio);
 			list.add(serie);
 		}
 

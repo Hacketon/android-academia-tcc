@@ -143,4 +143,6 @@ public interface IExercicioDao {
 	public List<Exercicio> listarExercicioSemTreino(long codigoGrupo)
 	throws SQLException ;
 
+	public abstract List<Exercicio> buscarExercicioPasso(long codigoTreino) throws SQLException;
+
 }

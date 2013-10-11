@@ -21,6 +21,7 @@ public class ResourceManager extends Application{
 			Log.e("Erro",e.getMessage());
 		}
 		return con;
+		
 	}
 
 	

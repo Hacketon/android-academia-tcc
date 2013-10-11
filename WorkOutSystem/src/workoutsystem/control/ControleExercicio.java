@@ -2,6 +2,7 @@ package workoutsystem.control;
 
 import java.lang.reflect.Field;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.dao.ExercicioDao;
@@ -37,18 +38,18 @@ public class ControleExercicio {
 			if (!dao.buscarExercicio(exercicio.getCodigo())){
 				if (dao.buscarExercicio(exercicio.getNome()) == null){
 					if(dao.adicionarExercicio(exercicio)){
-						mensagem = "Exercicio criado com sucesso !";
+						mensagem = "Exercicio : criado com sucesso !";
 					}
 				}else if (dao.reativarExercicio(exercicio.getNome(),0)){
-					mensagem = "Exercicio reativado com sucesso !";
+					mensagem = "Exercicio : reativado com sucesso !";
 				}else{
-					erro = "Exercicio já existente !";
+					erro = "Exercicio : já existente !";
 					throw new Exception(erro);
 				}
 			}else{
 				if (!dao.buscarExercicio(exercicio.getNome(),exercicio.getCodigo())){
 					if (dao.alterarExercicio(exercicio.getCodigo(), exercicio)){
-						mensagem = "Exercicio atualizado com sucesso";
+						mensagem = "Exercicio : atualizado com sucesso";
 					}
 				}
 			}
@@ -60,7 +61,7 @@ public class ControleExercicio {
 
 
 	public String excluirExercicio(List<Exercicio> lista) throws SQLException{
-		String mensagem = "Exericios foram removidos com sucesso!";
+		String mensagem = "Exericio : foram removidos com sucesso!";
 		boolean resultado = false;
 		IExercicioDao dao = new  ExercicioDao();
 		ITreinoDao daoTreino = new TreinoDao();
@@ -144,7 +145,24 @@ public class ControleExercicio {
 	}
 	
 	
-
+	public List<Exercicio> buscarExercicioPasso(long codigoTreino) throws Exception{
+		String erro = "Erro no banco de dados!";
+		List<Exercicio> lista = new ArrayList<Exercicio>();
+		try{
+			IExercicioDao dao = new ExercicioDao();
+			lista = dao.buscarExercicioPasso(codigoTreino);
+			
+			if(lista.size() == 0 ){
+				erro = "Nenhum exercicio possui explicação!";
+				throw new Exception(erro);	
+			}
+		}catch (Exception e){
+			erro = e.getMessage();
+			throw new Exception(erro);
+			
+		}
+		return lista;
+	}
 
 	/**
 		 * Metodo responsavel por carregar uma imagem referente a um passo 

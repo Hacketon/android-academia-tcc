@@ -29,7 +29,7 @@ public class ControlePerfil {
 				if(dao.criarPerfil(perfil) ){
 					p = buscarPerfil();
 					if(dao.frequenciaPerfil(p , perfil)){
-						mensagem ="Criado com sucesso";
+						mensagem ="Perfil : criado com sucesso";
 					}
 				}
 			}else{
@@ -50,7 +50,7 @@ public class ControlePerfil {
 		if (mensagem.equalsIgnoreCase("")){
 			if(buscarPerfil() != null){
 				if(dao.atualizarPerfil(perfil)&& dao.frequenciaPerfilAtualiza(perfil)){
-					mensagem ="Atualizado com sucesso"; 
+					mensagem ="Perfil : atualizado com sucesso"; 
 				}
 			}
 		}
@@ -72,7 +72,7 @@ public class ControlePerfil {
 		IFichaDao daoficha = new FichaDao();
 		daoficha.desativarFichaAtual();
 		if(dao.excluirPerfil()&& dao.excluirFrequencia(perfil)){
-			mensagem = "Perfil excluido com sucesso";
+			mensagem = "Perfil : excluido com sucesso";
 
 		}
 		return mensagem;

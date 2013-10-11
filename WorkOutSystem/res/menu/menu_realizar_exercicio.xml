@@ -8,5 +8,9 @@
     <item
         android:id="@+id/finalizar_treino"
         android:title="@string/botao_finalizar_treino"/>
+    <item
+        android:id="@+id/visualizar_passo"
+        android:title="@string/label_passos"
+        />
     
 </menu>

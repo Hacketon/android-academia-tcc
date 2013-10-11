@@ -139,14 +139,14 @@
 
     <!-- Tela Passos -->
 
-    <string name="label_passos"> Passo  </string>
+    <string name="label_passos"> Passo  a Passo </string>
     <string name="label_descricao_passo"> Realização do exercicio, bla bla bla bla 
         bla bla bla bal bal blan lbanba dbvjsd djbvdshdb</string>
 
     <!-- Exercicio Realização -->
 
     <string name="title_activity_tela_passo"> Passos </string>
-    <string name="label_exercicio"> Nome Exercicio </string>
+    <string name="label_exercicio"> Exercicios </string>
     <string name="label_serie"> Série </string>
     <string name="label_numero_serie"> 0/0 </string>
     <string name="label_repeticao"> Repetição </string>

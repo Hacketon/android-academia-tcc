@@ -2,8 +2,11 @@ package workoutsystem.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleRotina;
 import workoutsystem.control.ControleSerie;
+import workoutsystem.model.Exercicio;
 import workoutsystem.model.Rotina;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
@@ -12,6 +15,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,10 +46,15 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	private Button btnCancelar;
 	private EditText edtSeries;
 	private EditText edtRepeticao;
+	private static final int LAYOUT_SIMPLES = R.layout.itens_simple_lista;
 	private EditText edtCarga;
 	private TextView txtCodigoExercicio;
 	private Serie especificacao;
 	private List<Serie> seriesRealizadas;
+	private ListView lista;
+	private Dialog dialogPasso;
+	private List<Exercicio> exercicios;
+
 
 
 	@Override
@@ -53,26 +62,32 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rotina_execucao);
 		treino = (Treino) getIntent().getExtras().getSerializable("treino");
+
 		listaSerie = (ListView) findViewById(R.id.lista_realizarexercicio);
 		treinoDia = (TextView) findViewById(R.id.txt_treino);
 		listaSerie.setOnItemLongClickListener(this);
 		listaSerie.setOnItemClickListener(this);
 		dialogEspecificacao = new Dialog(this);
 		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
+		dialogPasso = new Dialog(this);
+		dialogPasso.setContentView(R.layout.exercicios_passos);
+		lista = (ListView) dialogPasso.
+				findViewById(R.id.lista_exercicio);
+		lista.setOnItemClickListener(this);
 		cbxUnidade = (Spinner) dialogEspecificacao.
-		findViewById(R.id.cbx_Unidade);
+				findViewById(R.id.cbx_Unidade);
 		btnConfirmar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_Confirmar_Especficacao);
+				findViewById(R.id.btn_Confirmar_Especficacao);
 		btnCancelar = (Button) dialogEspecificacao.
-		findViewById(R.id.btn_cancelar_especficacao);
+				findViewById(R.id.btn_cancelar_especficacao);
 		edtSeries = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_series);
+				findViewById(R.id.edt_series);
 		edtRepeticao = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_repeticao);
+				findViewById(R.id.edt_repeticao);
 		edtCarga = (EditText) dialogEspecificacao.
-		findViewById(R.id.edt_carga);
+				findViewById(R.id.edt_carga);
 		txtCodigoExercicio = (TextView) dialogEspecificacao.
-		findViewById(R.id.txt_codigoExercicioEspecificacao);
+				findViewById(R.id.txt_codigoExercicioEspecificacao);
 		btnCancelar.setOnClickListener(this);
 		btnConfirmar.setOnClickListener(this);
 		seriesRealizadas = new ArrayList<Serie>();
@@ -108,10 +123,10 @@ View.OnClickListener,DialogInterface.OnClickListener{
 			}
 			for(Serie s: treino.getSerie()){
 				String item = s.getOrdem() + "-" +
-				s.getExercicio().getNome()+"\n" +
-				"Quantidade : " + s.getQuantidade() +"\n" +
-				"Unidade : " + s.getUnidade() + "\n" + 
-				"Carga : " + s.getCarga() ;
+						s.getExercicio().getNome()+"\n" +
+						"Quantidade : " + s.getQuantidade() +"\n" +
+						"Unidade : " + s.getUnidade() + "\n" + 
+						"Carga : " + s.getCarga() ;
 				series.add(item);
 			}
 			adapterSerie =  new ArrayAdapter<String>(this, R.layout.multiple_choice_serie, series );
@@ -160,7 +175,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		}
 
 		ArrayAdapter<String> adapter =
-			new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+				new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
 		adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
 		cbxUnidade.setAdapter(adapter);
 		cbxUnidade.setSelection(posicao);
@@ -184,15 +199,26 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-		CheckedTextView c = (CheckedTextView) view;
-		boolean selecionado = c.isChecked();
 		String item = parent.getItemAtPosition(pos).toString();
-		Serie serie = getSerie(item);
-		if (!seriesRealizadas.contains(serie) && !selecionado) {
-			seriesRealizadas.add(serie);
-		} else {
-			seriesRealizadas.remove(serie);
+		if (parent.getId() == listaSerie.getId()) {
+			CheckedTextView c = (CheckedTextView) view;
+			boolean selecionado = c.isChecked();
+			
+			Serie serie = getSerie(item);
+			if (!seriesRealizadas.contains(serie) && !selecionado) {
+				seriesRealizadas.add(serie);
+			} else {
+				seriesRealizadas.remove(serie);
+			}
+		}else if(parent.getId() == lista.getId()){
+			Exercicio exercicio = getExercicio(item);
+			Intent i = new Intent(this,GUIPasso.class);
+			i.putExtra("exercicio", exercicio);
+			startActivity(i);
+			
+			
 		}
+		
 	}
 
 	public void finalizarSeries() throws Exception{
@@ -233,6 +259,9 @@ View.OnClickListener,DialogInterface.OnClickListener{
 					construirCaixa();
 				}
 				break;
+			case R.id.visualizar_passo:
+				carregarExercicio();
+				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -240,6 +269,34 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 		return false;
 	}
+
+	private void carregarExercicio() {
+		try {
+			List<String> nomes = new ArrayList<String>();
+			dialogPasso.setTitle("Passo a Passo");
+			ControleExercicio controle = new ControleExercicio();
+			exercicios = controle.buscarExercicioPasso(treino.getCodigo());
+
+			for(Exercicio exercicio : exercicios){
+				String item =exercicio.getCodigo() +" - " +exercicio.getNome(); 
+				nomes.add(item);
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,LAYOUT_SIMPLES,nomes);
+			adapter.notifyDataSetChanged();
+			lista.setAdapter(adapter);
+			lista.setCacheColorHint(Color.TRANSPARENT);
+			dialogPasso.show();
+
+		} catch (Exception e) {
+			String erro = e.getMessage();
+			Toast.makeText(this, erro, Toast.LENGTH_LONG).show();;
+
+		}
+
+	}
+
+
+
 
 	public void finalizarTudo() throws Exception{
 		ControleRotina controleRotina = new ControleRotina();
@@ -256,13 +313,13 @@ View.OnClickListener,DialogInterface.OnClickListener{
 	private void construirCaixa() {
 		String quantidade = String.valueOf(treino.getSerie().size());
 		String texto = quantidade + 
-		" serie(s) não relizadas, realmente deseja finalizar treino ?";
+				" serie(s) não relizadas, realmente deseja finalizar treino ?";
 		criarCaixa(texto);
 	}
 
 	private void criarCaixa(String texto) {
 		AlertDialog.Builder alert = 
-			new AlertDialog.Builder(this);
+				new AlertDialog.Builder(this);
 		alert.setMessage(texto);
 		alert.setTitle("Confirmação");
 		alert.setNegativeButton("Não", this);
@@ -290,7 +347,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		Serie esp = new Serie();
 		String[] sordem = item.split("-");
 		long ordem = Long.parseLong(sordem[0]
-		                                   .toString());
+				.toString());
 		for (Serie es : treino.getSerie()){
 			if(ordem == es.getOrdem()){
 				esp = es;
@@ -298,6 +355,23 @@ View.OnClickListener,DialogInterface.OnClickListener{
 			}
 		}
 		return esp;
+	}
+	
+	
+	private Exercicio getExercicio(String item){
+		Exercicio exercicio = new Exercicio();
+		String[] sordem = item.split(" - ");
+		long codigo= Long.parseLong(sordem[0]
+				.toString());
+		for (Exercicio es : exercicios){
+			if(codigo == es.getCodigo()){
+				exercicio = es;
+				break;
+			}
+		}
+		return exercicio;
+		
+		
 	}
 
 

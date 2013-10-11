@@ -2,7 +2,6 @@ package workoutsystem.view;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
 import workoutsystem.utilitaria.AdaptadorHistorico;
 import workoutsystem.utilitaria.ItemListaHistorico;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -223,7 +221,7 @@ public class GUIEvolucao extends Activity  {
 
 	}
 
-	@SuppressLint("UseSparseArrays")
+
 	private void calcularProgresso(Medida medida) {
 		SimpleDateFormat sdf = 
 			new SimpleDateFormat("dd/MM/yyyy");

@@ -320,6 +320,7 @@ public class ExercicioDao implements IExercicioDao {
 	}
 
 
+	
 
 
 
@@ -474,7 +475,6 @@ public class ExercicioDao implements IExercicioDao {
 			e.setPadrao(result.getInt("exercicio_padrao"));
 			e.setAtivo(result.getInt("exercicio_ativo"));
 			e.setDescricao(result.getString("exercicio_descricao"));
-
 			Grupo g = new Grupo();
 			g.setCodigo(result.getInt("grupo_codigo"));
 			g.setNome(result.getString("grupo_nome"));
@@ -526,6 +526,46 @@ public class ExercicioDao implements IExercicioDao {
 		prepare.close();
 		con.close();
 		return list;
+	}
+
+
+	@Override
+	public List<Exercicio> buscarExercicioPasso(long codigoTreino)
+			throws SQLException {
+		int aux = 1;
+		String sql = " select distinct exercicio.codigo as exercicio_codigo ," + 
+					 " exercicio.nome as exercicio_nome ," +
+					 " exercicio.padrao as exercicio_padrao ,"+   
+					 " exercicio.ativo as exercicio_ativo , "+       
+					 " exercicio.descricao as exercicio_descricao " +
+					 " from exercicio inner join passo " +
+					 " on exercicio.codigo = passo.codigoexercicio " +
+					 " inner join serie "+
+					 " on serie.codigoexercicio = exercicio.codigo " +
+					 " inner join treino " +
+					 " on treino.codigo = serie.codigotreino where treino.codigo = ? ";
+		Connection con = ResourceManager.getConexao();
+		PreparedStatement prepare = con.prepareStatement(sql);
+		prepare.setLong(aux++, codigoTreino);
+		ResultSet result = prepare.executeQuery();
+		List<Exercicio> lista = new ArrayList<Exercicio>();
+		while (result.next()){
+			Exercicio exercicio = new Exercicio();
+			
+			exercicio.setNome(result.getString("exercicio_nome"));
+			exercicio.setCodigo(result.getLong("exercicio_codigo"));
+			exercicio.setPadrao(result.getInt("exercicio_padrao"));
+			exercicio.setAtivo(result.getInt("exercicio_ativo"));
+			exercicio.setDescricao(result.getString("exercicio_descricao"));
+			exercicio.setListaPassos(visualizarPassos(exercicio));
+			
+			lista.add(exercicio);
+		}
+		con.close();
+		prepare.close();
+		
+
+		return lista;
 	}
 
 

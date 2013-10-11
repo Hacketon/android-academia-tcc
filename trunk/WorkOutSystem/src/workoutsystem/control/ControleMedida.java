@@ -24,8 +24,6 @@ public class ControleMedida {
 		IMedidaDao dao = new MedidaDao();
 		
 		if(medicoes != null){
-			//verificar codigo
-			
 			if(dao.adicionarMedicao(medicoes)){
 				mensagem = " Medições : Adicionadas com sucesso";
 			}
@@ -154,7 +152,6 @@ public class ControleMedida {
 	 */
 	@SuppressLint("UseSparseArrays")
 	public HashMap<Integer, Integer> calcularProgresso(List<Medicao> medicao) {
-		// key , value
 		HashMap<Integer, Integer> valores = new HashMap<Integer, Integer>();
 		double maiorValor = 0.0;
 		int contador = 0;

@@ -158,7 +158,7 @@ public class ControleMedida {
 		int porcentagem = 0;
 		double valor = 0.0;
 		double calculo = 0.0;
-		
+				
 		Collections.sort(medicao, new Medicao());
 		Collections.reverse(medicao);
 		

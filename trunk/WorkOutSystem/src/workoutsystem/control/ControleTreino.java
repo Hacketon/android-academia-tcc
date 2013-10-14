@@ -55,10 +55,9 @@ public class ControleTreino {
 				mensagem = "Erro treino já existente nesta ficha";
 				throw new Exception(mensagem);
 			}else{
-				if(dao.alterarNomeTreino(t.getNome(),
-						t.getCodigoFicha(),
-						t.getCodigo())){
-					mensagem = "Nome alterado com sucesso"; 
+				if(t.getCodigo() != 0){
+					dao.alterarNomeTreino(nomeTreino, t.getCodigoFicha(), t.getCodigo());
+					mensagem = "Nome alterado com sucesso";
 				}else{
 					mensagem = adicionarTreino(t);
 				}

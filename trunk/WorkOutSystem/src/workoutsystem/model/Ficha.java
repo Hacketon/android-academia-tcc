@@ -89,5 +89,10 @@ public class Ficha implements Serializable {
 		return antecedencia;
 	}
 
-
+	@Override
+	public String toString() {
+		String s = String.format
+				("Ficha \n nome: %s \n antecendencia : %s \n atual : %s \n realizacao : %s", nome,antecedencia,atual,realizacoes);
+		return s;
+	}
 }

@@ -205,22 +205,20 @@ ListView.OnItemLongClickListener{
 	}
 
 	private Ficha criarFicha() throws Exception{
-		
+			int valor = 0;
 			ficha.setNome(editNomeFicha.getText().toString());
 			if(editDuracaoFicha.getText().toString().
 					equalsIgnoreCase("")){
 				String mensagem = "Duração é obrigatoria!";
 				throw new Exception(mensagem);
 			}
-			if(editAntecedencia.toString().equalsIgnoreCase("")){
-				ficha.setAntecedencia
-				(Integer.parseInt(editAntecedencia.getText().toString()));
+			if(!editAntecedencia.getText().toString().equalsIgnoreCase("")){
+				ficha.setAntecedencia(Integer.parseInt(editAntecedencia.getText().toString()));
 			}
 			ficha.setDuracao(Integer.parseInt
 					((editDuracaoFicha.getText().toString())));
 			ficha.setObjetivo(cbxObjetivo.getSelectedItem().toString());
-
-		
+	
 		return ficha;
 	}
 	

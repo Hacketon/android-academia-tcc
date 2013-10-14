@@ -234,7 +234,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:click_remove_id
+          @attr name com.mobeta.android.dslv:click_remove_id
         */
         public static final int DragSortListView_click_remove_id = 16;
         /**
@@ -250,7 +250,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:collapsed_height
+          @attr name com.mobeta.android.dslv:collapsed_height
         */
         public static final int DragSortListView_collapsed_height = 0;
         /**
@@ -264,7 +264,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:drag_enabled
+          @attr name com.mobeta.android.dslv:drag_enabled
         */
         public static final int DragSortListView_drag_enabled = 10;
         /**
@@ -278,7 +278,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:drag_handle_id
+          @attr name com.mobeta.android.dslv:drag_handle_id
         */
         public static final int DragSortListView_drag_handle_id = 14;
         /**
@@ -292,7 +292,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:drag_scroll_start
+          @attr name com.mobeta.android.dslv:drag_scroll_start
         */
         public static final int DragSortListView_drag_scroll_start = 1;
         /**
@@ -310,7 +310,7 @@ containing a value of this type.
 <tr><td><code>onMove</code></td><td>1</td><td></td></tr>
 <tr><td><code>onLongPress</code></td><td>2</td><td></td></tr>
 </table>
-          @attr name android:drag_start_mode
+          @attr name com.mobeta.android.dslv:drag_start_mode
         */
         public static final int DragSortListView_drag_start_mode = 13;
         /**
@@ -324,7 +324,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:drop_animation_duration
+          @attr name com.mobeta.android.dslv:drop_animation_duration
         */
         public static final int DragSortListView_drop_animation_duration = 9;
         /**
@@ -338,7 +338,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:fling_handle_id
+          @attr name com.mobeta.android.dslv:fling_handle_id
         */
         public static final int DragSortListView_fling_handle_id = 15;
         /**
@@ -352,7 +352,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:float_alpha
+          @attr name com.mobeta.android.dslv:float_alpha
         */
         public static final int DragSortListView_float_alpha = 6;
         /**
@@ -367,7 +367,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:float_background_color
+          @attr name com.mobeta.android.dslv:float_background_color
         */
         public static final int DragSortListView_float_background_color = 3;
         /**
@@ -381,7 +381,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:max_drag_scroll_speed
+          @attr name com.mobeta.android.dslv:max_drag_scroll_speed
         */
         public static final int DragSortListView_max_drag_scroll_speed = 2;
         /**
@@ -395,7 +395,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:remove_animation_duration
+          @attr name com.mobeta.android.dslv:remove_animation_duration
         */
         public static final int DragSortListView_remove_animation_duration = 8;
         /**
@@ -409,7 +409,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:remove_enabled
+          @attr name com.mobeta.android.dslv:remove_enabled
         */
         public static final int DragSortListView_remove_enabled = 12;
         /**
@@ -426,7 +426,7 @@ containing a value of this type.
 <tr><td><code>clickRemove</code></td><td>0</td><td></td></tr>
 <tr><td><code>flingRemove</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name android:remove_mode
+          @attr name com.mobeta.android.dslv:remove_mode
         */
         public static final int DragSortListView_remove_mode = 4;
         /**
@@ -440,7 +440,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:slide_shuffle_speed
+          @attr name com.mobeta.android.dslv:slide_shuffle_speed
         */
         public static final int DragSortListView_slide_shuffle_speed = 7;
         /**
@@ -454,7 +454,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:sort_enabled
+          @attr name com.mobeta.android.dslv:sort_enabled
         */
         public static final int DragSortListView_sort_enabled = 11;
         /**
@@ -468,7 +468,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:track_drag_sort
+          @attr name com.mobeta.android.dslv:track_drag_sort
         */
         public static final int DragSortListView_track_drag_sort = 5;
         /**
@@ -482,7 +482,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:use_default_controller
+          @attr name com.mobeta.android.dslv:use_default_controller
         */
         public static final int DragSortListView_use_default_controller = 17;
     };

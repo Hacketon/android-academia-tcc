@@ -255,9 +255,9 @@ public class FichaDao implements IDiaSemana,IFichaDao{
 
 	@Override
 	public boolean atualizarFicha(Ficha ficha) throws SQLException {
-		String sql = "update ficha set  nome = ? ,duracao =  ? ," +
-		"objetivo = ? ,realizacoes = ? ," +
-		" ficha_atual = ?,antecedencia = ? where codigo = ?";
+		String sql = " update ficha set  nome = ? ,duracao =  ? ," +
+					 " objetivo = ? , realizacoes = ? ," +
+					 " ficha_atual = ?, antecedencia = ? where codigo = ?";
 		Connection con = ResourceManager.getConexao();
 		int aux = 1;
 		PreparedStatement prepare = con.prepareStatement(sql);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import workoutsystem.utilitaria.AdaptadorIcones;
+import workoutsystem.utilitaria.Ajuda;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -65,7 +66,7 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		lista.add(R.drawable.ic_ficha);
 		lista.add(R.drawable.ic_evolucao);
 		lista.add(R.drawable.ic_medida);
-		lista.add(R.drawable.ic_status);
+
 
 
 		return lista;
@@ -80,17 +81,17 @@ public class GUIAjuda extends Activity implements AdapterView.OnItemClickListene
 		//String tela = "";
 
 		if(comando.equalsIgnoreCase("exercicio")){
-			alert("Exercicio", "Teste ");
+			alert("Exercicio", Ajuda.EXERCICIO.getAjuda());
 		}else if(comando.equalsIgnoreCase("rotina")){
-			alert("Rotina", "Teste ");
+			alert("Rotina", Ajuda.ROTINA.getAjuda());
 		}else if(comando.equalsIgnoreCase("ficha")){
-			alert("Ficha", "Teste ");
+			alert("Ficha", Ajuda.FICHA.getAjuda());
 		}else if(comando.equalsIgnoreCase("evolução")){
-			alert("Evolução", "Teste ");
+			alert("Evolução", Ajuda.EVOLUCAO.getAjuda());
 		}else if(comando.equalsIgnoreCase("perfil")){
-			alert("Perfil", "Teste ");
+			alert("Perfil", Ajuda.PERFIL.getAjuda());
 		}else if(comando.equalsIgnoreCase("medida")){
-			alert("Medida", "Teste ");
+			alert("Medida", Ajuda.MEDIDA.getAjuda());
 		}
 		//Intent i = new Intent(tela);
 		//startActivity(i);

@@ -2,7 +2,7 @@ package workoutsystem.utilitaria;
 
 public enum Objetivo {
 	
-	PERCAGORDURA("Perca de Gordura"),
+	PERCAGORDURA("Perda de Gordura"),
 	GANHOMASSA("Ganho de Massa Muscular"),
 	DEFINICAOMUSCULAR("Definição muscular"),
 	GANHOPESO("Ganho de Peso"),
@@ -19,6 +19,7 @@ public enum Objetivo {
 	
 	public String getObjetivo(){
 		return objetivo;
+		
 	}
 	
 

@@ -116,7 +116,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 
 			if(treino.getSerie().isEmpty()){
 				controleRotina.atualizarRealizacao(completa,chave);
-				controleRotina.removerTudoRealizacaoSerie();
+				controleRotina.removerRealizacaoSerie();
 				String mensagem = "Treino finalizado com sucesso";
 				Toast.makeText(this,mensagem,Toast.LENGTH_SHORT).show();
 				finish();
@@ -303,7 +303,7 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		int completa = 1;
 		int chave = 0;
 		String mensagem = "Treino finalizado com sucesso";
-		controleRotina.removerTudoRealizacaoSerie();
+		controleRotina.removerRealizacaoSerie();
 		controleRotina.atualizarRealizacao(completa,chave);
 		Toast.makeText(this,mensagem, Toast.LENGTH_SHORT).show();
 		finish();

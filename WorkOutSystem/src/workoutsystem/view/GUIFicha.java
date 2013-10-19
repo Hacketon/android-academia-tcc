@@ -102,6 +102,7 @@ DialogInterface.OnClickListener{
 		for (Ficha f : listFicha){
 			nomes.add(f.getNome());
 		}
+		
 		adapter = new ArrayAdapter<String>
 		(this,R.layout.multiple_choice,nomes);
 		adapter.notifyDataSetChanged();

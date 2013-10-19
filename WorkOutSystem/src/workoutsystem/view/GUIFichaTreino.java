@@ -134,6 +134,7 @@ ListView.OnItemLongClickListener{
 	private void criarCombo(){
 		listaObjetivo = new ArrayList<String>();
 
+		String o = Objetivo.CONDICIONAMENTO.getObjetivo();
 		for (Objetivo s : Objetivo.values()){
 			listaObjetivo.add(s.getObjetivo());
 		}

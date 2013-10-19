@@ -67,6 +67,16 @@ ListView.OnItemLongClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.exercicio);
+		init();
+		criarTabs();
+		criarCombo();
+	}
+	
+	
+	
+	
+	
+	private void init() {
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.criarexercicio);
 		btnSalvar = (Button) dialog.findViewById(R.id.btn_criar);
@@ -87,9 +97,11 @@ ListView.OnItemLongClickListener{
 		listacriado.setOnItemLongClickListener(this);
 		listapadrao.setOnItemClickListener(this);
 		listaRemocaoExercicio = new ArrayList<Exercicio>();
-		criarTabs();
-		criarCombo();
+		
 	}
+
+
+
 	private void criarTabs(){
 		hospedeiro = (TabHost) findViewById(R.id.hospedeiro);
 		hospedeiro.setup();

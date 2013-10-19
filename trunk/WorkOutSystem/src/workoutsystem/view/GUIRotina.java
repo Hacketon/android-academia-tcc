@@ -105,7 +105,7 @@ DialogInterface.OnClickListener{
 			conclusaoTexto.setText(texto);
 			String mensagem =controleFicha.calcularRestante();
 			Rotina realizacao = 
-				controleRotina.buscarUltimoTreinoRealizado();
+				controleRotina.buscarUltimoTreinamento();
 			ultimoTreino.setText(realizacao.getTreino().getNome());
 			ultimaData.setText(sdf.format(realizacao.getDataRealizacao()));
 			ultimaFicha.setText(realizacao.getFicha().getNome());
@@ -225,7 +225,7 @@ DialogInterface.OnClickListener{
 		String mensagem = "Cadastre treinos validos na ficha !";
 		if(comboTreinos.getCount()>0){
 			Treino treino = null;
-			Rotina resultado = controle.buscarTreinoIniciado();
+			Rotina resultado = controle.buscarTreinamento();
 			nome = comboTreinos.getSelectedItem().toString();
 			for(Treino t : listaTreinos){
 				if( t.getNome().equalsIgnoreCase(nome)){
@@ -257,7 +257,7 @@ DialogInterface.OnClickListener{
 	public void onClick(DialogInterface dialog, int clicked) {
 		try{
 			ControleRotina controle = new ControleRotina();
-			Rotina resultado = controle.buscarTreinoIniciado();
+			Rotina resultado = controle.buscarTreinamento();
 			Treino treino = null;
 			switch (clicked) {
 			case DialogInterface.BUTTON_NEGATIVE:
@@ -266,7 +266,7 @@ DialogInterface.OnClickListener{
 			case DialogInterface.BUTTON_POSITIVE:
 				String nome = comboTreinos.getSelectedItem().toString();
 				controle.atualizarRealizacao(1,0);
-				controle.removerTudoRealizacaoSerie();
+				controle.removerRealizacaoSerie();
 				for(Treino t : listaTreinos){
 					if( t.getNome().equalsIgnoreCase(nome)){
 						treino = t;

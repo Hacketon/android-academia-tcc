@@ -22,7 +22,7 @@
         <!-- Activity Principal -->
         <activity
             android:name=".GUIPrincipal"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenLayout"
             android:label="@string/title_activity_tela_principal" 
            
             
@@ -97,7 +97,6 @@
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="workoutsystem.view.PERFIL" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -107,7 +106,6 @@
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="workoutsystem.view.STATUS" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -118,7 +116,6 @@
              >
             <intent-filter>
                 <action android:name="workoutsystem.view.AVATAR" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -128,7 +125,6 @@
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="workoutsystem.view.MEDIDAS" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -139,9 +135,9 @@
             android:name=".GUIRotina"
             android:label="@string/title_activity_tela_rotina"
             android:configChanges="orientation|keyboardHidden" >
+
             <intent-filter>
                 <action android:name="workoutsystem.view.ROTINA" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -168,9 +164,7 @@
 
                 <!--
                 <action android:name="workoutsystem.view.LOGIN" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-                -->
+                <category android:name="android.intent.category.DEFAULT" />                -->
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -195,9 +189,9 @@
             android:name=".GUIExercicio"
             android:label="@string/title_activity_tela_exercicio" 
             android:configChanges="orientation|keyboardHidden">
+
             <intent-filter>
                 <action android:name="workoutsystem.view.EXERCICIO" />
-			
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -217,7 +211,6 @@
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="workoutsystem.view.EXERCICIOFICHA" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -233,6 +226,7 @@
         </activity>
         <activity
             android:name=".GUIRotinaExecucao"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_tela_exercicio" >
             <intent-filter>
                 <action android:name="workoutsystem.view.LISTAEXERCICIOS" />

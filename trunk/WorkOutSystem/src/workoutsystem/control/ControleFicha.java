@@ -184,7 +184,7 @@ public class ControleFicha {
 		ControleRotina controle = new ControleRotina();
 		desativarFichaAtual();
 		controle.atualizarRealizacao(1, 0);
-		controle.removerTudoRealizacaoSerie();
+		controle.removerRealizacaoSerie();
 		String mensagem = "";
 		boolean retorno = dao.alterarFichaAtual(ficha.getCodigo());
 		if(retorno){

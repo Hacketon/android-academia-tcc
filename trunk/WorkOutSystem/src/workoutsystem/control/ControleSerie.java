@@ -158,7 +158,7 @@ public class ControleSerie {
 		return  mensagem;
 	}
 
-	public String removerSerieCodigo(int codigo) throws Exception{
+	public String removerSerie(int codigo) throws Exception{
 		ISerieDao dao = new SerieDao();
 		String mensagem = "Não foi possivel realizar a remoção"; 
 

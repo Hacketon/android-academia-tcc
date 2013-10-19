@@ -61,7 +61,7 @@ public class ControleRotina {
 
 	}
 
-	public boolean removerTudoRealizacaoSerie() throws SQLException {
+	public boolean removerRealizacaoSerie() throws SQLException {
 		ISerieDao dao = new SerieDao();
 		boolean retorno = dao.removerTodasRealizacoesSerie();
 		return retorno;
@@ -76,7 +76,7 @@ public class ControleRotina {
 
 	}
 
-	public Rotina buscarTreinoIniciado() throws Exception {
+	public Rotina buscarTreinamento() throws Exception {
 		ITreinoDao dao = new TreinoDao();
 		Rotina retorno = dao.buscarTreinoIniciado();
 		//retorno.setSerie(listarRealizacaoSerie(retorno.getCodigo()));
@@ -84,7 +84,7 @@ public class ControleRotina {
 
 	}
 
-	public Rotina buscarUltimoTreinoRealizado() throws Exception{
+	public Rotina buscarUltimoTreinamento() throws Exception{
 		ITreinoDao dao = new TreinoDao();
 		Rotina realizacao = dao.buscarUltimoTreinoRealizado();
 		String mensagem = "Nenhum treino foi realizado!";

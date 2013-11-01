@@ -62,6 +62,7 @@ public class GUIPasso extends Activity implements View.OnClickListener{
 		if (!passo.isEmpty()){
 			if (indice <passo.size()-1){
 				o = passo.get(indice +1);
+				indice++;
 			}if (indice == passo.size() - 1){
 				o = passo.get(passo.size()-1);
 			}

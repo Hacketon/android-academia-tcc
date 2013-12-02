@@ -71,23 +71,15 @@ View.OnClickListener,DialogInterface.OnClickListener{
 		dialogEspecificacao.setContentView(R.layout.gerar_especificacao);
 		dialogPasso = new Dialog(this);
 		dialogPasso.setContentView(R.layout.exercicios_passos);
-		lista = (ListView) dialogPasso.
-				findViewById(R.id.lista_exercicio);
+		lista = (ListView) dialogPasso.findViewById(R.id.lista_exercicio);
 		lista.setOnItemClickListener(this);
-		cbxUnidade = (Spinner) dialogEspecificacao.
-				findViewById(R.id.cbx_Unidade);
-		btnConfirmar = (Button) dialogEspecificacao.
-				findViewById(R.id.btn_Confirmar_Especficacao);
-		btnCancelar = (Button) dialogEspecificacao.
-				findViewById(R.id.btn_cancelar_especficacao);
-		edtSeries = (EditText) dialogEspecificacao.
-				findViewById(R.id.edt_series);
-		edtRepeticao = (EditText) dialogEspecificacao.
-				findViewById(R.id.edt_repeticao);
-		edtCarga = (EditText) dialogEspecificacao.
-				findViewById(R.id.edt_carga);
-		txtCodigoExercicio = (TextView) dialogEspecificacao.
-				findViewById(R.id.txt_codigoExercicioEspecificacao);
+		cbxUnidade = (Spinner) dialogEspecificacao.findViewById(R.id.cbx_Unidade);
+		btnConfirmar = (Button) dialogEspecificacao.findViewById(R.id.btn_Confirmar_Especficacao);
+		btnCancelar = (Button) dialogEspecificacao.findViewById(R.id.btn_cancelar_especficacao);
+		edtSeries = (EditText) dialogEspecificacao.findViewById(R.id.edt_series);
+		edtRepeticao = (EditText) dialogEspecificacao.findViewById(R.id.edt_repeticao);
+		edtCarga = (EditText) dialogEspecificacao.findViewById(R.id.edt_carga);
+		txtCodigoExercicio = (TextView) dialogEspecificacao.findViewById(R.id.txt_codigoExercicioEspecificacao);
 		btnCancelar.setOnClickListener(this);
 		btnConfirmar.setOnClickListener(this);
 		seriesRealizadas = new ArrayList<Serie>();

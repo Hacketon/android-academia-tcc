@@ -17,6 +17,9 @@ public class Medicao implements Comparator<Medicao> {
 	private int codigoPerfil;
 
 
+	public Medicao(){
+		valor = 0;
+	}
 	public int getCodigo(){
 		return codigo;
 	}

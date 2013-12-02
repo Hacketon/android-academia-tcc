@@ -1,12 +1,10 @@
 package 
 workoutsystem.control;
 
-import android.annotation.SuppressLint;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,8 +12,20 @@ import workoutsystem.dao.IMedidaDao;
 import workoutsystem.dao.MedidaDao;
 import workoutsystem.model.Medicao;
 import workoutsystem.model.Medida;
+import android.annotation.SuppressLint;
 
 public class ControleMedida {
+	
+	
+	@SuppressLint("SimpleDateFormat")
+	public String buscarDataUltimaMedicao() throws Exception{
+		IMedidaDao dao = new MedidaDao();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date data = dao.buscarDataUltimaMedicao();
+		String formatData = sdf.format(data);
+		return formatData;
+	}
+	
 	
 	
 	//corrigir codigo

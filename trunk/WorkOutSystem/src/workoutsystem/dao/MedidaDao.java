@@ -392,6 +392,22 @@ public class MedidaDao implements IMedidaDao{
 
 	}
 
+	@Override
+	public java.util.Date buscarDataUltimaMedicao() throws SQLException, ParseException {
+		Connection con = ResourceManager.getConexao(); 
+		String sql = "select datamedicao from medicao order by datamedicao desc limit 1";
+		PreparedStatement prepare = con.prepareStatement(sql);
+		ResultSet result = prepare.executeQuery();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date data = new java.util.Date();
+		while (result.next()) {
+			data = sdf.parse(result.getString("datamedicao"));
+		}
+		prepare.close();
+		con.close();
+		return data;
+	}
+
 
 
 }

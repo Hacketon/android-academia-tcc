@@ -1,20 +1,14 @@
 package workoutsystem.view;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.w3c.dom.Text;
 
 import workoutsystem.control.ControleMedida;
 import workoutsystem.control.ControlePerfil;
 import workoutsystem.model.Medicao;
-import workoutsystem.model.Medida;
 import workoutsystem.model.Perfil;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,77 +94,61 @@ public class GUIStatus extends Activity{
 	}
 
 	private void carregarMedicoes(int codigo) {
-		Medicao mAltura = new Medicao();
-		Medicao mPeso = new Medicao();
-		Medicao mCintura = new Medicao();
-		Medicao mBracoE = new Medicao();
-		Medicao mPantuE = new Medicao();
-		Medicao mQuadril = new Medicao();
-		Medicao mPeito = new Medicao();
-		Medicao mCoxaD = new Medicao();
-		Medicao mBracoD = new Medicao();
-		Medicao mCoxaE = new Medicao();
-		Medicao mPantuD = new Medicao();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		ControleMedida controleMed = new ControleMedida();
-
-
-		List<Medida> lista = controleMed.ultimaMedicao(codigo);
-		String dataf = sdf.format(lista.get(0).getMedicao().get(0).getDataMedicao());
-		//txtMedida.setText(txtMedida.getText()+ " " + dataf);
-		txtDataMedida.setText(dataf);
-
-		for(Medida med : lista){
-			Medicao m = med.getMedicao().get(0);
-			if(m.getCodigoMedida() == 1){
-				mAltura.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 2){
-				mPeso.setValor(m.getValor());	
-			}
-			if(m.getCodigoMedida()== 3){
-				mCintura.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 4){
-				mQuadril.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 5){
-				mPeito.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 6){
-				mBracoD.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 7){
-				mBracoE.setValor(m.getValor());	
-			}
-			if(m.getCodigoMedida()== 8){
-				mCoxaD.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 9){
-				mCoxaE.setValor(m.getValor());
-			}
-			if(m.getCodigoMedida()== 10){
-				mPantuD.setValor(m.getValor());
-			}	
-			if(m.getCodigoMedida()== 11){
-				mPantuE.setValor(m.getValor());
+		ControlePerfil controlePerfil = new ControlePerfil();
+		String data = "";
+		Perfil perfil = controlePerfil.buscarPerfil();
+		try {
+			data = controleMed.buscarDataUltimaMedicao();
+			txtDataMedida.setText(data);
+		for (int medida = 1; medida <12 ; medida++){
+			List<Medicao> ultimasMedicoes = controleMed.ultimasMedicoes(perfil.getCodigo(), medida);
+			Medicao medicao = ultimasMedicoes.get(0);
+			
+			switch (medicao.getCodigo()) {
+			case 1:
+				txtAltura.setText(txtAltura.getText()+"   " + medicao.getValor());
+				break;
+			case 2:
+				txtPeso.setText(txtPeso.getText()+"   " + medicao.getValor());
+				break;
+			case 3:
+				txtCintura.setText(txtCintura.getText()+"   "+ medicao.getValor());
+				break;
+			case 4:
+				txtQuadril.setText(txtQuadril.getText()+"   "+ medicao.getValor());
+				break;
+			case 5:
+				txtPeito.setText(txtPeito.getText()+"   "+ medicao.getValor());
+				break;
+			case 6:
+				txtBracoDir.setText(txtBracoDir.getText()+"   "+ medicao.getValor());
+				break;
+			case 7:
+				txtBracoEsq.setText(txtBracoEsq.getText()+"   "+ medicao.getValor());
+				break;
+			case 8:
+				txtCoxaDir.setText(txtCoxaDir.getText()+"   "+ medicao.getValor());	
+				break;
+			case 9:
+				txtCoxaEsq.setText(txtCoxaEsq.getText()+"   "+ medicao.getValor());
+				break;
+			case 10:
+				txtPantuDir.setText(txtPantuDir.getText()+"   " + medicao.getValor());
+				break;
+			case 11:
+				txtPantuEsq.setText(txtPantuEsq.getText()+"   " + medicao.getValor());
+				break;
 			}
 
 		}
-
-		txtAltura.setText(txtAltura.getText()+"   " + mAltura.getValor());
-		txtPeso.setText(txtPeso.getText()+"   " + mPeso.getValor());
-		txtCintura.setText(txtCintura.getText()+"   "+ mCintura.getValor());	
-		txtQuadril.setText(txtQuadril.getText()+"   "+ mQuadril.getValor());
-		txtPeito.setText(txtPeito.getText()+"   "+ mPeito.getValor());
-		txtBracoDir.setText(txtBracoDir.getText()+"   "+ mBracoD.getValor());
-		txtBracoEsq.setText(txtBracoEsq.getText()+"   "+ mBracoE.getValor());
-		txtCoxaDir.setText(txtCoxaDir.getText()+"   "+ mCoxaD.getValor());	
-		txtCoxaEsq.setText(txtCoxaEsq.getText()+"   "+ mCoxaE.getValor());
-		txtPantuDir.setText(txtPantuDir.getText()+"   " + mPantuD.getValor());
-		txtPantuEsq.setText(txtPantuEsq.getText()+"   " + mPantuE.getValor());
-
-	}
+		
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+}
 
 
 

@@ -2,6 +2,7 @@ package workoutsystem.dao;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import workoutsystem.model.Medicao;
@@ -95,6 +96,10 @@ public interface IMedidaDao {
  */
 
 	public abstract List<Medicao> buscarListaMedicao(int codigo,int codigoPerfi);
+
+
+
+	public abstract Date buscarDataUltimaMedicao() throws SQLException, ParseException;
 
 
 

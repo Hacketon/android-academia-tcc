@@ -2,7 +2,6 @@ package workoutsystem.view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import workoutsystem.control.ControleExercicio;
 import workoutsystem.control.ControleSerie;
 import workoutsystem.control.ControleTreino;
@@ -11,6 +10,7 @@ import workoutsystem.model.Grupo;
 import workoutsystem.model.Serie;
 import workoutsystem.model.Treino;
 import workoutsystem.utilitaria.Unidade;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -33,7 +33,6 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.DragSortListView.DropListener;
 import com.mobeta.android.dslv.DragSortListView.RemoveListener;
@@ -368,6 +367,7 @@ public class GUIFichaSerie extends ListActivity implements
 	private void listarBusca(String grupo) {
 		ControleExercicio controle = new ControleExercicio();
 		Grupo grupoMuscular = new Grupo();
+		listaExercicioBusca = new ArrayList<Exercicio>();
 		try {
 			for (Grupo g : grupos) {
 				if (g.getNome().equalsIgnoreCase(grupo)) {
@@ -376,8 +376,7 @@ public class GUIFichaSerie extends ListActivity implements
 				}
 			}
 
-			listaExercicioBusca = controle.listarExercicioDisponiveis(
-					treino.getCodigo(), grupoMuscular.getCodigo());
+			listaExercicioBusca = controle.listarExercicioDisponiveis(treino.getCodigo(), grupoMuscular.getCodigo());
 
 			for (Exercicio e1 : listaExercicioTreino) {
 				for (Exercicio e : listaExercicioBusca) {
@@ -389,12 +388,12 @@ public class GUIFichaSerie extends ListActivity implements
 				}
 
 			}
-
-			criarListViewExercicio(listaExercicioBusca, listaBusca,
-					R.layout.itens_simple_lista);
+			criarListViewExercicio(listaExercicioBusca, listaBusca,R.layout.itens_simple_lista);
+			
 		} catch (Exception e) {
 			String mensagem = e.getMessage();
 			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+			criarListViewExercicio(listaExercicioBusca, listaBusca,R.layout.itens_simple_lista);
 
 		}
 	}
@@ -422,6 +421,7 @@ public class GUIFichaSerie extends ListActivity implements
 
 	}
 
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
@@ -440,13 +440,23 @@ public class GUIFichaSerie extends ListActivity implements
 				break;
 			}
 		}
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			if (!listaRemocaoExercicio.contains(exercicio) && !selecionado) {
+				listaRemocaoExercicio.add(exercicio);
+			} else {
+				listaRemocaoExercicio.remove(exercicio);
+			}
+	
+		}else{
+			if (!listaRemocaoExercicio.contains(exercicio) && selecionado) {
+				listaRemocaoExercicio.add(exercicio);
+			} else {
+				listaRemocaoExercicio.remove(exercicio);
+			}
 
-		if (!listaRemocaoExercicio.contains(exercicio) && !selecionado) {
-			listaRemocaoExercicio.add(exercicio);
-		} else {
-			listaRemocaoExercicio.remove(exercicio);
 		}
-
+		
 	}
 
 	@Override

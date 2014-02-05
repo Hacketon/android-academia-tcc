@@ -348,12 +348,22 @@ ListView.OnItemLongClickListener{
 				}
 			}
 
-			if (!listaRemocaoExercicio.contains(exercicio)
-					&& !selecionado){
-				listaRemocaoExercicio.add(exercicio);
+			if(android.os.Build.VERSION.SDK_INT <= 11){
+				if (!listaRemocaoExercicio.contains(exercicio)
+						&& !selecionado){
+					listaRemocaoExercicio.add(exercicio);
+				}else{
+					listaRemocaoExercicio.remove(exercicio);
+				}
 			}else{
-				listaRemocaoExercicio.remove(exercicio);
+				if (!listaRemocaoExercicio.contains(exercicio)
+						&& selecionado){
+					listaRemocaoExercicio.add(exercicio);
+				}else{
+					listaRemocaoExercicio.remove(exercicio);
+				}
 			}
+			
 		}else{
 			Intent i = new Intent(this,GUIPasso.class);
 			i.putExtra("exercicio", exercicio);

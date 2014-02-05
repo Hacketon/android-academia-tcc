@@ -528,14 +528,23 @@ ListView.OnItemLongClickListener{
 						treino = f; 
 						break;
 					}
+					
 				}
+				if(android.os.Build.VERSION.SDK_INT <= 11){
+					if (!listaAdicao.contains(treino)
+							&& !selecionado){
+						listaAdicao.add(treino);
+					}else{
+						listaAdicao.remove(treino);
+					}	
+				}else{
 				if (!listaAdicao.contains(treino)
-						&& !selecionado){
+						&& selecionado){
 					listaAdicao.add(treino);
 				}else{
 					listaAdicao.remove(treino);
 				}
-				
+				}
 			}
 			
 	}

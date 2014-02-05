@@ -375,26 +375,20 @@ public class GUIFichaSerie extends ListActivity implements
 					break;
 				}
 			}
-
 			listaExercicioBusca = controle.listarExercicioDisponiveis(treino.getCodigo(), grupoMuscular.getCodigo());
-
 			for (Exercicio e1 : listaExercicioTreino) {
 				for (Exercicio e : listaExercicioBusca) {
 					if (e1.getCodigo() == (e.getCodigo())) {
 						listaExercicioBusca.remove(e);
 						break;
 					}
-
 				}
-
 			}
-			criarListViewExercicio(listaExercicioBusca, listaBusca,R.layout.itens_simple_lista);
-			
 		} catch (Exception e) {
 			String mensagem = e.getMessage();
 			Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
+		}finally{
 			criarListViewExercicio(listaExercicioBusca, listaBusca,R.layout.itens_simple_lista);
-
 		}
 	}
 

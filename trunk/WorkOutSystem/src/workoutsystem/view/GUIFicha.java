@@ -343,12 +343,22 @@ DialogInterface.OnClickListener{
 				break;
 			}
 		}
-		if (!listaRemocao.contains(ficha)
-				&& !selecionado){
-			listaRemocao.add(ficha);
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			if (!listaRemocao.contains(ficha)
+					&& !selecionado){
+				listaRemocao.add(ficha);
+			}else{
+				listaRemocao.remove(ficha);
+			}
 		}else{
-			listaRemocao.remove(ficha);
+			if (!listaRemocao.contains(ficha)
+					&& selecionado){
+				listaRemocao.add(ficha);
+			}else{
+				listaRemocao.remove(ficha);
+			}
 		}
+		
 
 	}
 

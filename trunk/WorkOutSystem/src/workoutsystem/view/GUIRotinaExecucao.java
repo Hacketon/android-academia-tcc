@@ -197,11 +197,21 @@ View.OnClickListener,DialogInterface.OnClickListener{
 			boolean selecionado = c.isChecked();
 			
 			Serie serie = getSerie(item);
-			if (!seriesRealizadas.contains(serie) && !selecionado) {
-				seriesRealizadas.add(serie);
-			} else {
-				seriesRealizadas.remove(serie);
+			if(android.os.Build.VERSION.SDK_INT <= 11){
+				if (!seriesRealizadas.contains(serie) && !selecionado) {
+					seriesRealizadas.add(serie);
+				} else {
+					seriesRealizadas.remove(serie);
+				}
+			}else{
+				if (!seriesRealizadas.contains(serie) && selecionado) {
+					seriesRealizadas.add(serie);
+				} else {
+					seriesRealizadas.remove(serie);
+				}
 			}
+					
+			
 		}else if(parent.getId() == lista.getId()){
 			Exercicio exercicio = getExercicio(item);
 			Intent i = new Intent(this,GUIPasso.class);
